@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.css" />
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/knockout-3.1.0.js"></script>
+    <script type="text/javascript" src="js/knockout-es5.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/vm/lecture.js"></script>
+    <script type="text/javascript" src="js/vm/lecturelist.js"></script>
+    <script type="text/javascript" src="js/vm/cart.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <title>Jon</title>
+  </head>
+  <body>
+  <div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Jon</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="main-nav">
+          <ul class="nav navbar-nav">
+            <li data-bind="css: { active: lecturesVisible() }, click: show.bind($root, 'lectures')"><a href="#">Lectures</a></li>
+            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Documents</a></li>
+            <li data-bind="css: { active: cartVisible() }, click: show.bind($root, 'cart')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
+          </ul>
+          <form class="navbar-form navbar-right" onsubmit="return false;">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Name" data-bind="value: cart.userID">
+            </div>
+          </form>
+        </div>
+
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <table class="table table-condesed" data-bind="visible: lecturesVisible()">
+      <tbody data-bind="foreach: lectures">
+      <tr>
+        <td data-bind="text: name"></td>
+        <td><button class='btn' data-bind='click: $root.openLecture.bind($root)'>Open</button></td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-condesed" data-bind="visible: documentsVisible()">
+      <tbody data-bind="foreach: lecture">
+      <tr>
+        <td data-bind="text: id"></td>
+        <td><button class='btn' data-bind="click: $root.cart.add.bind($root.cart)">Add to cart</button></td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-condesed" data-bind="visible: cartVisible()">
+      <tbody data-bind="foreach: cart">
+      <tr>
+        <td data-bind="text: id"></td>
+        <td data-bind="text: examType"></td>
+        <td><button class='btn' data-bind="click: $root.cart.drop.bind($root.cart)">Remove from cart</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </body>
+</html>
