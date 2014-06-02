@@ -47,31 +47,64 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <table class="table table-condesed" data-bind="visible: lecturesVisible()">
-      <tbody data-bind="foreach: lectures">
-      <tr>
-        <td data-bind="text: name"></td>
-        <td><button class='btn' data-bind='click: $root.openLecture.bind($root)'>Open</button></td>
-      </tr>
-      </tbody>
-    </table>
-    <table class="table table-condesed" data-bind="visible: documentsVisible()">
-      <tbody data-bind="foreach: lecture">
-      <tr>
-        <td data-bind="text: id"></td>
-        <td><button class='btn' data-bind="click: $root.cart.add.bind($root.cart)">Add to cart</button></td>
-      </tr>
-      </tbody>
-    </table>
-    <table class="table table-condesed" data-bind="visible: cartVisible()">
-      <tbody data-bind="foreach: cart">
-      <tr>
-        <td data-bind="text: id"></td>
-        <td data-bind="text: examType"></td>
-        <td><button class='btn' data-bind="click: $root.cart.drop.bind($root.cart)">Remove from cart</button></td>
-      </tr>
-      </tbody>
-    </table>
+    <div data-bind="visible: lecturesVisible()">
+      <table class="table table-condesed">
+        <tbody data-bind="foreach: lectures">
+        <tr>
+          <td data-bind="text: name"></td>
+          <td><button class='btn' data-bind='click: $root.openLecture.bind($root)'>Open</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div data-bind="visible: documentsVisible()">
+      <h4 data-bind="text: lecture.name"></h4>
+      <a data-bind="click: show.bind($root, 'lectures'), ifnot: lecture.name">Plese select a lecture first</a>
+      <table class="table table-condesed">
+        <thead>
+          <tr>
+            <td>Lectures</td>
+            <td>Examinants</td>
+            <td>Type</td>
+            <td>Date</td>
+            <td>Pages</td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: lecture">
+        <tr>
+          <td data-bind="text: lectures.join(', ')"></td>
+          <td data-bind="text: examinants.join(', ')"></td>
+          <td data-bind="text: examType"></td>
+          <td data-bind="text: date"></td>
+          <td data-bind="text: pages"></td>
+          <td><button class='btn' data-bind="click: $root.cart.add.bind($root.cart)">Add to cart</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div data-bind="visible: cartVisible()">
+      <table class="table table-condesed">
+        <thead>
+          <tr>
+            <td>Lectures</td>
+            <td>Examinants</td>
+            <td>Type</td>
+            <td>Date</td>
+            <td>Pages</td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: cart">
+        <tr>
+          <td data-bind="text: lectures.join(', ')"></td>
+          <td data-bind="text: examinants.join(', ')"></td>
+          <td data-bind="text: examType"></td>
+          <td data-bind="text: date"></td>
+          <td data-bind="text: pages"></td>
+          <td><button class='btn' data-bind="click: $root.cart.drop.bind($root.cart)">Remove from cart</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   </body>
 </html>

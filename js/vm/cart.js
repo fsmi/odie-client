@@ -14,6 +14,7 @@ Cart.prototype = Object.create(Array.prototype)
 Cart.prototype.add = function(doc) {
   var self = this
   if (this.userID === '') {
+    alert("Please enter a user name first!")
     return
   }
   $.ajax({
@@ -22,7 +23,6 @@ Cart.prototype.add = function(doc) {
     data: JSON.stringify(doc),
     contentType: 'application/json',
     success: function() {
-      console.log('success')
       self.load()
     }
   })
@@ -31,7 +31,6 @@ Cart.prototype.add = function(doc) {
 Cart.prototype.drop = function(doc) {
   var self = this
   var index = self.indexOf(doc)
-  console.log("Remove " + index)
   if (index < 0) {
     return
   }
