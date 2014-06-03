@@ -31,7 +31,7 @@ App.prototype.openLecture = function(lecture) {
 }
 
 $(document).ready(function() {
-  var live = false
+  var live = true
   var url = live ? 'http://odie.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
   var app = new App(url);
   window.app = app;
