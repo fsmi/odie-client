@@ -8,8 +8,18 @@ var Cart = function(baseUrl) {
 
 Cart.prototype = Object.create(Array.prototype)
 
+Cart.prototype.doesntContain = function(doc) {
+  var found = false
+  for (var i=0; i<this.length; ++i) {
+    found = (this[i].id === doc.id ? true : found)
+  }
+  return !found
+}
+
 Cart.prototype.add = function(doc) {
-  this.push(doc)
+  if (this.doesntContain(doc)) {
+    this.push(doc)
+  }
 }
 
 Cart.prototype.drop = function(doc) {
@@ -43,3 +53,4 @@ Cart.prototype.save = function() {
     }
   })
 }
+
