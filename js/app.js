@@ -3,7 +3,7 @@ var App = function(baseUrl) {
   this.lecture = new Lecture(baseUrl);
   this.cart = new Cart(baseUrl);
 
-  this.visible = 'lectures';
+  this.visible = 'documents';
   this.cartID = '';
 
   ko.track(this);

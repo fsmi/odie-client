@@ -32,6 +32,18 @@ LectureList.prototype.filtered = function() {
   return filtered
 }
 
+LectureList.prototype.typeaheadFilter = function(query, callback) {
+  var filtered = []
+  var regex = new RegExp('.*' + query + '.*', 'i')
+  for (var i=0; i<this.length; i++) {
+    var lecture = this[i]
+    if (regex.test(lecture.name)) {
+      filtered.push(lecture)
+    }
+  }
+  callback(filtered)
+}
+
 LectureList.prototype.clearSearch = function() {
   this.searchString = ''
 }

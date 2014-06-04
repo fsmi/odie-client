@@ -11,6 +11,8 @@
     <script type="text/javascript" src="js/knockout-3.1.0.js"></script>
     <script type="text/javascript" src="js/knockout-es5.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/typeahead.jquery.js"></script>
+    <script type="text/javascript" src="js/ko/typeahead.js"></script>
     <script type="text/javascript" src="js/vm/lecture.js"></script>
     <script type="text/javascript" src="js/vm/lecturelist.js"></script>
     <script type="text/javascript" src="js/vm/cart.js"></script>
@@ -34,7 +36,6 @@
 
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: lecturesVisible() }, click: show.bind($root, 'lectures')"><a href="#">Lectures</a></li>
             <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Documents</a></li>
             <li data-bind="css: { active: cartVisible() }, click: show.bind($root, 'cart')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
           </ul>
@@ -48,28 +49,13 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div data-bind="visible: lecturesVisible()">
-      <div class='pull-right'>
-        <div class="input-group input-lg">
-          <input type="text" class="form-control" data-bind='value: lectures.searchString, valueUpdate: "input"' placeholder="Search">
-          <span class="input-group-btn">
-            <button class="btn" type="button" data-bind='click: lectures.clearSearch.bind(lectures)' ><span class='glyphicon glyphicon-remove'></span></button>
-          </span>
-        </div>
-      </div>
-      <span class='clearfix'></span>
-      <table class="table table-condesed" style="width: 100%">
-        <tbody data-bind="foreach: lectures.filtered()">
-        <tr>
-          <td data-bind="text: name"></td>
-          <td style="text-align: right"><button class='btn' data-bind='click: $root.openLecture.bind($root)'>Open</button></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
     <div data-bind="visible: documentsVisible()" id="documents-view">
-      <h4 data-bind="text: lecture.name"></h4>
-      <a data-bind="click: show.bind($root, 'lectures'), ifnot: lecture.name">Plese select a lecture first</a>
+      <form class='form-inline' role='form'>
+        <div class='form-group'>
+          <label for='lectureName' class='sr-only'>Lecture name</label>
+          <input id='lectureName' placeholder='Lecture name' type='text' class='form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }' />
+        </div>
+      </form>
       <table class="table table-condesed" style="width: 100%">
         <thead>
           <tr>
