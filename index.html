@@ -53,7 +53,7 @@
       <form class='form-inline' role='form'>
         <div class='form-group'>
           <label for='lectureName' class='sr-only'>Lecture name</label>
-          <input id='lectureName' placeholder='Lecture name' type='text' class='form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }' />
+          <input id='lectureName' placeholder='Lecture name' type='text' class='form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' />
         </div>
       </form>
       <table class="table table-condesed" style="width: 100%">
