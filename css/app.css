@@ -1,3 +1,7 @@
 body {
   overflow-y: scroll;
 }
+
+.document-list:nth-child(even) {
+  background-color: #f0f0f0;
+}
