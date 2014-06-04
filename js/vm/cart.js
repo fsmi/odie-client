@@ -43,7 +43,7 @@ Cart.prototype.save = function() {
   $.ajax({
     url: this.baseUrl + '/data/carts/' + this.userID,
     type: 'POST',
-    contentType: 'application/json',
+    contentType: 'application/json; charset=UTF-8',
     data: JSON.stringify(docIDs),
     success: function() {
       for (var i=0; i<self.length; i++) {
