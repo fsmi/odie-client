@@ -2,69 +2,43 @@ var Cart = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
   this.userID = '';
+  this.online = []
   ko.track(this)
-
-  ko.getObservable(this, 'userID').subscribe(function() {
-    self.load()
-  })
 }
 
 Cart.prototype = Object.create(Array.prototype)
 
 Cart.prototype.add = function(doc) {
-  var self = this
-  if (this.userID === '') {
-    alert("Please enter a user name first!")
-    return
-  }
-  $.ajax({
-    url: this.baseUrl + '/data/cart/' + this.userID,
-    type: 'POST',
-    data: JSON.stringify(doc),
-    contentType: 'application/json',
-    success: function() {
-      self.load()
-    }
-  })
+  this.push(doc)
 }
 
 Cart.prototype.drop = function(doc) {
-  var self = this
-  var index = self.indexOf(doc)
+  var index = this.indexOf(doc)
   if (index < 0) {
     return
   }
-  if (this.userID === '') {
-    return
-  }
-  $.ajax({
-    url: this.baseUrl + '/data/cart/' + this.userID + '/' + index,
-    type: 'DELETE',
-    success: function() {
-      self.load()
-    },
-    error: function() {
-      self.splice(0, self.length)
-    }
-  })
+  this.splice(index, 1)
 }
 
-Cart.prototype.load = function() {
+Cart.prototype.save = function() {
   var self = this
   if (this.userID === '') {
+    alert('Please enter a user name first.')
     return
   }
+  var docIDs = []
+  for (var i=0; i<self.length; i++) {
+    docIDs.push(self[i].id)
+  }
   $.ajax({
-    url: this.baseUrl + '/data/cart/' + this.userID,
-    type: 'GET',
-    dataType: 'json',
-    success: function(cart) {
-      self.splice(0, self.length)
-      for (var i=0; i<cart.length; i++) {
-        self.push(cart[i])
+    url: this.baseUrl + '/data/carts/' + this.userID,
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(docIDs),
+    success: function() {
+      for (var i=0; i<self.length; i++) {
+        self.online.push(self[i])
       }
-    },
-    error: function() {
       self.splice(0, self.length)
     }
   })

@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
             <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Documents</a></li>
-            <li data-bind="css: { active: cartVisible() }, click: show.bind($root, 'cart')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
+            <li data-bind="css: { active: cartVisible() }, click: show.bind($root, 'cart')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length + cart.online.length"></span></a></li>
           </ul>
           <form class="navbar-form navbar-right" onsubmit="return false;">
             <div class="form-group">
@@ -79,6 +79,8 @@
       </table>
     </div>
     <div data-bind="visible: cartVisible()">
+      <h4>Selected documents</h4>
+      <button class='btn pull-right' data-bind='click: cart.save.bind(cart)'>Save online</button>
       <table class="table table-condesed" style="width: 100%">
         <thead>
           <tr>
@@ -97,6 +99,27 @@
           <td data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
           <td style="text-align: right"><button class='btn' data-bind="click: $root.cart.drop.bind($root.cart)">Remove from cart</button></td>
+        </tr>
+        </tbody>
+      </table>
+      <h4>Saved documents</h4>
+      <table class="table table-condesed" style="width: 100%">
+        <thead>
+          <tr>
+            <td>Lectures</td>
+            <td>Examinants</td>
+            <td>Type</td>
+            <td>Date</td>
+            <td>Pages</td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: cart.online">
+        <tr>
+          <td data-bind="text: lectures.join(', ')"></td>
+          <td data-bind="text: examinants.join(', ')"></td>
+          <td data-bind="text: examType"></td>
+          <td data-bind="text: date"></td>
+          <td data-bind="text: pages"></td>
         </tr>
         </tbody>
       </table>
