@@ -49,11 +49,20 @@
     </nav>
 
     <div data-bind="visible: lecturesVisible()">
-      <table class="table table-condesed">
-        <tbody data-bind="foreach: lectures">
+      <div class='pull-right'>
+        <div class="input-group input-lg">
+          <input type="text" class="form-control" data-bind='value: lectures.searchString, valueUpdate: "input"' placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn" type="button" data-bind='click: lectures.clearSearch.bind(lectures)' ><span class='glyphicon glyphicon-remove'></span></button>
+          </span>
+        </div>
+      </div>
+      <span class='clearfix'></span>
+      <table class="table table-condesed" style="width: 100%">
+        <tbody data-bind="foreach: lectures.filtered()">
         <tr>
           <td data-bind="text: name"></td>
-          <td><button class='btn' data-bind='click: $root.openLecture.bind($root)'>Open</button></td>
+          <td style="text-align: right"><button class='btn' data-bind='click: $root.openLecture.bind($root)'>Open</button></td>
         </tr>
         </tbody>
       </table>
@@ -61,7 +70,7 @@
     <div data-bind="visible: documentsVisible()" id="documents-view">
       <h4 data-bind="text: lecture.name"></h4>
       <a data-bind="click: show.bind($root, 'lectures'), ifnot: lecture.name">Plese select a lecture first</a>
-      <table class="table table-condesed">
+      <table class="table table-condesed" style="width: 100%">
         <thead>
           <tr>
             <td>Lectures</td>
@@ -78,13 +87,13 @@
           <td data-bind="text: examType"></td>
           <td data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
-          <td><button class='btn' data-bind="click: $root.cart.add.bind($root.cart)">Add to cart</button></td>
+          <td style="text-align: right"><button class='btn' data-bind="click: $root.cart.add.bind($root.cart)">Add to cart</button></td>
         </tr>
         </tbody>
       </table>
     </div>
     <div data-bind="visible: cartVisible()">
-      <table class="table table-condesed">
+      <table class="table table-condesed" style="width: 100%">
         <thead>
           <tr>
             <td>Lectures</td>
@@ -101,7 +110,7 @@
           <td data-bind="text: examType"></td>
           <td data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
-          <td><button class='btn' data-bind="click: $root.cart.drop.bind($root.cart)">Remove from cart</button></td>
+          <td style="text-align: right"><button class='btn' data-bind="click: $root.cart.drop.bind($root.cart)">Remove from cart</button></td>
         </tr>
         </tbody>
       </table>
