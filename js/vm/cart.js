@@ -8,8 +8,18 @@ var Cart = function(baseUrl) {
 
 Cart.prototype = Object.create(Array.prototype)
 
+Cart.prototype.doesntContain = function(doc) {
+  var found = false
+  for (var i=0; i<this.length; ++i) {
+    found = (this[i].id === doc.id ? true : found)
+  }
+  return !found
+}
+
 Cart.prototype.add = function(doc) {
-  this.push(doc)
+  if (this.doesntContain(doc)) {
+    this.push(doc)
+  }
 }
 
 Cart.prototype.drop = function(doc) {
@@ -33,7 +43,7 @@ Cart.prototype.save = function() {
   $.ajax({
     url: this.baseUrl + '/data/carts/' + this.userID,
     type: 'POST',
-    contentType: 'application/json',
+    contentType: 'application/json; charset=UTF-8',
     data: JSON.stringify(docIDs),
     success: function() {
       for (var i=0; i<self.length; i++) {
@@ -43,3 +53,4 @@ Cart.prototype.save = function() {
     }
   })
 }
+

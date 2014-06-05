@@ -67,7 +67,8 @@
           </tr>
         </thead>
         <tbody data-bind="foreach: lecture">
-        <tr class="document-list">
+        <!-- TODO: due to the way knockout's 'if' binding works, this makes the tr-coloring move when adding docs to the cart. Once we have nice CSS for already selected lectures, dynamically assigning a class will be the better way to do this. -->
+        <tr class="document-list" data-bind="if: $root.cart.doesntContain($data)">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: examType"></td>
