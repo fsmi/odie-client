@@ -43,7 +43,7 @@ App.prototype.login = function() {
 
 $(document).ready(function() {
   var live = true
-  var url = live ? 'http://odie.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
+  var url = live ? 'https://odie.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
   var app = new App(url);
   window.app = app;
   ko.applyBindings(app);

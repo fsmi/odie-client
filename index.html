@@ -88,7 +88,7 @@
     </div>
     <div data-bind="visible: cartVisible()">
       <h4>Selected documents</h4>
-      <button class='btn pull-right' data-bind='click: cart.save.bind(cart)'>Save online</button>
+      <button class='btn btn-primary pull-right' data-bind='click: cart.save.bind(cart)'>Send</button>
       <table class="table table-condensed" style="width: 100%">
         <thead>
           <tr>
@@ -145,7 +145,7 @@
               <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
               <input type="password" class="form-control" data-bind="value: user.password" placeholder="Password" required>
               <span class="login-error" data-bind="text: user.errorThrown"></span>
-              <button class="btn btn-lg btn-primary btn-block" data-bind="click: login" type="submit">
+              <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: login" type="submit">
                 Sign in</button>
               <label class="checkbox pull-left">
                 <input type="checkbox" value="remember-me">
