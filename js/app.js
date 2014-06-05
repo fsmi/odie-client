@@ -21,6 +21,10 @@ App.prototype.cartVisible = function() {
   return this.visible === 'cart';
 }
 
+App.prototype.printVisible = function() {
+  return this.visible === 'print';
+}
+
 App.prototype.show = function(name) {
   this.visible = name
 }
