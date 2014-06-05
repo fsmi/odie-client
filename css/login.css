@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/OpenSans.ttf) format('truetype');
+}
 .banner
 {
   color: rgb(85, 85, 85);
