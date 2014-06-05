@@ -18,6 +18,7 @@
     <script type="text/javascript" src="js/vm/lecture.js"></script>
     <script type="text/javascript" src="js/vm/lecturelist.js"></script>
     <script type="text/javascript" src="js/vm/cart.js"></script>
+    <script type="text/javascript" src="js/vm/user.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <title>Jon</title>
   </head>
@@ -140,9 +141,10 @@
             <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
             alt="">
             <form class="form-signin">
-              <input type="text" class="form-control" placeholder="Username" required autofocus>
-              <input type="password" class="form-control" placeholder="Password" required>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">
+              <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
+              <input type="password" class="form-control" data-bind="value: user.password" placeholder="Password" required>
+              <span class="login-error" data-bind="text: user.errorThrown"></span>
+              <button class="btn btn-lg btn-primary btn-block" data-bind="click: login" type="submit">
                 Sign in</button>
               <label class="checkbox pull-left">
                 <input type="checkbox" value="remember-me">

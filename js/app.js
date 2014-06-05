@@ -2,6 +2,7 @@ var App = function(baseUrl) {
   this.lectures = new LectureList(baseUrl);
   this.lecture = new Lecture(baseUrl);
   this.cart = new Cart(baseUrl);
+  this.user = new User(baseUrl);
 
   this.visible = 'documents';
   this.cartID = '';
@@ -32,6 +33,12 @@ App.prototype.show = function(name) {
 App.prototype.openLecture = function(lecture) {
   this.lecture.load(lecture.name)
   this.visible = 'documents'
+}
+
+App.prototype.login = function() {
+  this.user.login(function() {
+    this.visible = 'cart';
+  });
 }
 
 $(document).ready(function() {
