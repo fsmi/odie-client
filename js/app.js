@@ -3,6 +3,7 @@ var App = function(baseUrl) {
   this.lecture = new Lecture(baseUrl);
   this.cart = new Cart(baseUrl);
   this.user = new User(baseUrl);
+  this.printjob = new PrintJob(baseUrl);
 
   this.visible = 'documents';
   this.cartID = '';
@@ -22,8 +23,12 @@ App.prototype.cartVisible = function() {
   return this.visible === 'cart';
 }
 
+App.prototype.loginVisible = function() {
+  return !this.user.isAuthenticated && this.visible === 'print';
+}
+
 App.prototype.printVisible = function() {
-  return this.visible === 'print';
+  return this.user.isAuthenticated && this.visible === 'print';
 }
 
 App.prototype.show = function(name) {
