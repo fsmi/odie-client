@@ -5,10 +5,9 @@ var User = function(baseUrl) {
   this.password = '';
   this.errorThrown = '';
   this.onAuthUpdate = function() {
-    // as long as the frontend and backend are served from different domains,
-    // this doesn't work, as we can't access the backend's cookie.
-    // An alternative would be to introduce a REST endpoint to check for
-    // authentication status.
+    // This cookie is set when the login API call returns 200.
+    // As we may be running on a different domain, we ensure this cookie is used
+    // by setting it ourselves.
     self.isAuthenticated = ($.cookie('sessionid') !== undefined);
   };
   this.onAuthUpdate();
@@ -32,6 +31,9 @@ User.prototype.login = function(success) {
     success: function() {
       self.password = '';
       self.errorThrown = '';
+      if (!$.cookie('sessionid')) {
+        $.cookie('sessionid', true);
+      }
       self.onAuthUpdate();
       success();
     }
