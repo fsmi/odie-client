@@ -118,12 +118,14 @@
         <div class="col-sm-6 col-md-4 col-md-offset-4">
           <h1 class="text-center login-title">Sign in to continue to print page</h1>
           <div class="account-wall">
-            <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+<!--            <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+            alt=""> -->
+            <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
             alt="">
             <form class="form-signin">
+              <label class="text-warning login-error" data-bind="text: user.errorThrown"></label>
               <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
               <input type="password" class="form-control" data-bind="value: user.password" placeholder="Password" required>
-              <span class="login-error" data-bind="text: user.errorThrown"></span>
               <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: login" type="submit">
                 Sign in</button>
               <label class="checkbox pull-left">

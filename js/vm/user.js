@@ -12,6 +12,7 @@ var User = function(baseUrl) {
     self.isAuthenticated = ($.cookie('sessionid') !== undefined);
   };
   this.onAuthUpdate();
+
   ko.track(this);
 }
 
@@ -24,12 +25,13 @@ User.prototype.login = function(success) {
     type: 'POST',
     contentType: 'application/json; charset=UTF-8',
     data: JSON.stringify({user: this.username, password: this.password}),
-    error: function(_, _, errorThrown) {
-      self.errorThrown = errorThrown;
+    error: function(xhr, _, errorThrown) {
+      self.errorThrown = xhr.status + ': ' + xhr.responseText;
       self.onAuthUpdate();
     },
     success: function() {
       self.password = '';
+      self.errorThrown = '';
       self.onAuthUpdate();
       success();
     }
