@@ -10,7 +10,7 @@ body {
   width: 100%;
 }
 
-.form-control {
+.form-control-inline {
   display: inline-block;
   width: initial;
 }

@@ -55,7 +55,7 @@
       <form class='form-inline' role='form'>
         <div class='form-group'>
           <label for='lectureName' class='sr-only'>Lecture name</label>
-          <input id='lectureName' placeholder='Lecture name' type='text' class='form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' />
+          <input id='lectureName' placeholder='Lecture name' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' />
         </div>
       </form>
       <table class="table table-condensed">
@@ -107,7 +107,7 @@
       <div class="text-right form-horizontal">
         Estimated Price: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
 
-        <input type="text" class="form-inline form-control" placeholder="Name" data-bind="value: cart.userID"></input>
+        <input type="text" class="form-inline form-control-inline form-control" placeholder="Name" data-bind="value: cart.userID"></input>
         <button class='btn btn-primary' data-bind='click: cart.save.bind(cart)'>Send</button>
       </div>
     </div>
