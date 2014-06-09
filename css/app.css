@@ -5,3 +5,7 @@ body {
 .document-list:nth-child(even) {
   background-color: #f0f0f0;
 }
+
+.number-input {
+  width: 50px;
+}

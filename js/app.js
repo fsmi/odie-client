@@ -47,6 +47,10 @@ App.prototype.login = function() {
 }
 
 $(document).ready(function() {
+  // global config
+  depositPrice = 500
+  pricePerPage = 3
+
   var live = true
   var url = live ? 'https://odie.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
   var app = new App(url);

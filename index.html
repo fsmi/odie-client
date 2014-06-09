@@ -111,6 +111,13 @@
         </tr>
         </tbody>
       </table>
+      <hr/>
+      <div class="text-right form-horizontal">
+        Estimated Price: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
+
+        <input type="text" class="form-inline form-control" placeholder="Name" data-bind="value: cart.userID"></input>
+        <button class='btn btn-primary' data-bind='click: cart.save.bind(cart)'>Send</button>
+      </div>
     </div>
     <div data-bind="visible: loginVisible()" class="container">
       <div class="row">
@@ -140,7 +147,9 @@
 
     <div data-bind="visible: printVisible()" class="container">
       ACCESS GRANTED
-      <button class='btn btn-primary pull-right' data-bind='click: printjob.submit.bind(cart)'>Print</button>
+      <label>Number of times deposit is charged: </label>
+      <input type="number" min='0' class='number-input form-control' data-bind="value: printjob.depositCount"></input>
+      <button class='btn btn-primary' data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
     </div>
     <div data-bind="visible: cartVisible() || printVisible()">
       <h4>Saved documents</h4>

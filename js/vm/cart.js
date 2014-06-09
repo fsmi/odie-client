@@ -1,7 +1,7 @@
 var Cart = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
-  this.userID = '';
+  this.userID = ''
   this.online = []
   ko.track(this)
 }
@@ -52,5 +52,26 @@ Cart.prototype.save = function() {
       self.splice(0, self.length)
     }
   })
+}
+
+Cart.prototype.includesOral = function() {
+  for (var i = 0; i < this.length; ++i) {
+    if (this[i].examType === "oral") {
+      return true
+    }
+  }
+}
+
+Cart.prototype.priceEstimate = function() {
+  var price = 0
+  for (var i = 0; i < this.length; ++i) {
+    price += this[i].pages * pricePerPage
+  }
+  if (this.includesOral()) {
+    price += depositPrice
+  }
+
+  // round to next-highest ten-cent unit
+  return Math.ceil(price / 10) * 10
 }
 
