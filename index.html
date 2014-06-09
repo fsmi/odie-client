@@ -75,7 +75,7 @@
           <td data-bind="text: examType"></td>
           <td data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='icon-button btn-info btn icon-basket' data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
+          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Add to cart" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
         </tr>
         </tbody>
       </table>
@@ -99,7 +99,7 @@
           <td data-bind="text: examType"></td>
           <td data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='btn-danger btn icon-cancel-circled' data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
+          <td class="text-right"><button class='btn-danger btn icon-cancel-circled' alt="Remove from cart" data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
         </tr>
         </tbody>
       </table>
@@ -108,7 +108,7 @@
         Estimated Price: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
 
         <input type="text" class="form-inline form-control-inline form-control" placeholder="Name" data-bind="value: cart.userID"></input>
-        <button class='btn btn-primary' data-bind='click: cart.save.bind(cart)'>Send</button>
+        <button class='btn btn-primary' alt="Send" data-bind='click: cart.save.bind(cart)'>Send</button>
       </div>
     </div>
     <div data-bind="visible: loginVisible()" class="container">
@@ -139,7 +139,7 @@
       ACCESS GRANTED
       <label>Number of times deposit is charged: </label>
       <input type="number" min='0' class='number-input form-control' data-bind="value: printjob.depositCount"></input>
-      <button class='btn btn-primary' data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
+      <button class='btn btn-primary' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
     </div>
     <!-- It's no longer possible to just view carts unauthenticated, but this may come in handy for the print page -->
     <!--
