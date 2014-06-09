@@ -6,6 +6,23 @@ body {
   background-color: #f0f0f0;
 }
 
+.table-condensed {
+  width: 100%;
+}
+
+.form-control {
+  display: inline-block;
+  width: initial;
+}
+
 .number-input {
   width: 50px;
+}
+
+.icon-button {
+  font-size: medium;
+}
+
+.row_disabled {
+  opacity: 0.4;
 }

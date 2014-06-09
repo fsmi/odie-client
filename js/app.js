@@ -20,7 +20,7 @@ App.prototype.documentsVisible = function() {
 }
 
 App.prototype.cartVisible = function() {
-  return this.visible === 'cart';
+  return this.visible === 'documents';
 }
 
 App.prototype.loginVisible = function() {
