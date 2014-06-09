@@ -69,7 +69,7 @@
           </tr>
         </thead>
         <tbody data-bind="foreach: lecture">
-        <tr class="document-list" data-bind="css: { row_disabled: !$root.cart.doesntContain($data) }">
+        <tr class="document-list" data-bind="css: { 'row-disabled': !$root.cart.doesntContain($data) }">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: examType"></td>
@@ -99,7 +99,7 @@
           <td data-bind="text: examType"></td>
           <td data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='btn-danger btn icon-cancel-circled' alt="Remove from cart" data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
+          <td class="text-right"><button class='btn-danger btn icon-remove' alt="Remove from cart" data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
         </tr>
         </tbody>
       </table>
@@ -108,7 +108,7 @@
         Estimated Price: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
 
         <input type="text" class="form-inline form-control-inline form-control" placeholder="Name" data-bind="value: cart.userID"></input>
-        <button class='btn btn-primary' alt="Send" data-bind='click: cart.save.bind(cart)'>Send</button>
+        <button class='btn btn-primary icon-upload-cloud' alt="Send" data-bind='click: cart.save.bind(cart)'>Send</button>
       </div>
     </div>
     <div data-bind="visible: loginVisible()" class="container">
@@ -120,7 +120,7 @@
             <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
             alt="">
             <form class="form-signin">
-              <label class="text-warning login-error" data-bind="text: user.errorThrown"></label>
+              <label class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></label>
               <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
               <input type="password" class="form-control" data-bind="value: user.password" placeholder="Password" required>
               <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: login" type="submit">
@@ -138,8 +138,8 @@
     <div data-bind="visible: printVisible()" class="text-right">
       ACCESS GRANTED
       <label>Number of times deposit is charged: </label>
-      <input type="number" min='0' class='number-input form-control' data-bind="value: printjob.depositCount"></input>
-      <button class='btn btn-primary' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
+      <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: printjob.depositCount"></input>
+      <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
     </div>
     <!-- It's no longer possible to just view carts unauthenticated, but this may come in handy for the print page -->
     <!--

@@ -23,6 +23,6 @@ body {
   font-size: medium;
 }
 
-.row_disabled {
+.row-disabled {
   opacity: 0.4;
 }
