@@ -1,5 +1,6 @@
 body {
   overflow-y: scroll;
+  margin-bottom: 100px;
 }
 
 .document-list:nth-child(even) {
@@ -24,5 +25,16 @@ body {
 }
 
 .row-disabled {
+  transition: opacity 0.3s;
   opacity: 0.4;
+}
+
+.footer {
+  transition: opacity 0.3s;
+  opacity: 0.4;
+}
+.footer:hover {
+  transition: opacity 0.3s;
+  opacity: 0.9;
+
 }
