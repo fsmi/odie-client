@@ -1,11 +1,41 @@
 var PrintJob = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
-  this.depositCount = null;
+  this.depositCount = null
+  this.carts = []
+  this.filter = ''
+
+  this.filteredCarts = function() {
+    if (self.filter === '') {
+      return self.carts
+    }
+    var filtered = []
+    regex = new RegExp(self.filter)
+    for (var i = 0; i < self.carts.length; ++i) {
+      if (regex.test(self.carts[i].name)) {
+        filtered.push(self.carts[i])
+      }
+    }
+    return filtered
+  }
+
   ko.track(this)
+
+  this.loadCarts()
 }
 
-PrintJob.prototype = Object.create(Array.prototype)
+PrintJob.prototype = Object.create(Object.prototype)
+
+PrintJob.prototype.loadCarts = function() {
+  var self = this
+  $.getJSON(this.baseUrl + '/data/carts', function(data) {
+    // success
+    this.carts = data
+  })
+  .fail(function(xhr, _, errorThrown) {
+    console.log("Couldn't get carts -- are you logged in?")
+  })
+}
 
 PrintJob.prototype.submit = function(cart) {
   var self = this

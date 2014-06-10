@@ -2,7 +2,6 @@ var Cart = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
   this.userID = ''
-  this.online = []
   ko.track(this)
 }
 
@@ -46,9 +45,6 @@ Cart.prototype.save = function() {
     contentType: 'application/json; charset=UTF-8',
     data: JSON.stringify(docIDs),
     success: function() {
-      for (var i=0; i<self.length; i++) {
-        self.online.push(self[i])
-      }
       self.splice(0, self.length)
     }
   })

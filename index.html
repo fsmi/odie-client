@@ -41,7 +41,7 @@
 
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length + cart.online.length"></span></a></li>
+            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li data-bind="css: { active: loginVisible() || printVisible() }, click: show.bind($root, 'print')"><a href="#">Print</a></li>
@@ -136,9 +136,25 @@
     </div>
 
     <div data-bind="visible: printVisible()" class="text-right">
-      ACCESS GRANTED
+      <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: printjob.filter'></input>
+      
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Created</td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: printjob.filteredCarts()">
+        <tr class="document-list">
+          <td data-bind="text: name"></td>
+          <td data-bind="text: date"></td>
+        </tr>
+        </tbody>
+      </table>
+
       <label>Number of times deposit is charged: </label>
-      <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: printjob.depositCount"></input>
+      <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: printjob.depositCount, valueUpdate: ['afterkeydown', 'keypress', 'input']"></input>
       <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
     </div>
     <!-- It's no longer possible to just view carts unauthenticated, but this may come in handy for the print page -->
