@@ -29,6 +29,19 @@ Cart.prototype.drop = function(doc) {
   this.splice(index, 1)
 }
 
+Cart.prototype.lectures = function() {
+  lecs = []
+    for (var i = 0; i < this.length; ++i) {
+      for (var j = 0; j < this[i].lectures.length; ++j) {
+        if (lecs.indexOf(this[i].lectures[j]) === -1) {
+          lecs.push(this[i].lectures[j])
+        }
+      }
+    }
+  return lecs
+}
+
+
 Cart.prototype.save = function() {
   var self = this
   if (this.length === 0) {
@@ -62,13 +75,18 @@ Cart.prototype.includesOral = function() {
   }
 }
 
-Cart.prototype.priceEstimate = function() {
+Cart.prototype.priceEstimate = function(depositCount) {
   var price = 0
   for (var i = 0; i < this.length; ++i) {
     price += this[i].pages * pricePerPage
   }
-  if (this.includesOral()) {
-    price += depositPrice
+  if (depositCount === undefined) {
+    if (this.includesOral()) {
+      price += depositPrice
+    }
+  }
+  else {
+    price += depositCount * depositPrice
   }
 
   // round to next-highest ten-cent unit

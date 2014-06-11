@@ -27,30 +27,20 @@ var PrintJob = function(baseUrl) {
 
 PrintJob.prototype = Object.create(Object.prototype)
 
-PrintJob.prototype.lectures = function(cart) {
-  lecs = []
-  for (var i = 0; i < cart.documents.length; ++i) {
-    for (var j = 0; j < cart.documents[i].lectures.length; ++j) {
-      if (lecs.indexOf(cart.documents[i].lectures[j]) === -1) {
-        lecs.push(cart.documents[i].lectures[j])
-      }
-    }
-  }
-  return lecs
-}
-
 PrintJob.prototype.loadCarts = function() {
   var self = this
   $.getJSON(this.baseUrl + '/data/carts', function(data) {
     // success
-    this.carts = []
+    self.carts = []
     for (var i = 0; i < data.length; ++i) {
       var c = new Cart(this.baseUrl)
       c.id = data[i].id
       c.date = data[i].date
-      c.documents = data[i].documents
+      for (var d = 0; d < data[i].documents.length; ++d) {
+        c.push(data[i].documents[d])
+      }
       c.name = data[i].name
-      this.carts.push(c)
+      self.carts.push(c)
     }
   })
   .fail(function(xhr, _, errorThrown) {
@@ -60,6 +50,16 @@ PrintJob.prototype.loadCarts = function() {
 
 PrintJob.prototype.select = function(cart) {
   this.selected = cart
+}
+
+PrintJob.prototype.printPrice = function() {
+  return this.selected !== undefined ? (this.selected.priceEstimate(0) / 100).toFixed(2) : '0.00'
+}
+
+PrintJob.prototype.totalPrice = function() {
+  return this.selected !== undefined 
+    ? (this.selected.priceEstimate(this.depositCount) / 100).toFixed(2)
+    : '0.00'
 }
 
 PrintJob.prototype.submit = function() {

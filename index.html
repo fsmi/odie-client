@@ -154,16 +154,45 @@
                  'tr-selected': $root.printjob.selected && $root.printjob.selected === $data
                }">
           <td data-bind="text: name"></td>
-          <td data-bind="text: $root.printjob.lectures($data)"></td>
+          <td data-bind="text: lectures()"></td>
           <td class="td-nowrap" data-bind="text: date"></td>
         </tr>
         </tbody>
       </table>
 
       <hr/>
-      <label>Number of times deposit is charged: </label>
-      <input type="number" min='0' class='number-input form-control-inline form-control' placeholder='(auto)' data-bind="value: printjob.depositCount, valueUpdate: ['afterkeydown', 'keypress', 'input']"></input>
-      <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart), enable: printjob.selected !== undefined'>Print</button>
+      <table class="pull-right">
+        <tr>
+          <td>
+            <label>Print price: </label>
+          </td>
+          <td>
+            <label data-bind="text: $root.printjob.printPrice()"></label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Deposit: </label>
+          </td>
+          <td style="padding-left: 40px">
+            <label>&nbsp;&nbsp;+&nbsp;</label>
+            <input type="number" min='0' class='number-input form-control-inline form-control' placeholder='(auto)' data-bind="value: printjob.depositCount, valueUpdate: ['afterkeydown', 'keypress', 'input']"></input>
+            <label>&nbsp;×&nbsp;</label>
+            <label data-bind="text: (depositPrice / 100).toFixed(2)"></label></td>
+        </tr>
+        <tr><td></td><td><hr></td></tr> <!-- sub-total -->
+        <tr>
+          <td>
+          </td>
+          <td>
+            <label data-bind="text: $root.printjob.totalPrice()"></label>
+          </td>
+        </tr>
+
+      </table>
+      <div style="clear: both;">
+        <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart), enable: printjob.selected !== undefined'>Print</button>
+      </div>
     </div>
   </div>
   <div class="footer">
