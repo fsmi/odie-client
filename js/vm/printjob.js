@@ -43,7 +43,15 @@ PrintJob.prototype.loadCarts = function() {
   var self = this
   $.getJSON(this.baseUrl + '/data/carts', function(data) {
     // success
-    this.carts = data
+    this.carts = []
+    for (var i = 0; i < data.length; ++i) {
+      var c = new Cart(this.baseUrl)
+      c.id = data[i].id
+      c.date = data[i].date
+      c.documents = data[i].documents
+      c.name = data[i].name
+      this.carts.push(c)
+    }
   })
   .fail(function(xhr, _, errorThrown) {
     console.log("Couldn't get carts -- are you logged in?")

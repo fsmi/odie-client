@@ -107,7 +107,7 @@
       <div class="text-right form-horizontal">
         Estimated Price: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
 
-        <input type="text" class="form-inline form-control-inline form-control" placeholder="Name" data-bind="value: cart.userID"></input>
+        <input type="text" class="form-inline form-control-inline form-control" placeholder="Name" data-bind="value: cart.name"></input>
         <button class='btn btn-primary icon-upload-cloud' alt="Send" data-bind='click: cart.save.bind(cart)'>Send</button>
       </div>
     </div>

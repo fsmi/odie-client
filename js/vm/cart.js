@@ -1,7 +1,7 @@
 var Cart = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
-  this.userID = ''
+  this.name = ''
   ko.track(this)
 }
 
@@ -31,7 +31,11 @@ Cart.prototype.drop = function(doc) {
 
 Cart.prototype.save = function() {
   var self = this
-  if (this.userID === '') {
+  if (this.length === 0) {
+    alert('Please add some documents to the cart first.')
+    return
+  }
+  if (this.name === '') {
     alert('Please enter a user name first.')
     return
   }
@@ -40,7 +44,7 @@ Cart.prototype.save = function() {
     docIDs.push(self[i].id)
   }
   $.ajax({
-    url: this.baseUrl + '/data/carts/' + this.userID,
+    url: this.baseUrl + '/data/carts/' + this.name,
     type: 'POST',
     contentType: 'application/json; charset=UTF-8',
     data: JSON.stringify(docIDs),
