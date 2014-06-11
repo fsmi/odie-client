@@ -73,14 +73,14 @@
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: examType"></td>
-          <td data-bind="text: date"></td>
+          <td class="td-nowrap" data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
           <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Add to cart" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
         </tr>
         </tbody>
       </table>
     </div>
-    <div data-bind="visible: cartVisible()">
+    <div data-bind="visible: cartVisible() && cart.length !== 0">
       <h4>Selected documents</h4>
       <table class="table table-condensed">
         <thead>
@@ -97,7 +97,7 @@
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: examType"></td>
-          <td data-bind="text: date"></td>
+          <td class="td-nowrap" data-bind="text: date"></td>
           <td data-bind="text: pages"></td>
           <td class="text-right"><button class='btn-danger icon-button btn icon-remove' alt="Remove from cart" data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
         </tr>
@@ -136,19 +136,26 @@
     </div>
 
     <div data-bind="visible: printVisible()" class="text-right">
+      <button class="btn btn-primary icon-arrows-cw" data-bind="click: printjob.loadCarts.bind(printjob)">Refresh</button>
       <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: printjob.filter'></input>
-      
+
       <table class="table table-condensed">
         <thead>
           <tr>
             <td>Name</td>
+            <td>Lectures</td>
             <td>Created</td>
           </tr>
         </thead>
         <tbody data-bind="foreach: printjob.filteredCarts()">
-        <tr class="document-list">
+        <tr class="document-list" data-bind="
+          click: $root.printjob.select.bind($root.printjob, $data),
+          css: { 'row-disabled': $root.printjob.selected && $root.printjob.selected !== $data,
+                 'tr-selected': $root.printjob.selected && $root.printjob.selected === $data
+               }">
           <td data-bind="text: name"></td>
-          <td data-bind="text: date"></td>
+          <td data-bind="text: $root.printjob.lectures($data)"></td>
+          <td class="td-nowrap" data-bind="text: date"></td>
         </tr>
         </tbody>
       </table>
@@ -157,31 +164,6 @@
       <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: printjob.depositCount, valueUpdate: ['afterkeydown', 'keypress', 'input']"></input>
       <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
     </div>
-    <!-- It's no longer possible to just view carts unauthenticated, but this may come in handy for the print page -->
-    <!--
-    <div data-bind="visible: cartVisible() || printVisible()">
-      <h4>Saved documents</h4>
-      <table class="table table-condensed" style="width: 100%">
-        <thead>
-          <tr>
-            <td>Lectures</td>
-            <td>Examinants</td>
-            <td>Type</td>
-            <td>Date</td>
-            <td>Pages</td>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: cart.online">
-        <tr class="document-list">
-          <td data-bind="text: lectures.join(', ')"></td>
-          <td data-bind="text: examinants.join(', ')"></td>
-          <td data-bind="text: examType"></td>
-          <td data-bind="text: date"></td>
-          <td data-bind="text: pages"></td>
-        </tr>
-        </tbody>
-      </table>
-    </div> -->
   </div>
   <div class="footer">
     <hr>

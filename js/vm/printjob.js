@@ -4,6 +4,7 @@ var PrintJob = function(baseUrl) {
   this.depositCount = null
   this.carts = []
   this.filter = ''
+  this.selected = undefined
 
   this.filteredCarts = function() {
     if (self.filter === '') {
@@ -26,6 +27,18 @@ var PrintJob = function(baseUrl) {
 
 PrintJob.prototype = Object.create(Object.prototype)
 
+PrintJob.prototype.lectures = function(cart) {
+  lecs = []
+  for (var i = 0; i < cart.documents.length; ++i) {
+    for (var j = 0; j < cart.documents[i].lectures.length; ++j) {
+      if (lecs.indexOf(cart.documents[i].lectures[j]) === -1) {
+        lecs.push(cart.documents[i].lectures[j])
+      }
+    }
+  }
+  return lecs
+}
+
 PrintJob.prototype.loadCarts = function() {
   var self = this
   $.getJSON(this.baseUrl + '/data/carts', function(data) {
@@ -37,7 +50,12 @@ PrintJob.prototype.loadCarts = function() {
   })
 }
 
-PrintJob.prototype.submit = function(cart) {
+PrintJob.prototype.select = function(cart) {
+  this.selected = cart
+}
+
+PrintJob.prototype.submit = function() {
+  var cart = this.selected
   var self = this
   if (this.depositCount == null) {
     // deposit count hasn't been overridden, we'll deduce from the cart
