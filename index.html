@@ -160,9 +160,10 @@
         </tbody>
       </table>
 
+      <hr/>
       <label>Number of times deposit is charged: </label>
-      <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: printjob.depositCount, valueUpdate: ['afterkeydown', 'keypress', 'input']"></input>
-      <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart)'>Print</button>
+      <input type="number" min='0' class='number-input form-control-inline form-control' placeholder='(auto)' data-bind="value: printjob.depositCount, valueUpdate: ['afterkeydown', 'keypress', 'input']"></input>
+      <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart), enable: printjob.selected !== undefined'>Print</button>
     </div>
   </div>
   <div class="footer">

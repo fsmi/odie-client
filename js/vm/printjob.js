@@ -82,6 +82,7 @@ PrintJob.prototype.submit = function() {
     success: function() {
       // reset for next print job
       self.depositCount = null
+      self.selected = undefined
       console.log('Printing...');
     },
     error: function() {

@@ -27,7 +27,8 @@ body {
 }
 
 .number-input {
-  width: 50px;
+  padding-left: 0px;
+  width: 70px;
 }
 
 .icon-button {
