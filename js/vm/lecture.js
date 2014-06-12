@@ -2,6 +2,8 @@ var Lecture = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
   this.name = ''
+  this.typeFilter = ''
+  this.examinantsFilter = ''
   ko.track(this)
   ko.getObservable(this, 'name').subscribe(function(newName) {
     self.load(newName)
@@ -20,4 +22,19 @@ Lecture.prototype.load = function(name) {
       self.push(data[i])
     }
   })
+}
+
+Lecture.prototype.filtered = function() {
+  var docs = []
+  var examinantsRegex = new RegExp('.*' + this.examinantsFilter + '.*', 'i')
+  for (var i=0; i<this.length; i++) {
+    if (this.typeFilter !== '' && this.typeFilter !== this[i].examType) {
+      continue
+    }
+    if (this.examinantsFilter !== '' && ! examinantsRegex.test(this[i].examinants.join(' '))) {
+      continue
+    }
+    docs.push(this[i])
+  }
+  return docs
 }

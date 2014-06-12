@@ -66,9 +66,24 @@
             <td>Type</td>
             <td>Date</td>
             <td>Pages</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type='text' data-bind='value: lecture.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' /></td>
+            <td>
+              <select data-bind='value: lecture.typeFilter'>
+                <option value=''>Both</option>
+                <option value='written'>Written</option>
+                <option value='oral'>Oral</option>
+              </select>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </thead>
-        <tbody data-bind="foreach: lecture">
+        <tbody data-bind="foreach: lecture.filtered()">
         <tr class="document-list" data-bind="css: { 'row-disabled': !$root.cart.doesntContain($data) }">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
