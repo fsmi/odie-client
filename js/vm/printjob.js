@@ -57,7 +57,7 @@ PrintJob.prototype.printPrice = function() {
 }
 
 PrintJob.prototype.totalPrice = function() {
-  return this.selected !== undefined 
+  return this.selected !== undefined
     ? (this.selected.priceEstimate(this.depositCount) / 100).toFixed(2)
     : '0.00'
 }
