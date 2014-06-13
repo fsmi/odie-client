@@ -20,7 +20,7 @@
     <script type="text/javascript" src="js/vm/lecturelist.js"></script>
     <script type="text/javascript" src="js/vm/cart.js"></script>
     <script type="text/javascript" src="js/vm/user.js"></script>
-    <script type="text/javascript" src="js/vm/printjob.js"></script>
+    <script type="text/javascript" src="js/vm/print.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <title>Jon</title>
   </head>
@@ -151,8 +151,8 @@
     </div>
 
     <div data-bind="visible: printVisible()" class="text-right">
-      <button class="btn btn-primary icon-arrows-cw" data-bind="click: printjob.loadCarts.bind(printjob)">Refresh</button>
-      <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: printjob.filter'></input>
+      <button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Refresh</button>
+      <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'></input>
 
       <table class="table table-condensed">
         <thead>
@@ -162,11 +162,11 @@
             <td>Created</td>
           </tr>
         </thead>
-        <tbody data-bind="foreach: printjob.filteredCarts()">
+        <tbody data-bind="foreach: print.filteredCarts()">
         <tr class="document-list" data-bind="
-          click: $root.printjob.select.bind($root.printjob, $data),
-          css: { 'row-disabled': $root.printjob.selected && $root.printjob.selected !== $data,
-                 'tr-selected': $root.printjob.selected && $root.printjob.selected === $data
+          click: $root.print.select.bind($root.print, $data),
+          css: { 'row-disabled': $root.print.selected && $root.print.selected !== $data,
+                 'tr-selected': $root.print.selected && $root.print.selected === $data
                }">
           <td data-bind="text: name"></td>
           <td data-bind="text: lectures()"></td>
@@ -182,7 +182,7 @@
             <label>Print price: </label>
           </td>
           <td>
-            <label data-bind="text: $root.printjob.printPrice()"></label>
+            <label data-bind="text: $root.print.printPrice()"></label>
           </td>
         </tr>
         <tr>
@@ -191,7 +191,7 @@
           </td>
           <td style="padding-left: 40px">
             <label>&nbsp;&nbsp;+&nbsp;</label>
-            <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: printjob.depositCount"></input>
+            <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: print.depositCount"></input>
             <label>&nbsp;×&nbsp;</label>
             <label data-bind="text: (depositPrice / 100).toFixed(2)"></label></td>
         </tr>
@@ -200,13 +200,13 @@
           <td>
           </td>
           <td>
-            <label data-bind="text: $root.printjob.totalPrice()"></label>
+            <label data-bind="text: $root.print.totalPrice()"></label>
           </td>
         </tr>
 
       </table>
       <div style="clear: both;">
-        <button class='btn btn-primary icon-print' alt="Print" data-bind='click: printjob.submit.bind($root.printjob, $root.cart), enable: printjob.selected !== undefined'>Print</button>
+        <button class='btn btn-primary icon-print' alt="Print" data-bind='click: print.submit.bind($root.print, $root.cart), enable: print.selected !== undefined'>Print</button>
       </div>
     </div>
   </div>

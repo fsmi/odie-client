@@ -3,7 +3,7 @@ var App = function(baseUrl) {
   this.lecture = new Lecture(baseUrl);
   this.cart = new Cart(baseUrl);
   this.user = new User(baseUrl);
-  this.printjob = new PrintJob(baseUrl);
+  this.print= new Print(baseUrl);
 
   this.visible = 'documents';
   this.cartID = '';

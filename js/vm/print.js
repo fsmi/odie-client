@@ -1,4 +1,4 @@
-var PrintJob = function(baseUrl) {
+var Print = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
   this._depositCount = null
@@ -46,9 +46,9 @@ var PrintJob = function(baseUrl) {
   this.loadCarts()
 }
 
-PrintJob.prototype = Object.create(Object.prototype)
+Print.prototype = Object.create(Object.prototype)
 
-PrintJob.prototype.loadCarts = function() {
+Print.prototype.loadCarts = function() {
   var self = this
   $.getJSON(this.baseUrl + '/data/carts', function(data) {
     // success
@@ -69,21 +69,21 @@ PrintJob.prototype.loadCarts = function() {
   })
 }
 
-PrintJob.prototype.select = function(cart) {
+Print.prototype.select = function(cart) {
   this.selected = cart
 }
 
-PrintJob.prototype.printPrice = function() {
+Print.prototype.printPrice = function() {
   return this.selected !== undefined ? (this.selected.priceEstimate(0) / 100).toFixed(2) : '0.00'
 }
 
-PrintJob.prototype.totalPrice = function() {
+Print.prototype.totalPrice = function() {
   return this.selected !== undefined
     ? (this.selected.priceEstimate(this.depositCount) / 100).toFixed(2)
     : '0.00'
 }
 
-PrintJob.prototype.submit = function() {
+Print.prototype.submit = function() {
   var cart = this.selected
   var self = this
   var job = {
