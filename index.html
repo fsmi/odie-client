@@ -51,7 +51,14 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div data-bind="visible: documentsVisible()" id="documents-view">
+    <!-- Yeah yeah, we know. Sorry, Fefe. -->
+    <noscript id="nojs">
+        <h1 class="banner">:(</h1>
+        <h2 class="banner">Leider benötigt diese Seite JavaScript.<h2>
+            <p style="font-family: 'Open Sans', arial;">Solltest du JavaScript in deinem Browser nicht anschalten können (oder wollen), kannst du in der Fachschaft vorbeikommen und die Auswahl vor Ort vornehmen.</p>
+    </noscript>
+
+    <div data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
       <form class='form-inline' role='form'>
         <div class='form-group'>
           <label for='lectureName' class='sr-only'>Lecture name</label>
@@ -95,7 +102,7 @@
         </tbody>
       </table>
     </div>
-    <div data-bind="visible: cartVisible() && cart.length !== 0">
+    <div data-bind="visible: cartVisible() && cart.length !== 0" style="display: none;">
       <h4>Selected documents</h4>
       <table class="table table-condensed">
         <thead>
@@ -126,7 +133,7 @@
         <button class='btn btn-primary icon-floppy' alt="Send" data-bind='click: cart.save.bind(cart)'>Send</button>
       </div>
     </div>
-    <div data-bind="visible: loginVisible()" class="container">
+    <div data-bind="visible: loginVisible()" class="container" style="display: none;">
       <div class="row">
         <h1 class="banner">One account. All of fsmi.</h1>
         <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -150,7 +157,7 @@
       </div>
     </div>
 
-    <div data-bind="visible: printVisible()" class="text-right">
+    <div data-bind="visible: printVisible()" class="text-right" style="display: none;">
       <button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Refresh</button>
       <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'></input>
 
