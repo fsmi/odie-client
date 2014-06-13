@@ -64,7 +64,7 @@ App.prototype.germanDate = function(dateString) {
                 'Nov ',
                 'Dez ']
   var d = new Date(dateString)
-  return d.getDay() + '. ' + months[d.getMonth()] + d.getFullYear()
+  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
 
 
