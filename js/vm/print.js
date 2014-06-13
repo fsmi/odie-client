@@ -54,7 +54,7 @@ Print.prototype.loadCarts = function() {
     // success
     self.carts = []
     for (var i = 0; i < data.length; ++i) {
-      var c = new Cart(this.baseUrl)
+      var c = new Cart(self.baseUrl)
       c.id = data[i].id
       c.date = data[i].date
       for (var d = 0; d < data[i].documents.length; ++d) {
@@ -84,11 +84,15 @@ Print.prototype.totalPrice = function() {
 }
 
 Print.prototype.submit = function() {
-  var cart = this.selected
   var self = this
+  var cart = self.selected
+  var ids = []
+  for (var i = 0; i < cart.length; ++i) {
+    ids.push(cart[i].id)
+  }
   var job = {
     coverText: cart.name,
-    documents: cart.documents,
+    documents: ids,
     depositCount: this.depositCount
   };
   $.ajax({
