@@ -93,7 +93,7 @@ Print.prototype.submit = function() {
   var job = {
     coverText: cart.name,
     documents: ids,
-    depositCount: this.depositCount
+    depositCount: parseFloat(this.depositCount)
   };
   $.ajax({
     url: this.baseUrl + '/data/print',
