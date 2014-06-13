@@ -58,6 +58,7 @@
             <p style="font-family: 'Open Sans', arial;">Solltest du JavaScript in deinem Browser nicht anschalten können (oder wollen), kannst du in der Fachschaft vorbeikommen und die Auswahl vor Ort vornehmen.</p>
     </noscript>
 
+    <!-- document selection -->
     <div data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
       <form class='form-inline' role='form'>
         <div class='form-group'>
@@ -102,6 +103,8 @@
         </tbody>
       </table>
     </div>
+
+    <!-- shopping cart -->
     <div data-bind="visible: cartVisible() && cart.length !== 0" style="display: none;">
       <h4>Einkaufswagen</h4>
       <table class="table table-condensed">
@@ -133,6 +136,8 @@
         <button class='btn btn-primary icon-floppy' data-bind='click: cart.save.bind(cart)'>Abschicken</button>
       </div>
     </div>
+
+    <!-- login box -->
     <div data-bind="visible: loginVisible()" class="container" style="display: none;">
       <div class="row">
         <h1 class="banner">Einmal anmelden. Alle fsmi Produkte nutzen.</h1>
@@ -157,6 +162,7 @@
       </div>
     </div>
 
+    <!-- print page -->
     <div data-bind="visible: printVisible()" class="text-right" style="display: none;">
       <button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Neu laden</button>
       <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'></input>
@@ -179,6 +185,19 @@
           <td data-bind="text: lectures()"></td>
           <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
         </tr>
+        </tbody>
+        <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
+        <tbody>
+        <tr class="document-list" data-bind="
+          click: $root.print.select.bind($root.print, $root.cart),
+          css: { 'row-disabled': $root.print.selected && $root.print.selected !== $root.cart,
+                 'tr-selected': $root.print.selected && $root.print.selected === $root.cart
+               }">
+               <td><em>(Einkaufswagen)</em></td>
+               <td data-bind="text: $root.cart.lectures()"></td>
+               <td></td>
+             </tr>
+
         </tbody>
       </table>
 
@@ -217,6 +236,7 @@
       </div>
     </div>
   </div>
+  <!-- footer -->
   <div class="footer">
     <hr>
     <p class="text-center">
