@@ -61,7 +61,7 @@
     <!-- document selection -->
     <div data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
       <form class='form-inline' role='form'>
-        <div class='form-group'>
+        <div id='lectureSelection' class='form-group'>
           <label for='lectureName' class='sr-only'>Vorlesung</label>
           <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' />
         </div>

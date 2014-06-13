@@ -7,6 +7,18 @@ body {
   background-color: #f0f0f0;
 }
 
+#lectureSelection input {
+  width: 500px;
+}
+
+.tt-hint {
+  color: #999;
+}
+
+.tt-dropdown-menu strong {
+  color: #555;
+}
+
 .table-condensed {
   width: 100%;
 }
