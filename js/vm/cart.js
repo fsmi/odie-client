@@ -31,13 +31,13 @@ Cart.prototype.drop = function(doc) {
 
 Cart.prototype.lectures = function() {
   lecs = []
-    for (var i = 0; i < this.length; ++i) {
-      for (var j = 0; j < this[i].lectures.length; ++j) {
-        if (lecs.indexOf(this[i].lectures[j]) === -1) {
-          lecs.push(this[i].lectures[j])
-        }
+  for (var i = 0; i < this.length; ++i) {
+    for (var j = 0; j < this[i].lectures.length; ++j) {
+      if (lecs.indexOf(this[i].lectures[j]) === -1) {
+        lecs.push(this[i].lectures[j])
       }
     }
+  }
   return lecs
 }
 
