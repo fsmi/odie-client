@@ -1,7 +1,7 @@
 var PrintJob = function(baseUrl) {
   var self = this
   this.baseUrl = baseUrl
-  this.depositCount = null
+  this._depositCount = null
   this.carts = []
   this.filter = ''
   this.selected = undefined
@@ -20,6 +20,27 @@ var PrintJob = function(baseUrl) {
     return filtered
   }
 
+  ko.track(this)
+
+  // this needs to be in the constructor, as there doesn't seem to be
+  // another way to make a computed observable with proper access to 'this'
+  // It also needs to be below ko.track(this), as knockout otherwise won't
+  // pick up on the computed's dependencies.
+  this.depositCount = ko.computed({
+    read: function() {
+      if (this._depositCount != null) {
+        return this._depositCount
+      }
+      if (this.selected !== undefined) {
+        return this.selected.includesOral() ? 1 : 0
+      }
+      return 0
+      },
+    write: function(num) {
+      this._depositCount = num
+    },
+    owner: this
+  }).extend({notify: 'always'});
   ko.track(this)
 
   this.loadCarts()
@@ -65,10 +86,6 @@ PrintJob.prototype.totalPrice = function() {
 PrintJob.prototype.submit = function() {
   var cart = this.selected
   var self = this
-  if (this.depositCount == null) {
-    // deposit count hasn't been overridden, we'll deduce from the cart
-    this.depositCount = cart.includesOral() ? 1 : 0
-  }
   var job = {
     coverText: cart.name,
     documents: cart.documents,
