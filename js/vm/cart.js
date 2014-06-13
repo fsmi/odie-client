@@ -21,6 +21,12 @@ Cart.prototype.add = function(doc) {
   }
 }
 
+Cart.prototype.addAll = function(docs) {
+  for (var i = 0; i < docs.length; ++i) {
+    this.add(docs[i])
+  }
+}
+
 Cart.prototype.drop = function(doc) {
   var index = this.indexOf(doc)
   if (index < 0) {

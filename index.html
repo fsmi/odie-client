@@ -87,7 +87,7 @@
             </td>
             <td></td>
             <td></td>
-            <td></td>
+            <td><button class='icon-button btn-info btn' alt="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.lecture.filtered())">∀<span class='icon-basket small'></span></button></td>
           </tr>
         </thead>
         <tbody data-bind="foreach: lecture.filtered()">
@@ -97,7 +97,7 @@
           <td data-bind="text: $root.germanExamType(examType)"></td>
           <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="In Einkaufswagen hinzufügen" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
+          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Zu Einkaufswagen hinzufügen" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
         </tr>
         </tbody>
       </table>
