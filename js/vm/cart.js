@@ -45,11 +45,11 @@ Cart.prototype.lectures = function() {
 Cart.prototype.save = function() {
   var self = this
   if (this.length === 0) {
-    alert('Please add some documents to the cart first.')
+    alert("Bitte wähle zuerst ein paar Protokolle oder Klausuren aus.")
     return
   }
   if (this.name === '') {
-    alert('Please enter a user name first.')
+    alert("Bitte gib' zuerst deinen Namen (oder ein Pseudonym) an.")
     return
   }
   var docIDs = []

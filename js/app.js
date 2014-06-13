@@ -46,6 +46,29 @@ App.prototype.login = function() {
   });
 }
 
+App.prototype.germanExamType = function(examType) {
+  return examType === "written" ? "Schriftlich" : "Mündlich"
+}
+
+App.prototype.germanDate = function(dateString) {
+  var months = ['Jan ',
+                'Feb ',
+                'Mär ',
+                'Apr ',
+                'Mai ',
+                'Jun ',
+                'Jul ',
+                'Aug ',
+                'Sep ',
+                'Okt ',
+                'Nov ',
+                'Dez ']
+  var d = new Date(dateString)
+  return d.getDay() + '. ' + months[d.getMonth()] + d.getFullYear()
+}
+
+
+
 $(document).ready(function() {
   // global config
   depositPrice = 500

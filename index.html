@@ -41,10 +41,10 @@
 
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Cart&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
+            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li data-bind="css: { active: loginVisible() || printVisible() }, click: show.bind($root, 'print')"><a href="#">Print</a></li>
+            <li data-bind="css: { active: loginVisible() || printVisible() }, click: show.bind($root, 'print')"><a href="#">Drucken</a></li>
           </ul>
         </div>
 
@@ -61,18 +61,18 @@
     <div data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
       <form class='form-inline' role='form'>
         <div class='form-group'>
-          <label for='lectureName' class='sr-only'>Lecture name</label>
-          <input id='lectureName' placeholder='Lecture name' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' />
+          <label for='lectureName' class='sr-only'>Vorlesung</label>
+          <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' />
         </div>
       </form>
       <table class="table table-condensed">
         <thead>
           <tr>
-            <td>Lectures</td>
-            <td>Examinants</td>
-            <td>Type</td>
-            <td>Date</td>
-            <td>Pages</td>
+            <td>Vorlesungen</td>
+            <td>Prüfer</td>
+            <td>Prüfungsart</td>
+            <td>Datum</td>
+            <td>Seiten</td>
             <td></td>
           </tr>
           <tr>
@@ -80,9 +80,9 @@
             <td><input type='text' data-bind='value: lecture.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' /></td>
             <td>
               <select data-bind='value: lecture.typeFilter'>
-                <option value=''>Both</option>
-                <option value='written'>Written</option>
-                <option value='oral'>Oral</option>
+                <option value=''>Beides</option>
+                <option value='written'>Schriftlich</option>
+                <option value='oral'>Mündlich</option>
               </select>
             </td>
             <td></td>
@@ -94,62 +94,62 @@
         <tr class="document-list" data-bind="css: { 'row-disabled': !$root.cart.doesntContain($data) }">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
-          <td data-bind="text: examType"></td>
-          <td class="td-nowrap" data-bind="text: date"></td>
+          <td data-bind="text: $root.germanExamType(examType)"></td>
+          <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Add to cart" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
+          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="In Einkaufswagen hinzufügen" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
         </tr>
         </tbody>
       </table>
     </div>
     <div data-bind="visible: cartVisible() && cart.length !== 0" style="display: none;">
-      <h4>Selected documents</h4>
+      <h4>Einkaufswagen</h4>
       <table class="table table-condensed">
         <thead>
           <tr>
-            <td>Lectures</td>
-            <td>Examinants</td>
-            <td>Type</td>
-            <td>Date</td>
-            <td>Pages</td>
+            <td>Vorlesungen</td>
+            <td>Prüfer</td>
+            <td>Prüfungsart</td>
+            <td>Datum</td>
+            <td>Seiten</td>
           </tr>
         </thead>
         <tbody data-bind="foreach: cart">
         <tr class="document-list">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
-          <td data-bind="text: examType"></td>
-          <td class="td-nowrap" data-bind="text: date"></td>
+          <td data-bind="text: $root.germanExamType(examType)"></td>
+          <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='btn-danger icon-button btn icon-remove' alt="Remove from cart" data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
+          <td class="text-right"><button class='btn-danger icon-button btn icon-remove' alt="Entfernen" data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
         </tr>
         </tbody>
       </table>
       <hr/>
       <div class="text-right form-horizontal">
-        Estimated Price: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
+        Preisschätzung: <label data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></label> €
 
         <input type="text" class="form-inline form-control-inline form-control" placeholder="Name" data-bind="value: cart.name"></input>
-        <button class='btn btn-primary icon-floppy' alt="Send" data-bind='click: cart.save.bind(cart)'>Send</button>
+        <button class='btn btn-primary icon-floppy' data-bind='click: cart.save.bind(cart)'>Abschicken</button>
       </div>
     </div>
     <div data-bind="visible: loginVisible()" class="container" style="display: none;">
       <div class="row">
-        <h1 class="banner">One account. All of fsmi.</h1>
+        <h1 class="banner">Einmal anmelden. Alle fsmi Produkte nutzen.</h1>
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-          <h1 class="text-center login-title">Sign in to continue to print page</h1>
+          <h1 class="text-center login-title">Anmelden um zur Drucken-Seite zu gelangen.</h1>
           <div class="account-wall">
             <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
             alt="">
             <form class="form-signin">
               <label class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></label>
               <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
-              <input type="password" class="form-control" data-bind="value: user.password" placeholder="Password" required>
+              <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>
               <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: login" type="submit">
-                Sign in</button>
+                Anmelden</button>
               <label class="checkbox pull-left">
                 <input type="checkbox" value="remember-me">
-                Remember me
+                Angemeldet bleiben
               </label>
             </form>
           </div>
@@ -158,15 +158,15 @@
     </div>
 
     <div data-bind="visible: printVisible()" class="text-right" style="display: none;">
-      <button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Refresh</button>
+      <button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Neu laden</button>
       <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'></input>
 
       <table class="table table-condensed">
         <thead>
           <tr>
             <td>Name</td>
-            <td>Lectures</td>
-            <td>Created</td>
+            <td>Vorlesungen</td>
+            <td>Erstellt</td>
           </tr>
         </thead>
         <tbody data-bind="foreach: print.filteredCarts()">
@@ -177,7 +177,7 @@
                }">
           <td data-bind="text: name"></td>
           <td data-bind="text: lectures()"></td>
-          <td class="td-nowrap" data-bind="text: date"></td>
+          <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
         </tr>
         </tbody>
       </table>
@@ -186,7 +186,7 @@
       <table class="pull-right">
         <tr>
           <td>
-            <label>Print price: </label>
+            <label>Druckpreis: </label>
           </td>
           <td>
             <label data-bind="text: $root.print.printPrice()"></label>
@@ -194,10 +194,10 @@
         </tr>
         <tr>
           <td>
-            <label>Deposit: </label>
+            <label>Pfand: </label>
           </td>
           <td style="padding-left: 40px">
-            <label>&nbsp;&nbsp;+&nbsp;</label>
+            <label>+&nbsp;</label>
             <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: print.depositCount"></input>
             <label>&nbsp;×&nbsp;</label>
             <label data-bind="text: (depositPrice / 100).toFixed(2)"></label></td>
@@ -213,7 +213,7 @@
 
       </table>
       <div style="clear: both;">
-        <button class='btn btn-primary icon-print' alt="Print" data-bind='click: print.submit.bind($root.print, $root.cart), enable: print.selected !== undefined'>Print</button>
+        <button class='btn btn-primary icon-print' alt="Print" data-bind='click: print.submit.bind($root.print, $root.cart), enable: print.selected !== undefined'>Drucken</button>
       </div>
     </div>
   </div>
@@ -221,7 +221,7 @@
     <hr>
     <p class="text-center">
     <!-- TODO: update github links when we move to fsmi's org -->
-    Hacked together in <a href="http://knockoutjs.com" >Knockout.js</a>, <a href="https://jQuery.com">jQuery</a>, <a href="http://getbootstrap.com">Bootstrap</a> and <a href="https://www.djangoproject.com/">Django</a>.<br/>
+    In <a href="http://knockoutjs.com" >Knockout.js</a>, <a href="https://jQuery.com">jQuery</a>, <a href="http://getbootstrap.com">Bootstrap</a> und <a href="https://www.djangoproject.com/">Django</a> zusammengehackt.<br/>
     Github: <a href="https://github.com/arrrrr/odie-server">Backend</a> | <a href="https://github.com/maufl/jon">Frontend</a>
     </p>
   </div>
