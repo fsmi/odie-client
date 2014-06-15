@@ -98,6 +98,7 @@
   border-color: #28a4c9;
 }
 .btn-info:hover,
+.btn-info.hover,
 .btn-info:focus {
   background-color: #2aabd2;
   background-position: 0 -15px;

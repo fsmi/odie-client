@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/app.css" />
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.balloon.js"></script>
     <script type="text/javascript" src="js/knockout-3.1.0.js"></script>
     <script type="text/javascript" src="js/knockout-es5.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -58,6 +59,13 @@
           <p style="font-family: 'Open Sans', arial;">Solltest du JavaScript in deinem Browser nicht anschalten können (oder wollen), kannst du in der Fachschaft vorbeikommen und die Auswahl vor Ort vornehmen.</p>
         </noscript>
 
+    <!-- selection help assistant -->
+    <div id="help-assistant" style="display: none;">
+      <img class="karl-klammer" alt='Karl Klammer' src='img/karl-klammer.png'>
+      Anscheinend wollen Sie Dokumente selektieren. Wussten Sie, dass Sie durch Klicken und Ziehen mehrere Dokumente gleichzeitig auswählen können?<br>
+      <a href='' onclick="ko.dataFor(document.body).executeHelpAssistant(); return false;">Jetzt ja</a>
+    </div>
+
     <!-- document selection -->
     <div data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
       <form class='form-inline' role='form'>
@@ -98,7 +106,7 @@
           <td data-bind="text: $root.germanExamType(examType)"></td>
           <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Zu Einkaufswagen hinzufügen" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
+          <td class="text-right"><button class='cart-add icon-button btn-info btn icon-basket' alt="Zu Einkaufswagen hinzufügen" data-bind="event: {mousedown: $root.enterCartAddButton.bind($root), mouseenter: $root.enterCartAddButton.bind($root), mouseup: $root.mouseupCartAddButton.bind($root)}, css: { hover: $root.selection.indexOf($data) !== -1 }, enable: $root.cart.doesntContain($data)"></button></td>
         </tr>
         </tbody>
       </table>
