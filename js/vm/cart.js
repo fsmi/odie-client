@@ -63,7 +63,7 @@ Cart.prototype.save = function() {
     docIDs.push(self[i].id)
   }
   $.ajax({
-    url: this.baseUrl + '/data/carts/' + this.name,
+    url: this.baseUrl + '/data/carts/' + encodeURIComponent(this.name),
     type: 'POST',
     contentType: 'application/json; charset=UTF-8',
     data: JSON.stringify(docIDs),
