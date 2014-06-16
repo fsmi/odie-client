@@ -4,9 +4,11 @@ var Print = function(baseUrl) {
   this._depositCount = null
   this.carts = []
   this.filter = ''
+  this.defaultLimit = 30
+  this.limit = this.defaultLimit
   this.selected = undefined
 
-  this.filteredCarts = function() {
+  this.filteredCarts = function(limit) {
     if (self.filter === '') {
       return self.carts
     }
@@ -16,6 +18,9 @@ var Print = function(baseUrl) {
       if (regex.test(self.carts[i].name)) {
         filtered.push(self.carts[i])
       }
+    }
+    if (limit !== -1) {
+      return filtered.slice(0,this.limit - 1)
     }
     return filtered
   }
@@ -48,6 +53,10 @@ var Print = function(baseUrl) {
 
 Print.prototype = Object.create(Object.prototype)
 
+Print.prototype.showAllCarts = function() {
+  this.limit = -1
+}
+
 Print.prototype.loadCarts = function() {
   var self = this
   $.getJSON(this.baseUrl + '/data/carts', function(data) {
@@ -67,6 +76,7 @@ Print.prototype.loadCarts = function() {
   .fail(function(xhr, _, errorThrown) {
     console.log("Couldn't get carts -- are you logged in?")
   })
+  this.limit = this.defaultLimit;
 }
 
 Print.prototype.select = function(cart) {

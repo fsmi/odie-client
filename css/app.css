@@ -79,3 +79,15 @@ body {
   transition: opacity 0.3s;
   opacity: 0.9;
 }
+
+.fade-button {
+  color: black;
+  transition: opacity 0.3s;
+  opacity: 0.3;
+}
+
+.fade-button:hover {
+  transition: opacity 0.3s;
+  opacity: 0.8;
+}
+
