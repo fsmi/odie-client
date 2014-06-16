@@ -5814,8 +5814,7 @@ button.close {
   font-weight: bold;
   text-transform: uppercase;
 }
-.btn:hover,
-.btn.hover {
+.btn:hover {
   margin-top: 1px;
   border-bottom-width: 3px;
 }
@@ -5857,7 +5856,6 @@ button.close {
   border-color: #23a127;
 }
 .btn-info:hover,
-.btn-info.hover,
 .btn-info:focus,
 .btn-group.open .dropdown-toggle.btn-info {
   background-color: #75caeb;

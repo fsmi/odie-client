@@ -4,7 +4,6 @@ var App = function(baseUrl) {
   this.cart = new Cart(baseUrl);
   this.user = new User(baseUrl);
   this.print= new Print(baseUrl);
-  this.selection = []
 
   this.visible = 'documents';
   this.cartID = '';
@@ -88,13 +87,6 @@ App.prototype.enterCartAddButton = function(doc, e) {
         css: null
       });
     }
-  }
-}
-
-App.prototype.mouseupCartAddButton = function(doc, e) {
-  if (0 == e.button) {
-    this.cart.addAll(this.selection);
-    this.selection.removeAll();
   }
 }
 

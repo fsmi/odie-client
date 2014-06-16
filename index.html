@@ -106,7 +106,7 @@
           <td data-bind="text: $root.germanExamType(examType)"></td>
           <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
           <td data-bind="text: pages"></td>
-          <td class="text-right"><button class='cart-add icon-button btn-info btn icon-basket' alt="Zu Einkaufswagen hinzufügen" data-bind="event: {mousedown: $root.enterCartAddButton.bind($root), mouseenter: $root.enterCartAddButton.bind($root), mouseup: $root.mouseupCartAddButton.bind($root)}, css: { hover: $root.selection.indexOf($data) !== -1 }, enable: $root.cart.doesntContain($data)"></button></td>
+          <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Zu Einkaufswagen hinzufügen" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
         </tr>
         </tbody>
       </table>
