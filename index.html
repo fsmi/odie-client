@@ -158,7 +158,7 @@
               <label class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></label>
               <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
               <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>
-              <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: login" type="submit">
+              <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.user.login.bind($root.user, $root.print.loadCarts)" type="submit">
                 Anmelden</button>
               <label class="checkbox pull-left">
                 <input type="checkbox" value="remember-me">
