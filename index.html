@@ -198,6 +198,7 @@
         <tbody>
         <tr class="document-list" data-bind="
           click: $root.print.select.bind($root.print, $root.cart),
+          visible: $root.cart.length > 0,
           css: { 'row-disabled': $root.print.selected && $root.print.selected !== $root.cart,
                  'tr-selected': $root.print.selected && $root.print.selected === $root.cart
                }">
