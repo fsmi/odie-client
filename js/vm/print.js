@@ -8,19 +8,21 @@ var Print = function(baseUrl) {
   this.limit = this.defaultLimit
   this.selected = undefined
 
-  this.filteredCarts = function(limit) {
-    if (self.filter === '') {
-      return self.carts
-    }
+  this.filteredCarts = function() {
     var filtered = []
-    regex = new RegExp(self.filter)
-    for (var i = 0; i < self.carts.length; ++i) {
-      if (regex.test(self.carts[i].name)) {
-        filtered.push(self.carts[i])
+    if (self.filter === '') {
+      filtered = self.carts
+    }
+    else {
+      regex = new RegExp(self.filter)
+      for (var i = 0; i < self.carts.length; ++i) {
+        if (regex.test(self.carts[i].name)) {
+          filtered.push(self.carts[i])
+        }
       }
     }
-    if (limit !== -1) {
-      return filtered.slice(0,this.limit - 1)
+    if (self.limit !== -1) {
+      return filtered.slice(0,self.limit - 1)
     }
     return filtered
   }
