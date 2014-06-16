@@ -104,7 +104,7 @@ $(document).ready(function() {
   pricePerPage = 3
 
   var live = true
-  var url = live ? 'https://odie.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
+  var url = live ? 'https://odie-test.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
   var app = new App(url);
   window.app = app;
   ko.applyBindings(app);
