@@ -64,7 +64,7 @@
       <form class='form-inline' role='form'>
         <div id='lectureSelection' class='form-group'>
           <label for='lectureName' class='sr-only'>Vorlesung</label>
-          <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]'>
+          <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["afterkeydown", "keypress", "blur"]' autofocus>
         </div>
       </form>
       <table class="table table-condensed">
@@ -106,12 +106,12 @@
           <td data-bind="text: pages"></td>
           <td class="text-right"><button class='icon-button btn-info btn icon-basket' data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
           <td class="rangeBar-td">
-            <span class="rangeBar-bound btn icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
+            <span class="rangeBar-bound icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
             <div data-bind="css: {
               'rangeBar-deselected': !$root.rangeSelect.selectedBarVisible($index),
               'rangeBar-selected': $root.rangeSelect.selectedBarVisible($index),
               }">&nbsp;</div>
-            <span class="rangeBar-bound btn icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
+            <span class="rangeBar-bound icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
           </td>
         </tr>
         </tbody>
