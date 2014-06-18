@@ -106,12 +106,12 @@
           <td data-bind="text: pages"></td>
           <td class="text-right"><button class='icon-button btn-info btn icon-basket' data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
           <td class="rangeBar-td">
-            <label class="rangeBar-bound btn icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></label>
+            <span class="rangeBar-bound btn icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
             <div data-bind="css: {
               'rangeBar-deselected': !$root.rangeSelect.selectedBarVisible($index),
               'rangeBar-selected': $root.rangeSelect.selectedBarVisible($index),
               }">&nbsp;</div>
-            <label class="rangeBar-bound btn icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></label>
+            <span class="rangeBar-bound btn icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
           </td>
         </tr>
         </tbody>
@@ -162,7 +162,7 @@
             <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
             alt="">
             <form class="form-signin">
-              <label class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></label>
+              <span class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></span>
               <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
               <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>
               <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.user.login.bind($root.user, $root.print.loadCarts)" type="submit">
@@ -220,35 +220,32 @@
       <hr/>
 
       <div class="text-center">
-        <label class="label fade-button" data-bind="visible: $root.print.carts.length > $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</label>
+        <span class="fade-button" data-bind="visible: $root.print.carts.length > $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</span>
       </div>
 
       <table class="pull-right">
         <tr>
-          <td>
-            <label>Druckpreis: </label>
-          </td>
-          <td>
-            <label data-bind="text: $root.print.printPrice()"></label>
-          </td>
+          <td>Druckpreis:</td>
+          <td data-bind="text: $root.print.printPrice()"></td>
         </tr>
         <tr>
           <td>
-            <label>Pfand: </label>
+            <label for="deposit-count">Pfand: </label>
           </td>
           <td style="padding-left: 40px">
-            <label>+&nbsp;</label>
-            <input type="number" min='0' class='number-input form-control-inline form-control' data-bind="value: print.depositCount">
-            <label>&nbsp;×&nbsp;</label>
-            <label data-bind="text: (depositPrice / 100).toFixed(2)"></label></td>
+            +&nbsp;
+            <input type="number" min='0' id="deposit-count" class='number-input form-control-inline form-control' data-bind="value: print.depositCount">
+            &nbsp;×&nbsp;
+            <span data-bind="text: (depositPrice / 100).toFixed(2)"></span>
+          </td>
         </tr>
-        <tr><td></td><td><hr></td></tr> <!-- sub-total -->
+        <tr> <!-- sub-total -->
+          <td></td>
+          <td><hr></td>
+        </tr>
         <tr>
-          <td>
-          </td>
-          <td>
-            <label data-bind="text: $root.print.totalPrice()"></label>
-          </td>
+          <td></td>
+          <td data-bind="text: $root.print.totalPrice()"></td>
         </tr>
 
       </table>
