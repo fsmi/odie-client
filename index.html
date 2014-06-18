@@ -22,6 +22,7 @@
     <script type="text/javascript" src="js/vm/cart.js"></script>
     <script type="text/javascript" src="js/vm/user.js"></script>
     <script type="text/javascript" src="js/vm/print.js"></script>
+    <script type="text/javascript" src="js/vm/range.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <title>Klausurenverkauf – Fachschaft Mathematik/Informatik</title>
   </head>
@@ -100,13 +101,24 @@
           </tr>
         </thead>
         <tbody data-bind="foreach: lecture.filtered()">
-        <tr class="document-list" data-bind="css: { 'row-disabled': !$root.cart.doesntContain($data) }">
+        <tr class="document-list" data-bind="
+          css: { 'row-disabled': !$root.cart.doesntContain($data) },
+          event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
+          click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index)">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: $root.germanExamType(examType)"></td>
           <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
           <td data-bind="text: pages"></td>
           <td class="text-right"><button class='icon-button btn-info btn icon-basket' alt="Zu Einkaufswagen hinzufügen" data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
+          <td class="rangeBar-td">
+            <label class="rangeBar-bound btn icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></label>
+            <div data-bind="css: {
+              'rangeBar-deselected': !$root.rangeSelect.selectedBarVisible($index),
+              'rangeBar-selected': $root.rangeSelect.selectedBarVisible($index),
+              }">&nbsp;</div>
+            <label class="rangeBar-bound btn icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></label>
+          </td>
         </tr>
         </tbody>
       </table>

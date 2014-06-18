@@ -91,3 +91,33 @@ body {
   opacity: 0.8;
 }
 
+.rangeBar-td {
+  padding: 0px !important;
+  border: 0 !important;
+  width: 30px;
+}
+
+.rangeBar-deselected {
+  width: 1px;
+  background-color: gray;
+  overflow-y: auto;
+  margin: 0px auto;
+  height: 100%;
+}
+
+.rangeBar-selected {
+  width: 6px;
+  background-color: #2aabd2;
+  overflow-y: auto;
+  margin: 0px auto;
+  height: 100%;
+}
+
+.rangeBar-bound {
+  z-index: 5;
+  margin: -1px auto;
+  margin-left: 5px;
+  margin-top: -10px;
+  padding: 0 !important;
+  position: absolute;
+}

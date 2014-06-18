@@ -4,6 +4,7 @@ var App = function(baseUrl) {
   this.cart = new Cart(baseUrl);
   this.user = new User(baseUrl);
   this.print= new Print(baseUrl);
+  this.rangeSelect = new RangeSelect(this.cart, this.lecture);
 
   this.visible = 'documents';
   this.cartID = '';
