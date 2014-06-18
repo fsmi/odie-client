@@ -70,24 +70,11 @@ App.prototype.germanDate = function(dateString) {
   return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
 
-App.prototype.executeHelpAssistant = function() {
-  $('.cart-add').hideBalloon();
-}
-
 App.prototype.enterCartAddButton = function(doc, e) {
   if (1 & e.buttons) {
     this.selection.push(doc);
   } else {
     this.selection.removeAll();
-    if (!$.cookie('helpAssistantExecuted')) {
-      $.cookie('helpAssistantExecuted', true, { expires: 10000 });
-      $(e.target).showBalloon({
-        contents: $('#help-assistant').clone().css('display', ''),
-        position: 'right',
-        classname: 'help-assistant',
-        css: null
-      });
-    }
   }
 }
 
