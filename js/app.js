@@ -95,8 +95,12 @@ $(document).ready(function() {
   depositPrice = 500
   pricePerPage = 3
 
-  var live = true
-  var url = live ? 'https://odie-test.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
+  if (window.location.hostname === 'odie.fsmi.uni-karlsruhe.de') {
+    url = window.location.origin;
+  } else {
+    var live = true
+    var url = live ? 'https://odie-test.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
+  }
   var app = new App(url);
   window.app = app;
   ko.applyBindings(app);
