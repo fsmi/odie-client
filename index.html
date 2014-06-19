@@ -250,6 +250,7 @@
 
       </table>
       <div style="clear: both;">
+        <input type="text" id="cover-text" class='number-input form-control-inline form-control' data-bind="value: $root.print.coverText" placeholder="Name für Pfand/Titelblatt" required>
         <button class='btn btn-primary icon-print' data-bind='click: print.submit.bind($root.print, $root.cart), enable: print.selected !== undefined'>Drucken</button>
       </div>
     </div>

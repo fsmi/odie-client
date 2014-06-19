@@ -7,6 +7,7 @@ var Print = function(baseUrl) {
   this.defaultLimit = 30
   this.limit = this.defaultLimit
   this.selected = undefined
+  this._coverText = null
 
   this.filteredCarts = function() {
     var filtered = []
@@ -33,8 +34,8 @@ var Print = function(baseUrl) {
   // another way to make a computed observable with proper access to 'this'
   // It also needs to be below ko.track(this), as knockout otherwise won't
   // pick up on the computed's dependencies.
-  this.depositCount = ko.computed({
-    read: function() {
+  ko.defineProperty(this, 'depositCount', {
+    get: function() {
       if (this._depositCount != null) {
         return this._depositCount
       }
@@ -42,13 +43,19 @@ var Print = function(baseUrl) {
         return this.selected.includesOral() ? 1 : 0
       }
       return 0
-      },
-    write: function(num) {
-      this._depositCount = num
     },
-    owner: this
-  }).extend({notify: 'always'});
-  ko.track(this)
+    set: function(num) { this._depositCount = num; }
+  });
+
+  ko.defineProperty(this, 'coverText', {
+    get: function() {
+      if (this._coverText !== null) {
+        return this._coverText;
+      }
+      return this.selected !== undefined ? this.selected.name : '';
+    },
+    set: function(coverText) { this._coverText = coverText; }
+  });
 
   this.loadCarts()
 }
@@ -82,7 +89,9 @@ Print.prototype.loadCarts = function() {
 }
 
 Print.prototype.select = function(cart) {
-  this.selected = cart
+  this.selected = cart;
+  this.depositCount = null;
+  this.coverText = null;
 }
 
 Print.prototype.printPrice = function() {
@@ -103,7 +112,7 @@ Print.prototype.submit = function() {
     ids.push(cart[i].id)
   }
   var job = {
-    coverText: cart.name,
+    coverText: this.coverText,
     documents: ids,
     depositCount: parseFloat(this.depositCount)
   };
@@ -115,6 +124,7 @@ Print.prototype.submit = function() {
     success: function() {
       // reset for next print job
       self.depositCount = null
+      self.coverText = null
       self.selected = undefined
       console.log('Printing...');
     },
