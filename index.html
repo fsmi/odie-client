@@ -106,12 +106,13 @@
           <td data-bind="text: pages"></td>
           <td class="text-right"><button class='icon-button btn-info btn icon-basket' data-bind="click: $root.cart.add.bind($root.cart), enable: $root.cart.doesntContain($data)"></button></td>
           <td class="rangeBar-td">
-            <span class="rangeBar-bound icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
+            <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
             <div data-bind="css: {
               'rangeBar-deselected': !$root.rangeSelect.selectedBarVisible($index),
               'rangeBar-selected': $root.rangeSelect.selectedBarVisible($index),
-              }">&nbsp;</div>
-            <span class="rangeBar-bound icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
+              }">&nbsp;
+          </div>
+            <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
           </td>
         </tr>
         </tbody>

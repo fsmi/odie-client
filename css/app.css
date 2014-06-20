@@ -81,30 +81,41 @@ body {
 .rangeBar-td {
   padding: 0px !important;
   border: 0 !important;
+  position: relative;
   width: 30px;
+  height: 100%;
 }
 
 .rangeBar-deselected {
-  width: 1px;
-  background-color: gray;
-  overflow-y: auto;
-  margin: 0px auto;
+  width: 0 !important;
+  border-right: 2px solid gray;
+  position: absolute;
   height: 100%;
+  left: 50%;
+  margin-left: -1px;
 }
 
 .rangeBar-selected {
-  width: 6px;
-  background-color: #2aabd2;
-  overflow-y: auto;
-  margin: 0px auto;
+  width: 0px !important;
+  border-right: 6px solid #28A4C9;
+  position: absolute;
   height: 100%;
+  left: 50%;
+  margin-left: -3px;
 }
 
 .rangeBar-bound {
   z-index: 5;
-  margin: -1px auto;
-  margin-left: 5px;
-  margin-top: -10px;
   padding: 0 !important;
   position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.rangeBar-upper-bound {
+  top: -12px;
+}
+
+.rangeBar-lower-bound {
+  bottom: -9px;
 }
