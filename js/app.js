@@ -83,11 +83,11 @@ $(document).ready(function() {
   depositPrice = 500
   pricePerPage = 3
 
-  if (window.location.hostname === 'odie.fsmi.uni-karlsruhe.de') {
-    url = window.location.origin;
+  if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
+    url = window.location.origin + '/odie';
   } else {
     var live = true
-    var url = live ? 'https://odie-test.fsmi.uni-karlsruhe.de' : 'http://localhost:8000'
+    var url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000'
   }
   var app = new App(url);
   window.app = app;
