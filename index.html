@@ -42,7 +42,8 @@
 
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
+            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Auswahl</a></li>
+            <li data-bind="click: show.bind($root, 'cart')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li data-bind="css: { active: loginVisible() || printVisible() }, click: show.bind($root, 'print')"><a href="#">Drucken</a></li>
@@ -120,7 +121,7 @@
     </div>
 
     <!-- shopping cart -->
-    <div data-bind="visible: cartVisible() && cart.length !== 0" style="display: none;">
+    <div id="cart" data-bind="visible: cartVisible() && cart.length !== 0" style="display: none;">
       <h4>Einkaufswagen</h4>
       <table class="table table-condensed">
         <thead>

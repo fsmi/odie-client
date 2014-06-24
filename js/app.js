@@ -17,11 +17,13 @@ App.prototype.lecturesVisible = function () {
 }
 
 App.prototype.documentsVisible = function() {
-  return this.visible === 'documents';
+  return this.visible === 'documents' ||
+         this.visible === 'cart';
 }
 
 App.prototype.cartVisible = function() {
-  return this.visible === 'documents';
+  return this.visible === 'documents' ||
+         this.visible === 'cart';
 }
 
 App.prototype.loginVisible = function() {
@@ -33,7 +35,12 @@ App.prototype.printVisible = function() {
 }
 
 App.prototype.show = function(name) {
-  this.visible = name
+  this.visible = name;
+  // special casing for in-page navigation to cart
+  // Sadly this can't be done by setting the <a>'s href in the html
+  if (name === 'cart') {
+    document.location.href = '#cart';
+  }
 }
 
 App.prototype.openLecture = function(lecture) {
