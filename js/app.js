@@ -77,14 +77,6 @@ App.prototype.germanDate = function(dateString) {
   return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
 
-App.prototype.enterCartAddButton = function(doc, e) {
-  if (1 & e.buttons) {
-    this.selection.push(doc);
-  } else {
-    this.selection.removeAll();
-  }
-}
-
 $(document).ready(function() {
   // global config
   depositPrice = 500
