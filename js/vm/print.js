@@ -74,7 +74,7 @@ Print.prototype.loadCarts = function() {
     for (var i = 0; i < data.length; ++i) {
       var c = new Cart(self.baseUrl)
       c.id = data[i].id
-      c.date = data[i].date
+      c.date = data[i].creationTime
       for (var d = 0; d < data[i].documents.length; ++d) {
         c.push(data[i].documents[d])
       }

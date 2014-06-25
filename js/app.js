@@ -71,9 +71,7 @@ App.prototype.germanDate = function(dateString) {
                 'Okt ',
                 'Nov ',
                 'Dez ']
-  // what follows is a hack to get around iOS' JS not supporting our date format
-  var parts = dateString.split('-')
-  var d = new Date(parts[0], parts[1] - 1, parts[2])
+  var d = new Date(dateString)
   return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
 
