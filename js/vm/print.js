@@ -22,8 +22,19 @@ var Print = function(baseUrl) {
         }
       }
     }
+    // sort by creation time in descending order
+    filtered.sort(
+      function(a, b) {
+        if (a.date !== b.date) {
+          return new Date(b.date) - new Date(a.date)
+        }
+        // make sure there's some deterministic order even for simultaneously
+        // created carts
+        return a.name < b.name ? -1 : -1;
+      }
+    )
     if (self.limit !== -1) {
-      return filtered.slice(0,self.limit - 1)
+      return filtered.slice(0, self.limit - 1)
     }
     return filtered
   }
