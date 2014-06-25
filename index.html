@@ -99,7 +99,7 @@
         <tr class="document-list" data-bind="
           css: { 'row-disabled': !$root.cart.doesntContain($data) },
           event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
-          click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index)">
+          click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.lecture.filtered())">
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: $root.germanExamType(examType)"></td>

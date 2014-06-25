@@ -1,8 +1,7 @@
-var RangeSelect = function(cart, docs) {
+var RangeSelect = function(cart) {
   var self = this;
   self.firstSelection = null;
   self.cart = cart;
-  self.docs = docs;
   self.hoverIndex = null;
 
   ko.track(this);
@@ -16,7 +15,7 @@ RangeSelect.prototype.onRowMouseOver = function(index) {
   this.hoverIndex = index;
 }
 
-RangeSelect.prototype.onClick = function(index) {
+RangeSelect.prototype.onClick = function(index, list) {
   // resolve data binding
   var index = index();
   if (this.firstSelection === null) {
@@ -28,7 +27,7 @@ RangeSelect.prototype.onClick = function(index) {
     this.firstSelection = null;
     return;
   }
-  this.commit(index);
+  this.commit(index, list);
 }
 
 RangeSelect.prototype.upperBoundVisible = function(index) {
@@ -80,11 +79,11 @@ RangeSelect.prototype.selectedBarVisible = function(index) {
   return false;
 }
 
-RangeSelect.prototype.commit = function(secondSelection) {
+RangeSelect.prototype.commit = function(secondSelection, docList) {
   var min = Math.min(this.firstSelection, secondSelection);
   var max = Math.max(this.firstSelection, secondSelection);
   for (var i = min; i <= max; ++i) {
-    this.cart.add(this.docs[i]);
+    this.cart.add(docList[i]);
   }
   this.firstSelection = null;
 }
