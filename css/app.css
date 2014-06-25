@@ -40,6 +40,7 @@ body {
 
 #cover-text {
   width: 230px;
+  padding-left: 12px;
 }
 
 .number-input {
