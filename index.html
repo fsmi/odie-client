@@ -71,6 +71,7 @@
       <table class="table table-condensed">
         <thead>
           <tr>
+            <td>#</td>
             <td>Vorlesungen</td>
             <td>Prüfer</td>
             <td>Prüfungsart</td>
@@ -100,6 +101,7 @@
           css: { 'row-disabled': !$root.cart.doesntContain($data) },
           event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
           click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.lecture.filtered())">
+          <td class="row-disabled" data-bind="text: $index() + 1"></td>
           <td data-bind="text: lectures.join(', ')"></td>
           <td data-bind="text: examinants.join(', ')"></td>
           <td data-bind="text: $root.germanExamType(examType)"></td>
