@@ -35,6 +35,12 @@ Cart.prototype.drop = function(doc) {
   this.splice(index, 1)
 }
 
+Cart.prototype.dropAll = function() {
+  while (this.length > 0) {
+    this.splice(0, this.length);
+  }
+}
+
 Cart.prototype.lectures = function() {
   lecs = []
   for (var i = 0; i < this.length; ++i) {
