@@ -1,3 +1,33 @@
+.container {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#documents-view {
+  float: left;
+  width:60%;
+}
+
+.cart {
+  float: right;
+  width: 40%;
+  padding-bottom: 10px;
+  border-top-width: 1px;
+}
+
+/* Display cart below document listing if
+ * browser window isn't wide enough
+ */
+@media (max-width: 1080px) {
+  #documents-view {
+    width: 100%;
+  }
+  .cart {
+    width: 100%;
+  }
+}
+
 body {
   overflow-y: scroll;
   margin-bottom: 100px;
@@ -9,6 +39,10 @@ body {
 
 #lectureSelection input {
   width: 500px;
+}
+
+.wrapper {
+  display: table;
 }
 
 .tt-hint {
@@ -31,6 +65,10 @@ body {
   border: 2px solid #61c5fa;
   outline: none;
   box-shadow: 0px 0px 7px #61C5FA;
+}
+
+.lecture-list-cell {
+  line-height: 100%;
 }
 
 .form-control-inline {
@@ -83,27 +121,14 @@ body {
   padding: 0px !important;
   border: 0 !important;
   position: relative;
-  width: 30px;
   height: 100%;
-}
-
-.rangeBar-deselected {
-  width: 0 !important;
-  border-right: 2px solid gray;
-  position: absolute;
-  height: 100%;
-  left: 50%;
-  margin-left: -1px;
 }
 
 .rangeBar-selected {
-  width: 0px !important;
-  border-right: 6px solid #28A4C9;
-  position: absolute;
-  height: 100%;
-  left: 50%;
-  margin-left: -3px;
+  background-color: #28A4C9;
+  border-top: 0px !important;
 }
+
 
 .rangeBar-bound {
   z-index: 5;
@@ -111,6 +136,7 @@ body {
   position: absolute;
   text-align: center;
   width: 100%;
+  left: -10%;
 }
 
 .rangeBar-upper-bound {
@@ -118,5 +144,5 @@ body {
 }
 
 .rangeBar-lower-bound {
-  bottom: -9px;
+  bottom: -11px;
 }
