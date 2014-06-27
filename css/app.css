@@ -122,13 +122,20 @@ body {
   border: 0 !important;
   position: relative;
   height: 100%;
+  text-align: center;
 }
 
 .rangeBar-selected {
-  background-color: #28A4C9;
   border-top: 0px !important;
 }
 
+.addButton-color {
+  background-color: #28A4C9;
+}
+
+.removeButton-color {
+  background-color:  #c12e2a;
+}
 
 .rangeBar-bound {
   z-index: 5;

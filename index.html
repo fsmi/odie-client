@@ -101,7 +101,7 @@
             css: { 'row-disabled': !$root.cart.doesntContain($data) },
             event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
             click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.lecture.filtered())">
-            <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected': $root.rangeSelect.selectedBarVisible($index)}">
+            <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected addButton-color': $root.rangeSelect.selectedBarVisible($index)}">
               <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
               <span class="row-disabled" data-bind="text: $index() + 1"></span>
               <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
@@ -119,7 +119,10 @@
             <td class="text-right">
               <button
                 class='icon-button btn-info btn icon-basket'
-                data-bind="click: $root.cart.add.bind($root.cart),
+                data-bind="
+                click: $root.rangeSelect.commit.bind($root.rangeSelect, $root.lecture.filtered()),
+                style:
+                  { visibility: $root.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
                 clickBubble: false,
                 enable: $root.cart.doesntContain($data)">
               </button>
