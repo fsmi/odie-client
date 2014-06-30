@@ -116,9 +116,9 @@
             <td data-bind="text: $root.germanExamType(examType)"></td>
             <td class="td-nowrap" data-bind="text: $root.germanDate(date)"></td>
             <td data-bind="text: pages"></td>
-            <td class="text-right">
+            <td class="td-compact text-right">
               <button
-                class='icon-button btn-info btn icon-basket'
+                class='icon-button btn-info btn btn-compact icon-basket'
                 data-bind="
                 click: $root.rangeSelect.commit.bind($root.rangeSelect, $root.lecture.filtered()),
                 style:
@@ -155,7 +155,7 @@
             </td>
             <td data-bind="text: examinants.join(', ')"></td>
             <td data-bind="text: pages"></td>
-            <td class="text-right"><button class='btn-danger icon-button btn icon-remove' data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
+            <td class="text-right td-compact"><button class='btn-danger icon-button btn btn-compact icon-remove' data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
           </tr>
           </tbody>
         </table>

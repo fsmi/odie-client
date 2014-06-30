@@ -33,6 +33,14 @@ body {
   margin-bottom: 100px;
 }
 
+.btn-compact {
+  padding: 2px 6px;
+}
+
+.td-compact {
+  padding: 0 !important;
+}
+
 .document-list:nth-child(even) {
   background-color: #f0f0f0;
 }
