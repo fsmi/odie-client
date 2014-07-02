@@ -80,6 +80,7 @@
               <td>Seiten</td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr>
               <td></td>
@@ -95,6 +96,7 @@
               <td></td>
               <td></td>
               <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.lecture.filtered())">∀<span class='icon-basket small'></span></button></td>
+              <td></td>
             </tr>
           </thead>
           <tbody data-bind="foreach: lecture.filtered()">
@@ -126,6 +128,16 @@
                   { visibility: $root.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
                 clickBubble: false,
                 enable: $root.cart.doesntContain($data)">
+              </button>
+            </td>
+            <td class="td-compact text-right">
+              <button
+                class='icon-button btn-info btn btn-compact icon-eye'
+                title="Vorschau (von Fachschaftsrechnern aus)"
+                data-bind="
+                click: $data.preview,
+                visible: $root.user.isAuthenticated
+                ">
               </button>
             </td>
           </tr>

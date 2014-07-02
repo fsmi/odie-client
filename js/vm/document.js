@@ -33,3 +33,7 @@ Document.prototype.displayDate = function() {
   return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
 
+Document.prototype.preview = function() {
+  window.open('file:///home/mi/info_Dokumente/' + (this.examType == 'oral' ? 'protokolle' : 'klausuren') + '/scanned/' + Math.floor(this.id/2) + '.pdf');
+}
+
