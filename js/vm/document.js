@@ -29,7 +29,8 @@ Document.prototype.displayDate = function() {
                 'Okt ',
                 'Nov ',
                 'Dez ']
-  var d = new Date(this.date)
+  var parts = this.date.split('-')
+  var d = new Date(parts[0], parts[1] - 1, parts[2])
   return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
 
