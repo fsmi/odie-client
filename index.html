@@ -78,6 +78,7 @@
               <td>Prüfungsart</td>
               <td>Datum</td>
               <td>Seiten</td>
+              <td>Komm.</td>
               <td></td>
               <td></td>
               <td></td>
@@ -93,6 +94,7 @@
                   <option value='oral'>Mündlich</option>
                 </select>
               </td>
+              <td></td>
               <td></td>
               <td></td>
               <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.lecture.filtered())">∀<span class='icon-basket small'></span></button></td>
@@ -119,6 +121,9 @@
             <td data-bind="text: displayExamType()"></td>
             <td class="td-nowrap" data-bind="text: displayDate()"></td>
             <td data-bind="text: pages"></td>
+            <td>
+              <div data-bind="visible: comment !== '', attr: {title: comment}" class="icon-dot-circled"></div>
+              <div data-bind="visible: comment === ''" class="icon-circle-empty"></div></td>
             <td class="td-compact text-right">
               <button
                 class='icon-button btn-info btn btn-compact icon-basket'
