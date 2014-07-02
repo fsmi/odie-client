@@ -105,3 +105,20 @@ Cart.prototype.priceEstimate = function(depositCount) {
   return Math.ceil(price / 10) * 10
 }
 
+Cart.prototype.displayDate = function() {
+  var months = ['Jan ',
+                'Feb ',
+                'Mär ',
+                'Apr ',
+                'Mai ',
+                'Jun ',
+                'Jul ',
+                'Aug ',
+                'Sep ',
+                'Okt ',
+                'Nov ',
+                'Dez ']
+  var d = new Date(this.date)
+  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
+}
+

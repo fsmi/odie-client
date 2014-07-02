@@ -20,7 +20,7 @@ Lecture.prototype.load = function(name) {
   $.getJSON(this.baseUrl + '/data/lectures/' + urlName + '/documents', function(data) {
     self.splice(0, self.length)
     for (var i=0; i<data.length; i++) {
-      self.push(data[i])
+      self.push(new Document(data[i]))
     }
   })
 }
