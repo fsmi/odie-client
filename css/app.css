@@ -39,6 +39,7 @@ body {
 
 .td-compact {
   padding: 0 !important;
+  vertical-align: middle !important;
 }
 
 .document-list:nth-child(even) {
