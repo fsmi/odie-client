@@ -81,7 +81,6 @@
               <td>Komm.</td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
             <tr>
               <td></td>
@@ -98,7 +97,6 @@
               <td></td>
               <td></td>
               <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.lecture.filtered())">∀<span class='icon-basket small'></span></button></td>
-              <td></td>
             </tr>
           </thead>
           <tbody data-bind="foreach: lecture.filtered()">
@@ -134,14 +132,13 @@
                 clickBubble: false,
                 enable: $root.cart.doesntContain($data)">
               </button>
-            </td>
-            <td class="td-compact text-right">
               <button
                 class='icon-button btn-info btn btn-compact icon-eye'
                 title="Vorschau (von Fachschaftsrechnern aus)"
                 data-bind="
                 click: $data.preview,
-                visible: $root.user.isAuthenticated
+                visible: $root.user.isAuthenticated,
+                style: { visibility: $index() == $root.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
                 ">
               </button>
             </td>
