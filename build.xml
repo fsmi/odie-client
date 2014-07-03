@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project name="jon">
+    <dirname property="jon.basedir" file="${ant.file.jon}"/>
+
+  <property name="jslint.dir" location="${jon.basedir}/jslint"/>
+  <property name="ant.dir" location="${jon.basedir}/ant/"/>
+
+<!-- Define the task -->
+<taskdef name="jslint"
+           classname="com.googlecode.jslint4java.ant.JSLintTask"
+           classpath="${ant.dir}/jslint4java-2.0.3.jar" />
+
+<target name="verify" depends="init">
+
+  <!-- Lint the code. See http://docs.jslint4java.googlecode.com/git/2.0.1/ant.html -->
+ <jslint  options="plusplus,on,white,sloppy,browser,undef">
+    <formatter type="report" destfile="${jslint.dir}/report.html" /> 
+
+ <fileset dir="${jon.basedir}/js">
+    <include name="**/*.js"/>
+    <exclude name="**/*.min.js"/>
+    <exclude name="**/*jquery*.js"/>
+   <exclude name="**/knockout*.js"/>
+  </fileset>
+
+    <predef>App,jQuery,$$</predef>
+  </jslint>
+</target>
+
+    <target name="init">
+        <mkdir dir="${jslint.dir}" />
+    </target>
+
+
+    
+    <target name="clean">
+	<delete dir="${jslint.dir}" />
+    </target>
+
+</project>
