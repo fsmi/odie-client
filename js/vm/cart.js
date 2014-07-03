@@ -85,6 +85,7 @@ Cart.prototype.includesOral = function() {
       return true
     }
   }
+  return false
 }
 
 Cart.prototype.priceEstimate = function(depositCount) {
