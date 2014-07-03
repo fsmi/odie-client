@@ -8,6 +8,8 @@ var Print = function(baseUrl) {
   this.limit = this.defaultLimit
   this.selected = undefined
   this._coverText = null
+  this.status = undefined
+  /* undefined | 'success' | 'error' | 'waiting' */
 
   this.filteredCarts = function() {
     var filtered = []
@@ -117,6 +119,7 @@ Print.prototype.totalPrice = function() {
 
 Print.prototype.submit = function() {
   var self = this
+  self.status = 'waiting'
   var cart = self.selected
   var ids = []
   for (var i = 0; i < cart.length; ++i) {
@@ -138,9 +141,11 @@ Print.prototype.submit = function() {
       self.coverText = null
       self.selected = undefined
       console.log('Printing...');
+      self.status = 'success'
     },
     error: function() {
       console.log('PC LOAD LETTER');
+      self.status = 'error';
     }
   });
 }

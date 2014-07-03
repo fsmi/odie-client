@@ -162,3 +162,54 @@ body {
 .rangeBar-lower-bound {
   bottom: -11px;
 }
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotation {
+  0% {
+    -moz-transform: rotate(0);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+.icon-placeholder {
+  width: 30px;
+}
+
+.spinner {
+  display: none;
+}
+
+.spinner.active {
+  animation: rotation 1s infinite steps(8);
+  -webkit-animation: rotation 1s infinite steps(8);
+  -moz-animation: rotation 1s infinite steps(8);
+  display: inline-block;
+}
+
+.icon {
+  opacity: 1.0;
+  font-size: 1.3em;
+}
+
+.fade {
+  display: inline-block;
+  transition: opacity 2s;
+  opacity: 0.0;
+}
