@@ -222,6 +222,7 @@
             <td>Name</td>
             <td>Vorlesungen</td>
             <td>Erstellt</td>
+            <td></td>
           </tr>
         </thead>
         <tbody data-bind="foreach: print.filteredCarts()">
@@ -233,6 +234,7 @@
           <td data-bind="text: name"></td>
           <td data-bind="text: lectures()"></td>
           <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
+          <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root)">Öffnen</button></td>
         </tr>
         </tbody>
         <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
@@ -245,6 +247,7 @@
                }">
                <td><em>(Einkaufswagen)</em></td>
                <td data-bind="text: $root.cart.lectures()"></td>
+               <td></td>
                <td></td>
              </tr>
 

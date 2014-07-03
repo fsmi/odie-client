@@ -54,6 +54,13 @@ App.prototype.login = function() {
   });
 }
 
+App.prototype.openCart = function(cart) {
+  this.cart.dropAll();
+  for (var i = 0; i < cart.length; i++) {
+    this.cart.push(cart[i]);
+  }
+}
+
 $(document).ready(function() {
   // global config
   depositPrice = 500

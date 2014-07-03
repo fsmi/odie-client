@@ -25,6 +25,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "41087bc74d4b20b55059c60a33bf4008",
+      "css": "edit",
+      "code": 59394,
+      "src": "fontawesome"
+    },
+    {
       "uid": "7277ded7695b2a307a5f9d50097bb64c",
       "css": "print",
       "code": 59395,
@@ -34,6 +40,12 @@
       "uid": "c76b7947c957c9b78b11741173c8349b",
       "css": "attention",
       "code": 33,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c95735c17a10af81448c7fed98a04546",
+      "css": "folder-open",
+      "code": 59403,
       "src": "fontawesome"
     },
     {
