@@ -135,12 +135,23 @@
               <button
                 class='icon-button btn-info btn btn-compact icon-eye'
                 title="Vorschau (von Fachschaftsrechnern aus)"
+                data-toggle="modal"
+                data-target="#preview-config"
                 data-bind="
-                click: $data.preview,
-                visible: $root.user.isAuthenticated,
+                visible: $root.user.isAuthenticated & !$root.isPreviewConfigured,
                 style: { visibility: $index() == $root.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
-                ">
-              </button>
+                "></button>
+              <a
+                class='icon-button btn-info btn btn-compact icon-eye'
+                title="Vorschau (von Fachschaftsrechnern aus)"
+                target="_blank"
+                data-bind="
+                attr: { href: $root.previewPrefix + path },
+                click: function() { return true; },
+                clickBubble: false,
+                visible: $root.user.isAuthenticated & $root.isPreviewConfigured,
+                style: { visibility: $index() == $root.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
+                "></a>
             </td>
           </tr>
           </tbody>
@@ -187,6 +198,27 @@
           </em>
         </div>
       </span>
+
+    <div class="modal fade" id="preview-config" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Vorschau-Konfiguration</h4>
+          </div>
+          <div class="modal-body">
+            <p>Um die Vorschau-Funktion auf einem Fachschaftsrechner zu benutzen, musst du deinen Browser erst davon überzeugen, file://-URLs aus Odie heraus zu öffnen. Dafür existieren Plugins sowohl für <a href="https://addons.mozilla.org/en-US/firefox/addon/locallink/">Firefox</a> (oder auch <a href="http://kb.mozillazine.org/Links_to_local_pages_do_not_work#Disabling_the_Security_Check">ohne Plugin</a>) und <a href="https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida">Chrome</a>.</p>
+            <p>Falls zu zu den hippen Leuten gehörst, die fsmi-login per sshfs gemountet haben, kannst du natürlich auch auf deinem privaten PC die Funktion nutzen. Passe dazu den folgenden Pfad entsprechend deinem Setup an:</p>
+            <input type="text" id="preview-prefix" class="form-inline form-control-inline form-control" data-bind="value: $root.previewPrefix">
+            <p>Der Pfad wird in einem Cookie gespeichert, ist also lokal für diesen Computer.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Jetzt lieber nicht</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $root.configurePreview.bind($root)">Eingerichtet!</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- login box -->
     <div data-bind="visible: loginVisible()" class="container" style="display: none;">
@@ -295,7 +327,7 @@
           <div class="icon" data-bind="css: { 'spinner icon-spinner active': $root.print.status === 'waiting',
                                               'icon-ok text-success': $root.print.status === 'success',
                                               'icon-attention text-warning': $root.print.status === 'error',
-                                              'fade': $root.print.status === 'success' || $root.print.status === 'error' }"></div>
+                                              'fade-icon': $root.print.status === 'success' || $root.print.status === 'error' }"></div>
         </div>
       </div>
     </div>

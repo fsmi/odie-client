@@ -7,6 +7,8 @@ var Document = function(data) {
   this.examinants = data.examinants;
   this.examType = data.examType;
   this.comment = data.comment;
+  this.path = (this.examType == 'oral' ? 'protokolle' : 'klausuren') + '/scanned/' + Math.floor(this.id/2) + '.pdf';
+
   ko.track(this);
 }
 
@@ -33,8 +35,3 @@ Document.prototype.displayDate = function() {
   var d = new Date(parts[0], parts[1] - 1, parts[2])
   return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
 }
-
-Document.prototype.preview = function() {
-  window.open('file:///home/mi/info_Dokumente/' + (this.examType == 'oral' ? 'protokolle' : 'klausuren') + '/scanned/' + Math.floor(this.id/2) + '.pdf');
-}
-

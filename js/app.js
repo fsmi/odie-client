@@ -5,7 +5,8 @@ var App = function(baseUrl) {
   this.user = new User(baseUrl);
   this.print= new Print(baseUrl);
   this.rangeSelect = new RangeSelect(this.cart, this.lecture);
-
+  this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
+  this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
   this.visible = 'documents';
   this.cartID = '';
 
@@ -59,6 +60,11 @@ App.prototype.openCart = function(cart) {
   for (var i = 0; i < cart.length; i++) {
     this.cart.push(cart[i]);
   }
+}
+
+App.prototype.configurePreview = function() {
+  $.cookie('previewPrefix', this.previewPrefix, {expires: 10000});
+  this.isPreviewConfigured = true;
 }
 
 $(document).ready(function() {
