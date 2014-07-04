@@ -324,7 +324,7 @@
 
       </table>
       <div style="clear: both;">
-        <input type="text" id="cover-text" class='number-input form-control-inline form-control' data-bind="value: $root.print.coverText" placeholder="Name für Pfand/Titelblatt" required>
+        <input type="text" id="cover-text" class='number-input form-control-inline form-control' data-bind="value: $root.print.coverText" placeholder="Name für Pfand/Deckblatt" required>
         <button class='btn btn-primary icon-print' data-bind='click: print.submit.bind($root.print, $root.cart), enable: print.selected !== undefined'>Drucken</button>
         <div class="form-control-inline icon-placeholder">
           <div class="icon" data-bind="css: { 'spinner icon-spinner active': $root.print.status === 'waiting',
