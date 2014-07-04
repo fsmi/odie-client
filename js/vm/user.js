@@ -2,6 +2,7 @@ var User = function(baseUrl) {
   var self = this;
   this.baseUrl = baseUrl;
   this.username = '';
+  this.fullName = '';
   this.password = '';
   this.rememberMe = true;
   this.errorThrown = '';
@@ -10,6 +11,10 @@ var User = function(baseUrl) {
     // As we may be running on a different domain, we ensure this cookie is used
     // by setting it ourselves.
     self.isAuthenticated = ($.cookie('sessionid') !== undefined);
+    $.getJSON(this.baseUrl + '/data/user', function(data) {
+      self.username = data.user;
+      self.fullName = data.fullName;
+    });
   };
   this.onAuthUpdate();
 
@@ -43,3 +48,17 @@ User.prototype.login = function(success) {
   this.errorThrown = '';
 }
 
+User.prototype.logout = function(success) {
+  var self = this;
+  $.ajax({
+    url: this.baseUrl + '/data/logout',
+    type: 'POST',
+    error: function(xhr, _, _) {
+      console.log("Couldn't log out.");
+    },
+    success: function() {
+      self.onAuthUpdate();
+      success();
+    }
+  });
+}

@@ -27,7 +27,7 @@ App.prototype.cartVisible = function() {
 }
 
 App.prototype.loginVisible = function() {
-  return !this.user.isAuthenticated && this.visible === 'print';
+  return !this.user.isAuthenticated && this.visible === 'login';
 }
 
 App.prototype.printVisible = function() {
@@ -48,9 +48,20 @@ App.prototype.openLecture = function(lecture) {
   this.visible = 'documents'
 }
 
+// causes actual login and handles application state change
 App.prototype.login = function() {
+  var self = this;
   this.user.login(function() {
-    this.visible = 'cart';
+    self.show('documents');
+    self.print.loadCarts();
+  });
+}
+
+// causes actual logout and moves away to selection view
+App.prototype.logout = function() {
+  var self = this;
+  this.user.logout(function() {
+    self.show('documents');
   });
 }
 
