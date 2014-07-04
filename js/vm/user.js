@@ -2,7 +2,8 @@ var User = function(baseUrl) {
   var self = this;
   this.baseUrl = baseUrl;
   this.username = '';
-  this.fullName = '';
+  this.firstName = '';
+  this.lastName = '';
   this.password = '';
   this.rememberMe = true;
   this.errorThrown = '';
@@ -10,7 +11,8 @@ var User = function(baseUrl) {
   this.onAuthUpdate = function() {
     $.getJSON(this.baseUrl + '/data/user', function(data) {
       self.username = data.user;
-      self.fullName = data.fullName;
+      self.firstName = data.firstName;
+      self.lastName = data.lastName;
       self.isAuthenticated = true;
     })
     .fail(function() {
