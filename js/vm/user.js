@@ -7,13 +7,15 @@ var User = function(baseUrl) {
   this.rememberMe = true;
   this.errorThrown = '';
   this.onAuthUpdate = function() {
-    // This cookie is set when the login API call returns 200.
-    // As we may be running on a different domain, we ensure this cookie is used
-    // by setting it ourselves.
-    self.isAuthenticated = ($.cookie('sessionid') !== undefined);
     $.getJSON(this.baseUrl + '/data/user', function(data) {
       self.username = data.user;
       self.fullName = data.fullName;
+      self.isAuthenticated = true;
+    })
+    .fail(function() {
+      // We're obviously not logged in
+      $.removeCookie('sessionid');
+      self.isAuthenticated = false;
     });
   };
   this.onAuthUpdate();
