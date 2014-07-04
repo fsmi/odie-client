@@ -204,7 +204,7 @@
               <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.user.login.bind($root.user, $root.print.loadCarts.bind($root.print))" type="submit">
                 Anmelden</button>
               <label class="checkbox pull-left">
-                <input type="checkbox" value="remember-me">
+                <input type="checkbox" data-bind="checked: user.rememberMe">
                 Angemeldet bleiben
               </label>
             </form>
