@@ -262,18 +262,6 @@
             <td></td>
           </tr>
         </thead>
-        <tbody data-bind="foreach: print.filteredCarts()">
-        <tr class="document-list" data-bind="
-          click: $root.print.select.bind($root.print, $data),
-          css: { 'row-disabled': $root.print.selected && $root.print.selected !== $data,
-                 'tr-selected': $root.print.selected && $root.print.selected === $data
-               }">
-          <td data-bind="text: name"></td>
-          <td data-bind="text: lectures()"></td>
-          <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
-          <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data)">Öffnen</button></td>
-        </tr>
-        </tbody>
         <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
         <tbody>
         <tr class="document-list" data-bind="
@@ -288,6 +276,18 @@
                <td></td>
              </tr>
 
+        </tbody>
+        <tbody data-bind="foreach: print.filteredCarts()">
+        <tr class="document-list" data-bind="
+          click: $root.print.select.bind($root.print, $data),
+          css: { 'row-disabled': $root.print.selected && $root.print.selected !== $data,
+                 'tr-selected': $root.print.selected && $root.print.selected === $data
+               }">
+          <td data-bind="text: name"></td>
+          <td data-bind="text: lectures()"></td>
+          <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
+          <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data)">Öffnen</button></td>
+        </tr>
         </tbody>
       </table>
 
