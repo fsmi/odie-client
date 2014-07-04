@@ -175,7 +175,7 @@
             </tr>
           </thead>
           <tbody data-bind="foreach: cart">
-          <tr class="document-list" data-bind="attr: {title: $data.displayExamType() + ', ' + $data.displayDate()}">
+          <tr class="document-list" data-bind="attr: {title: $data.displayExamType() + ', ' + $data.displayDate() + ', ' + $data.comment}">
             <td class="row-disabled" data-bind="text: $index() + 1"></td>
             <td>
               <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
