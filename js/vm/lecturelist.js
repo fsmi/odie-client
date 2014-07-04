@@ -17,12 +17,23 @@ LectureList.prototype.load = function() {
   })
 };
 
+LectureList.prototype.getSearchRegex = function(searchString) {
+  if (/([A-Z].*){2}/.test(searchString)) {
+    // PascalCase search for search strings with more than one capital char
+    return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'), 'g');
+  } else {
+    // standard case-insensitive search
+    return new RegExp(searchString, 'gi');
+  }
+};
+
 LectureList.prototype.filtered = function() {
   if (this.searchString === '') {
     return this
   }
-  var filtered = []
-  var regex = new RegExp('.*' + this.searchString + '.*', 'i')
+  var filtered = [];
+  var regex = this.getSearchRegex(this.searchString);
+
   for (var i=0; i<this.length; i++) {
     var lecture = this[i]
     if (regex.test(lecture.name)) {
@@ -34,7 +45,8 @@ LectureList.prototype.filtered = function() {
 
 LectureList.prototype.typeaheadFilter = function(query, callback) {
   var filtered = []
-  var regex = new RegExp('.*' + query + '.*', 'i')
+  var regex = this.getSearchRegex(query);
+
   for (var i=0; i<this.length; i++) {
     var lecture = this[i]
     if (regex.test(lecture.name)) {
