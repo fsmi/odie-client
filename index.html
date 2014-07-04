@@ -146,7 +146,7 @@
                 title="Vorschau (von Fachschaftsrechnern aus)"
                 target="_blank"
                 data-bind="
-                attr: { href: $root.previewPrefix + path },
+                attr: { href: 'file://' + $root.previewPrefix + path },
                 click: function() { return true; },
                 clickBubble: false,
                 visible: $root.user.isAuthenticated & $root.isPreviewConfigured,
