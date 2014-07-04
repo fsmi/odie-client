@@ -6,6 +6,7 @@ var User = function(baseUrl) {
   this.password = '';
   this.rememberMe = true;
   this.errorThrown = '';
+  this.isAuthenticated = false;
   this.onAuthUpdate = function() {
     $.getJSON(this.baseUrl + '/data/user', function(data) {
       self.username = data.user;
