@@ -1,0 +1,40 @@
+<!-- shopping cart template.
+Please remember that this template can't be named 'card.html', as the templating engine does Evil Things if you try to nest a template into an element with the same id as the template name -->
+
+<h4>Einkaufswagen</h4>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <td>#</td>
+      <td>Vorlesungen</td>
+      <td>Prüfer</td>
+      <td>Seiten</td>
+      <td class='text-right'><button class='btn-danger icon-button btn' data-bind="click: $root.cart.dropAll.bind($root.cart)">∀<span class='icon-remove small'></span></button></td>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: cart">
+  <tr class="document-list" data-bind="attr: {title: $data.displayExamType() + ', ' + $data.displayDate() + ', ' + $data.comment}">
+    <td class="row-disabled" data-bind="text: $index() + 1"></td>
+    <td>
+      <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
+        <div data-bind="text: '• ' + lect"></div>
+      </div>
+    </td>
+    <td data-bind="text: examinants.join(', ')"></td>
+    <td data-bind="text: pages"></td>
+    <td class="text-right td-compact"><button class='btn-danger icon-button btn btn-compact icon-remove' data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
+  </tr>
+  </tbody>
+</table>
+<hr/>
+<div class="text-right form-horizontal">
+  Preisschätzung: <span data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></span> €
+  <span class="text-primary" data-bind="visible: $root.cart.includesOral()">*</span>
+  <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: cart.name">
+  <button class='btn btn-primary icon-floppy' data-bind='click: cart.save.bind(cart)'>Speichern</button>
+</div>
+<div class="text-right small text-primary" data-bind="visible: $root.cart.includesOral()" style="padding-top: 7px;">
+  <em>* Davon 
+    <span data-bind="text: (depositPrice / 100).toFixed()"></span> € Protokollpfand
+  </em>
+</div>

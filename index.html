@@ -13,6 +13,9 @@
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/knockout-3.1.0.js"></script>
     <script type="text/javascript" src="js/knockout-es5.min.js"></script>
+    <script type="text/javascript" src="js/TrafficCop.js"></script>
+    <script type="text/javascript" src="js/infuser.js"></script>
+    <script type="text/javascript" src="js/koExternalTemplateEngine.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/typeahead.jquery.js"></script>
     <script type="text/javascript" src="js/ko/typeahead.js"></script>
@@ -65,275 +68,27 @@
     </noscript>
 
     <!-- document selection -->
-      <span data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
-        <form class='form-inline' role='form'>
-          <div id='lectureSelection' class='form-group'>
-            <label for='lectureName' class='sr-only'>Vorlesung</label>
-            <input id='lectureName' placeholder='Vorlesung (Regex oder Initialen (MMMK, TeIn, ...))' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
-          </div>
-        </form>
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <td>#</td>
-              <td>Vorlesungen</td>
-              <td>Prüfer</td>
-              <td>Prüfungsart</td>
-              <td>Datum</td>
-              <td>Seiten</td>
-              <td>Komm.</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td><input type='text' data-bind='value: lecture.lecturesFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
-              <td><input type='text' data-bind='value: lecture.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
-              <td>
-                <select data-bind='value: lecture.typeFilter'>
-                  <option value=''>Beides</option>
-                  <option value='written'>Schriftlich</option>
-                  <option value='oral'>Mündlich</option>
-                </select>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.lecture.filtered())">∀<span class='icon-basket small'></span></button></td>
-            </tr>
-          </thead>
-          <tbody data-bind="foreach: lecture.filtered()">
-          <tr class="document-list" data-bind="
-            css: { 'row-disabled': !$root.cart.doesntContain($data) },
-            event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
-            click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.lecture.filtered())">
-            <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected addButton-color': $root.rangeSelect.selectedBarVisible($index)}">
-              <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
-              <span class="row-disabled" data-bind="text: $index() + 1"></span>
-              <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $root.rangeSelect.lowerBoundVisible($index)"></span>
-            </td>
-            <td>
-              <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
-                <div data-bind="text: '• ' + lect"></div>
-              </div>
-            </td>
+    <span data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
+      <div data-bind="template: 'documentselection'"></div>
+    </span>
 
-            <td data-bind="text: examinants.join(', ')"></td>
-            <td data-bind="text: displayExamType()"></td>
-            <td class="td-nowrap" data-bind="text: displayDate()"></td>
-            <td data-bind="text: pages"></td>
-            <td class="text-center">
-              <div data-bind="visible: comment !== '', attr: {title: comment}" class="icon-dot-circled"></div>
-              <div data-bind="visible: comment === ''" class="icon-circle-empty"></div></td>
-            <td class="td-nowrap td-compact text-right">
-              <button
-                class='icon-button btn-info btn btn-compact icon-basket'
-                data-bind="
-                click: $root.rangeSelect.commit.bind($root.rangeSelect, $root.lecture.filtered()),
-                style:
-                  { visibility: $root.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
-                clickBubble: false,
-                enable: $root.cart.doesntContain($data)">
-              </button>
-              <button
-                class='icon-button btn-info btn btn-compact icon-eye'
-                title="Vorschau (von Fachschaftsrechnern aus)"
-                data-toggle="modal"
-                data-target="#preview-config"
-                data-bind="
-                visible: $root.user.isAuthenticated & !$root.isPreviewConfigured,
-                style: { visibility: $index() == $root.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
-                "></button>
-              <a
-                class='icon-button btn-info btn btn-compact icon-eye'
-                title="Vorschau (von Fachschaftsrechnern aus)"
-                target="_blank"
-                data-bind="
-                attr: { href: 'file://' + $root.previewPrefix + path },
-                click: function() { return true; },
-                clickBubble: false,
-                visible: $root.user.isAuthenticated & $root.isPreviewConfigured,
-                style: { visibility: $index() == $root.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
-                "></a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </span>
+    <!-- shopping cart -->
+    <span id="cart" class="cart navbar-default container-fluid navbar" data-bind="visible: cartVisible()" style="display: none;">
+      <div data-bind="template: 'shoppingcart'"></div>
+    </span>
 
-      <!-- shopping cart -->
-      <span id="cart" class="cart navbar-default container-fluid navbar" data-bind="visible: cartVisible()" style="display: none;">
-        <h4>Einkaufswagen</h4>
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <td>#</td>
-              <td>Vorlesungen</td>
-              <td>Prüfer</td>
-              <td>Seiten</td>
-              <td class='text-right'><button class='btn-danger icon-button btn' data-bind="click: $root.cart.dropAll.bind($root.cart)">∀<span class='icon-remove small'></span></button></td>
-            </tr>
-          </thead>
-          <tbody data-bind="foreach: cart">
-          <tr class="document-list" data-bind="attr: {title: $data.displayExamType() + ', ' + $data.displayDate() + ', ' + $data.comment}">
-            <td class="row-disabled" data-bind="text: $index() + 1"></td>
-            <td>
-              <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
-                <div data-bind="text: '• ' + lect"></div>
-              </div>
-            </td>
-            <td data-bind="text: examinants.join(', ')"></td>
-            <td data-bind="text: pages"></td>
-            <td class="text-right td-compact"><button class='btn-danger icon-button btn btn-compact icon-remove' data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
-          </tr>
-          </tbody>
-        </table>
-        <hr/>
-        <div class="text-right form-horizontal">
-          Preisschätzung: <span data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></span> €
-          <span class="text-primary" data-bind="visible: $root.cart.includesOral()">*</span>
-          <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: cart.name">
-          <button class='btn btn-primary icon-floppy' data-bind='click: cart.save.bind(cart)'>Speichern</button>
-        </div>
-        <div class="text-right small text-primary" data-bind="visible: $root.cart.includesOral()" style="padding-top: 7px;">
-          <em>* Davon 
-            <span data-bind="text: (depositPrice / 100).toFixed()"></span> € Protokollpfand
-          </em>
-        </div>
-      </span>
-
-    <div class="modal fade" id="preview-config" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Vorschau-Konfiguration</h4>
-          </div>
-          <div class="modal-body">
-            <p>Um die Vorschau-Funktion auf einem Fachschaftsrechner zu benutzen, musst du deinen Browser erst davon überzeugen, file://-URLs aus Odie heraus zu öffnen. Dafür existieren Plugins sowohl für <a href="https://addons.mozilla.org/en-US/firefox/addon/locallink/">Firefox</a> (oder auch <a href="http://kb.mozillazine.org/Links_to_local_pages_do_not_work#Disabling_the_Security_Check">ohne Plugin</a>) und <a href="https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida">Chrome</a>.</p>
-            <p>Falls zu zu den hippen Leuten gehörst, die fsmi-login per sshfs gemountet haben, kannst du natürlich auch auf deinem privaten PC die Funktion nutzen. Passe dazu den folgenden Pfad entsprechend deinem Setup an:</p>
-            <input type="text" id="preview-prefix" class="form-inline form-control-inline form-control" data-bind="value: $root.previewPrefix">
-            <p>Der Pfad wird in einem Cookie gespeichert, ist also lokal für diesen Computer.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Jetzt lieber nicht</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $root.configurePreview.bind($root)">Eingerichtet!</button>
-          </div>
-        </div>
-      </div>
+    <!-- modal dialog for document preview -->
+    <div class="modal fade" id="preview-config" tabindex="-1" data-bind="template: 'previewconfig'">
     </div>
 
-    <!-- login box -->
-    <div data-bind="visible: loginVisible()" class="container" style="display: none;">
-      <div class="row">
-        <h1 class="banner">Einmal anmelden. Alle fsmi Produkte nutzen.</h1>
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-          <h1 class="text-center login-title">Anmelden um zur Drucken-Seite zu gelangen.</h1>
-          <div class="account-wall">
-            <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
-            alt="">
-            <form class="form-signin">
-              <span class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></span>
-              <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
-              <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>
-              <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.login.bind($root)" type="submit">
-                Anmelden</button>
-              <label class="checkbox pull-left">
-                <input type="checkbox" data-bind="checked: user.rememberMe">
-                Angemeldet bleiben
-              </label>
-            </form>
-          </div>
-        </div>
-      </div>
+    <!-- login page -->
+    <div data-bind="visible: loginVisible(), template: 'login'" class="container" style="display: none;">
     </div>
 
     <!-- print page -->
-    <div data-bind="visible: printVisible()" class="text-right" style="display: none;">
-      <button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Neu laden</button>
-      <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'>
-
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <td>Name</td>
-            <td>Vorlesungen</td>
-            <td>Erstellt</td>
-            <td></td>
-          </tr>
-        </thead>
-        <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
-        <tbody>
-        <tr class="document-list" data-bind="
-          click: $root.print.select.bind($root.print, $root.cart),
-          visible: $root.cart.length > 0,
-          css: { 'row-disabled': $root.print.selected && $root.print.selected !== $root.cart,
-                 'tr-selected': $root.print.selected && $root.print.selected === $root.cart
-               }">
-               <td><em>(Einkaufswagen)</em></td>
-               <td data-bind="text: $root.cart.lectures()"></td>
-               <td></td>
-               <td></td>
-             </tr>
-
-        </tbody>
-        <tbody data-bind="foreach: print.filteredCarts()">
-        <tr class="document-list" data-bind="
-          click: $root.print.select.bind($root.print, $data),
-          css: { 'row-disabled': $root.print.selected && $root.print.selected !== $data,
-                 'tr-selected': $root.print.selected && $root.print.selected === $data
-               }">
-          <td data-bind="text: name"></td>
-          <td data-bind="text: lectures()"></td>
-          <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
-          <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data)">Öffnen</button></td>
-        </tr>
-        </tbody>
-      </table>
-
-      <hr/>
-
-      <div class="text-center">
-        <span class="fade-button" data-bind="visible: $root.print.carts.length >= $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</span>
-      </div>
-
-      <table class="pull-right">
-        <tr>
-          <td>Druckpreis:</td>
-          <td data-bind="text: $root.print.printPrice()"></td>
-        </tr>
-        <tr>
-          <td>
-            <label for="deposit-count">Pfand: </label>
-          </td>
-          <td style="padding-left: 40px">
-            +&nbsp;
-            <input type="number" min='0' id="deposit-count" class='number-input form-control-inline form-control' data-bind="value: print.depositCount">
-            &nbsp;×&nbsp;
-            <span data-bind="text: (depositPrice / 100).toFixed(2)"></span>
-          </td>
-        </tr>
-        <tr> <!-- sub-total -->
-          <td></td>
-          <td><hr></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td data-bind="text: $root.print.totalPrice()"></td>
-        </tr>
-
-      </table>
-      <div style="clear: both;">
-        <input type="text" id="cover-text" class='number-input form-control-inline form-control' data-bind="value: $root.print.coverText" placeholder="Name für Pfand/Deckblatt" required>
-        <button class='btn btn-primary icon-print' data-bind='click: print.submit.bind($root.print, $root.cart), enable: print.selected !== undefined'>Drucken</button>
-        <div class="form-control-inline icon-placeholder">
-          <div class="icon" data-bind="css: { 'spinner icon-spinner active': $root.print.status === 'waiting',
-                                              'icon-ok text-success': $root.print.status === 'success',
-                                              'icon-attention text-warning': $root.print.status === 'error',
-                                              'fade-icon': $root.print.status === 'success' || $root.print.status === 'error' }"></div>
-        </div>
-      </div>
+    <div data-bind="visible: printVisible(), template: 'print'" class="text-right" style="display: none;">
     </div>
+
   </div>
   <!-- footer -->
   <div class="footer">

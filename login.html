@@ -1,0 +1,23 @@
+<!-- login screen template -->
+
+<div class="row">
+  <h1 class="banner">Einmal anmelden. Alle fsmi Produkte nutzen.</h1>
+  <div class="col-sm-6 col-md-4 col-md-offset-4">
+    <h1 class="text-center login-title">Anmelden um zur Drucken-Seite zu gelangen.</h1>
+    <div class="account-wall">
+      <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
+      alt="">
+      <form class="form-signin">
+        <span class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></span>
+        <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
+        <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>
+        <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.login.bind($root)" type="submit">
+          Anmelden</button>
+        <label class="checkbox pull-left">
+          <input type="checkbox" data-bind="checked: user.rememberMe">
+          Angemeldet bleiben
+        </label>
+      </form>
+    </div>
+  </div>
+</div>
