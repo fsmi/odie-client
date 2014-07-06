@@ -44,7 +44,7 @@
           <a class="navbar-brand" href="#">Odie</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="main-nav">
+        <div class="collapse navbar-collapse" id="main-nav" data-bind="visible: true" style="display: none !important;">
           <ul class="nav navbar-nav">
             <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Auswahl</a></li>
             <li data-bind="click: show.bind($root, 'cart')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
