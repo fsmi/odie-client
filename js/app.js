@@ -4,6 +4,7 @@ var App = function(baseUrl) {
   this.cart = new Cart(baseUrl);
   this.user = new User(baseUrl);
   this.print= new Print(baseUrl);
+  this.depositReturn = new DepositReturn(baseUrl);
   this.rangeSelect = new RangeSelect(this.cart, this.lecture);
   this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
   this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
@@ -33,6 +34,10 @@ App.prototype.loginVisible = function() {
 
 App.prototype.printVisible = function() {
   return this.user.isAuthenticated && this.visible === 'print';
+}
+
+App.prototype.depositReturnVisible = function() {
+  return this.user.isAuthenticated && this.visible === 'depositReturn';
 }
 
 App.prototype.show = function(name) {

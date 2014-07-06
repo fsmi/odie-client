@@ -26,6 +26,7 @@
     <script type="text/javascript" src="js/vm/user.js"></script>
     <script type="text/javascript" src="js/vm/print.js"></script>
     <script type="text/javascript" src="js/vm/range.js"></script>
+    <script type="text/javascript" src="js/vm/depositReturn.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <title>Klausurenverkauf – Fachschaft Mathematik/Informatik</title>
   </head>
@@ -51,6 +52,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li data-bind="visible: user.isAuthenticated, css: { active: printVisible() }, click: show.bind($root, 'print')"><a href="#">Drucken</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: depositReturnVisible() }, click: show.bind($root, 'depositReturn')"><a href="#">Pfandrückgabe</a></li>
             <li data-bind="visible: !user.isAuthenticated, css: { active: loginVisible() }, click: show.bind($root, 'login')"><a href="#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
             <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.firstName"></span></a></li>
@@ -87,6 +89,10 @@
 
     <!-- print page -->
     <div data-bind="visible: printVisible(), template: 'print'" class="text-right" style="display: none;">
+    </div>
+
+    <!-- deposit return page -->
+    <div data-bind="visible: depositReturnVisible(), template: 'depositreturn'" class="text-right" style="display: none;">
     </div>
 
   </div>

@@ -1,0 +1,33 @@
+<!-- deposit return page template -->
+
+<button class="btn btn-primary icon-arrows-cw" data-bind="click: depositReturn.loadList.bind(depositReturn)">Neu laden</button>
+<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: depositReturn.filter'>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <td>#</td>
+      <td>Name</td>
+      <td>Eingenommen von</td>
+      <td></td>
+      <td></td>
+    <tr>
+  </thead>
+  <tbody data-bind="foreach: depositReturn.filteredList()">
+    <tr class="document-list">
+      <td data-bind="text: $index() + 1" class="row-disabled"></td>
+      <td>TODO</td>
+      <td>TODO</td>
+      <td>TODO</td>
+      <td><button class="btn btn-compact btn-primary icon-money" data-bind="click: $root.depositReturn.markAsReturned.bind($root.depositReturn, $data)">Auszahlen</button></td>
+      <td>
+        <div class="form-control-inline icon-placeholder">
+          <div class="icon" data-bind="css: { 'spinner icon-spinner active': $root.depositReturn.status === 'waiting',
+            'icon-ok text-success': $root.depositReturn.status === 'success',
+            'icon-attention text-warning': $root.depositReturn.status === 'error',
+            'fade-icon': $root.depositReturn.status === 'success' || $root.depositReturn.status === 'error' }">
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
