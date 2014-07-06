@@ -7,7 +7,7 @@
     <div class="account-wall">
       <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/skins/common/images/FS-Logo-transparent.gif"
       alt="">
-      <form class="form-signin">
+      <form class="form-signin" id="login-form">
         <span class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></span>
         <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
         <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>

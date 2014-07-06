@@ -24,17 +24,16 @@ var User = function(baseUrl) {
   this.onAuthUpdate();
 
   ko.track(this);
-
-  // when firefox fills in login details, it doesn't trigger the right JS events
-  // We can't use whatever firefox entered in there, so we're forced to clear it
-  ko.getObservable(this, 'username').valueHasMutated();
-  ko.getObservable(this, 'password').valueHasMutated();
 }
 
 User.prototype = Object.create(Object.prototype);
 
 User.prototype.login = function(success) {
   var self = this;
+  // Hack to force KO to fetch input values. This should fix firefox' filled-in
+  // credentials not actually being sent.
+  $('#login-form').find('input').change();
+
   $.ajax({
     url: this.baseUrl + '/data/login',
     type: 'POST',
