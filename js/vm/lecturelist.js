@@ -1,9 +1,9 @@
 var LectureList = function(baseUrl) {
-  this.baseUrl = baseUrl
-  this.searchString = ''
-  ko.track(this)
+  this.baseUrl = baseUrl;
+  this.searchString = '';
+  ko.track(this);
 
-  this.load()
+  this.load();
 };
 
 LectureList.prototype = Object.create(Array.prototype);
@@ -12,7 +12,7 @@ LectureList.prototype.load = function() {
   var self = this;
   $.getJSON(this.baseUrl + '/data/lectures', function(data) {
     for (var i=0; i<data.length; i++) {
-      self.push(data[i])
+      self.push(data[i]);
     }
   })
 };
@@ -29,33 +29,33 @@ LectureList.prototype.getSearchRegex = function(searchString) {
 
 LectureList.prototype.filtered = function() {
   if (this.searchString === '') {
-    return this
+    return this;
   }
   var filtered = [];
   var regex = this.getSearchRegex(this.searchString);
 
   for (var i=0; i<this.length; i++) {
-    var lecture = this[i]
+    var lecture = this[i];
     if (regex.test(lecture.name)) {
-      filtered.push(lecture)
+      filtered.push(lecture);
     }
   }
-  return filtered
+  return filtered;
 }
 
 LectureList.prototype.typeaheadFilter = function(query, callback) {
-  var filtered = []
+  var filtered = [];
   var regex = this.getSearchRegex(query);
 
   for (var i=0; i<this.length; i++) {
-    var lecture = this[i]
+    var lecture = this[i];
     if (regex.test(lecture.name)) {
-      filtered.push(lecture)
+      filtered.push(lecture);
     }
   }
-  callback(filtered)
+  callback(filtered);
 }
 
 LectureList.prototype.clearSearch = function() {
-  this.searchString = ''
+  this.searchString = '';
 }

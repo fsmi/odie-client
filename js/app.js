@@ -45,8 +45,8 @@ App.prototype.show = function(name) {
 }
 
 App.prototype.openLecture = function(lecture) {
-  this.lecture.load(lecture.name)
-  this.visible = 'documents'
+  this.lecture.load(lecture.name);
+  this.visible = 'documents';
 }
 
 // causes actual login and handles application state change
@@ -80,14 +80,14 @@ App.prototype.configurePreview = function() {
 
 $(document).ready(function() {
   // global config
-  depositPrice = 500
-  pricePerPage = 3
+  depositPrice = 500;
+  pricePerPage = 3;
 
   if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
     url = window.location.origin + '/odie';
   } else {
-    var live = true
-    var url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000'
+    var live = true;
+    var url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
   }
   var app = new App(url);
   window.app = app;

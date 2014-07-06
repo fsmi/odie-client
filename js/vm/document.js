@@ -15,7 +15,7 @@ var Document = function(data) {
 Document.prototype = Object.create(Object.prototype);
 
 Document.prototype.displayExamType = function() {
-  return this.examType === "written" ? "Schriftlich" : "Mündlich"
+  return this.examType === "written" ? "Schriftlich" : "Mündlich";
 }
 
 Document.prototype.displayDate = function() {
@@ -30,8 +30,8 @@ Document.prototype.displayDate = function() {
                 'Sep ',
                 'Okt ',
                 'Nov ',
-                'Dez ']
-  var parts = this.date.split('-')
-  var d = new Date(parts[0], parts[1] - 1, parts[2])
-  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear()
+                'Dez '];
+  var parts = this.date.split('-');
+  var d = new Date(parts[0], parts[1] - 1, parts[2]);
+  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear();
 }
