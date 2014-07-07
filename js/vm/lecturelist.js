@@ -18,7 +18,7 @@ LectureList.prototype.load = function() {
 };
 
 LectureList.prototype.getSearchRegex = function(searchString) {
-  if (/([A-Z].*){2}/.test(searchString)) {
+  if (/^([A-Z][a-z]*){2,}$/.test(searchString)) {
     // PascalCase search for search strings with more than one capital char
     return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'));
   } else {

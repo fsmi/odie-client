@@ -4,7 +4,7 @@ If initial load times turn out to be an issue, it may be a better idea to inline
 <form class='form-inline' role='form'>
   <div id='lectureSelection' class='form-group'>
     <label for='lectureName' class='sr-only'>Vorlesung</label>
-    <input id='lectureName' placeholder='Vorlesung (Regex oder Initialen (MMMK, TeIn, ...))' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
+    <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
   </div>
 </form>
 <table class="table table-condensed">
