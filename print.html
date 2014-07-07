@@ -10,6 +10,7 @@
       <td>Vorlesungen</td>
       <td>Erstellt</td>
       <td></td>
+      <td></td>
     </tr>
   </thead>
   <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
@@ -24,6 +25,7 @@
     <td data-bind="text: $root.cart.lectures()"></td>
     <td></td>
     <td></td>
+    <td></td>
   </tr>
 
   </tbody>
@@ -36,7 +38,8 @@
     <td data-bind="text: name"></td>
     <td data-bind="text: lectures()"></td>
     <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
-    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data)">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data), clickBubble: false">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.print.deleteCart.bind($root.print, $data), clickBubble: false">Löschen</button></td>
   </tr>
   </tbody>
 </table>

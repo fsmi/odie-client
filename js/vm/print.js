@@ -101,6 +101,22 @@ Print.prototype.loadCarts = function() {
   this.limit = this.defaultLimit;
 }
 
+Print.prototype.deleteCart = function(cart) {
+  var self = this;
+  $.ajax({
+    url: this.baseUrl + '/data/carts/' + cart.id,
+    type: 'DELETE',
+    success: function() {
+      console.log('Yay');
+      var i = self.carts.indexOf(cart);
+      if (i > -1) {
+        // remove from cart listing
+        self.carts.splice(i, 1);
+      }
+    }
+  });
+}
+
 Print.prototype.select = function(cart) {
   this.selected = cart;
   this.depositCount = null;
