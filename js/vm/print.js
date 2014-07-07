@@ -107,7 +107,6 @@ Print.prototype.deleteCart = function(cart) {
     url: this.baseUrl + '/data/carts/' + cart.id,
     type: 'DELETE',
     success: function() {
-      console.log('Yay');
       var i = self.carts.indexOf(cart);
       if (i > -1) {
         // remove from cart listing
