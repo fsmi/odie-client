@@ -20,10 +20,10 @@ LectureList.prototype.load = function() {
 LectureList.prototype.getSearchRegex = function(searchString) {
   if (/([A-Z].*){2}/.test(searchString)) {
     // PascalCase search for search strings with more than one capital char
-    return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'), 'g');
+    return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'));
   } else {
     // standard case-insensitive search
-    return new RegExp(searchString, 'gi');
+    return new RegExp(searchString, 'i');
   }
 };
 
