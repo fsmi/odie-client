@@ -101,7 +101,7 @@ body {
 
 .row-disabled {
   transition: opacity 0.3s;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .footer {

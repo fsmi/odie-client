@@ -117,7 +117,12 @@ Print.prototype.deleteCart = function(cart) {
 }
 
 Print.prototype.select = function(cart) {
-  this.selected = cart;
+  if (this.selected === cart) {
+    this.selected = undefined;
+  }
+  else {
+    this.selected = cart;
+  }
   this.depositCount = null;
   this.coverText = null;
 }
