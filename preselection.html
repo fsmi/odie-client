@@ -38,6 +38,7 @@
     <td data-bind="text: lectures()"></td>
     <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
     <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data), clickBubble: false">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-primary icon-print" data-toggle="modal" data-target="#printModal">Drucken</button></td>
     <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.print.deleteCart.bind($root.print, $data), clickBubble: false">Löschen</button></td>
   </tr>
   </tbody>
@@ -49,4 +50,5 @@
   <span class="fade-button" data-bind="visible: $root.print.carts.length >= $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</span>
 </div>
 
-<div data-bind="template: {name: 'print', data: $root.print.selected}"></div>
+<!-- ko template: 'printmodal' -->
+<!-- /ko -->
