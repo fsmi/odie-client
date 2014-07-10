@@ -120,6 +120,6 @@ Cart.prototype.displayDate = function() {
                 'Nov ',
                 'Dez '];
   var d = new Date(this.date);
-  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear();
+  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
 }
 
