@@ -1,0 +1,52 @@
+<!-- print screen template -->
+
+<button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Neu laden</button>
+<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Vorlesungen</td>
+      <td>Erstellt</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
+  <tbody>
+  <tr class="document-list" data-bind="
+    click: $root.print.select.bind($root.print, $root.cart),
+    css: { 'row-disabled': $root.print.selected && $root.print.selected !== $root.cart,
+    'tr-selected': $root.print.selected && $root.print.selected === $root.cart
+    }">
+    <td><em>(Einkaufswagen)</em></td>
+    <td data-bind="text: $root.cart.lectures()"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  </tbody>
+  <tbody data-bind="foreach: print.filteredCarts()">
+  <tr class="document-list" data-bind="
+    click: $root.print.select.bind($root.print, $data),
+    css: { 'row-disabled': $root.print.selected && $root.print.selected !== $data,
+    'tr-selected': $root.print.selected && $root.print.selected === $data
+    }">
+    <td data-bind="text: name"></td>
+    <td data-bind="text: lectures()"></td>
+    <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
+    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data), clickBubble: false">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.print.deleteCart.bind($root.print, $data), clickBubble: false">Löschen</button></td>
+  </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<div class="text-center">
+  <span class="fade-button" data-bind="visible: $root.print.carts.length >= $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</span>
+</div>
+
+<div data-bind="template: {name: 'print', data: $root.print.selected}"></div>

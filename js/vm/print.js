@@ -127,20 +127,19 @@ Print.prototype.select = function(cart) {
   this.coverText = null;
 }
 
-Print.prototype.printPrice = function() {
-  return this.selected !== undefined ? (this.selected.priceEstimate(0) / 100).toFixed(2) : '0.00';
+Print.prototype.printPrice = function(cart) {
+  return cart !== undefined ? (cart.priceEstimate(0) / 100).toFixed(2) : '0.00';
 }
 
-Print.prototype.totalPrice = function() {
-  return this.selected !== undefined
-    ? (this.selected.priceEstimate(this.depositCount) / 100).toFixed(2)
+Print.prototype.totalPrice = function(cart) {
+  return cart !== undefined
+    ? (cart.priceEstimate(this.depositCount) / 100).toFixed(2)
     : '0.00';
 }
 
-Print.prototype.submit = function() {
+Print.prototype.submit = function(cart) {
   var self = this;
   self.status = 'waiting';
-  var cart = self.selected;
   var ids = [];
   for (var i = 0; i < cart.length; ++i) {
     ids.push(cart[i].id);
