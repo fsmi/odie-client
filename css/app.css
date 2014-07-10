@@ -80,6 +80,11 @@ body {
   line-height: 100%;
 }
 
+ul.lecture-list-cell {
+  margin: 0;
+  padding-left: 12px;
+}
+
 .form-control-inline {
   display: inline-block;
   width: initial;
