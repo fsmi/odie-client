@@ -1,0 +1,20 @@
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title text-left" id="printModalLabel">Auswahl drucken</h4>
+      </div>
+      <div class="modal-body clearfix">
+        <div class="text-left" data-bind="with: $root.print.selected">
+          <h4 data-bind="text: name" style="margin-top: 0px;"></h4>
+          <ul data-bind="foreach: lectures()">
+            <li data-bind="text: $data"></li>
+          </ul>
+        </div>
+        <!-- ko template: { name: 'print', data: $root.print.selected } -->
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+</div>

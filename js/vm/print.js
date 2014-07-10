@@ -156,9 +156,6 @@ Print.prototype.submit = function(cart) {
     data: JSON.stringify(job),
     success: function() {
       // reset for next print job
-      self.depositCount = null;
-      self.coverText = null;
-      self.selected = undefined;
       console.log('Printing...');
       self.status = 'success';
     },

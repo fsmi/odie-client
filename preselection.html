@@ -29,15 +29,12 @@
 
   </tbody>
   <tbody data-bind="foreach: print.filteredCarts()">
-  <tr class="document-list" data-bind="
-    click: $root.print.select.bind($root.print, $data),
-    css: { 'row-disabled': $root.print.selected && $root.print.selected !== $data,
-    'tr-selected': $root.print.selected && $root.print.selected === $data
-    }">
+  <tr class="document-list">
     <td data-bind="text: name"></td>
     <td data-bind="text: lectures()"></td>
     <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
     <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data), clickBubble: false">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: $root.print.select.bind($root.print, $data)" data-toggle="modal" data-target="#printModal">Drucken</button></td>
     <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.print.deleteCart.bind($root.print, $data), clickBubble: false">Löschen</button></td>
   </tr>
   </tbody>
@@ -49,4 +46,5 @@
   <span class="fade-button" data-bind="visible: $root.print.carts.length >= $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</span>
 </div>
 
-<div data-bind="template: {name: 'print', data: $root.print.selected}"></div>
+<!-- ko template: 'printmodal' -->
+<!-- /ko -->
