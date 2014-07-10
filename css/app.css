@@ -85,6 +85,10 @@ ul.lecture-list-cell {
   padding-left: 12px;
 }
 
+.document-comment {
+  font-style: italic;
+}
+
 .form-control-inline {
   display: inline-block;
   width: initial;
