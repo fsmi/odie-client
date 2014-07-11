@@ -89,6 +89,18 @@ $(document).ready(function() {
   if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
     url = window.location.origin + '/odie';
   } else {
+    // $.ajaxSetup is stupid, let's write our own one
+    _ajax = $.ajax;
+    $.ajax = function(settings) {
+      s = {
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        }
+      };
+      $.extend(s, settings);
+      return _ajax(s);
+    };
     var live = true;
     var url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
   }
