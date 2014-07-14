@@ -50,7 +50,7 @@
             <li data-bind="click: show.bind($root, 'cart')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li data-bind="visible: user.isAuthenticated, css: { active: printVisible() }, click: show.bind($root, 'print')"><a href="#">Drucken</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: printVisible() }, click: show.bind($root, 'print')"><a href="#">Vorauswahl</a></li>
             <li data-bind="visible: !user.isAuthenticated, css: { active: loginVisible() }, click: show.bind($root, 'login')"><a href="#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
             <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.firstName"></span></a></li>

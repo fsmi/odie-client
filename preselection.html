@@ -13,21 +13,6 @@
       <td></td>
     </tr>
   </thead>
-  <!-- getting this into the other tbody doesn't work due to the way the foreach binding works -->
-  <tbody>
-  <tr class="document-list" data-bind="
-    click: $root.print.select.bind($root.print, $root.cart),
-    css: { 'row-disabled': $root.print.selected && $root.print.selected !== $root.cart,
-    'tr-selected': $root.print.selected && $root.print.selected === $root.cart
-    }">
-    <td><em>(Einkaufswagen)</em></td>
-    <td data-bind="text: $root.cart.lectures()"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-
-  </tbody>
   <tbody data-bind="foreach: print.filteredCarts()">
   <tr class="document-list">
     <td data-bind="text: name"></td>
