@@ -19,9 +19,7 @@
     <td data-bind="text: lectures()"></td>
     <td class="td-nowrap" data-bind="text: cart.displayDate()"></td>
     <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, cart), clickBubble: false">Öffnen</button></td>
-    <td><button class="btn btn-compact btn-primary icon-print" data-toggle="modal" data-target="#printModal">Drucken</button></td>
-<!-- ko template: {name: 'printmodal', data: new PrintJob($root.baseUrl, cart)} -->
-<!-- /ko -->
+    <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', new PrintJob($root.baseUrl, cart)); }">Drucken</button></td>
     <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.preselection.deleteCart.bind($root.preselection, cart), clickBubble: false">Löschen</button></td>
   </tr>
   </tbody>
