@@ -1,6 +1,6 @@
-<!-- print screen template -->
+<!-- preselection screen template. Data binding context: CartList -->
 
-<button class="btn btn-primary icon-arrows-cw" data-bind="click: print.loadCarts.bind(print)">Neu laden</button>
+<button class="btn btn-primary icon-arrows-cw" data-bind="click: preselection.loadCarts.bind(print)">Neu laden</button>
 <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'>
 
 <table class="table table-condensed">
@@ -13,14 +13,16 @@
       <td></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: print.filteredCarts()">
+  <tbody data-bind="foreach: {data: preselection.filteredCarts(), as: 'cart'}">
   <tr class="document-list">
     <td data-bind="text: name"></td>
     <td data-bind="text: lectures()"></td>
-    <td class="td-nowrap" data-bind="text: $data.displayDate()"></td>
-    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, $data), clickBubble: false">Öffnen</button></td>
-    <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: $root.print.select.bind($root.print, $data)" data-toggle="modal" data-target="#printModal">Drucken</button></td>
-    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.print.deleteCart.bind($root.print, $data), clickBubble: false">Löschen</button></td>
+    <td class="td-nowrap" data-bind="text: cart.displayDate()"></td>
+    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, cart), clickBubble: false">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-primary icon-print" data-toggle="modal" data-target="#printModal">Drucken</button></td>
+<!-- ko template: {name: 'printmodal', data: new PrintJob($root.baseUrl, cart)} -->
+<!-- /ko -->
+    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.preselection.deleteCart.bind($root.preselection, cart), clickBubble: false">Löschen</button></td>
   </tr>
   </tbody>
 </table>
@@ -28,8 +30,11 @@
 <hr/>
 
 <div class="text-center">
-  <span class="fade-button" data-bind="visible: $root.print.carts.length >= $root.print.limit && $root.print.limit !== -1, click: print.showAllCarts.bind($root.print)">● ● ●</span>
+  <span class="fade-button" data-bind="
+    visible:
+      $root.preselection.carts.length >= $root.preselection.limit
+      && $root.preselection.limit !== -1,
+    click:
+      $root.preselection.showAllCarts.bind($root.preselection)">● ● ●</span>
 </div>
 
-<!-- ko template: 'printmodal' -->
-<!-- /ko -->

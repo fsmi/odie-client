@@ -12,8 +12,8 @@ Please remember that this template can't be named 'card.html', as the templating
       <td class='text-right'><button class='btn-danger icon-button btn' data-bind="click: $root.cart.dropAll.bind($root.cart)">∀<span class='icon-remove small'></span></button></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: cart">
-  <tr class="document-list" data-bind="attr: {title: $data.displayExamType() + ', ' + $data.displayDate() + ', ' + $data.comment}">
+  <tbody data-bind="foreach: {data: $root.cart, as: 'document'}">
+  <tr class="document-list" data-bind="attr: {title: document.displayExamType() + ', ' + document.displayDate() + ', ' + document.comment}">
     <td class="row-disabled" data-bind="text: $index() + 1"></td>
     <td>
       <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
@@ -22,7 +22,7 @@ Please remember that this template can't be named 'card.html', as the templating
     </td>
     <td data-bind="text: examinants.join(', ')"></td>
     <td data-bind="text: pages"></td>
-    <td class="text-right td-compact"><button class='btn-danger icon-button btn btn-compact icon-remove' data-bind="click: $root.cart.drop.bind($root.cart)"></button></td>
+    <td class="text-right td-compact"><button class='btn-danger icon-button btn btn-compact icon-remove' data-bind="click: $root.cart.drop.bind($root.cart, $data)"></button></td>
   </tr>
   </tbody>
 </table>
@@ -32,13 +32,13 @@ Please remember that this template can't be named 'card.html', as the templating
   <div class="text-right form-horizontal">
     Preisschätzung: <span data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></span> €
     <span class="text-primary" data-bind="visible: $root.cart.includesOral()">*</span>
-    <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: cart.name">
-    <button class='btn btn-primary icon-floppy' data-bind='click: cart.save.bind(cart)'>Speichern</button>
+    <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: name">
+    <button class='btn btn-primary icon-floppy' data-bind='click: $root.cart.save.bind(cart)'>Speichern</button>
   </div>
   <div class="text-right small text-primary" data-bind="visible: $root.cart.includesOral()" style="padding-top: 7px;">
     <em>* Davon 
-      <span data-bind="text: (depositPrice / 100).toFixed()"></span> € Protokollpfand
+      <span data-bind="text: ($root.cart.depositPrice / 100).toFixed()"></span> € Protokollpfand
     </em>
   </div>
 </div>
-<div data-bind="visible: $root.user.isAuthenticated, template: {name: 'print', data: $root.cart}"></div>
+<div data-bind="visible: $root.user.isAuthenticated, template: {name: 'print', data: $root.printJob}"></div>

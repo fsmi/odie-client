@@ -1,7 +1,8 @@
+<!-- template for the print widget. Data binding context: PrintJob -->
 <table class="pull-right text-right">
   <tr>
     <td>Druckpreis:</td>
-    <td data-bind="text: $root.print.printPrice($data)"></td>
+    <td data-bind="text: printPrice()"></td>
   </tr>
   <tr>
     <td>
@@ -9,7 +10,7 @@
     </td>
     <td style="padding-left: 40px">
       +&nbsp;
-      <input type="number" min='0' id="deposit-count" class='number-input form-control-inline form-control' data-bind="value: $root.print.depositCount">
+      <input type="number" min='0' id="deposit-count" class='number-input form-control-inline form-control' data-bind="value: depositCount">
       &nbsp;×&nbsp;
       <span data-bind="text: (depositPrice / 100).toFixed(2)"></span>
     </td>
@@ -20,17 +21,17 @@
   </tr>
   <tr>
     <td></td>
-    <td data-bind="text: $root.print.totalPrice($data)"></td>
+    <td data-bind="text: totalPrice()"></td>
   </tr>
 </table>
 
 <div class="pull-right" style="clear: both; padding-top: 10px;">
-  <input type="text" id="cover-text" class='number-input form-control-inline form-control' data-bind="value: $root.print.coverText" placeholder="Name für Pfand/Deckblatt" required>
-  <button class='btn btn-primary icon-print' data-bind='click: $root.print.submit.bind($root.print, $data), enable: $data !== undefined && $data.length > 0'>Drucken</button>
+  <input type="text" id="cover-text" class='number-input form-control-inline form-control' data-bind="value: coverText" placeholder="Name für Pfand/Deckblatt" required>
+  <button class='btn btn-primary icon-print' data-bind='click: submit.bind($data), enable: cart.length > 0'>Drucken</button>
   <div class="form-control-inline icon-placeholder">
-    <div class="icon" data-bind="css: { 'spinner icon-spinner active': $root.print.status === 'waiting',
-      'icon-ok text-success': $root.print.status === 'success',
-      'icon-attention text-warning': $root.print.status === 'error',
-      'fade-icon': $root.print.status === 'success' || $root.print.status === 'error' }"></div>
+    <div class="icon" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
+      'icon-ok text-success': status === 'success',
+      'icon-attention text-warning': status === 'error',
+      'fade-icon': status === 'success' || status === 'error' }"></div>
   </div>
 </div>

@@ -1,9 +1,11 @@
 var App = function(baseUrl) {
+  this.baseUrl = baseUrl;
   this.lectures = new LectureList(baseUrl);
   this.lecture = new Lecture(baseUrl);
   this.cart = new Cart(baseUrl);
+  this.printJob = new PrintJob(baseUrl, this.cart);
   this.user = new User(baseUrl);
-  this.print= new Print(baseUrl);
+  this.preselection = new CartList(baseUrl);
   this.rangeSelect = new RangeSelect(this.cart, this.lecture);
   this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
   this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
