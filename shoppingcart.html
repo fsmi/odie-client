@@ -32,7 +32,7 @@ Please remember that this template can't be named 'card.html', as the templating
   <div class="text-right form-horizontal">
     Preisschätzung: <span data-bind="text: ($root.cart.priceEstimate() / 100).toFixed(2)"></span> €
     <span class="text-primary" data-bind="visible: $root.cart.includesOral()">*</span>
-    <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: name">
+    <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: $root.cart.name">
     <button class='btn btn-primary icon-floppy' data-bind='click: $root.cart.save.bind(cart)'>Speichern</button>
   </div>
   <div class="text-right small text-primary" data-bind="visible: $root.cart.includesOral()" style="padding-top: 7px;">
