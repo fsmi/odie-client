@@ -56,7 +56,7 @@ App.prototype.login = function() {
   var self = this;
   this.user.login(function() {
     self.show('documents');
-    self.print.loadCarts();
+    self.preselection.loadCarts();
   });
 }
 
@@ -72,9 +72,6 @@ App.prototype.openCart = function(cart) {
   this.cart.dropAll();
   for (var i = 0; i < cart.length; i++) {
     this.cart.push(cart[i]);
-  }
-  if (this.print.selected !== this.cart) {
-    this.print.select(this.cart);
   }
 }
 
