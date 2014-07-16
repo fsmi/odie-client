@@ -87,6 +87,7 @@ $(document).ready(function() {
   // global config
   depositPrice = 500;
   pricePerPage = 3;
+  infuser.defaults.useLoadingTemplate = false;
 
   if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
     url = window.location.origin + '/odie';
