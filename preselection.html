@@ -1,7 +1,7 @@
 <!-- preselection screen template. Data binding context: CartList -->
 
-<button class="btn btn-primary icon-arrows-cw" data-bind="click: preselection.loadCarts.bind(print)">Neu laden</button>
-<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: print.filter'>
+<button class="btn btn-primary icon-arrows-cw" data-bind="click: preselection.loadCarts.bind(preselection)">Neu laden</button>
+<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: preselection.filter'>
 
 <table class="table table-condensed">
   <thead>
