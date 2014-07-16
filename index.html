@@ -78,7 +78,7 @@
 
     <!-- shopping cart -->
     <span id="cart" class="cart navbar-default container-fluid navbar" data-bind="visible: cartVisible()" style="display: none;">
-      <div data-bind="template: 'shoppingcart'"></div>
+      <div data-bind="template: {name: 'shoppingcart', data: cart}"></div>
     </span>
 
     <!-- login page -->
