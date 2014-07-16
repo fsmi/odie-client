@@ -1,7 +1,7 @@
 <!-- preselection screen template. Data binding context: CartList -->
 
-<button class="btn btn-primary icon-arrows-cw" data-bind="click: preselection.loadCarts.bind(preselection)">Neu laden</button>
-<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: preselection.filter'>
+<button class="btn btn-primary icon-arrows-cw" data-bind="click: loadCarts.bind($data)">Neu laden</button>
+<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: filter'>
 
 <table class="table table-condensed">
   <thead>
@@ -13,14 +13,14 @@
       <td></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: {data: preselection.filteredCarts(), as: 'cart'}">
+  <tbody data-bind="foreach: {data: filteredCarts(), as: 'cart'}">
   <tr class="document-list">
     <td data-bind="text: name"></td>
     <td data-bind="text: lectures()"></td>
     <td class="td-nowrap" data-bind="text: cart.displayDate()"></td>
-    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, cart), clickBubble: false">Öffnen</button></td>
+    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, cart)">Öffnen</button></td>
     <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', new PrintJob($root.baseUrl, cart)); }">Drucken</button></td>
-    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $root.preselection.deleteCart.bind($root.preselection, cart), clickBubble: false">Löschen</button></td>
+    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, cart)">Löschen</button></td>
   </tr>
   </tbody>
 </table>
@@ -30,9 +30,8 @@
 <div class="text-center">
   <span class="fade-button" data-bind="
     visible:
-      $root.preselection.carts.length >= $root.preselection.limit
-      && $root.preselection.limit !== -1,
+      carts.length >= limit && limit !== -1,
     click:
-      $root.preselection.showAllCarts.bind($root.preselection)">● ● ●</span>
+      showAllCarts.bind($data)">● ● ●</span>
 </div>
 
