@@ -1,12 +1,12 @@
 var App = function(baseUrl) {
   this.baseUrl = baseUrl;
   this.lectures = new LectureList(baseUrl);
-  this.lecture = new Lecture(baseUrl);
+  this.documentlist = new DocumentList(baseUrl);
   this.cart = new Cart(baseUrl);
   this.printJob = new PrintJob(baseUrl, this.cart);
   this.user = new User(baseUrl);
   this.preselection = new CartList(baseUrl);
-  this.rangeSelect = new RangeSelect(this.cart, this.lecture);
+  this.rangeSelect = new RangeSelect(this.cart, this.documentlist);
   this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
   this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
   this.visible = 'documents';
@@ -47,7 +47,7 @@ App.prototype.show = function(name) {
 }
 
 App.prototype.openLecture = function(lecture) {
-  this.lecture.load(lecture.name);
+  this.documentlist.load(lecture.name);
   this.visible = 'documents';
 }
 

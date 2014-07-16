@@ -4,13 +4,13 @@ If initial load times turn out to be an issue, it may be a better idea to inline
 <form class='form-inline' role='form'>
   <div id='lectureSelection' class='form-group'>
     <label for='lectureName' class='sr-only'>Vorlesung</label>
-    <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: lecture.name, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
+    <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
   </div>
 </form>
 <table class="table table-condensed">
   <thead>
     <tr>
-      <td class="td-compact">#/<span data-bind="text: lecture.filtered().length"></span></td>
+      <td class="td-compact">#/<span data-bind="text: documentlist.filtered().length"></span></td>
       <td>Vorlesungen</td>
       <td>Prüfer</td>
       <td>Prüfungsart</td>
@@ -21,10 +21,10 @@ If initial load times turn out to be an issue, it may be a better idea to inline
     </tr>
     <tr>
       <td></td>
-      <td><input type='text' data-bind='value: lecture.lecturesFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
-      <td><input type='text' data-bind='value: lecture.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
+      <td><input type='text' data-bind='value: documentlist.lectureFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
+      <td><input type='text' data-bind='value: documentlist.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
       <td>
-        <select data-bind='value: lecture.typeFilter'>
+        <select data-bind='value: documentlist.typeFilter'>
           <option value=''>Beides</option>
           <option value='written'>Schriftlich</option>
           <option value='oral'>Mündlich</option>
@@ -32,14 +32,14 @@ If initial load times turn out to be an issue, it may be a better idea to inline
       </td>
       <td></td>
       <td></td>
-      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.lecture.filtered())">∀<span class='icon-basket small'></span></button></td>
+      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.documentlist.filtered())">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: lecture.filtered()">
+  <tbody data-bind="foreach: documentlist.filtered()">
   <tr class="document-list" data-bind="
     css: { 'row-disabled': !$root.cart.doesntContain($data) },
     event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
-    click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.lecture.filtered())">
+    click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.documentlist.filtered())">
     <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected addButton-color': $root.rangeSelect.selectedBarVisible($index)}">
       <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $root.rangeSelect.upperBoundVisible($index)"></span>
       <span class="row-disabled" data-bind="text: $index() + 1"></span>
@@ -60,7 +60,7 @@ If initial load times turn out to be an issue, it may be a better idea to inline
       <button
         class='icon-button btn-info btn btn-compact icon-basket'
         data-bind="
-        click: $root.rangeSelect.commit.bind($root.rangeSelect, $root.lecture.filtered()),
+        click: $root.rangeSelect.commit.bind($root.rangeSelect, $root.documentlist.filtered()),
         style:
         { visibility: $root.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
         clickBubble: false,
