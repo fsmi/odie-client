@@ -83,7 +83,7 @@ App.prototype.configurePreview = function() {
 $(document).ready(function() {
   // global config
   depositPrice = 500;
-  pricePerPage = 3;
+  pricePerPage = 4; // in cents
   infuser.defaults.useLoadingTemplate = false;
 
   if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
