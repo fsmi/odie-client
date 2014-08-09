@@ -3,6 +3,14 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+.heading
+{
+  color: rgb(85, 85, 85);
+  font-family: 'Open Sans', arial;
+  font-weight: 300;
+  margin-bottom: 26px;
+  text-align: center;
+}
 
 #documents-view {
   float: left;

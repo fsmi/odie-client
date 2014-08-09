@@ -7,6 +7,7 @@ var App = function(baseUrl) {
   this.user = new User(baseUrl);
   this.preselection = new CartList(baseUrl);
   this.rangeSelect = new RangeSelect(this.cart, this.documentlist);
+  this.correction = new Correction(baseUrl);
   this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
   this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
   this.visible = 'documents';
@@ -35,6 +36,10 @@ App.prototype.loginVisible = function() {
 
 App.prototype.printVisible = function() {
   return this.user.isAuthenticated && this.visible === 'print';
+}
+
+App.prototype.correctionVisible = function() {
+  return this.user.isAuthenticated && this.visible === 'correction';
 }
 
 App.prototype.show = function(name) {

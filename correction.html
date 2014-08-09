@@ -1,0 +1,16 @@
+<!-- accounting correction screen template
+Data binding context: Correction -->
+
+<div class="text-center" style="margin-left:20%; margin-right:20%;">
+  <h3 class="heading">Wenn Klausuren/Protokolle in Auftrag gegeben aber nicht verkauft wurden, buche hier die Druckkosten als nicht eingenommen.</h3>
+
+  <div class="text-center">
+  <input type="number" min="0" width="50px" class="number-input form-control-inline form-control" data-bind="value: erroneousEuros">€ an Fehldrucken
+  <button class="btn btn-danger" data-bind="click: logErroneousCents.bind($data)">Buchen</button>
+  </div>
+  <hr>
+  <div class="text-center">
+  <input type="number" min="0" class="number-input form-control-inline form-control" data-bind="value: erroneousPages"> Seiten als Fehldrucke
+  <button class="btn btn-danger" data-bind="click: logErroneouslyPrintedPages.bind($data)">Buchen</button>
+  </div>
+</div>
