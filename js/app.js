@@ -8,6 +8,7 @@ var App = function(baseUrl) {
   this.preselection = new CartList(baseUrl);
   this.rangeSelect = new RangeSelect(this.cart, this.documentlist);
   this.correction = new Correction(baseUrl);
+  this.depositReturn = new DepositReturn(baseUrl);
   this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
   this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
   this.visible = 'documents';
@@ -40,6 +41,10 @@ App.prototype.printVisible = function() {
 
 App.prototype.correctionVisible = function() {
   return this.user.isAuthenticated && this.visible === 'correction';
+}
+
+App.prototype.depositReturnVisible = function() {
+  return this.user.isAuthenticated && this.visible === 'depositreturn';
 }
 
 App.prototype.show = function(name) {

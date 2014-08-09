@@ -1,0 +1,14 @@
+<!-- template for deposit return tab.
+Data binding context: DepositReturn -->
+
+<button class="btn btn-primary icon-arrows-cw" data-bind="click: getDeposits.bind($data)">Neu laden</button>
+<input type="text" class="form-inline form-control-inline form-control" placeholder="Name des Studis" data-bind='value: studentName'>
+
+<table class="table table-condensed">
+  <tbody data-bind="foreach: {data: deposits, as: 'deposit'}">
+  <tr class="document-list">
+    <td data-bind="text: name"></td>
+    <td><button class="btn btn-compact btn-primary icon-money" data-bind="click: $parent.cashOutDeposit.bind($parent, deposit.id)">Auszahlen</button></td>
+  </tr>
+  </tbody>
+</table>

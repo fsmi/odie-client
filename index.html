@@ -29,6 +29,7 @@
     <script type="text/javascript" src="js/vm/cartlist.js"></script>
     <script type="text/javascript" src="js/vm/range.js"></script>
     <script type="text/javascript" src="js/vm/correction.js"></script>
+    <script type="text/javascript" src="js/vm/depositreturn.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <title>Klausurenverkauf – Fachschaft Mathematik/Informatik</title>
   </head>
@@ -56,6 +57,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li data-bind="visible: user.isAuthenticated, css: { active: printVisible() }, click: show.bind($root, 'print')"><a href="#">Vorauswahl</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: depositReturnVisible() }, click: show.bind($root, 'depositreturn')"><a href="#">Pfandrückgabe</a></li>
             <li data-bind="visible: user.isAuthenticated, css: { active: correctionVisible() }, click: show.bind($root, 'correction')"><a href="#">Abrechnungskorrektur</a></li>
             <li data-bind="visible: !user.isAuthenticated, css: { active: loginVisible() }, click: show.bind($root, 'login')"><a href="#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
@@ -93,6 +95,10 @@
 
     <!-- preselected carts page -->
     <div data-bind="visible: printVisible(), template: {name: 'preselection', data: preselection}" class="text-right" style="display: none;">
+    </div>
+
+    <!-- deposit return page -->
+    <div data-bind="visible: depositReturnVisible(), template: {name: 'depositreturn', data: depositReturn}" class="text-right" style="display: none;">
     </div>
 
   </div>
