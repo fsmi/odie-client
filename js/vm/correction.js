@@ -3,6 +3,7 @@ var Correction = function(baseUrl) {
   this.baseUrl = baseUrl;
   this.erroneousPages = 0;
   this.erroneousCents = 0;
+  this._printJob = new PrintJob(this.baseUrl, new Cart(baseUrl));
   ko.track(this);
 
   ko.defineProperty(self, 'erroneousEuros', {
