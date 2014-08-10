@@ -1,8 +1,12 @@
+// Handles accounting corrections - erroneously printed pages, etc.
 var Correction = function(baseUrl) {
   var self = this;
   this.baseUrl = baseUrl;
   this.erroneousPages = 0;
   this.erroneousCents = 0;
+  // Registering deposit without printing is done by submitting a print job with
+  // non-zero depositCount, but not documents. We're using PrintJob as is with
+  // an empty Cart for this.
   this._printJob = new PrintJob(this.baseUrl, new Cart(baseUrl));
   ko.track(this);
 
