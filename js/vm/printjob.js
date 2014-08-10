@@ -26,7 +26,16 @@ var PrintJob = function(baseUrl, cart, coverText, depositCount) {
       }
       return this.cart.includesOral() ? 1 : 0;
     },
-    set: function(num) { this._depositCount = num; }
+    set: function(num) {
+      if (num === '') {
+        // the user probably erased the field in the UI after it was
+        // automatically set; do the right thing for them.
+        this._depositCount = 0;
+      }
+      else {
+        this._depositCount = num;
+      }
+    }
   });
 
   ko.defineProperty(this, 'coverText', {
