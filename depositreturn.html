@@ -1,8 +1,10 @@
 <!-- template for deposit return tab.
 Data binding context: DepositReturn -->
 
-<button class="btn btn-primary icon-arrows-cw" data-bind="click: getDeposits.bind($data)">Neu laden</button>
-<input type="text" class="form-inline form-control-inline form-control" placeholder="Name des Studis" data-bind='value: studentName'>
+<form onsubmit="javascript:$data.getDeposits()">
+  <input type="text" class="form-inline form-control-inline form-control" placeholder="Name des Studis" data-bind='value: studentName'>
+  <button class="btn btn-primary icon-search" data-bind="click: getDeposits.bind($data)">Suchen</button>
+</form>
 
 <table class="table table-condensed">
   <tbody data-bind="foreach: {data: deposits, as: 'deposit'}">
