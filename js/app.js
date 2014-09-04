@@ -80,9 +80,7 @@ App.prototype.logout = function() {
 
 App.prototype.openCart = function(cart) {
   this.cart.dropAll();
-  for (var i = 0; i < cart.length; i++) {
-    this.cart.push(cart[i]);
-  }
+  cart.documents.forEach(this.cart.add, this.cart);
 }
 
 App.prototype.configurePreview = function() {

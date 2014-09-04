@@ -57,7 +57,7 @@ CartList.prototype.loadCarts = function() {
       c.id = data[i].id;
       c.date = data[i].creationTime;
       for (var d = 0; d < data[i].documents.length; ++d) {
-        c.push(new Document(data[i].documents[d]));
+        c.add(new Document(data[i].documents[d]));
       }
       c.name = data[i].name;
       self.carts.push(c);

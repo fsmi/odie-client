@@ -33,12 +33,12 @@ If initial load times turn out to be an issue, it may be a better idea to inline
       </td>
       <td></td>
       <td></td>
-      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: $root.cart.addAll.bind($root.cart, $root.documentlist.filtered())">∀<span class='icon-basket small'></span></button></td>
+      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: function() { $root.documentlist.filtered().forEach($root.cart.add, $root.cart); }">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
   <tbody data-bind="foreach: documentlist.filtered()">
   <tr class="document-list" data-bind="
-    css: { 'row-disabled': !$root.cart.doesntContain($data) },
+    css: { 'row-disabled': $root.cart.contains($data) },
     event: { mouseenter: $root.rangeSelect.onRowMouseOver.bind($root.rangeSelect, $index) },
     click: $root.rangeSelect.onClick.bind($root.rangeSelect, $index, $root.documentlist.filtered())">
     <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected addButton-color': $root.rangeSelect.selectedBarVisible($index)}">
@@ -65,7 +65,7 @@ If initial load times turn out to be an issue, it may be a better idea to inline
         style:
         { visibility: $root.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
         clickBubble: false,
-        enable: $root.cart.doesntContain($data)">
+        enable: !$root.cart.contains($data)">
       </button>
       <button
         class='icon-button btn-info btn btn-compact icon-eye'

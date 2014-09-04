@@ -24,7 +24,7 @@ var PrintJob = function(baseUrl, cart, coverText, depositCount) {
       if (this._depositCount != null) {
         return this._depositCount;
       }
-      return this.cart.includesOral() ? 1 : 0;
+      return this.cart.includesOral ? 1 : 0;
     },
     set: function(num) {
       if (num === '') {
