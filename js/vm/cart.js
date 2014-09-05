@@ -76,7 +76,7 @@ Cart.prototype.save = function() {
 }
 
 Cart.prototype.priceEstimate = function(depositCount) {
-  var price = this.totalPageCount;
+  var price = this.totalPageCount * pricePerPage;
   if (depositCount === undefined) {
     if (this.includesOral) {
       price += depositPrice;
