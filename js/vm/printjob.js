@@ -62,10 +62,7 @@ PrintJob.prototype.totalPrice = function() {
 PrintJob.prototype.submit = function() {
   var self = this;
   self.status = 'waiting';
-  var ids = [];
-  for (var i = 0; i < this.cart.length; ++i) {
-    ids.push(this.cart[i].id);
-  }
+  var ids = this.cart.documents.map(function(doc) { return doc.id; });
   var job = {
     coverText: this._coverText,
     documents: ids,

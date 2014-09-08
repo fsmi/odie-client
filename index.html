@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse" id="main-nav" data-bind="visible: true" style="display: none !important;">
           <ul class="nav navbar-nav">
             <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Auswahl</a></li>
-            <li data-bind="click: show.bind($root, 'cart')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.length"></span></a></li>
+            <li data-bind="click: show.bind($root, 'cart')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.documents.length"></span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li data-bind="visible: user.isAuthenticated, css: { active: printVisible() }, click: show.bind($root, 'print')"><a href="#">Vorauswahl</a></li>
