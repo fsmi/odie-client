@@ -229,12 +229,6 @@ ul.lecture-list-cell {
   font-size: 1.3em;
 }
 
-.fade-icon {
-  display: inline-block;
-  transition: opacity 2s;
-  opacity: 0.0;
-}
-
 a.btn {
   text-decoration: none;
 }
