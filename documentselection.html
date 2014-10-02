@@ -7,6 +7,10 @@ If initial load times turn out to be an issue, it may be a better idea to inline
     <label for='lectureName' class='sr-only'>Vorlesung</label>
     <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: { source: lectures.typeaheadFilter.bind(lectures), displayKey: "name" } }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
   </div>
+  <div id='examinantsSelection' class='form-group'>
+    <label for='examinantsName' class='sr-only'>Prüfer (regex)</label>
+    <input id='examinantsName' placeholder='Prüfer (regex)' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.examinants'>
+  </div>
 </form>
 <table class="table table-condensed">
   <thead>
