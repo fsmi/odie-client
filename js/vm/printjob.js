@@ -1,14 +1,23 @@
 /* Models a single print job and supplies the data bindings for
  * the print.html template. */
 
+var Printer = function(id, name) {
+  this.id = id;
+  this.name = name;
+}
+
 var PrintJob = function(baseUrl, cart, coverText, depositCount) {
   var self = this;
   this.baseUrl = baseUrl;
   this.cart = cart;
   this._depositCount = depositCount;
   this._coverText = coverText;
-  this.status = undefined;
-  /* undefined | 'success' | 'error' | 'waiting' */
+  this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
+  this.availablePrinters = [
+    new Printer('external', 'Info-Drucker'),
+    new Printer('emergency', 'Emergency-ATIS-Drucker')
+  ];
+  this.selectedPrinter = this.availablePrinters[0]
 
   ko.track(this);
 
@@ -66,7 +75,8 @@ PrintJob.prototype.submit = function() {
   var job = {
     coverText: this._coverText,
     documents: ids,
-    depositCount: parseFloat(this.depositCount)
+    depositCount: parseFloat(this.depositCount),
+    printer: this.selectedPrinter.id
   };
   $.ajax({
     url: this.baseUrl + '/data/print',
