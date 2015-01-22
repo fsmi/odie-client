@@ -22,12 +22,6 @@ Data binding context: Correction -->
       <input required class="form-control-inline form-control" placeholder="Name" data-bind="value: _printJob.coverText">
       &nbsp;
       <button type="submit" class="btn btn-danger icon-money">Buchen</button>
-      <!-- This isn't strictly necessary and makes the UI non-uniform, but since the logic's already in printJob, it's a cheap nice-to-have. -->
-      <div class="form-control-inline icon-placeholder">
-        <div class="icon" data-bind="css: { 'spinner icon-spinner active': _printJob.status === 'waiting',
-          'icon-ok text-success': _printJob.status === 'success',
-          'icon-attention text-warning': _printJob.status === 'error' }"></div>
-      </div>
     </form>
   </div>
 </div>
