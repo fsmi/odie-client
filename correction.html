@@ -4,28 +4,25 @@ Data binding context: Correction -->
 <div class="text-center" style="margin-left:20%; margin-right:20%;">
   <h3 class="heading">Wenn Klausuren/Protokolle in Auftrag gegeben aber nicht verkauft wurden, buche hier die Druckkosten als nicht eingenommen.</h3>
 
-  <div class="text-center">
-  <input type="number" min="0" class="number-input form-control-inline form-control" data-bind="value: erroneousEuros">€ an Fehldrucken
-  <button class="btn btn-danger icon-money" data-bind="click: logErroneousCents.bind($data)">Buchen</button>
-  </div>
+  <form class="text-center" data-bind="submit: logErroneousCents.bind($data)">
+    <p><input type="number" required min="0.10" step="0.10" class="form-control-inline form-control" data-bind="value: erroneousEuros">&nbsp;€ an Fehldrucken
+    <button type="submit" class="btn btn-danger icon-money">Buchen</button></p>
+    <p>Nicht eingenommenes Pfand bitte separat in der <a href="#" data-bind="click: $root.show.bind($root, 'depositreturn')">Pfandrückgabe</a> austragen!</p>
+  </form>
   <hr>
-  <div class="text-center">
-  <input type="number" min="0" class="number-input form-control-inline form-control" data-bind="value: erroneousPages"> Seiten als Fehldrucke
-  <button class="btn btn-danger icon-money" data-bind="click: logErroneouslyPrintedPages.bind($data)">Buchen</button>
-  </div>
+  <form class="text-center" data-bind="submit: logErroneouslyPrintedPages.bind($data)">
+    <input type="number" required min="1" class="number-input form-control-inline form-control" data-bind="value: erroneousPages"> Seiten als Fehldrucke
+    <button type="submit" class="btn btn-danger icon-money">Buchen</button>
+  </form>
   <hr>
   <h3 class="heading">Protokollpfand nachträglich eintragen:</h3>
 
   <div class="text-center">
-    <input type="number" min="0" class="number-input form-control-inline form-control" data-bind="value: _printJob.depositCount">&nbsp;×&nbsp;Pfand für&nbsp;
-    <input class="form-control-inline form-control" placeholder="Name" data-bind="value: _printJob.coverText">
-    &nbsp;
-  <button class="btn btn-danger icon-money" data-bind="click: _printJob.submit.bind(_printJob)">Buchen</button>
-  <!-- This isn't strictly necessary and makes the UI non-uniform, but since the logic's already in printJob, it's a cheap nice-to-have. -->
-  <div class="form-control-inline icon-placeholder">
-    <div class="icon" data-bind="css: { 'spinner icon-spinner active': _printJob.status === 'waiting',
-      'icon-ok text-success': _printJob.status === 'success',
-      'icon-attention text-warning': _printJob.status === 'error' }"></div>
-  </div>
+    <form data-bind="submit: makeDeposit.bind($data)">
+      <input type="number" min="1" class="number-input form-control-inline form-control" data-bind="value: _printJob.depositCount">&nbsp;×&nbsp;Pfand für&nbsp;
+      <input required class="form-control-inline form-control" placeholder="Name" data-bind="value: _printJob.coverText">
+      &nbsp;
+      <button type="submit" class="btn btn-danger icon-money">Buchen</button>
+    </form>
   </div>
 </div>

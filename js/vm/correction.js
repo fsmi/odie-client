@@ -36,8 +36,16 @@ Correction.prototype._logErroneous = function(centsPrice) {
 
 Correction.prototype.logErroneousCents = function() {
   this._logErroneous(this.erroneousCents);
+  this.erroneousCents = 0;
 }
 
 Correction.prototype.logErroneouslyPrintedPages = function() {
   this._logErroneous(this.erroneousPages * pricePerPage);
+  this.erroneousPages = 0;
+}
+
+Correction.prototype.makeDeposit = function() {
+  this._printJob.submit();
+  this._printJob.depositCount = 0;
+  this._printJob.coverText = '';
 }
