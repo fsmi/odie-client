@@ -5,8 +5,9 @@ Data binding context: Correction -->
   <h3 class="heading">Wenn Klausuren/Protokolle in Auftrag gegeben aber nicht verkauft wurden, buche hier die Druckkosten als nicht eingenommen.</h3>
 
   <form class="text-center" data-bind="submit: logErroneousCents.bind($data)">
-    <input type="number" required min="0.10" step="0.10" class="form-control-inline form-control" data-bind="value: erroneousEuros">€ an Fehldrucken
-    <button type="submit" class="btn btn-danger icon-money">Buchen</button>
+    <p><input type="number" required min="0.10" step="0.10" class="form-control-inline form-control" data-bind="value: erroneousEuros">&nbsp;€ an Fehldrucken
+    <button type="submit" class="btn btn-danger icon-money">Buchen</button></p>
+    <p>Nicht eingenommenes Pfand bitte separat in der <a href="#" data-bind="click: $root.show.bind($root, 'depositreturn')">Pfandrückgabe</a> austragen!</p>
   </form>
   <hr>
   <form class="text-center" data-bind="submit: logErroneouslyPrintedPages.bind($data)">
