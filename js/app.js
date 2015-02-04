@@ -1,6 +1,7 @@
 var App = function(baseUrl) {
   this.baseUrl = baseUrl;
   this.lectures = new LectureList(baseUrl);
+  this.examinants = new ExaminantList(baseUrl);
   this.documentlist = new DocumentList(baseUrl);
   this.cart = new Cart(baseUrl);
   this.printJob = new PrintJob(baseUrl, this.cart);
