@@ -1,4 +1,4 @@
-var LectureList = function(baseUrl) {
+LectureList = function(baseUrl) {
   this.baseUrl = baseUrl;
   this.searchString = '';
   ko.track(this);
