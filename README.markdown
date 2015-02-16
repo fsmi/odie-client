@@ -4,7 +4,7 @@ odie-client is a Knockout.js frontend to [odie-server](https://github.com/fsmi/o
 
 ## Hacking ##
 
-odie-client uses [Broccoli](https://github.com/broccolijs/broccoli) for assets compilation and concatenation.
+odie-client is written in ECMAScript 6 and uses [Babel](https://babeljs.io/) to transpile it to ES5 as part of its [Broccoli](https://github.com/broccolijs/broccoli) asset pipeline.
 
 To setup odie-client, you need to have [npm](https://npmjs.org/) installed. Then from the odie-client root dir:
 
