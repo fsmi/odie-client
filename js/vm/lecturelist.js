@@ -1,61 +1,44 @@
-var LectureList = function(baseUrl) {
-  this.baseUrl = baseUrl;
-  this.searchString = '';
-  ko.track(this);
+class LectureList extends Array {
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+    this.searchString = '';
+    ko.track(this);
 
-  this.load();
-};
+    this.load();
+  }
 
-LectureList.prototype = Object.create(Array.prototype);
+  load() {
+    $.getJSON(this.baseUrl + '/data/lectures', data =>
+        data.forEach(d => this.push(d))
+    );
+  }
 
-LectureList.prototype.load = function() {
-  var self = this;
-  $.getJSON(this.baseUrl + '/data/lectures', function(data) {
-    for (var i=0; i<data.length; i++) {
-      self.push(data[i]);
+  getSearchRegex(searchString) {
+    if (/^([A-Z][a-z]*){2,}$/.test(searchString)) {
+      // PascalCase search for search strings with more than one capital char
+      return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'));
+    } else {
+      // standard case-insensitive search
+      return new RegExp(searchString, 'i');
     }
-  })
-};
+  };
 
-LectureList.prototype.getSearchRegex = function(searchString) {
-  if (/^([A-Z][a-z]*){2,}$/.test(searchString)) {
-    // PascalCase search for search strings with more than one capital char
-    return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'));
-  } else {
-    // standard case-insensitive search
-    return new RegExp(searchString, 'i');
-  }
-};
-
-LectureList.prototype.filtered = function() {
-  if (this.searchString === '') {
-    return this;
-  }
-  var filtered = [];
-  var regex = this.getSearchRegex(this.searchString);
-
-  for (var i=0; i<this.length; i++) {
-    var lecture = this[i];
-    if (regex.test(lecture.name)) {
-      filtered.push(lecture);
+  filtered() {
+    if (this.searchString === '') {
+      return this;
     }
+    let regex = this.getSearchRegex(this.searchString);
+
+    return this.filter(l => regex.test(l.name));
   }
-  return filtered;
-}
 
-LectureList.prototype.typeaheadFilter = function(query, callback) {
-  var filtered = [];
-  var regex = this.getSearchRegex(query);
+  typeaheadFilter(query, callback) {
+    let regex = this.getSearchRegex(query);
 
-  for (var i=0; i<this.length; i++) {
-    var lecture = this[i];
-    if (regex.test(lecture.name)) {
-      filtered.push(lecture);
-    }
+    callback(this.filter(l => regex.test(l.name)));
   }
-  callback(filtered);
-}
 
-LectureList.prototype.clearSearch = function() {
-  this.searchString = '';
+  clearSearch() {
+    this.searchString = '';
+  }
 }

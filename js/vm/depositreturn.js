@@ -1,35 +1,25 @@
-var DepositReturn = function(baseUrl) {
-  var self = this;
-  this.baseUrl = baseUrl;
-  this.studentName = '';
-  this.deposits = [];
-  ko.track(this);
-}
+class DepositReturn {
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+    this.studentName = '';
+    this.deposits = [];
+    ko.track(this);
+  }
 
-DepositReturn.prototype = Object.create(Object.prototype);
+  getDeposits() {
+    let url = this.baseUrl + '/data/deposits/' + encodeURIComponent(this.studentName);
+    $.getJSON(url, data => this.deposits = data);
+  }
 
-DepositReturn.prototype.getDeposits = function() {
-  var self = this;
-  var url = this.baseUrl + '/data/deposits/' + encodeURIComponent(this.studentName);
-  $.getJSON(url, function(data) {
-    self.deposits = data;
-  });
-}
-
-DepositReturn.prototype.cashOutDeposit = function(id) {
-  var self = this;
-  $.ajax({
-    url: this.baseUrl + '/data/deposits/' + id,
-    type: 'DELETE',
-    success: function() {
-      // remove it from the displayed list
-      for (var i = 0; i < self.deposits.length; i++) {
-        if (self.deposits[i].id === id) {
-          var index = i;
-          break;
-        }
+  cashOutDeposit(id) {
+    $.ajax({
+      url: this.baseUrl + '/data/deposits/' + id,
+      type: 'DELETE',
+      success: () => {
+        // remove it from the displayed list
+        let index = this.deposits.findIndex(d => d.id === id);
+        this.deposits.splice(index, 1);
       }
-      self.deposits.splice(index, 1);
-    }
-  });
+    });
+  }
 }

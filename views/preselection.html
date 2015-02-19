@@ -19,8 +19,8 @@
     <td data-bind="text: lectures"></td>
     <td class="td-nowrap" data-bind="text: cart.displayDate"></td>
     <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $root.openCart.bind($root, cart)">Öffnen</button></td>
-    <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', new PrintJob($root.baseUrl, cart)); }">Drucken</button></td>
-    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, cart)">Zurückbuchen</button></td>
+    <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', new PrintJob($root.baseUrl, cart, '')); }">Drucken</button></td>
+    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, cart)">Löschen</button></td>
   </tr>
   </tbody>
 </table>
