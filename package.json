@@ -3,8 +3,8 @@
     "broccoli": "^0.13.3",
     "broccoli-babel-transpiler": "^4.0.0",
     "broccoli-concat": "0.0.12",
-    "broccoli-merge-trees": "^0.2.1",
-    "broccoli-static-compiler": "^0.2.1"
+    "broccoli-funnel": "^0.2.2",
+    "broccoli-merge-trees": "^0.2.1"
   },
   "repository": {
     "type": "git",
