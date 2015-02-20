@@ -1,13 +1,13 @@
 class App {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    this.lectures = new LectureList(baseUrl);
+    this.lecturelist = new LectureList(baseUrl);
     this.documentlist = new DocumentList(baseUrl);
     this.cart = new Cart(baseUrl);
     this.printJob = new PrintJob(baseUrl, this.cart);
     this.user = new User(baseUrl);
     this.preselection = new CartList(baseUrl);
-    this.rangeSelect = new RangeSelect(this.cart, this.documentlist);
+    this.rangeSelect = new RangeSelect(this.cart);
     this.correction = new Correction(baseUrl);
     this.depositReturn = new DepositReturn(baseUrl);
     this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';

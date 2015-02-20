@@ -1,16 +1,15 @@
-class LectureList extends Array {
+class LectureList {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
     this.searchString = '';
+    this.lectures = [];
     ko.track(this);
 
     this.load();
   }
 
   load() {
-    $.getJSON(this.baseUrl + '/data/lectures', data =>
-        data.forEach(d => this.push(d))
-    );
+    $.getJSON(this.baseUrl + '/data/lectures', data => this.lectures = data);
   }
 
   getSearchRegex(searchString) {
@@ -29,13 +28,20 @@ class LectureList extends Array {
     }
     let regex = this.getSearchRegex(this.searchString);
 
-    return this.filter(l => regex.test(l.name));
+    return this.lectures.filter(l => regex.test(l.name));
   }
 
-  typeaheadFilter(query, callback) {
-    let regex = this.getSearchRegex(query);
-
-    callback(this.filter(l => regex.test(l.name)));
+  get typeaheadDataset() {
+    return {
+      source: (query, callback) => {
+        let regex = this.getSearchRegex(query);
+        callback(this.lectures.filter(l => regex.test(l.name)));
+      },
+      displayKey: "name",
+      templates: {
+        suggestion: l => `<a href="#">${l.name}</a>`
+      }
+    };
   }
 
   clearSearch() {
