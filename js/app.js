@@ -1,105 +1,104 @@
-var App = function(baseUrl) {
-  this.baseUrl = baseUrl;
-  this.lectures = new LectureList(baseUrl);
-  this.documentlist = new DocumentList(baseUrl);
-  this.cart = new Cart(baseUrl);
-  this.printJob = new PrintJob(baseUrl, this.cart);
-  this.user = new User(baseUrl);
-  this.preselection = new CartList(baseUrl);
-  this.rangeSelect = new RangeSelect(this.cart, this.documentlist);
-  this.correction = new Correction(baseUrl);
-  this.depositReturn = new DepositReturn(baseUrl);
-  this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
-  this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
-  this.visible = 'documents';
-  this.cartID = '';
+class App {
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+    this.lecturelist = new LectureList(baseUrl);
+    this.documentlist = new DocumentList(baseUrl);
+    this.cart = new Cart(baseUrl);
+    this.printJob = new PrintJob(baseUrl, this.cart);
+    this.user = new User(baseUrl);
+    this.preselection = new CartList(baseUrl);
+    this.rangeSelect = new RangeSelect(this.cart);
+    this.correction = new Correction(baseUrl);
+    this.depositReturn = new DepositReturn(baseUrl);
+    this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
+    this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
+    this.visible = 'documents';
+    this.cartID = '';
 
-  ko.track(this);
-}
+    ko.track(this);
+  }
 
-App.prototype.lecturesVisible = function () {
-  return this.visible === 'lectures';
-}
+  lecturesVisible() {
+    return this.visible === 'lectures';
+  }
 
-App.prototype.documentsVisible = function() {
-  return this.visible === 'documents' ||
-         this.visible === 'cart';
-}
+  documentsVisible() {
+    return this.visible === 'documents' ||
+      this.visible === 'cart';
+  }
 
-App.prototype.cartVisible = function() {
-  return this.visible === 'documents' ||
-         this.visible === 'cart';
-}
+  cartVisible() {
+    return this.visible === 'documents' ||
+      this.visible === 'cart';
+  }
 
-App.prototype.loginVisible = function() {
-  return !this.user.isAuthenticated && this.visible === 'login';
-}
+  loginVisible() {
+    return !this.user.isAuthenticated && this.visible === 'login';
+  }
 
-App.prototype.printVisible = function() {
-  return this.user.isAuthenticated && this.visible === 'print';
-}
+  printVisible() {
+    return this.user.isAuthenticated && this.visible === 'print';
+  }
 
-App.prototype.correctionVisible = function() {
-  return this.user.isAuthenticated && this.visible === 'correction';
-}
+  correctionVisible() {
+    return this.user.isAuthenticated && this.visible === 'correction';
+  }
 
-App.prototype.depositReturnVisible = function() {
-  return this.user.isAuthenticated && this.visible === 'depositreturn';
-}
+  depositReturnVisible() {
+    return this.user.isAuthenticated && this.visible === 'depositreturn';
+  }
 
-App.prototype.show = function(name) {
-  this.visible = name;
-  // special casing for in-page navigation to cart
-  // Sadly this can't be done by setting the <a>'s href in the html
-  if (name === 'cart') {
-    document.location.href = '#cart';
+  show(name) {
+    this.visible = name;
+    // special casing for in-page navigation to cart
+    // Sadly this can't be done by setting the <a>'s href in the html
+    if (name === 'cart') {
+      document.location.href = '#cart';
+    }
+  }
+
+  openLecture(lecture) {
+    this.documentlist.load(lecture.name);
+    this.visible = 'documents';
+  }
+
+  // causes actual login and handles application state change
+  login() {
+    this.user.login(() => {
+      this.show('documents');
+      this.preselection.loadCarts();
+    });
+  }
+
+  // causes actual logout and moves away to selection view
+  logout() {
+    this.user.logout(() => this.show('documents'));
+  }
+
+  openCart(cart) {
+    this.cart.dropAll();
+    cart.documents.forEach(d => this.cart.add(d));
+  }
+
+  configurePreview() {
+    $.cookie('previewPrefix', this.previewPrefix, {expires: 10000});
+    this.isPreviewConfigured = true;
   }
 }
 
-App.prototype.openLecture = function(lecture) {
-  this.documentlist.load(lecture.name);
-  this.visible = 'documents';
-}
-
-// causes actual login and handles application state change
-App.prototype.login = function() {
-  var self = this;
-  this.user.login(function() {
-    self.show('documents');
-    self.preselection.loadCarts();
-  });
-}
-
-// causes actual logout and moves away to selection view
-App.prototype.logout = function() {
-  var self = this;
-  this.user.logout(function() {
-    self.show('documents');
-  });
-}
-
-App.prototype.openCart = function(cart) {
-  this.cart.dropAll();
-  cart.documents.forEach(this.cart.add, this.cart);
-}
-
-App.prototype.configurePreview = function() {
-  $.cookie('previewPrefix', this.previewPrefix, {expires: 10000});
-  this.isPreviewConfigured = true;
-}
-
-$(document).ready(function() {
+$(document).ready(() => {
   // global config
   depositPrice = 500;
   pricePerPage = 4; // in cents
   infuser.defaults.useLoadingTemplate = false;
 
+  let url;
   if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
     url = window.location.origin + '/odie';
   } else {
     // $.ajaxSetup is stupid, let's write our own one
     _ajax = $.ajax;
-    $.ajax = function(settings) {
+    $.ajax = settings => {
       s = {
         crossDomain: true,
         xhrFields: {
@@ -109,10 +108,10 @@ $(document).ready(function() {
       $.extend(s, settings);
       return _ajax(s);
     };
-    var live = true;
-    var url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
+    let live = true;
+    url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
   }
-  var app = new App(url);
-  window.app = app;
+  let app = new App(url);
+  window.app = app; // for debugging
   ko.applyBindings(app);
-})
+});

@@ -1,37 +1,19 @@
-var Document = function(data) {
-  var self = this;
-  this.lectures = data.lectures;
-  this.id = data.id;
-  this.pages = data.pages;
-  this.date = data.date;
-  this.examinants = data.examinants;
-  this.examType = data.examType;
-  this.comment = data.comment;
-  this.path = (this.examType == 'oral' ? 'protokolle' : 'klausuren') + '/scanned/' + Math.floor(this.id/2) + '.pdf';
+class Document {
+  constructor(data) {
+    Object.assign(this, data);
+    this.path = (this.examType == 'oral' ? 'protokolle' : 'klausuren') + '/scanned/' + Math.floor(this.id/2) + '.pdf';
 
-  ko.track(this);
-}
+    ko.track(this);
+  }
 
-Document.prototype = Object.create(Object.prototype);
+  displayExamType() {
+    return this.examType === "written" ? "Schriftlich" : "Mündlich";
+  }
 
-Document.prototype.displayExamType = function() {
-  return this.examType === "written" ? "Schriftlich" : "Mündlich";
-}
-
-Document.prototype.displayDate = function() {
-  var months = ['Jan ',
-                'Feb ',
-                'Mär ',
-                'Apr ',
-                'Mai ',
-                'Jun ',
-                'Jul ',
-                'Aug ',
-                'Sep ',
-                'Okt ',
-                'Nov ',
-                'Dez '];
-  var parts = this.date.split('-');
-  var d = new Date(parts[0], parts[1] - 1, parts[2]);
-  return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear();
+  displayDate() {
+    let months = ['Jan ', 'Feb ', 'Mär ', 'Apr ', 'Mai ', 'Jun ', 'Jul ', 'Aug ', 'Sep ', 'Okt ', 'Nov ', 'Dez '];
+    let [year, mon, day] = this.date.split('-');
+    let d = new Date(year, mon, day);
+    return `${d.getDate()}. ${months[d.getMonth()]}${d.getFullYear()}`;
+  }
 }

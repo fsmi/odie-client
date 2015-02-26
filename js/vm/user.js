@@ -1,73 +1,70 @@
-var User = function(baseUrl) {
-  var self = this;
-  this.baseUrl = baseUrl;
-  this.username = '';
-  this.firstName = '';
-  this.lastName = '';
-  this.password = '';
-  this.rememberMe = true;
-  this.errorThrown = '';
-  this.isAuthenticated = false;
-  this.onAuthUpdate = function() {
-    $.getJSON(this.baseUrl + '/data/user', function(data) {
-      self.username = data.user;
-      self.firstName = data.firstName;
-      self.lastName = data.lastName;
-      self.isAuthenticated = true;
+class User {
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+    this.username = '';
+    this.firstName = '';
+    this.lastName = '';
+    this.password = '';
+    this.rememberMe = true;
+    this.errorThrown = '';
+    this.isAuthenticated = false;
+
+    this.onAuthUpdate();
+
+    ko.track(this);
+  }
+
+  onAuthUpdate() {
+    $.getJSON(this.baseUrl + '/data/user', data => {
+      this.username = data.user;
+      this.firstName = data.firstName;
+      this.lastName = data.lastName;
+      this.isAuthenticated = true;
     })
-    .fail(function() {
+    .fail(() => {
       // We're obviously not logged in
       $.removeCookie('sessionid');
-      self.isAuthenticated = false;
+      this.isAuthenticated = false;
     });
-  };
-  this.onAuthUpdate();
+  }
 
-  ko.track(this);
-}
+  login(success) {
+    // Hack to force KO to fetch input values. This should fix firefox' filled-in
+    // credentials not actually being sent.
+    $('#login-form').find('input').change();
 
-User.prototype = Object.create(Object.prototype);
-
-User.prototype.login = function(success) {
-  var self = this;
-  // Hack to force KO to fetch input values. This should fix firefox' filled-in
-  // credentials not actually being sent.
-  $('#login-form').find('input').change();
-
-  $.ajax({
-    url: this.baseUrl + '/data/login',
-    type: 'POST',
-    contentType: 'application/json; charset=UTF-8',
-    data: JSON.stringify({user: this.username, password: this.password, rememberMe: this.rememberMe}),
-    error: function(xhr, _, errorThrown) {
-      self.errorThrown = xhr.status + ': ' + xhr.responseText;
-      self.onAuthUpdate();
-    },
-    success: function() {
-      self.password = '';
-      self.errorThrown = '';
-      if (!$.cookie('sessionid')) {
-        $.cookie('sessionid', true);
+    $.ajax({
+      url: this.baseUrl + '/data/login',
+      type: 'POST',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify({user: this.username, password: this.password, rememberMe: this.rememberMe}),
+      error: (xhr, _, errorThrown) => {
+        this.errorThrown = xhr.status + ': ' + xhr.responseText;
+        this.onAuthUpdate();
+      },
+      success: () => {
+        this.password = '';
+        this.errorThrown = '';
+        if (!$.cookie('sessionid')) {
+          $.cookie('sessionid', true);
+        }
+        this.onAuthUpdate();
+        success();
       }
-      self.onAuthUpdate();
-      success();
-    }
-  });
-  this.password = '';
-  this.errorThrown = '';
-}
+    });
+    this.password = '';
+    this.errorThrown = '';
+  }
 
-User.prototype.logout = function(success) {
-  var self = this;
-  $.ajax({
-    url: this.baseUrl + '/data/logout',
-    type: 'POST',
-    error: function(xhr, _, _) {
-      console.log("Couldn't log out.");
-    },
-    success: function() {
-      self.onAuthUpdate();
-      success();
-    }
-  });
+  logout(success) {
+    $.ajax({
+      url: this.baseUrl + '/data/logout',
+      type: 'POST',
+      success: () => {
+        this.onAuthUpdate();
+        success();
+      },
+      error: () => console.log("Couldn't log out."),
+    });
+  }
 }

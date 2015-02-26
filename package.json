@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "broccoli": "^0.13.3",
+    "broccoli-babel-transpiler": "^4.0.0",
+    "broccoli-concat": "0.0.12",
+    "broccoli-funnel": "^0.2.2",
+    "broccoli-less-single": "^0.1.5",
+    "broccoli-merge-trees": "^0.2.1",
+    "broccoli-string-replace": "0.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fsmi/odie-client.git"
+  }
+}
