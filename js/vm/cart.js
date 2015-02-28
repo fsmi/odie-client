@@ -1,6 +1,5 @@
 class Cart {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+  constructor() {
     this.name = '';
     this.documents = [];
     ko.track(this);
@@ -62,25 +61,21 @@ class Cart {
       alert("Bitte gib' zuerst deinen Namen (oder ein Pseudonym) an.");
       return;
     }
-    let docIDs = this.documents.map(doc => doc.id);
-    $.ajax({
-      url: this.baseUrl + '/data/carts/' + encodeURIComponent(this.name),
-      type: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      data: JSON.stringify(docIDs),
-      success: () => this.dropAll()
-    })
+    config.post(
+        '/data/carts/' + encodeURIComponent(this.name),
+        this.documents.map(doc => doc.id)
+    ).done(() => this.dropAll());
   }
 
   priceEstimate(depositCount) {
-    let price = this.totalPageCount * pricePerPage;
+    let price = this.totalPageCount * config.pricePerPage;
     if (depositCount === undefined) {
       if (this.includesOral) {
-        price += depositPrice;
+        price += config.depositPrice;
       }
     }
     else {
-      price += depositCount * depositPrice;
+      price += depositCount * config.depositPrice;
     }
 
     // round to next-highest ten-cent unit

@@ -1,15 +1,14 @@
 class App {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
-    this.lecturelist = new LectureList(baseUrl);
-    this.documentlist = new DocumentList(baseUrl);
-    this.cart = new Cart(baseUrl);
-    this.printJob = new PrintJob(baseUrl, this.cart);
-    this.user = new User(baseUrl);
-    this.preselection = new CartList(baseUrl);
+  constructor() {
+    this.lecturelist = new LectureList();
+    this.documentlist = new DocumentList();
+    this.cart = new Cart();
+    this.printJob = new PrintJob(this.cart);
+    this.user = new User();
+    this.preselection = new CartList();
     this.rangeSelect = new RangeSelect(this.cart);
-    this.correction = new Correction(baseUrl);
-    this.depositReturn = new DepositReturn(baseUrl);
+    this.correction = new Correction();
+    this.depositReturn = new DepositReturn();
     this.previewPrefix = $.cookie('previewPrefix') || '/home/mi/info_Dokumente/';
     this.isPreviewConfigured = $.cookie('previewPrefix') !== undefined;
     this.visible = 'documents';
@@ -87,31 +86,9 @@ class App {
 }
 
 $(document).ready(() => {
-  // global config
-  depositPrice = 500;
-  pricePerPage = 4; // in cents
   infuser.defaults.useLoadingTemplate = false;
 
-  let url;
-  if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
-    url = window.location.origin + '/odie';
-  } else {
-    // $.ajaxSetup is stupid, let's write our own one
-    _ajax = $.ajax;
-    $.ajax = settings => {
-      s = {
-        crossDomain: true,
-        xhrFields: {
-          withCredentials: true
-        }
-      };
-      $.extend(s, settings);
-      return _ajax(s);
-    };
-    let live = true;
-    url = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
-  }
-  let app = new App(url);
+  let app = new App();
   window.app = app; // for debugging
   ko.applyBindings(app);
 });

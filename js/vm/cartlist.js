@@ -1,14 +1,11 @@
 class CartList {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+  constructor() {
     this.carts = [];
     this.filter = '';
     this.defaultLimit = 15;
     this.limit = this.defaultLimit;
 
     ko.track(this);
-
-    this.loadCarts();
   }
 
   filteredCarts() {
@@ -35,33 +32,29 @@ class CartList {
   }
 
   loadCarts() {
-    $.ajax({
-      url: this.baseUrl + '/data/carts',
-      success: data => {
+    config.getJSON('/data/carts')
+      .done(data => {
         this.carts = data.map(d => {
-          let c = new Cart(this.baseUrl);
+          let c = new Cart();
           c.id = d.id;
           c.name = d.name;
           c.date = d.creationTime;
           d.documents.forEach(doc => c.add(new Document(doc)));
           return c;
         });
-      },
-      error: (_, __, errorThrown) => console.log("Couldn't get carts -- are you logged in?")
-    });
+      });
     this.limit = this.defaultLimit;
   }
 
   deleteCart(cart) {
-    $.ajax({
-      url: this.baseUrl + '/data/carts/' + cart.id,
-      type: 'DELETE',
-      success: () => {
-        let i = this.carts.indexOf(cart);
-        if (i > -1) {
-          // remove from cart listing
-          this.carts.splice(i, 1);
-        }
+    config.ajax({
+      url: '/data/carts/' + cart.id,
+      type: 'DELETE'
+    }).done(() => {
+      let i = this.carts.indexOf(cart);
+      if (i > -1) {
+        // remove from cart listing
+        this.carts.splice(i, 1);
       }
     });
   }

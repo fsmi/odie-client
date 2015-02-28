@@ -9,8 +9,7 @@ class Printer {
 }
 
 class PrintJob {
-  constructor(baseUrl, cart, coverText, depositCount) {
-    this.baseUrl = baseUrl;
+  constructor(cart, coverText, depositCount) {
     this.cart = cart;
     this._depositCount = depositCount;
     this._coverText = coverText;
@@ -67,16 +66,10 @@ class PrintJob {
       depositCount: parseFloat(this.depositCount),
       printer: this.selectedPrinter.id
     };
-    $.ajax({
-      url: this.baseUrl + '/data/print',
-      type: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      data: JSON.stringify(job),
-      success: () => this.status = 'success',
-      error: (_, __, error) => {
-        console.log(error);
+    config.post('/data/print', job)
+      .done(() => this.status = 'success')
+      .fail((_, __, error) => {
         this.status = 'error';
-      }
-    });
+      });
   }
 }

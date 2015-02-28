@@ -1,6 +1,5 @@
 class LectureList {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+  constructor() {
     this.searchString = '';
     this.lectures = [];
     ko.track(this);
@@ -9,7 +8,8 @@ class LectureList {
   }
 
   load() {
-    $.getJSON(this.baseUrl + '/data/lectures', data => this.lectures = data);
+    config.getJSON('/data/lectures')
+      .done(data => this.lectures = data);
   }
 
   getSearchRegex(searchString) {

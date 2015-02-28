@@ -1,25 +1,23 @@
 class DepositReturn {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+  constructor() {
     this.studentName = '';
     this.deposits = [];
     ko.track(this);
   }
 
   getDeposits() {
-    let url = this.baseUrl + '/data/deposits/' + encodeURIComponent(this.studentName);
-    $.getJSON(url, data => this.deposits = data);
+    config.getJSON('/data/deposits/' + encodeURIComponent(this.studentName))
+      .done(data => this.deposits = data);
   }
 
   cashOutDeposit(id) {
-    $.ajax({
-      url: this.baseUrl + '/data/deposits/' + id,
-      type: 'DELETE',
-      success: () => {
-        // remove it from the displayed list
-        let index = this.deposits.findIndex(d => d.id === id);
-        this.deposits.splice(index, 1);
-      }
+    config.ajax({
+      url: '/data/deposits/' + id,
+      type: 'DELETE'
+    }).done(() => {
+      // remove it from the displayed list
+      let index = this.deposits.findIndex(d => d.id === id);
+      this.deposits.splice(index, 1);
     });
   }
 }

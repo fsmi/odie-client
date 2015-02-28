@@ -29,7 +29,7 @@ var jsDeps = replace(jsDeps, {
 
 var js = 'js/';
 var es6js = new Funnel(js, {
-  include: ['app.js', 'lib.js', 'ko/*.js', 'vm/*.js']
+  include: ['app.js', 'config.js', 'lib.js', 'ko/*.js', 'vm/*.js']
 });
 es6js = esTranspiler(es6js);
 var es6polyfill = new Funnel('node_modules/broccoli-babel-transpiler/node_modules/babel-core', {
