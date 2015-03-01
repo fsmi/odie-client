@@ -1,5 +1,11 @@
+import ko from "knockout";
+
+import config from "../config";
+import Cart from "./cart";
+import PrintJob from "./printjob";
+
 // Handles accounting corrections - erroneously printed pages, etc.
-class Correction {
+export default class Correction {
   constructor() {
     this.erroneousPages = 0;
     this.erroneousCents = 0;

@@ -1,5 +1,5 @@
 <!-- login screen template
-Data binding context: App -->
+Data binding context: User -->
 
 <div class="row">
   <h1 class="banner">Einmal anmelden. Alle fsmi-Produkte nutzen.</h1>
@@ -9,13 +9,13 @@ Data binding context: App -->
       <img class="profile-img" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/images/2/23/FS-Eule-KIT.png"
       alt="">
       <form class="form-signin" id="login-form">
-        <span class="text-warning login-error" data-bind="text: user.errorThrown, css: { 'icon-attention': user.errorThrown !== '' }"></span>
-        <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
-        <input type="password" class="form-control" data-bind="value: user.password" placeholder="Passwort" required>
+        <span class="text-warning login-error" data-bind="text: errorThrown, css: { 'icon-attention': errorThrown !== '' }"></span>
+        <input type="text" class="form-control" data-bind="value: username" placeholder="Username" required autofocus>
+        <input type="password" class="form-control" data-bind="value: password" placeholder="Passwort" required>
         <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.login.bind($root)" type="submit">
           Anmelden</button>
         <label class="checkbox pull-left">
-          <input type="checkbox" data-bind="checked: user.rememberMe">
+          <input type="checkbox" data-bind="checked: rememberMe">
           Angemeldet bleiben
         </label>
       </form>

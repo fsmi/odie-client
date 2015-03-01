@@ -1,4 +1,8 @@
-class DepositReturn {
+import ko from "knockout";
+
+import config from "../config";
+
+export default class DepositReturn {
   constructor() {
     this.studentName = '';
     this.deposits = [];

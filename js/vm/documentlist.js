@@ -1,4 +1,9 @@
-class DocumentList {
+import ko from "knockout";
+
+import config from "../config";
+import Document from "./document";
+
+export default class DocumentList {
   constructor() {
     this.lecture = '';
     this.lectureFilter = '';

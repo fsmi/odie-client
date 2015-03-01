@@ -10,7 +10,7 @@
   </head>
   <body>
   <!-- placeholder for ko.modal templates -->
-  <div id="modal"></div>
+  <div id="modal" class="modal fade" tabindex="-1" role="dialog"></div>
   <div class="container">
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
@@ -27,14 +27,17 @@
 
         <div class="collapse navbar-collapse" id="main-nav" data-bind="visible: true" style="display: none !important;">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: documentsVisible() }, click: show.bind($root, 'documents')"><a href="#">Auswahl</a></li>
-            <li data-bind="click: show.bind($root, 'cart')"><a href="#">Einkaufswagen&nbsp;<span class="badge" data-bind="text: cart.documents.length"></span></a></li>
+            <li data-bind="css: { active: visible === 'documentselection' }, click: visible = 'documentselection'">
+              <a href="#">
+                Auswahl&nbsp;<span class="badge" data-bind="text: cartSize"></span>
+              </a>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li data-bind="visible: user.isAuthenticated, css: { active: printVisible() }, click: show.bind($root, 'print')"><a href="#">Vorauswahl</a></li>
-            <li data-bind="visible: user.isAuthenticated, css: { active: depositReturnVisible() }, click: show.bind($root, 'depositreturn')"><a href="#">Pfandrückgabe</a></li>
-            <li data-bind="visible: user.isAuthenticated, css: { active: correctionVisible() }, click: show.bind($root, 'correction')"><a href="#">Abrechnungskorrektur</a></li>
-            <li data-bind="visible: !user.isAuthenticated, css: { active: loginVisible() }, click: show.bind($root, 'login')"><a href="#">Als Fachschafter anmelden</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: visible === 'preselection' }, click: show.bind($root, 'preselection')"><a href="#">Vorauswahl</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: visible === 'depositreturn' }, click: show.bind($root, 'depositreturn')"><a href="#">Pfandrückgabe</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: visible === 'correction' }, click: show.bind($root, 'correction')"><a href="#">Abrechnungskorrektur</a></li>
+            <li data-bind="visible: !user.isAuthenticated, css: { active: visible === 'login' }, click: show.bind($root, 'login')"><a href="#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
             <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.firstName"></span></a></li>
           </ul>
@@ -50,33 +53,12 @@
       <p style="font-family: 'Open Sans', arial;">Solltest du JavaScript in deinem Browser nicht anschalten können (oder wollen), kannst du in der Fachschaft vorbeikommen und die Auswahl vor Ort vornehmen.</p>
     </noscript>
 
-    <!-- document selection -->
-    <span data-bind="visible: documentsVisible()" id="documents-view" style="display: none;">
-      <div data-bind="template: 'documentselection'"></div>
+    <!-- content -->
+    <span data-bind="component: visible">
     </span>
-
-    <!-- shopping cart -->
-    <span id="cart" class="cart navbar-default container-fluid navbar" data-bind="visible: cartVisible()" style="display: none;">
-      <div data-bind="template: {name: 'shoppingcart', data: cart}"></div>
-    </span>
-
-    <!-- login page -->
-    <div data-bind="visible: loginVisible(), template: 'login'" class="container" style="display: none;">
-    </div>
-
-    <!-- accounting correction page -->
-    <div data-bind="visible: correctionVisible(), template: {name: 'correction', data: correction}" class="container" style="display: none;">
-    </div>
-
-    <!-- preselected carts page -->
-    <div data-bind="visible: printVisible(), template: {name: 'preselection', data: preselection}" class="text-right" style="display: none;">
-    </div>
-
-    <!-- deposit return page -->
-    <div data-bind="visible: depositReturnVisible(), template: {name: 'depositreturn', data: depositReturn}" class="text-right" style="display: none;">
-    </div>
 
   </div>
+
   <!-- footer -->
   <div class="footer">
     <hr>

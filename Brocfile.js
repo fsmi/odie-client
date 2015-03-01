@@ -4,20 +4,20 @@ var Funnel = require('broccoli-funnel');
 var esTranspiler = require('broccoli-babel-transpiler');
 var lessCompiler = require('broccoli-less-single');
 var replace = require('broccoli-string-replace');
+var webpackify = require('broccoli-webpack');
+var dereference = require('broccoli-dereference');
 
-var jsDeps = new Funnel('bower_components/', {
-  files: [
-    'bootstrap/dist/js/bootstrap.js',
-    'jquery/dist/jquery.js',
-    'jquery-cookie/jquery.cookie.js',
-    'knockout/dist/knockout.js',
-    'knockout-es5/dist/knockout-es5.js',
-    'typeahead.js/dist/typeahead.jquery.js'
-  ]
-});
+// deps we have to load via relative paths (e.g., './knockout-es5' instead of 'knockout-es5')
+// because they're not their package.json's 'main' file or we need to patch them
+var jsDeps = mergeTrees([
+    new Funnel('node_modules/', { files: ['bootstrap/js/modal.js'] }),
+    new Funnel('node_modules/knockout-es5/src/', { files: ['knockout-es5.js'] }),
+    new Funnel('node_modules/broccoli-babel-transpiler/node_modules/babel-core', { files: ['browser-polyfill.js'] }),
+    new Funnel('node_modules/typeahead.js/dist', { files: ['typeahead.jquery.js'] })
+]);
 // bootstrapify typeahead markup
 var jsDeps = replace(jsDeps, {
-  files: ['typeahead.js/dist/typeahead.jquery.js'],
+  files: ['typeahead.jquery.js'],
   patterns: [{
     match: /<span class="tt-suggestions"><\/span>/,
     replacement: '<ul class="tt-suggestions"></ul>'
@@ -28,28 +28,34 @@ var jsDeps = replace(jsDeps, {
 });
 
 var js = 'js/';
-var es6js = new Funnel(js, {
-  include: ['app.js', 'config.js', 'lib.js', 'ko/*.js', 'vm/*.js']
+js = esTranspiler(js);
+
+// inline views via webpack
+var views = new Funnel('views/', {
+  destDir: 'views/'
 });
-es6js = esTranspiler(es6js);
-var es6polyfill = new Funnel('node_modules/broccoli-babel-transpiler/node_modules/babel-core', {
-  include: ['browser-polyfill.js']
-});
-js = mergeTrees([jsDeps, es6polyfill, js, es6js], { overwrite: true });
-js = concat(js, {
-  // some scripts depend on the 'jQuery' or 'ko' global
-  inputFiles: ['jquery/dist/jquery.js', 'knockout/dist/knockout.js', '**/*.js'],
-  outputFile: '/assets/scripts.js',
-  separator: '\n;\n'
+js = mergeTrees([jsDeps, js, views]);
+js = dereference(js); // webpack doesn't seem to like symlinks
+js = webpackify(js, {
+  entry: './main',
+  output: { filename: 'assets/scripts.js' },
+  module: {
+    loaders: [
+      // Bind 'window' to global one. Don't even ask.
+      { test: 'main.js', loader: 'imports?this=>window&window=>this' },
+      { test: /\.html$/, loader: 'raw' },
+      { test: '../typeahead.jquery.js', loader: 'imports?jQuery=jquery' }
+    ]
+  }
 });
 
 var less = mergeTrees([
-  'bower_components/bootstrap/less/',
+  'node_modules/bootstrap/less/',
   'less/'
 ]);
 css = mergeTrees([
   lessCompiler(less, 'bootstrap.my.less', 'bootstrap.css'),
-  new Funnel('bower_components/bootstrap/dist/css', {
+  new Funnel('node_modules/bootstrap/dist/css', {
     files: ['bootstrap-theme.css']
   }),
   'css/'
@@ -71,6 +77,8 @@ fonts = new Funnel(fonts, {
   destDir: '/fonts'
 });
 
-var views = 'views/';
+var index = new Funnel('views/', {
+  files: ['index.html']
+});
 
-module.exports = mergeTrees([js, css, fonts, views]);
+module.exports = mergeTrees([js, css, fonts, index]);

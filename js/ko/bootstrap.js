@@ -1,4 +1,13 @@
-ko.modal = (template, viewModel) =>
-  ko.renderTemplate(template, viewModel, {
-    afterRender: () => $('#modal').children().modal('show')
-  }, document.getElementById('modal'));
+import $ from "jquery";
+import ko from "knockout";
+import "../bootstrap/js/modal";
+
+ko.modal = (template, viewModel) => {
+  ko.applyBindingsToNode(document.getElementById('modal'), {
+    component: {
+      name: template,
+      params: viewModel
+    }
+  });
+  $('#modal').modal('show');
+};

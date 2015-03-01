@@ -1,6 +1,5 @@
 <!-- shopping cart template.
-Data binding context: Cart
-Please remember that this template can't be named 'card.html', as the templating engine does Evil Things if you try to nest a template into an element with the same id as the template name -->
+Data binding context: Cart -->
 
 <h4>Einkaufswagen</h4>
 <table class="table table-condensed">
@@ -29,7 +28,7 @@ Please remember that this template can't be named 'card.html', as the templating
 </table>
 <hr/>
 
-<div data-bind="visible: !$root.user.isAuthenticated">
+<div data-bind="visible: !user.isAuthenticated">
   <div class="text-right form-horizontal">
     Preisschätzung: <span data-bind="text: (priceEstimate() / 100).toFixed(2)"></span> €
     <span class="text-primary" data-bind="visible: includesOral">*</span>
@@ -42,4 +41,4 @@ Please remember that this template can't be named 'card.html', as the templating
     </em>
   </div>
 </div>
-<div data-bind="visible: $root.user.isAuthenticated, template: {name: 'print', data: $root.printJob}"></div>
+<div data-bind="visible: user.isAuthenticated, component: {name: 'print', params: $data}"></div>

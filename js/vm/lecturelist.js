@@ -1,4 +1,8 @@
-class LectureList {
+import ko from "knockout";
+
+import config from "../config";
+
+export default class LectureList {
   constructor() {
     this.searchString = '';
     this.lectures = [];

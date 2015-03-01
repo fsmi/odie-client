@@ -1,4 +1,12 @@
-class CartList {
+import ko from "knockout";
+
+import config from "../config";
+import documentselection from "./documentselection";
+import Cart from "./cart";
+import Document from "./document";
+import PrintJob from "./printjob";
+
+export default class Preselection {
   constructor() {
     this.carts = [];
     this.filter = '';
@@ -6,6 +14,7 @@ class CartList {
     this.limit = this.defaultLimit;
 
     ko.track(this);
+    this.loadCarts();
   }
 
   filteredCarts() {
@@ -44,6 +53,10 @@ class CartList {
         });
       });
     this.limit = this.defaultLimit;
+  }
+
+  openCart(cart) {
+    documentselection.cart = cart;
   }
 
   deleteCart(cart) {

@@ -1,3 +1,8 @@
+import ko from "knockout";
+import $ from "jquery";
+
+import config from "../config";
+
 class User {
   constructor() {
     this.username = '';
@@ -57,3 +62,5 @@ class User {
       });
   }
 }
+
+export default new User();

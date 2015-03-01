@@ -1,4 +1,9 @@
-class Cart {
+import ko from "knockout";
+
+import config from "../config";
+import user from "./user";
+
+export default class Cart {
   constructor() {
     this.name = '';
     this.documents = [];
@@ -81,4 +86,7 @@ class Cart {
     // round to next-highest ten-cent unit
     return Math.ceil(price / 10) * 10;
   }
+
+  get config() { return config; }
+  get user() { return user; }
 }

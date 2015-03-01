@@ -1,5 +1,6 @@
-/* Models a single print job and supplies the data bindings for
- * the print.html template. */
+import ko from "knockout";
+
+import config from "../config";
 
 class Printer {
   constructor(id, name) {
@@ -8,11 +9,14 @@ class Printer {
   }
 }
 
-class PrintJob {
-  constructor(cart, coverText, depositCount) {
+/* Models a single print job and supplies the data bindings for
+ * the print.html template. */
+
+export default class PrintJob {
+  constructor(cart) {
     this.cart = cart;
-    this._depositCount = depositCount;
-    this._coverText = coverText;
+    this._depositCount = undefined;
+    this._coverText = '';
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.availablePrinters = [
       new Printer('external', 'Info-Drucker'),
@@ -49,11 +53,11 @@ class PrintJob {
     });
   }
 
-  printPrice() {
+  get printPrice() {
     return (this.cart.priceEstimate(0) / 100).toFixed(2);
   }
 
-  totalPrice() {
+  get totalPrice() {
     return (this.cart.priceEstimate(this.depositCount) / 100).toFixed(2);
   }
 
@@ -72,4 +76,6 @@ class PrintJob {
         this.status = 'error';
       });
   }
+
+  get config() { return config; }
 }

@@ -10,9 +10,7 @@ To setup odie-client, you need to have [npm](https://npmjs.org/) installed. Then
 
 ```bash
 sudo npm install -g broccoli-cli # one-time
-sudo npm install -g bower        # one-time
 npm install                      # whenever package.json has changed
-bower install                    # whenever bower.json has changed
 broccoli serve                   # whenever Brocfile.js has changed
 ```
 

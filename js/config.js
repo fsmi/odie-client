@@ -1,7 +1,18 @@
+import $ from "jquery";
+
 let config = {
   // in cents
   depositPrice: 500,
   pricePerPage: 4,
+
+  previewPrefix: $.cookie('previewPrefix') || '/home/mi/info_Dokumente/',
+  configurePreview() {
+    $.cookie('previewPrefix', this.previewPrefix, {expires: 10000});
+    this.isPreviewConfigured = true;
+  },
+  get isPreviewConfigured() {
+    return $.cookie('previewPrefix') !== undefined;
+  },
 
   _baseAjaxSettings: {
     error: (_, __, error) => {
@@ -41,3 +52,5 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
   let live = true;
   config.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
 }
+
+export default config;
