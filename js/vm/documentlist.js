@@ -1,6 +1,10 @@
-class DocumentList {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+import ko from "knockout";
+
+import config from "../config";
+import Document from "./document";
+
+export default class DocumentList {
+  constructor() {
     this.lecture = '';
     this.lectureFilter = '';
     this.examinantsFilter = '';
@@ -12,10 +16,8 @@ class DocumentList {
 
   load(name) {
     this.lecture = name;
-    let urlName = encodeURIComponent(name);
-    $.getJSON(this.baseUrl + '/data/lectures/' + urlName + '/documents', data =>
-      this.documents = data.map(d => new Document(d))
-    );
+    config.getJSON('/data/lectures/' + encodeURIComponent(name) + '/documents')
+      .done(data => this.documents = data.map(d => new Document(d)));
   }
 
   filtered() {

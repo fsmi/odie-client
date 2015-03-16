@@ -1,6 +1,10 @@
+import ko from "knockout";
+import $ from "jquery";
+
+import config from "../config";
+
 class User {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+  constructor() {
     this.username = '';
     this.firstName = '';
     this.lastName = '';
@@ -15,16 +19,17 @@ class User {
   }
 
   onAuthUpdate() {
-    $.getJSON(this.baseUrl + '/data/user', data => {
+    config.getJSON('/data/user', {
+      error: () => {
+        // We're obviously not logged in
+        $.removeCookie('sessionid');
+        this.isAuthenticated = false;
+      }
+    }).done(data => {
       this.username = data.user;
       this.firstName = data.firstName;
       this.lastName = data.lastName;
       this.isAuthenticated = true;
-    })
-    .fail(() => {
-      // We're obviously not logged in
-      $.removeCookie('sessionid');
-      this.isAuthenticated = false;
     });
   }
 
@@ -33,38 +38,29 @@ class User {
     // credentials not actually being sent.
     $('#login-form').find('input').change();
 
-    $.ajax({
-      url: this.baseUrl + '/data/login',
-      type: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      data: JSON.stringify({user: this.username, password: this.password, rememberMe: this.rememberMe}),
+    config.post('/data/login', {user: this.username, password: this.password, rememberMe: this.rememberMe}, {
       error: (xhr, _, errorThrown) => {
         this.errorThrown = xhr.status + ': ' + xhr.responseText;
         this.onAuthUpdate();
-      },
-      success: () => {
-        this.password = '';
-        this.errorThrown = '';
-        if (!$.cookie('sessionid')) {
-          $.cookie('sessionid', true);
-        }
-        this.onAuthUpdate();
-        success();
       }
+    }).done(() => {
+      this.password = '';
+      this.errorThrown = '';
+      if (!$.cookie('sessionid')) {
+        $.cookie('sessionid', true);
+      }
+      this.onAuthUpdate();
+      success();
     });
-    this.password = '';
-    this.errorThrown = '';
   }
 
   logout(success) {
-    $.ajax({
-      url: this.baseUrl + '/data/logout',
-      type: 'POST',
-      success: () => {
+    config.post('/data/logout', {})
+      .done(() => {
         this.onAuthUpdate();
         success();
-      },
-      error: () => console.log("Couldn't log out."),
-    });
+      });
   }
 }
+
+export default new User();

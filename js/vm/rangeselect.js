@@ -1,4 +1,6 @@
-class RangeSelect {
+import ko from "knockout";
+
+export default class RangeSelect {
   constructor(cart) {
     this.firstSelection = null;
     this.secondSelection = null;

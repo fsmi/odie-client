@@ -1,13 +1,18 @@
+import ko from "knockout";
+
+import config from "../config";
+import Cart from "./cart";
+import PrintJob from "./printjob";
+
 // Handles accounting corrections - erroneously printed pages, etc.
-class Correction {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
+export default class Correction {
+  constructor() {
     this.erroneousPages = 0;
     this.erroneousCents = 0;
     // Registering deposit without printing is done by submitting a print job with
-    // non-zero depositCount, but not documents. We're using PrintJob as is with
+    // non-zero depositCount, but no documents. We're using PrintJob as is with
     // an empty Cart for this.
-    this._printJob = new PrintJob(this.baseUrl, new Cart(baseUrl));
+    this._printJob = new PrintJob(new Cart());
     ko.track(this);
 
     ko.defineProperty(this, 'erroneousEuros', {
@@ -17,15 +22,7 @@ class Correction {
   }
 
   _logErroneous(centsPrice) {
-    $.ajax({
-      url: this.baseUrl + '/data/log_erroneous_copies',
-      type: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      data: JSON.stringify({cents: centsPrice}),
-      error: (_, __, error) => {
-        console.log(error);
-      }
-    })
+    config.post('/data/log_erroneous_copies', { cents: centsPrice });
   }
 
   logErroneousCents() {
@@ -34,13 +31,12 @@ class Correction {
   }
 
   logErroneouslyPrintedPages() {
-    this._logErroneous(this.erroneousPages * pricePerPage);
+    this._logErroneous(this.erroneousPages * config.pricePerPage);
     this.erroneousPages = 0;
   }
 
   makeDeposit() {
     this._printJob.submit();
-    this._printJob.depositCount = 0;
-    this._printJob.coverText = '';
+    this._printJob = new PrintJob(new Cart());
   }
 }
