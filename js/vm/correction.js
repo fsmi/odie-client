@@ -1,51 +1,42 @@
+import ko from "knockout";
+
+import config from "../config";
+import Cart from "./cart";
+import PrintJob from "./printjob";
+
 // Handles accounting corrections - erroneously printed pages, etc.
-var Correction = function(baseUrl) {
-  var self = this;
-  this.baseUrl = baseUrl;
-  this.erroneousPages = 0;
-  this.erroneousCents = 0;
-  // Registering deposit without printing is done by submitting a print job with
-  // non-zero depositCount, but not documents. We're using PrintJob as is with
-  // an empty Cart for this.
-  this._printJob = new PrintJob(this.baseUrl, new Cart(baseUrl));
-  ko.track(this);
+export default class Correction {
+  constructor() {
+    this.erroneousPages = 0;
+    this.erroneousCents = 0;
+    // Registering deposit without printing is done by submitting a print job with
+    // non-zero depositCount, but no documents. We're using PrintJob as is with
+    // an empty Cart for this.
+    this._printJob = new PrintJob(new Cart());
+    ko.track(this);
 
-  ko.defineProperty(self, 'erroneousEuros', {
-    get: function() {
-      return self.erroneousCents / 100;
-    },
-    set: function(value) {
-      this.erroneousCents = value * 100;
-    }
-  });
-}
+    ko.defineProperty(this, 'erroneousEuros', {
+      get: () => this.erroneousCents / 100,
+      set: value => this.erroneousCents = value * 100
+    });
+  }
 
-Correction.prototype = Object.create(Object.prototype);
+  _logErroneous(centsPrice) {
+    config.post('/data/log_erroneous_copies', { cents: centsPrice });
+  }
 
-Correction.prototype._logErroneous = function(centsPrice) {
-  $.ajax({
-    url: this.baseUrl + '/data/log_erroneous_copies',
-    type: 'POST',
-    contentType: 'application/json; charset=UTF-8',
-    data: JSON.stringify({cents: centsPrice}),
-    error: function(_, _, error) {
-      console.log(error);
-    }
-  })
-}
+  logErroneousCents() {
+    this._logErroneous(this.erroneousCents);
+    this.erroneousCents = 0;
+  }
 
-Correction.prototype.logErroneousCents = function() {
-  this._logErroneous(this.erroneousCents);
-  this.erroneousCents = 0;
-}
+  logErroneouslyPrintedPages() {
+    this._logErroneous(this.erroneousPages * config.pricePerPage);
+    this.erroneousPages = 0;
+  }
 
-Correction.prototype.logErroneouslyPrintedPages = function() {
-  this._logErroneous(this.erroneousPages * pricePerPage);
-  this.erroneousPages = 0;
-}
-
-Correction.prototype.makeDeposit = function() {
-  this._printJob.submit();
-  this._printJob.depositCount = 0;
-  this._printJob.coverText = '';
+  makeDeposit() {
+    this._printJob.submit();
+    this._printJob = new PrintJob(new Cart());
+  }
 }

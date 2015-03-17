@@ -1,0 +1,106 @@
+<!-- Template for the main document selection table.
+Data binding context: DocumentSelection. -->
+
+<div id='documents-view'>
+  <form class='form-inline' role='form'>
+    <div id='lectureSelection' class='form-group'>
+      <label for='lectureName' class='sr-only'>Vorlesung</label>
+      <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: lecturelist.typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
+    </div>
+  </form>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <td class="td-compact">#/<span data-bind="text: documentlist.filtered().length"></span></td>
+        <td>Vorlesungen</td>
+        <td>Prüfer</td>
+        <td>Prüfungsart</td>
+        <td>Datum</td>
+        <td>Seiten</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type='text' data-bind='value: documentlist.lectureFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
+        <td><input type='text' data-bind='value: documentlist.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
+        <td>
+          <select data-bind='value: documentlist.typeFilter'>
+            <option value=''>Beides</option>
+            <option value='written'>Schriftlich</option>
+            <option value='oral'>Mündlich</option>
+          </select>
+        </td>
+        <td></td>
+        <td></td>
+        <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: function() { documentlist.filtered().forEach(cart.add, cart); }">∀<span class='icon-basket small'></span></button></td>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: documentlist.filtered()">
+    <tr class="document-list" data-bind="
+      css: { 'row-disabled': $parent.cart.contains($data) },
+      event: { mouseenter: $parent.rangeSelect.onRowMouseOver.bind($parent.rangeSelect, $index) },
+      click: $parent.rangeSelect.onClick.bind($parent.rangeSelect, $index, $parent.documentlist.filtered())">
+      <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected addButton-color': $parent.rangeSelect.selectedBarVisible($index)}">
+        <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $parent.rangeSelect.upperBoundVisible($index)"></span>
+        <span class="row-disabled" data-bind="text: $index() + 1"></span>
+        <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $parent.rangeSelect.lowerBoundVisible($index)"></span>
+      </td>
+      <td>
+        <ul class="lecture-list-cell" data-bind="foreach: lectures">
+          <li data-bind="text: $data"></li>
+        </ul>
+        <span class="document-comment" data-bind="text: comment"></span>
+      </td>
+
+      <td data-bind="text: examinants.join(', ')"></td>
+      <td data-bind="text: displayExamType()"></td>
+      <td class="td-nowrap" data-bind="text: displayDate()"></td>
+      <td data-bind="text: pages"></td>
+      <td class="td-nowrap td-compact text-right">
+        <button
+          class='icon-button btn-info btn btn-compact icon-basket'
+          data-bind="
+          click: $parent.rangeSelect.commit.bind($parent.rangeSelect, $parent.documentlist.filtered()),
+          style:
+          { visibility: $parent.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
+          clickBubble: false,
+          enable: !$parent.cart.contains($data)">
+        </button>
+        <button
+          class='icon-button btn-info btn btn-compact icon-eye'
+          title="Vorschau (von Fachschaftsrechnern aus)"
+          data-toggle="modal"
+          data-target="#preview-config"
+          data-bind="
+          visible: $parent.user.isAuthenticated && $parent.config.previewPrefix === undefined,
+          style: { visibility: $index() == $parent.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
+          "></button>
+        <a
+          class='icon-button btn-info btn btn-compact icon-eye'
+          title="Vorschau (von Fachschaftsrechnern aus)"
+          target="_blank"
+          data-bind="
+          attr: { href: 'file://' + $parent.config.previewPrefix + path },
+          click: function() { return true; },
+          clickBubble: false,
+          visible: $parent.user.isAuthenticated && $parent.config.previewPrefix !== undefined,
+          style: { visibility: $index() == $parent.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
+          "></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- shopping cart -->
+<span id="cart" class="cart navbar-default container-fluid navbar">
+  <div data-bind="component: {
+    name: 'cart',
+    params: cart
+  }"></div>
+</span>
+
+<!-- modal dialog for document preview config -->
+<div class="modal fade" id="preview-config" tabindex="-1" data-bind="component: 'previewconfig'">
+</div>
