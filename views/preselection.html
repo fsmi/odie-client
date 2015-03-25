@@ -1,5 +1,3 @@
-<!-- preselection screen template. Data binding context: CartList -->
-
 <button class="btn btn-primary icon-arrows-cw" data-bind="click: loadCarts.bind($data)">Neu laden</button>
 <input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: filter'>
 
@@ -17,7 +15,7 @@
   <tr class="document-list">
     <td data-bind="text: name"></td>
     <td class="td-min-60pct-break"data-bind="text: lectures"></td>
-    <td class="td-nowrap" data-bind="text: displayDate"></td>
+    <td class="td-nowrap" data-bind="date: date"></td>
     <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $parent.openCart.bind($parent, cart)">Öffnen</button></td>
     <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: ko.modal.bind(ko, 'printmodal', cart)">Drucken</button></td>
     <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, cart)">Löschen</button></td>

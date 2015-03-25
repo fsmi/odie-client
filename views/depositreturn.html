@@ -10,7 +10,7 @@ Data binding context: DepositReturn -->
   <tbody data-bind="foreach: {data: deposits, as: 'deposit'}">
   <tr class="document-list">
     <td data-bind="text: name"></td>
-    <td data-bind="text: new Date(Date.parse(date)).toLocaleDateString()"></td>
+    <td data-bind="date: new Date(date)"></td>
     <td><button class="btn btn-compact btn-primary icon-money" data-bind="click: $parent.cashOutDeposit.bind($parent, deposit.id)">Auszahlen</button></td>
   </tr>
   </tbody>

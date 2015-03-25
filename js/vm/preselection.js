@@ -47,7 +47,7 @@ export default class Preselection {
           let c = new Cart();
           c.id = d.id;
           c.name = d.name;
-          c.date = d.creationTime;
+          c.date = new Date(d.creationTime);
           d.documents.forEach(doc => c.add(new Document(doc)));
           return c;
         });
