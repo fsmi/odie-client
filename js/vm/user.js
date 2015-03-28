@@ -8,9 +8,6 @@ class User {
     this.username = '';
     this.firstName = '';
     this.lastName = '';
-    this.password = '';
-    this.rememberMe = true;
-    this.errorThrown = '';
     this.isAuthenticated = false;
 
     this.onAuthUpdate();
@@ -33,19 +30,10 @@ class User {
     });
   }
 
-  login(success) {
-    // Hack to force KO to fetch input values. This should fix firefox' filled-in
-    // credentials not actually being sent.
-    $('#login-form').find('input').change();
-
-    config.post('/data/login', {user: this.username, password: this.password, rememberMe: this.rememberMe}, {
-      error: (xhr, _, errorThrown) => {
-        this.errorThrown = xhr.status + ': ' + xhr.responseText;
-        this.onAuthUpdate();
-      }
+  login(password, rememberMe, error, success) {
+    config.post('/data/login', {user: this.username, password: password, rememberMe: rememberMe}, {
+      error: (xhr, _, errorThrown) => error(xhr.status + ': ' + xhr.responseText)
     }).done(() => {
-      this.password = '';
-      this.errorThrown = '';
       if (!$.cookie('sessionid')) {
         $.cookie('sessionid', true);
       }

@@ -2,6 +2,8 @@
 Data binding context: DocumentSelection. -->
 
 <div id='documents-view'>
+  <!-- two-way binding between URL and documentlist.lecture. Use a separate element so that nothing gets hidden by the lecture-less /documentselection default URL. -->
+  <div data-bind="page: { id: '?', nameParam: ko.getObservable(documentlist, 'lecture') }"></div>
   <form class='form-inline' role='form'>
     <div id='lectureSelection' class='form-group'>
       <label for='lectureName' class='sr-only'>Vorlesung</label>

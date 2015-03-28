@@ -23,12 +23,16 @@
     "type": "git",
     "url": "https://github.com/fsmi/odie-client.git"
   },
-  "browser": {
-    "jquery": "./node_modules/jquery/dist/jquery.js"
-  },
   "browserify-shim": {
+    "./node_modules/bootstrap/js/dropdown.js": {
+      "depends": ["jquery:jQuery"]
+    },
     "./node_modules/bootstrap/js/modal.js": {
       "depends": ["jquery:jQuery"]
+    },
+    "./node_modules/pagerjs/pager.js": {
+      "exports": "pager",
+      "depends": ["jquery:$", "knockout:ko"]
     }
   }
 }

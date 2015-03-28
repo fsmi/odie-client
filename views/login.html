@@ -1,6 +1,3 @@
-<!-- login screen template
-Data binding context: User -->
-
 <div class="row">
   <h1 class="banner">Einmal anmelden. Alle fsmi-Produkte nutzen.</h1>
   <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -10,9 +7,9 @@ Data binding context: User -->
       alt="">
       <form class="form-signin" id="login-form">
         <span class="text-warning login-error" data-bind="text: errorThrown, css: { 'icon-attention': errorThrown !== '' }"></span>
-        <input type="text" class="form-control" data-bind="value: username" placeholder="Username" required autofocus>
+        <input type="text" class="form-control" data-bind="value: user.username" placeholder="Username" required autofocus>
         <input type="password" class="form-control" data-bind="value: password" placeholder="Passwort" required>
-        <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: $root.login.bind($root)" type="submit">
+        <button class="btn btn-lg btn-primary btn-signin btn-block" data-bind="click: login.bind($data)" type="submit">
           Anmelden</button>
         <label class="checkbox pull-left">
           <input type="checkbox" data-bind="checked: rememberMe">
