@@ -1,22 +1,15 @@
 var concat = require('broccoli-concat');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
-var esTranspiler = require('broccoli-babel-transpiler');
 var lessCompiler = require('broccoli-less-single');
 var replace = require('broccoli-string-replace');
-var webpackify = require('broccoli-webpack');
-var dereference = require('broccoli-dereference');
+var browserify = require('broccoli-fast-browserify');
 
-// deps we have to load via relative paths (e.g., './knockout-es5' instead of 'knockout-es5')
-// because they're not their package.json's 'main' file or we need to patch them
-var jsDeps = mergeTrees([
-    new Funnel('node_modules/', { files: ['bootstrap/js/modal.js'] }),
-    new Funnel('node_modules/knockout-es5/src/', { files: ['knockout-es5.js'] }),
-    new Funnel('node_modules/broccoli-babel-transpiler/node_modules/babel-core', { files: ['browser-polyfill.js'] }),
-    new Funnel('node_modules/typeahead.js/dist', { files: ['typeahead.jquery.js'] })
-]);
+var env = process.env.BROCCOLI_ENV || 'development';
+
 // bootstrapify typeahead markup
-var jsDeps = replace(jsDeps, {
+var typeahead = new Funnel('node_modules/typeahead.js/dist', { files: ['typeahead.jquery.js'] });
+typeahead = replace(typeahead, {
   files: ['typeahead.jquery.js'],
   patterns: [{
     match: /<span class="tt-suggestions"><\/span>/,
@@ -28,24 +21,22 @@ var jsDeps = replace(jsDeps, {
 });
 
 var js = 'js/';
-js = esTranspiler(js);
 
-// inline views via webpack
+// Transpile and concatenate js and inline views via browserify.
+// We use browserify instead of broccoli for transpilation to get correct source maps.
 var views = new Funnel('views/', {
   destDir: 'views/'
 });
-js = mergeTrees([jsDeps, js, views]);
-js = dereference(js); // webpack doesn't seem to like symlinks
-js = webpackify(js, {
-  entry: './main',
-  output: { filename: 'assets/scripts.js' },
-  module: {
-    loaders: [
-      // Bind 'window' to global one. Don't even ask.
-      { test: 'main.js', loader: 'imports?this=>window&window=>this' },
-      { test: /\.html$/, loader: 'raw' },
-      { test: '../typeahead.jquery.js', loader: 'imports?jQuery=jquery' }
-    ]
+js = mergeTrees([typeahead, js, views]);
+js = browserify(js, {
+  browserify: {
+    debug: env === 'development' // source maps
+  },
+  bundles: {
+    'assets/scripts.js': {
+      transform: [require('babelify'), require('brfs')],
+      entryPoints: ['main.js']
+    }
   }
 });
 

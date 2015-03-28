@@ -1,6 +1,6 @@
 import $ from "jquery";
 import ko from "knockout";
-import "../bootstrap/js/modal";
+import "bootstrap/js/modal";
 
 ko.modal = (template, viewModel) => {
   ko.applyBindingsToNode(document.getElementById('modal'), {
