@@ -78,6 +78,12 @@ body {
   white-space: nowrap;
 }
 
+.td-min-60pct-break {
+  min-width: 60%;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 .tr-selected {
   border: 2px solid #61c5fa;
   outline: none;
