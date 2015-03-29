@@ -1,6 +1,5 @@
 import "babel-core/browser-polyfill";
 import $ from "jquery";
-window.jQuery = $; // for bad non-CommonJS deps. bah.
 import "jquery.cookie";
 import ko from "knockout";
 import "knockout-es5/src/knockout-es5";

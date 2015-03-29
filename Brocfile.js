@@ -34,7 +34,7 @@ js = browserify(js, {
   },
   bundles: {
     'assets/scripts.js': {
-      transform: [require('babelify'), require('brfs')],
+      transform: [require('babelify'), { tr: require('browserify-shim'), options: { global: true } }, require('brfs')],
       entryPoints: ['main.js']
     }
   }
