@@ -57,6 +57,11 @@ export default class Cart {
     this.documents = [];
   }
 
+  reset() {
+    this.dropAll();
+    this.name = '';
+  }
+
   save() {
     if (this.length === 0) {
       alert("Bitte wähle zuerst ein paar Protokolle oder Klausuren aus.");
@@ -69,7 +74,7 @@ export default class Cart {
     config.post(
         '/data/carts/' + encodeURIComponent(this.name),
         this.documents.map(doc => doc.id)
-    ).done(() => this.dropAll());
+    ).done(() => this.reset());
   }
 
   priceEstimate(depositCount) {

@@ -51,6 +51,11 @@ export default class PrintJob {
       get: () => this._coverText || this.cart.name,
       set: coverText => this._coverText = coverText
     });
+
+    // reset print state if settings for the current cart change
+    ko.getObservable(this.cart, 'documents').subscribe(() => this.reset());
+    ko.getObservable(this, 'coverText').subscribe(() => this.reset());
+    ko.getObservable(this, 'selectedPrinter').subscribe(() => this.reset());
   }
 
   get printPrice() {
@@ -59,6 +64,10 @@ export default class PrintJob {
 
   get totalPrice() {
     return (this.cart.priceEstimate(this.depositCount) / 100).toFixed(2);
+  }
+
+  reset() {
+    this.status = undefined;
   }
 
   submit() {
