@@ -1,9 +1,8 @@
-import "./browser-polyfill";
+import "babel-core/browser-polyfill";
 import $ from "jquery";
-window.jQuery = $; // for bad non-CommonJS deps. bah.
 import "jquery.cookie";
 import ko from "knockout";
-import "./knockout-es5";
+import "knockout-es5/src/knockout-es5";
 
 import "./lib";
 import "./ko/bootstrap";
@@ -15,41 +14,43 @@ $(document).ready(() => {
   let app = new App();
   window.app = app; // for debugging
 
-  // use singleton view-models where access from other view-models is needed
+  // node module, calls will be inlined by browserify
+  let fs = require('fs');
 
+  // use singleton view-models where access from other view-models is needed
   ko.components.register('documentselection', {
     viewModel: { instance: require('./vm/documentselection') },
-    template: require('./views/documentselection.html')
+    template: fs.readFileSync('views/documentselection.html', 'utf8')
   });
   ko.components.register('cart', {
-    template: require('./views/cart.html')
+    template: fs.readFileSync('views/cart.html', 'utf8')
   });
   ko.components.register('previewconfig', {
     viewModel: { instance: require('./config') },
-    template: require('./views/previewconfig.html')
+    template: fs.readFileSync('views/previewconfig.html', 'utf8')
   });
   ko.components.register('print', {
     viewModel: require('./vm/printjob'),
-    template: require('./views/print.html')
+    template: fs.readFileSync('views/print.html', 'utf8')
   });
   ko.components.register('printmodal', {
-    template: require('./views/printmodal.html')
+    template: fs.readFileSync('views/printmodal.html', 'utf8')
   });
   ko.components.register('preselection', {
     viewModel: require('./vm/preselection'),
-    template: require('./views/preselection.html')
+    template: fs.readFileSync('views/preselection.html', 'utf8')
   });
   ko.components.register('depositreturn', {
     viewModel: require('./vm/depositreturn'),
-    template: require('./views/depositreturn.html')
+    template: fs.readFileSync('views/depositreturn.html', 'utf8')
   });
   ko.components.register('correction', {
     viewModel: require('./vm/correction'),
-    template: require('./views/correction.html')
+    template: fs.readFileSync('views/correction.html', 'utf8')
   });
   ko.components.register('login', {
     viewModel: { instance: require('./vm/user') },
-    template: require('./views/login.html')
+    template: fs.readFileSync('views/login.html', 'utf8')
   });
 
   ko.applyBindings(app);
