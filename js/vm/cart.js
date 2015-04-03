@@ -20,23 +20,6 @@ export default class Cart {
     ko.defineProperty(this, 'lectures', () =>
       this.documents.flatMap(doc => doc.lectures)
     );
-
-    ko.defineProperty(this, 'displayDate', () => {
-      let months = ['Jan ',
-                    'Feb ',
-                    'Mär ',
-                    'Apr ',
-                    'Mai ',
-                    'Jun ',
-                    'Jul ',
-                    'Aug ',
-                    'Sep ',
-                    'Okt ',
-                    'Nov ',
-                    'Dez '];
-      let d = new Date(this.date);
-      return d.getDate() + '. ' + months[d.getMonth()] + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
-    });
   }
 
   contains(doc) {

@@ -5,6 +5,7 @@ import ko from "knockout";
 import "knockout-es5/src/knockout-es5";
 
 import "./lib";
+import "./ko/formatter";
 import "./ko/bootstrap";
 import "./ko/typeahead";
 
