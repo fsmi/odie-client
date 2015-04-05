@@ -25,19 +25,19 @@
           <a class="navbar-brand" href="#">Odie</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="main-nav" data-bind="visible: true" style="display: none !important;">
+        <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: visible === 'documentselection' }, click: visible = 'documentselection'">
-              <a href="#">
+            <li data-bind="css: { active: activePageName === 'documentselection' }">
+              <a href="#documentselection">
                 Auswahl&nbsp;<span class="badge" data-bind="text: cartSize"></span>
               </a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li data-bind="visible: user.isAuthenticated, css: { active: visible === 'preselection' }, click: show.bind($root, 'preselection')"><a href="#">Vorauswahl</a></li>
-            <li data-bind="visible: user.isAuthenticated, css: { active: visible === 'depositreturn' }, click: show.bind($root, 'depositreturn')"><a href="#">Pfandrückgabe</a></li>
-            <li data-bind="visible: user.isAuthenticated, css: { active: visible === 'correction' }, click: show.bind($root, 'correction')"><a href="#">Abrechnungskorrektur</a></li>
-            <li data-bind="visible: !user.isAuthenticated, css: { active: visible === 'login' }, click: show.bind($root, 'login')"><a href="#">Als Fachschafter anmelden</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: activePageName === 'preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: activePageName === 'depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: activePageName === 'correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
+            <li data-bind="visible: !user.isAuthenticated, css: { active: activePageName === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
             <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.firstName"></span></a></li>
           </ul>
@@ -54,9 +54,20 @@
     </noscript>
 
     <!-- content -->
-    <span data-bind="component: visible">
-    </span>
-
+    <div data-bind="page: { id: 'documentselection', role: 'start' }">
+      <div data-bind="component: 'documentselection'"></div>
+    </div>
+    <div data-bind="page: { id: 'login', params: ['successRoute'] }">
+      <div data-bind="component: { name: 'login', params: { successRoute: successRoute } }"></div>
+    </div>
+    <div data-bind="page: { id: 'internal', guard: ensureAuthenticated.bind($root) }">
+      <div data-bind="page: { id: '?', nameParam: 'pageID' }">
+        <div data-bind="component: pageID"></div>
+      </div>
+    </div>
+    <div data-bind="page: { id: '?' }">
+      Here be tiny fluffy dragons
+    </div>
   </div>
 
   <!-- footer -->

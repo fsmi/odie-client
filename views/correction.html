@@ -7,7 +7,7 @@ Data binding context: Correction -->
   <form class="text-center" data-bind="submit: logErroneousCents.bind($data)">
     <p><input type="number" required step="0.10" class="form-control-inline form-control" data-bind="value: erroneousEuros">&nbsp;€ an Fehldrucken
     <button type="submit" class="btn btn-danger icon-money">Buchen</button></p>
-    <p>Nicht eingenommenes Pfand bitte separat in der <a href="#" data-bind="click: $root.show.bind($root, 'depositreturn')">Pfandrückgabe</a> austragen!</p>
+    <p>Nicht eingenommenes Pfand bitte separat in der <a href="#internal/depositreturn">Pfandrückgabe</a> austragen!</p>
   </form>
   <hr>
   <form class="text-center" data-bind="submit: logErroneouslyPrintedPages.bind($data)">

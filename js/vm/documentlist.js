@@ -16,8 +16,11 @@ export default class DocumentList {
 
   load(name) {
     this.lecture = name;
-    config.getJSON('/data/lectures/' + encodeURIComponent(name) + '/documents')
-      .done(data => this.documents = data.map(d => new Document(d)));
+    if (name)
+      config.getJSON('/data/lectures/' + encodeURIComponent(name) + '/documents')
+        .done(data => this.documents = data.map(d => new Document(d)));
+    else
+      this.documents = [];
   }
 
   filtered() {

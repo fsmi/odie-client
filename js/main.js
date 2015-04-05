@@ -3,6 +3,7 @@ import $ from "jquery";
 import "jquery.cookie";
 import ko from "knockout";
 import "knockout-es5/src/knockout-es5";
+import pager from "pagerjs";
 
 import "./lib";
 import "./ko/formatter";
@@ -50,9 +51,11 @@ $(document).ready(() => {
     template: fs.readFileSync('views/correction.html', 'utf8')
   });
   ko.components.register('login', {
-    viewModel: { instance: require('./vm/user') },
+    viewModel: require('./vm/login'),
     template: fs.readFileSync('views/login.html', 'utf8')
   });
 
+  pager.extendWithPage(app);
   ko.applyBindings(app);
+  pager.start();
 });

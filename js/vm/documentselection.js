@@ -1,4 +1,5 @@
 import ko from "knockout";
+import pager from "pagerjs";
 
 import config from "../config";
 import user from "./user";
@@ -13,7 +14,12 @@ class DocumentSelection {
     this.documentlist = new DocumentList();
     this.lecturelist = new LectureList();
     this.rangeSelect = new RangeSelect(this.cart);
+
     ko.track(this);
+
+    ko.getObservable(this.documentlist, 'lecture').subscribe(name =>
+        pager.navigate('documentselection' + (name ? '/' + encodeURIComponent(name) : ''))
+    );
   }
 
   get config() { return config; }
