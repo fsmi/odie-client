@@ -32,4 +32,15 @@ export default class DocumentList {
       (this.lectureFilter === '' || lectureRegex.test(d.lectures.join(' ')))
     );
   }
+
+  toggleTypeFilter(type) {
+    if (!this.typeFilter || type !== this.typeFilter)
+      this.typeFilter = type;
+    else
+      this.typeFilter = '';
+  }
+
+  countType(type) {
+    return this.filtered().filter(doc => doc.examType === type).length;
+  }
 }

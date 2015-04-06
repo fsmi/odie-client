@@ -1,3 +1,10 @@
+.table > thead > tr > td {
+  vertical-align: middle;
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
 .container {
   width: 100%;
   padding-left: 15px;
@@ -47,7 +54,6 @@ body {
 
 .td-compact {
   padding: 0 !important;
-  vertical-align: middle !important;
 }
 
 .document-list:nth-child(even) {
@@ -150,8 +156,6 @@ ul.lecture-list-cell {
 }
 
 .rangeBar-td {
-  padding: 0px !important;
-  border: 0 !important;
   position: relative;
   height: 100%;
   text-align: center;
@@ -237,4 +241,15 @@ ul.lecture-list-cell {
 
 a.btn {
   text-decoration: none;
+}
+
+/* https://github.com/twbs/bootstrap/issues/10686#issuecomment-29591153 */
+.btn-group-nowrap {
+  white-space: nowrap;
+}
+.btn-group-nowrap > .btn {
+  float: inherit;
+}
+.btn-group-nowrap > .btn + .btn {
+  margin-left: -4px;
 }

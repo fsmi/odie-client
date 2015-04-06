@@ -31,9 +31,21 @@
       "src": "fontawesome"
     },
     {
+      "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
+      "css": "pencil",
+      "code": 59407,
+      "src": "fontawesome"
+    },
+    {
       "uid": "7277ded7695b2a307a5f9d50097bb64c",
       "css": "print",
       "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dcedf50ab1ede3283d7a6c70e2fe32f3",
+      "css": "chat",
+      "code": 59406,
       "src": "fontawesome"
     },
     {
