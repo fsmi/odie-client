@@ -5,7 +5,7 @@ Data binding context: Cart -->
 <table class="table table-condensed">
   <thead>
     <tr>
-      <td>#</td>
+      <td colspan="2">#</td>
       <td>Vorlesungen</td>
       <td>Prüfer</td>
       <td data-bind="text: 'Seiten&nbsp;(' + totalPageCount + ')'">Seiten</td>
@@ -15,6 +15,7 @@ Data binding context: Cart -->
   <tbody data-bind="foreach: documents">
   <tr class="document-list" data-bind="attr: {title: extendedAttributes}">
     <td class="row-disabled" data-bind="text: $index() + 1"></td>
+    <td class="td-compact"><span data-bind="css: examType === 'written' ? 'icon-pencil' : 'icon-chat'"></span></td>
     <td>
       <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
         <div data-bind="text: '• ' + lect"></div>

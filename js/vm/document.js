@@ -11,11 +11,7 @@ export default class Document {
     ko.track(this);
   }
 
-  displayExamType() {
-    return this.examType === "written" ? "Schriftlich" : "Mündlich";
-  }
-
   get extendedAttributes() {
-    return this.displayExamType() + ', ' + formatter.formatDate(this.date) + ', ' + this.comment;
+    return formatter.formatDate(this.date) + ', ' + this.comment;
   }
 }

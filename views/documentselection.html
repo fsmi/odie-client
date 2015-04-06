@@ -13,26 +13,27 @@ Data binding context: DocumentSelection. -->
   <table class="table table-condensed">
     <thead>
       <tr>
-        <td class="td-compact">#/<span data-bind="text: documentlist.filtered().length"></span></td>
+        <td class="td-compact" colspan="2">
+          #/
+          <span data-bind="text: documentlist.countType('written')"></span><span class="icon-pencil"></span>
+          <span data-bind="text: documentlist.countType('oral')"></span><span class="icon-chat"></span>
+        </td>
         <td>Vorlesungen</td>
         <td>Prüfer</td>
-        <td>Prüfungsart</td>
         <td>Datum</td>
         <td>Seiten</td>
         <td></td>
         <td></td>
       </tr>
       <tr>
-        <td></td>
+        <td colspan="2">
+          <div class="btn-group btn-group-nowrap" role="group">
+            <button class="btn btn-default btn-compact" type="button" data-bind="css: { 'active': documentlist.typeFilter !== 'oral' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'oral')"><span class="icon-pencil"></span></button>
+            <button class="btn btn-default btn-compact" type="button" data-bind="css: { 'active': documentlist.typeFilter !== 'written' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'written')"><span class="icon-chat"></span></button>
+          </div>
+        </td>
         <td><input type='text' data-bind='value: documentlist.lectureFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
         <td><input type='text' data-bind='value: documentlist.examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
-        <td>
-          <select data-bind='value: documentlist.typeFilter'>
-            <option value=''>Beides</option>
-            <option value='written'>Schriftlich</option>
-            <option value='oral'>Mündlich</option>
-          </select>
-        </td>
         <td></td>
         <td></td>
         <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: function() { documentlist.filtered().forEach(cart.add, cart); }">∀<span class='icon-basket small'></span></button></td>
@@ -43,10 +44,13 @@ Data binding context: DocumentSelection. -->
       css: { 'row-disabled': $parent.cart.contains($data) },
       event: { mouseenter: $parent.rangeSelect.onRowMouseOver.bind($parent.rangeSelect, $index) },
       click: $parent.rangeSelect.onClick.bind($parent.rangeSelect, $index, $parent.documentlist.filtered())">
-      <td class="rangeBar-td" data-bind="css: { 'rangeBar-selected addButton-color': $parent.rangeSelect.selectedBarVisible($index)}">
+      <td class="rangeBar-td td-compact" data-bind="css: { 'rangeBar-selected addButton-color': $parent.rangeSelect.selectedBarVisible($index)}">
         <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $parent.rangeSelect.upperBoundVisible($index)"></span>
         <span class="row-disabled" data-bind="text: $index() + 1"></span>
         <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $parent.rangeSelect.lowerBoundVisible($index)"></span>
+      </td>
+      <td class="td-compact">
+        <span data-bind="css: examType === 'written' ? 'icon-pencil' : 'icon-chat'"></span>
       </td>
       <td>
         <ul class="lecture-list-cell" data-bind="foreach: lectures">
@@ -56,7 +60,6 @@ Data binding context: DocumentSelection. -->
       </td>
 
       <td data-bind="text: examinants.join(', ')"></td>
-      <td data-bind="text: displayExamType()"></td>
       <td class="td-nowrap" data-bind="date: date"></td>
       <td data-bind="text: pages"></td>
       <td class="td-nowrap td-compact text-right">
