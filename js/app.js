@@ -8,9 +8,9 @@ import config from "./config";
 
 export default class App {
   constructor() {
-    ko.defineProperty(this, 'activePageName', () => {
-        let activePage = pager.page.currentChildPage()();
-        return activePage ? activePage.getId() : null;
+    ko.defineProperty(this, 'activeRoute', () => {
+        let activePage = pager.activePage$()
+        return activePage ? activePage.getFullRoute()().join('/') : null;
     });
   }
 
