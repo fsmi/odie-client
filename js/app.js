@@ -22,7 +22,13 @@ export default class App {
   ensureAuthenticated(page, route, callback) {
     if (user.isAuthenticated)
       callback();
-    else
+    else if (user.isAuthenticated === undefined) {
+      // initial authentication request still running
+      let sub = ko.getObservable(user, 'isAuthenticated').subscribe(() => {
+        sub.dispose();
+        this.ensureAuthenticated(page, route, callback);
+      });
+    } else
       pager.navigate(pager.page.path({ path: 'login', params: { successRoute: route.join('/') } }));
   }
 
