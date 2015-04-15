@@ -17,6 +17,7 @@
     "jquery.cookie": "^1.4.1",
     "knockout": "^3.3.0",
     "knockout-es5": "^0.2.0-alpha",
+    "lodash": "^3.6.0",
     "typeahead.js": "^0.10.5"
   },
   "repository": {
@@ -25,14 +26,21 @@
   },
   "browserify-shim": {
     "./node_modules/bootstrap/js/dropdown.js": {
-      "depends": ["jquery:jQuery"]
+      "depends": [
+        "jquery:jQuery"
+      ]
     },
     "./node_modules/bootstrap/js/modal.js": {
-      "depends": ["jquery:jQuery"]
+      "depends": [
+        "jquery:jQuery"
+      ]
     },
     "./node_modules/pagerjs/pager.js": {
       "exports": "pager",
-      "depends": ["jquery:$", "knockout:ko"]
+      "depends": [
+        "jquery:$",
+        "knockout:ko"
+      ]
     }
   }
 }

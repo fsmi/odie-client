@@ -1,4 +1,5 @@
 import ko from "knockout";
+import sum from "lodash/collection/sum";
 
 import formatter from "../ko/formatter";
 
@@ -25,7 +26,7 @@ export class Log {
   }
 
   get totalAmount() {
-    return this.items.filter(item => item.selected).reduce((acc, item) => acc + item.amount, 0);
+    return sum(this.items.filter(item => item.selected), 'amount');
   }
 
   get formatter() { return formatter; }
