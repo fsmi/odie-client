@@ -14,11 +14,6 @@ export default class App {
     });
   }
 
-  openLecture(lecture) {
-    this.documentlist.load(lecture.name);
-    pager.navigate('#documentselection');
-  }
-
   ensureAuthenticated(page, route, callback) {
     if (user.isAuthenticated)
       callback();

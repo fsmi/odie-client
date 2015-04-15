@@ -1,4 +1,5 @@
 import ko from "knockout";
+import pager from "pagerjs";
 
 import config from "../config";
 import documentselection from "./documentselection";
@@ -57,6 +58,7 @@ export default class Preselection {
 
   openCart(cart) {
     documentselection.cart = cart;
+    pager.navigate('#documentselection');
   }
 
   deleteCart(cart) {
