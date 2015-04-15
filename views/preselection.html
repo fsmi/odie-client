@@ -1,5 +1,5 @@
 <button class="btn btn-primary icon-arrows-cw" data-bind="click: loadCarts.bind($data)">Neu laden</button>
-<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: filter'>
+<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: filter, valueUpdate: "input"'>
 
 <table class="table table-condensed">
   <thead>

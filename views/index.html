@@ -27,17 +27,17 @@
 
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: activePageName === 'documentselection' }">
+            <li data-bind="css: { active: activeRoute === 'documentselection' }">
               <a href="#documentselection">
                 Auswahl&nbsp;<span class="badge" data-bind="text: cartSize"></span>
               </a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li data-bind="visible: user.isAuthenticated, css: { active: activePageName === 'preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
-            <li data-bind="visible: user.isAuthenticated, css: { active: activePageName === 'depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
-            <li data-bind="visible: user.isAuthenticated, css: { active: activePageName === 'correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
-            <li data-bind="visible: !user.isAuthenticated, css: { active: activePageName === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
+            <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
+            <li data-bind="visible: !user.isAuthenticated, css: { active: activeRoute === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
             <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.firstName"></span></a></li>
           </ul>

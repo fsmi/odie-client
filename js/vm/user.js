@@ -8,7 +8,7 @@ class User {
     this.username = '';
     this.firstName = '';
     this.lastName = '';
-    this.isAuthenticated = false;
+    this.isAuthenticated = undefined;
 
     this.onAuthUpdate();
 
