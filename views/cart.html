@@ -31,14 +31,14 @@ Data binding context: Cart -->
 
 <div data-bind="visible: !user.isAuthenticated">
   <div class="text-right form-horizontal">
-    Preisschätzung: <span data-bind="text: (priceEstimate() / 100).toFixed(2)"></span> €
+    Preisschätzung: <span data-bind="price: priceEstimate() / 100"></span>
     <span class="text-primary" data-bind="visible: includesOral">*</span>
     <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: name">
     <button class='btn btn-primary icon-floppy' data-bind='click: save.bind($data)'>Speichern</button>
   </div>
   <div class="text-right small text-primary" data-bind="visible: includesOral" style="padding-top: 7px;">
     <em>* Davon 
-      <span data-bind="text: (config.depositPrice / 100).toFixed()"></span> € Protokollpfand
+      <span data-bind="price: config.depositPrice / 100"></span> Protokollpfand
     </em>
   </div>
 </div>
