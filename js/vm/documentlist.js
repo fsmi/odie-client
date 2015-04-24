@@ -12,6 +12,10 @@ export default class DocumentList {
     this.documents = [];
     ko.track(this);
     ko.getObservable(this, 'lecture').subscribe(newName => this.load(newName));
+    ko.defineProperty(this, 'encodedLecture', {
+      get: encodeURIComponent,
+      set: decodeURIComponent
+    });
   }
 
   load(name) {
