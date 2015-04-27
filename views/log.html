@@ -1,0 +1,11 @@
+<div id="log" data-bind="visible: items.length > 0">
+  <div data-bind="foreach: items">
+    <button class="btn btn-default btn-compact" type="button" data-bind="css: { 'active': selected }, click: function() { selected = !selected }">
+      <span data-bind="text: description"></span>
+      <span data-bind="css: amount < 0 ? 'log-expense' : 'log-revenue', price: amount / 100"></span>
+    </button>
+  </div>
+  <div>
+    Summe: <span data-bind="price: totalAmount / 100"></span>
+  </div>
+</div>

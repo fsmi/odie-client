@@ -1,6 +1,7 @@
 import ko from "knockout";
 
 import config from "../config";
+import log from "./log";
 
 class Printer {
   constructor(id, name) {
@@ -59,11 +60,11 @@ export default class PrintJob {
   }
 
   get printPrice() {
-    return (this.cart.priceEstimate(0) / 100).toFixed(2);
+    return this.cart.priceEstimate(0);
   }
 
   get totalPrice() {
-    return (this.cart.priceEstimate(this.depositCount) / 100).toFixed(2);
+    return this.cart.priceEstimate(this.depositCount);
   }
 
   reset() {
@@ -80,7 +81,10 @@ export default class PrintJob {
       printer: this.selectedPrinter.id
     };
     config.post('/data/print', job)
-      .done(() => this.status = 'success')
+      .done(() => {
+        this.status = 'success';
+        log.addItem(this._coverText, this.totalPrice);
+      })
       .fail((_, __, error) => {
         this.status = 'error';
       });

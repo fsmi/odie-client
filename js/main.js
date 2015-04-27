@@ -5,7 +5,6 @@ import ko from "knockout";
 import "knockout-es5/src/knockout-es5";
 import pager from "pagerjs";
 
-import "./lib";
 import "./ko/formatter";
 import "./ko/bootstrap";
 import "./ko/typeahead";
@@ -53,6 +52,10 @@ $(document).ready(() => {
   ko.components.register('login', {
     viewModel: require('./vm/login'),
     template: fs.readFileSync('views/login.html', 'utf8')
+  });
+  ko.components.register('log', {
+    viewModel: { instance: require('./vm/log')["default"] },
+    template: fs.readFileSync('views/log.html', 'utf8')
   });
 
   pager.extendWithPage(app);

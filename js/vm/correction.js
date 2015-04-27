@@ -2,6 +2,7 @@ import ko from "knockout";
 
 import config from "../config";
 import Cart from "./cart";
+import log from "./log";
 import PrintJob from "./printjob";
 
 // Handles accounting corrections - erroneously printed pages, etc.
@@ -22,7 +23,8 @@ export default class Correction {
   }
 
   _logErroneous(centsPrice) {
-    config.post('/data/log_erroneous_copies', { cents: centsPrice });
+    config.post('/data/log_erroneous_copies', { cents: centsPrice })
+      .done(() => log.addItem('Abrechnungskorrektur', -centsPrice));
   }
 
   logErroneousCents() {

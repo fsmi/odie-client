@@ -1,4 +1,6 @@
 import ko from "knockout";
+import flatten from "lodash/array/flatten";
+import sum from "lodash/collection/sum";
 
 import config from "../config";
 import user from "./user";
@@ -9,16 +11,14 @@ export default class Cart {
     this.documents = [];
     ko.track(this);
 
-    ko.defineProperty(this, 'totalPageCount', () =>
-      this.documents.reduce((acc, doc) => acc + doc.pages, 0)
-    );
+    ko.defineProperty(this, 'totalPageCount', () => sum(this.documents, 'pages'));
 
     ko.defineProperty(this, 'includesOral', () =>
       this.documents.some(doc => doc.examType == "oral")
     );
 
     ko.defineProperty(this, 'lectures', () =>
-      this.documents.flatMap(doc => doc.lectures)
+      flatten(this.documents.map(doc => doc.lectures))
     );
   }
 

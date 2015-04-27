@@ -1,6 +1,7 @@
 import ko from "knockout";
 
 import config from "../config";
+import log from "./log";
 
 export default class DepositReturn {
   constructor() {
@@ -22,6 +23,8 @@ export default class DepositReturn {
       // remove it from the displayed list
       let index = this.deposits.findIndex(d => d.id === id);
       this.deposits.splice(index, 1);
+
+      log.addItem('Pfandrückgabe', -config.depositPrice);
     });
   }
 }

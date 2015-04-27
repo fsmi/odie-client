@@ -3,7 +3,7 @@
   <table class="pull-right text-right">
     <tr>
       <td>Druckpreis:</td>
-      <td data-bind="text: printPrice"></td>
+      <td data-bind="price: printPrice / 100"></td>
     </tr>
     <tr>
       <td>
@@ -13,7 +13,7 @@
         +&nbsp;
         <input type="number" required min='0' id="deposit-count" class='number-input form-control-inline form-control' data-bind="value: depositCount">
         &nbsp;×&nbsp;
-        <span data-bind="text: (config.depositPrice / 100).toFixed(2)"></span>
+        <span data-bind="price: config.depositPrice / 100"></span>
       </td>
     </tr>
     <tr> <!-- sub-total -->
@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <td></td>
-      <td data-bind="text: totalPrice"></td>
+      <td data-bind="price: totalPrice / 100"></td>
     </tr>
   </table>
 
