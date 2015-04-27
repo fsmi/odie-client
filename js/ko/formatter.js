@@ -13,13 +13,13 @@ let formatter = {
 
 ko.bindingHandlers.date = {
   update(element, valueAccessor) {
-    element.innerText = formatter.formatDate(ko.unwrap(valueAccessor()));
+    element.innerHTML = formatter.formatDate(ko.unwrap(valueAccessor()));
   }
 };
 
 ko.bindingHandlers.price = {
   update(element, valueAccessor) {
-    element.innerText = formatter.formatPrice(ko.unwrap(valueAccessor()));
+    element.innerHTML = formatter.formatPrice(ko.unwrap(valueAccessor()));
   }
 };
 
