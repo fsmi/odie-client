@@ -3,7 +3,7 @@ import $ from "jquery";
 let config = {
   // in cents
   depositPrice: 500,
-  pricePerPage: 4,
+  pricePerPage: 3,
 
   previewPrefix: $.cookie('previewPrefix') || '/home/mi/info_Dokumente/',
   configurePreview() {
