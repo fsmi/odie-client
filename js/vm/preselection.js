@@ -19,7 +19,7 @@ export default class Preselection {
   }
 
   filteredCarts() {
-    let regex = new RegExp(this.filter);
+    let regex = new RegExp(this.filter, "i");
     let filtered = this.carts.filter(c => regex.test(c.name));
 
     // sort by creation time in descending order
