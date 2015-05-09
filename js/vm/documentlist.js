@@ -8,7 +8,9 @@ export default class DocumentList {
     this.lecture = '';
     this.lectureFilter = '';
     this.examinantsFilter = '';
-    this.typeFilter = '';
+    this.typeFilter = 'written';
+    this.writtenCount = 0;
+    this.oralCount = 0;
     this.documents = [];
     ko.track(this);
     ko.getObservable(this, 'lecture').subscribe(newName => this.load(newName));
@@ -22,7 +24,13 @@ export default class DocumentList {
     this.lecture = name;
     if (name)
       config.getJSON('/data/lectures/' + encodeURIComponent(name) + '/documents')
-        .done(data => this.documents = data.map(d => new Document(d)));
+        .done(data => {
+          this.documents = data.map(d => new Document(d));
+          this.writtenCount = this.countType('written', this.documents);
+          this.oralCount = this.countType('oral', this.documents);
+          if (this.typeFilter === 'written' && this.writtenCount === 0)
+            this.typeFilter = 'oral';
+        });
     else
       this.documents = [];
   }
@@ -37,14 +45,7 @@ export default class DocumentList {
     );
   }
 
-  toggleTypeFilter(type) {
-    if (!this.typeFilter || type !== this.typeFilter)
-      this.typeFilter = type;
-    else
-      this.typeFilter = '';
-  }
-
-  countType(type) {
-    return this.filtered().filter(doc => doc.examType === type).length;
+  countType(type, list) {
+    return (list || this.filtered()).filter(doc => doc.examType === type).length;
   }
 }

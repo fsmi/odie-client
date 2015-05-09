@@ -13,10 +13,10 @@ Data binding context: DocumentSelection. -->
   <table class="table table-condensed">
     <thead>
       <tr>
-        <td class="td-compact" colspan="2">
-          #/
-          <span data-bind="text: documentlist.countType('written')"></span><span title="schriftlich" class="icon-pencil"></span>
-          <span data-bind="text: documentlist.countType('oral')"></span><span title="mündlich" class="icon-chat"></span>
+        <td>#</td>
+        <td class="td-compact">
+          <span data-bind="text: documentlist.countType('written') + '/' + documentlist.writtenCount"></span><span title="schriftlich" class="icon-pencil"></span><br>
+          <span data-bind="text: documentlist.countType('oral') + '/' + documentlist.oralCount"></span><span title="mündlich" class="icon-chat"></span>
         </td>
         <td>Vorlesungen</td>
         <td>Prüfer</td>
@@ -28,8 +28,8 @@ Data binding context: DocumentSelection. -->
       <tr>
         <td colspan="2">
           <div class="btn-group btn-group-nowrap" role="group">
-            <button class="btn btn-default btn-compact" type="button" title="schriftlich" data-bind="css: { 'active': documentlist.typeFilter !== 'oral' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'oral')"><span class="icon-pencil"></span></button>
-            <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': documentlist.typeFilter !== 'written' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'written')"><span class="icon-chat"></span></button>
+            <button class="btn btn-default btn-compact" type="button" title="nur schriftliche" data-bind="css: { 'active': documentlist.typeFilter !== 'oral' }, enable: documentlist.writtenCount, click: function() { documentlist.typeFilter = 'written'; }"><span class="icon-pencil"></span></button>
+            <button class="btn btn-default btn-compact" type="button" title="nur mündliche" data-bind="css: { 'active': documentlist.typeFilter !== 'written' }, enable: documentlist.oralCount, click: function() { documentlist.typeFilter = 'oral'; }"><span class="icon-chat"></span></button>
           </div>
         </td>
         <td><input type='text' data-bind='value: documentlist.lectureFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
