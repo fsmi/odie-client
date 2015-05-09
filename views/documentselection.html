@@ -7,11 +7,9 @@ Data binding context: DocumentSelection. -->
   <form class='form-inline' role='form'>
     <div id='lectureSelection' class='form-group'>
       <label for='lectureName' class='sr-only'>Vorlesung</label>
-      <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: lecturelist.typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
-      <label for='examinantName' class='sr-only'>Prüfer</label>
-      <input id='examinantName' placeholder='Prüfer' style='display: none' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: examinantlist.typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
+      <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
     </div>
-    <label><input type='checkbox' data-bind='checked: searchByExaminant' onClick='if (checked) {$(lectureName)[0].style.display="none";$(examinantName)[0].style.display="";} else {$(lectureName)[0].style.display="";$(examinantName)[0].style.display="none";}'>Nach Prüfer suchen</label>
+    <label><input type='checkbox' data-bind='checked: searchByExaminant'>Nach Prüfer suchen</input></label>
   </form>
   <table class="table table-condensed">
     <thead>

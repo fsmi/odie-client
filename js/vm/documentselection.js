@@ -27,6 +27,16 @@ class DocumentSelection {
 
   get config() { return config; }
   get user() { return user; }
+
+  get typeaheadDataset() {
+    return {
+      source: (query, callback) => (this.searchByExaminant ? this.examinantlist : this.lecturelist).typeaheadDataset.source(query, callback),
+      displayKey: "name",
+      templates: {
+        suggestion: l => `<a href="#">${l.name}</a>`
+      }
+    };
+  }
 }
 
 export default new DocumentSelection();
