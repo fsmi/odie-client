@@ -2,18 +2,18 @@ import ko from "knockout";
 
 import config from "../config";
 
-export default class LectureList {
-  constructor() {
+export default class TypeaheadList {
+  constructor(name) {
     this.searchString = '';
-    this.lectures = [];
+    this.datalist = [];
     ko.track(this);
 
-    this.load();
+    this.load(name);
   }
 
-  load() {
-    config.getJSON('/data/lectures')
-      .done(data => this.lectures = data);
+  load(name) {
+    config.getJSON('/data/' + name)
+      .done(data => this.datalist = data);
   }
 
   getSearchRegex(searchString) {
@@ -26,20 +26,11 @@ export default class LectureList {
     }
   };
 
-  filtered() {
-    if (this.searchString === '') {
-      return this;
-    }
-    let regex = this.getSearchRegex(this.searchString);
-
-    return this.lectures.filter(l => regex.test(l.name));
-  }
-
   get typeaheadDataset() {
     return {
       source: (query, callback) => {
         let regex = this.getSearchRegex(query);
-        callback(this.lectures.filter(l => regex.test(l.name)));
+        callback(this.datalist.filter(l => regex.test(l.name)));
       },
       displayKey: "name",
       templates: {

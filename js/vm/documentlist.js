@@ -6,6 +6,7 @@ import Document from "./document";
 export default class DocumentList {
   constructor() {
     this.lecture = '';
+    this.searchByExaminant = false;
     this.lectureFilter = '';
     this.examinantsFilter = '';
     this.typeFilter = '';
@@ -20,11 +21,22 @@ export default class DocumentList {
 
   load(name) {
     this.lecture = name;
+
+    if (this.searchByExaminant)
+      var path = '/data/examinants/';
+    else
+      var path = '/data/lectures/';
+
     if (name)
-      config.getJSON('/data/lectures/' + encodeURIComponent(name) + '/documents')
+      config.getJSON(path + encodeURIComponent(name) + '/documents')
         .done(data => this.documents = data.map(d => new Document(d)));
     else
       this.documents = [];
+  }
+
+  setSearchByExaminant(value) {
+    this.searchByExaminant = value;
+    this.load(this.lecture);
   }
 
   filtered() {
