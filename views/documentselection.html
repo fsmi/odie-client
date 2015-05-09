@@ -15,8 +15,8 @@ Data binding context: DocumentSelection. -->
       <tr>
         <td class="td-compact" colspan="2">
           #/
-          <span data-bind="text: documentlist.countType('written')"></span><span class="icon-pencil"></span>
-          <span data-bind="text: documentlist.countType('oral')"></span><span class="icon-chat"></span>
+          <span data-bind="text: documentlist.countType('written')"></span><span title="schriftlich" class="icon-pencil"></span>
+          <span data-bind="text: documentlist.countType('oral')"></span><span title="mündlich" class="icon-chat"></span>
         </td>
         <td>Vorlesungen</td>
         <td>Prüfer</td>
@@ -28,8 +28,8 @@ Data binding context: DocumentSelection. -->
       <tr>
         <td colspan="2">
           <div class="btn-group btn-group-nowrap" role="group">
-            <button class="btn btn-default btn-compact" type="button" data-bind="css: { 'active': documentlist.typeFilter !== 'oral' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'oral')"><span class="icon-pencil"></span></button>
-            <button class="btn btn-default btn-compact" type="button" data-bind="css: { 'active': documentlist.typeFilter !== 'written' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'written')"><span class="icon-chat"></span></button>
+            <button class="btn btn-default btn-compact" type="button" title="schriftlich" data-bind="css: { 'active': documentlist.typeFilter !== 'oral' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'oral')"><span class="icon-pencil"></span></button>
+            <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': documentlist.typeFilter !== 'written' }, click: documentlist.toggleTypeFilter.bind(documentlist, 'written')"><span class="icon-chat"></span></button>
           </div>
         </td>
         <td><input type='text' data-bind='value: documentlist.lectureFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
@@ -50,7 +50,8 @@ Data binding context: DocumentSelection. -->
         <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $parent.rangeSelect.lowerBoundVisible($index)"></span>
       </td>
       <td class="td-compact">
-        <span data-bind="css: examType === 'written' ? 'icon-pencil' : 'icon-chat'"></span>
+        <span data-bind="visible: examType === 'written'" title="schriftlich" class="icon-pencil"></span>
+        <span data-bind="visible: examType === 'oral'" title="mündlich" class="icon-chat"></span>
       </td>
       <td>
         <ul class="lecture-list-cell" data-bind="foreach: lectures">
