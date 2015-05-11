@@ -10,8 +10,8 @@ Data binding context: DocumentSelection. -->
       <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
     </div>
     <div class="btn-group btn-group-nowrap" role="group">
-      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchByExaminant == false }, click: searchByExaminant = false">Vorlesung</button>
-      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchByExaminant == true }, click: searchByExaminant = true">Prüfer</button>
+      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchByExaminant == false }, click: function() { searchByExaminant = false; }">Vorlesung</button>
+      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchByExaminant == true }, click: function() { searchByExaminant = true; }">Prüfer</button>
     </div>
   </form>
   <table class="table table-condensed">
