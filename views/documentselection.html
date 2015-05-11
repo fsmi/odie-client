@@ -9,7 +9,10 @@ Data binding context: DocumentSelection. -->
       <label for='lectureName' class='sr-only'>Vorlesung</label>
       <input id='lectureName' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.lecture, typeahead: { options: { highlight: true }, dataset: typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
     </div>
-    <label><input type='checkbox' data-bind='checked: searchByExaminant'>Nach Prüfer suchen</input></label>
+    <div class="btn-group btn-group-nowrap" role="group">
+      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchByExaminant == false }, click: searchByExaminant = false">Vorlesung</button>
+      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchByExaminant == true }, click: searchByExaminant = true">Prüfer</button>
+    </div>
   </form>
   <table class="table table-condensed">
     <thead>
