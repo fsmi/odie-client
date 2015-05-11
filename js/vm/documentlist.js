@@ -30,6 +30,8 @@ export default class DocumentList {
           this.oralCount = this.countType('oral', this.documents);
           if (this.typeFilter === 'written' && this.writtenCount === 0)
             this.typeFilter = 'oral';
+          else if (this.typeFilter === 'oral' && this.oralCount === 0)
+            this.typeFilter = 'written';
         });
     else
       this.documents = [];
