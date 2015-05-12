@@ -15,7 +15,10 @@ Data binding context: Cart -->
   <tbody data-bind="foreach: documents">
   <tr class="document-list" data-bind="attr: {title: extendedAttributes}">
     <td class="row-disabled" data-bind="text: $index() + 1"></td>
-    <td class="td-compact"><span data-bind="css: examType === 'written' ? 'icon-pencil' : 'icon-chat'"></span></td>
+    <td class="td-compact">
+      <span data-bind="visible: examType === 'written'" title="schriftlich" class="icon-pencil"></span>
+      <span data-bind="visible: examType === 'oral'" title="mündlich" class="icon-chat"></span>
+    </td>
     <td>
       <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
         <div data-bind="text: '• ' + lect"></div>
