@@ -15,14 +15,14 @@ class DocumentSelection {
     this.lecturelist = new TypeaheadList('lectures');
     this.examinantlist = new TypeaheadList('examinants');
     this.rangeSelect = new RangeSelect(this.cart);
-    this.searchByExaminant = false;
+    this.searchBy = 'lecture';
 
     ko.track(this);
 
-    ko.getObservable(this.documentlist, 'lecture').subscribe(name =>
+    ko.getObservable(this.documentlist, 'selectedName').subscribe(name =>
         pager.navigate('documentselection' + (name ? '/' + encodeURIComponent(name) : ''))
     );
-    ko.getObservable(this, 'searchByExaminant').subscribe(value => this.documentlist.setSearchByExaminant(value));
+    ko.getObservable(this, 'searchBy').subscribe(value => this.documentlist.searchBy = value);
   }
 
   get config() { return config; }
@@ -30,7 +30,7 @@ class DocumentSelection {
 
   get typeaheadDataset() {
     return {
-      source: (query, callback) => (this.searchByExaminant ? this.examinantlist : this.lecturelist).typeaheadDataset.source(query, callback),
+      source: (query, callback) => (this.searchBy == 'lecture' ? this.lecturelist : this.examinantlist).typeaheadDataset.source(query, callback),
       displayKey: "name",
       templates: {
         suggestion: l => `<a href="#">${l.name}</a>`
