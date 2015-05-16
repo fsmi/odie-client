@@ -4,7 +4,7 @@ Data binding context: DocumentSelection. -->
 <div id='documents-view'>
   <!-- Bind URL parts to view model. Use a separate element so that nothing gets hidden by the lecture-less /documentselection default URL. -->
   <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'searchBy') }">
-    <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'selectedName') }"></div>
+    <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'encodedSelectedName') }"></div>
   </div>
   <form class='form-inline' role='form'>
     <div class="btn-group btn-group-nowrap" role="group">

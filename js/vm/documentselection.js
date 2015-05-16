@@ -21,14 +21,20 @@ class DocumentSelection {
 
     ko.getObservable(this, 'searchBy').subscribe(() => this.selectedName = '');
     ko.getObservable(this, 'selectedName').subscribe(name =>
-        pager.navigate(`documentselection/${this.searchBy}/${encodeURIComponent(name)}`)
+        // double-encode because [some browsers](https://bugzil.la/483304) are too stupid for round tripping
+        pager.navigate(`documentselection/${this.searchBy}/${encodeURIComponent(encodeURIComponent(name))}`)
     );
+
     ko.defineProperty(this, 'documentlist', () => {
       let list = new DocumentList();
       if (this.selectedName)
         config.getJSON(`/data/${this.searchBy}s/${encodeURIComponent(this.selectedName)}/documents`)
           .done(data => list.documents = data.map(d => new Document(d)));
       return list;
+    });
+    ko.defineProperty(this, 'encodedSelectedName', {
+      get: () => encodeURIComponent(this.selectedName),
+      set: (value) => { this.selectedName = decodeURIComponent(value); }
     });
   }
 
