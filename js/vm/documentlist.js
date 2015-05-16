@@ -5,13 +5,14 @@ import Document from "./document";
 
 export default class DocumentList {
   constructor() {
-    this.lecture = '';
+    this.selectedName = '';
+    this._searchBy = 'lecture';
     this.lectureFilter = '';
     this.examinantsFilter = '';
     this.typeFilter = '';
     this.documents = [];
     ko.track(this);
-    ko.getObservable(this, 'lecture').subscribe(newName => this.load(newName));
+    ko.getObservable(this, 'selectedName').subscribe(newName => this.load(newName));
     ko.defineProperty(this, 'encodedLecture', {
       get: encodeURIComponent,
       set: decodeURIComponent
@@ -19,12 +20,20 @@ export default class DocumentList {
   }
 
   load(name) {
-    this.lecture = name;
+    this.selectedName = name;
+
     if (name)
-      config.getJSON('/data/lectures/' + encodeURIComponent(name) + '/documents')
+      config.getJSON('/data/' + this._searchBy + 's/' + encodeURIComponent(name) + '/documents')
         .done(data => this.documents = data.map(d => new Document(d)));
     else
       this.documents = [];
+  }
+
+  set searchBy(value) {
+    if (value == 'lecture' || value == 'examinant') {
+      this._searchBy = value;
+      this.load(this.selectedName);
+    }
   }
 
   filtered() {
