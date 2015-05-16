@@ -1,39 +1,14 @@
 import ko from "knockout";
 
 import config from "../config";
-import Document from "./document";
 
 export default class DocumentList {
   constructor() {
-    this.selectedName = '';
-    this._searchBy = 'lecture';
     this.lectureFilter = '';
     this.examinantsFilter = '';
     this.typeFilter = '';
     this.documents = [];
     ko.track(this);
-    ko.getObservable(this, 'selectedName').subscribe(newName => this.load(newName));
-    ko.defineProperty(this, 'encodedLecture', {
-      get: encodeURIComponent,
-      set: decodeURIComponent
-    });
-  }
-
-  load(name) {
-    this.selectedName = name;
-
-    if (name)
-      config.getJSON('/data/' + this._searchBy + 's/' + encodeURIComponent(name) + '/documents')
-        .done(data => this.documents = data.map(d => new Document(d)));
-    else
-      this.documents = [];
-  }
-
-  set searchBy(value) {
-    if (value == 'lecture' || value == 'examinant') {
-      this._searchBy = value;
-      this.load(this.selectedName);
-    }
   }
 
   filtered() {

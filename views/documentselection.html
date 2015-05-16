@@ -2,16 +2,18 @@
 Data binding context: DocumentSelection. -->
 
 <div id='documents-view'>
-  <!-- two-way binding between URL and documentlist.selectedName. Use a separate element so that nothing gets hidden by the lecture-less /documentselection default URL. -->
-  <div data-bind="page: { id: '?', nameParam: ko.getObservable(documentlist, 'encodedLecture') }"></div>
+  <!-- Bind URL parts to view model. Use a separate element so that nothing gets hidden by the lecture-less /documentselection default URL. -->
+  <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'searchBy') }">
+    <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'selectedName') }"></div>
+  </div>
   <form class='form-inline' role='form'>
-    <div id='nameSelectionForm' class='form-group'>
-      <label for='nameSelection' class='sr-only'>Vorlesung</label>
-      <input id='nameSelection' placeholder='Vorlesung' type='text' class='form-control-inline form-control input-lg' data-bind='value: documentlist.selectedName, typeahead: { options: { highlight: true }, dataset: typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
-    </div>
     <div class="btn-group btn-group-nowrap" role="group">
       <button class="btn btn-default" type="button" data-bind="css: { 'active': searchBy == 'lecture' }, click: function() { searchBy = 'lecture'; }">Vorlesung</button>
       <button class="btn btn-default" type="button" data-bind="css: { 'active': searchBy == 'examinant' }, click: function() { searchBy = 'examinant'; }">Prüfer</button>
+    </div>
+    <div id='nameSelectionForm' class='form-group'>
+      <label for='nameSelection' class='sr-only'>Vorlesung</label>
+      <input id='nameSelection' type='text' class='form-control-inline form-control' data-bind='value: selectedName, typeahead: { options: { highlight: true }, dataset: typeaheadDataset }, valueUpdate: ["typeahead:autocompleted", "typeahead:selected"]' autofocus>
     </div>
   </form>
   <table class="table table-condensed">
