@@ -59,6 +59,11 @@ export default class PrintJob {
     ko.getObservable(this, 'selectedPrinter').subscribe(() => this.reset());
   }
 
+  saveCart() {
+    this.cart.name = this.coverText;
+    this.cart.save();
+  }
+
   get printPrice() {
     return this.cart.priceEstimate(0);
   }

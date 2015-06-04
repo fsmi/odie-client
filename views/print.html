@@ -28,6 +28,7 @@
 
   <div class="pull-right" style="clear: both; padding-top: 10px;">
     <input type="text" id="cover-text" class='form-control-inline form-control' data-bind="value: coverText" placeholder="Name für Pfand/Deckblatt" required>
+     <button class='btn btn-primary icon-floppy' data-bind='enable: cart.documents.length > 0, click: saveCart'>Speichern</button> 
     <button type="submit" class='btn btn-primary icon-print' data-bind='enable: cart.documents.length > 0'>Drucken</button>
     auf <select data-bind="options: availablePrinters, optionsText: 'name', value: selectedPrinter"></select>
     <div class="form-control-inline icon-placeholder">
