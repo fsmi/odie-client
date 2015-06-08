@@ -15,14 +15,14 @@ Data binding context: Cart -->
   <tbody data-bind="foreach: documents">
   <tr class="document-list" data-bind="attr: {title: extendedAttributes}">
     <td class="row-disabled" data-bind="text: $index() + 1"></td>
-    <td class="td-compact"><span data-bind="css: examType === 'written' ? 'icon-pencil' : 'icon-chat'"></span></td>
+    <td class="td-compact"><span data-bind="css: documentType === 'written' ? 'icon-pencil' : 'icon-chat'"></span></td>
     <td>
-      <div class="lecture-list-cell" data-bind="foreach: {data: lectures, as: 'lect'}">
-        <div data-bind="text: '• ' + lect"></div>
+      <div class="lecture-list-cell" data-bind="foreach: lectures">
+        <div data-bind="text: '• ' + name"></div>
       </div>
     </td>
-    <td data-bind="text: examinants.join(', ')"></td>
-    <td data-bind="text: pages"></td>
+    <td data-bind="text: examinantsText"></td>
+    <td data-bind="text: numberOfPages"></td>
     <td class="text-right td-compact"><button class='btn-danger icon-button btn btn-compact icon-remove' data-bind="click: $parent.drop.bind($parent, $data)"></button></td>
   </tr>
   </tbody>
@@ -30,14 +30,14 @@ Data binding context: Cart -->
 <hr/>
 
 <div data-bind="visible: !user.isAuthenticated">
-  <div class="text-right form-horizontal">
+  <form class="text-right" data-bind='submit: save.bind($data)'>
     Preisschätzung: <span data-bind="price: priceEstimate() / 100"></span>
     <span class="text-primary" data-bind="visible: includesOral">*</span>
-    <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: name">
-    <button class='btn btn-primary icon-floppy' data-bind='click: save.bind($data)'>Speichern</button>
-  </div>
+    <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: name" required>
+    <button type="submit" class='btn btn-primary icon-floppy' data-bind="enable: documents.length > 0">Speichern</button>
+  </form>
   <div class="text-right small text-primary" data-bind="visible: includesOral" style="padding-top: 7px;">
-    <em>* Davon 
+    <em>* Davon
       <span data-bind="price: config.depositPrice / 100"></span> Protokollpfand
     </em>
   </div>

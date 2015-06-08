@@ -5,15 +5,6 @@ let config = {
   depositPrice: 500,
   pricePerPage: 3,
 
-  previewPrefix: $.cookie('previewPrefix') || '/home/mi/info_Dokumente/',
-  configurePreview() {
-    $.cookie('previewPrefix', this.previewPrefix, {expires: 10000});
-    this.isPreviewConfigured = true;
-  },
-  get isPreviewConfigured() {
-    return $.cookie('previewPrefix') !== undefined;
-  },
-
   _baseAjaxSettings: {
     error: (_, __, error) => {
       alert("Unexpected Ajax error:\n\n" + error);
@@ -30,6 +21,10 @@ let config = {
     return this.ajax(Object.assign(settings || {}, { url }));
   },
 
+  query(url, query) {
+    return this.getJSON(url, { data: { q: query } });
+  },
+
   post(url, data, settings) {
     return this.ajax(Object.assign(settings || {}, {
       url,
@@ -41,7 +36,7 @@ let config = {
 };
 
 if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
-  config.baseUrl = window.location.origin + '/odie';
+  config.baseUrl = window.location.origin + '/odie-next';
 } else {
   Object.assign(config._baseAjaxSettings, {
     crossDomain: true,
@@ -49,8 +44,8 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
       withCredentials: true
     }
   });
-  let live = true;
-  config.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie' : 'http://localhost:8000';
+  let live = false;
+  config.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next' : 'http://localhost:5000';
 }
 
 export default config;

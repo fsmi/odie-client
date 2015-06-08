@@ -2,55 +2,58 @@ import ko from "knockout";
 import pager from "pagerjs";
 
 import config from "../config";
-import user from "./user";
 import Cart from "./cart";
 import Document from "./document";
 import DocumentList from "./documentlist";
-import RangeSelect from "./rangeselect";
+import store from "../store";
 
 class DocumentSelection {
   constructor() {
     this.cart = new Cart();
-    config.getJSON('/data/lectures').done(data => this.lectureTypeaheadList = data);
-    config.getJSON('/data/examinants').done(data => this.examinantTypeaheadList = data);
-    this.rangeSelect = new RangeSelect(this.cart);
-    this.searchBy = 'lecture';
-    this.selectedName = '';
+    this.searchBy = 'lectures';
+    this.selected = null;
+    this.selectedDocuments = [];
 
     ko.track(this);
 
-    ko.getObservable(this, 'searchBy').subscribe(() => this.selectedName = '');
-    ko.getObservable(this, 'selectedName').subscribe(name =>
-        // double-encode because [some browsers](https://bugzil.la/483304) are too stupid for round tripping
-        pager.navigate(`documentselection/${this.searchBy}/${encodeURIComponent(encodeURIComponent(name))}`)
-    );
+    this.typeaheadLists = {};
 
-    ko.defineProperty(this, 'documentlist', () => {
-      let list = new DocumentList();
-      if (this.selectedName)
-        config.getJSON(`/data/${this.searchBy}s/${encodeURIComponent(this.selectedName)}/documents`)
-          .done(data => list.documents = data.map(d => new Document(d)));
-      return list;
+    ko.getObservable(this, 'searchBy').subscribe(() => {
+      this.selected = null;
+      pager.navigate('');
     });
-    ko.defineProperty(this, 'encodedSelectedName', {
-      get: () => encodeURIComponent(this.selectedName),
-      set: (value) => { this.selectedName = decodeURIComponent(value); }
+    ko.defineProperty(this, 'selectedId', {
+      get() { return this.selected !== null ? this.selected.id : null; },
+      set(id) { this.selected = id && store[`${this.searchBy}ById`].get(parseInt(id)); }
+    });
+    ko.getObservable(this, 'selected').subscribe(selected => {
+      if (selected !== null) {
+        store.ensureLoaded(() => {
+          config.getJSON(`/api/${this.searchBy}/${selected.id}/documents`)
+            .done(resp => this.selectedDocuments = resp.data.map(d => new Document(d, this.lectures, this.examinants)));
+        });
+        pager.navigate(`documentselection/${this.searchBy}/${selected.id}`);
+      } else {
+        this.selectedDocuments = [];
+        pager.navigate('');
+      }
     });
   }
 
   get config() { return config; }
-  get user() { return user; }
+  get documentlist() { return new DocumentList(this.selectedDocuments, this.cart); }
 
   get typeaheadDataset() {
     return {
       source: (query, callback) => {
         let regex = this.getSearchRegex(query);
-        let list = this.searchBy == 'lecture' ? this.lectureTypeaheadList : this.examinantTypeaheadList;
-        callback(list.filter(l => regex.test(l.name)));
+        store.ensureLoaded(() =>
+            callback(store[this.searchBy].filter(l => regex.test(l.name)))
+        );
       },
       displayKey: "name",
       templates: {
-        suggestion: l => `<a href="#">${l.name}</a>`
+        suggestion: l => `<a href="#" onclick="return false;">${l.name}</a>`
       }
     };
   }

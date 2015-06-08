@@ -67,21 +67,18 @@ export default class PrintJob {
 
   submit() {
     this.status = 'waiting';
-    let ids = this.cart.documents.map(doc => doc.id);
     let job = {
-      coverText: this.cart.name,
-      documents: ids,
-      depositCount: parseFloat(this.depositCount),
+      cover_text: this.cart.name,
+      document_ids: this.cart.documents.map(doc => doc.id),
+      deposit_count: parseFloat(this.depositCount),
       printer: this.selectedPrinter.id
     };
-    config.post('/data/print', job)
-      .done(() => {
-        this.status = 'success';
-        log.addItem(this.cart.name, this.totalPrice);
-      })
-      .fail((_, __, error) => {
-        this.status = 'error';
-      });
+    config.post('/api/print', job, {
+      error() { this.status = 'error'; }
+    }).done(() => {
+      this.status = 'success';
+      log.addItem(this.cart.name, this.totalPrice);
+    });
   }
 
   get config() { return config; }

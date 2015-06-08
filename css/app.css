@@ -60,7 +60,11 @@ body {
   background-color: #f0f0f0;
 }
 
-#nameSelectionForm input {
+#searchBy {
+  vertical-align: top;
+}
+
+#nameSelection {
   width: 500px;
 }
 
@@ -188,10 +192,6 @@ ul.lecture-list-cell {
 
 .rangeBar-lower-bound {
   bottom: -11px;
-}
-
-#preview-prefix {
-  width: 100%;
 }
 
 @keyframes rotation {
