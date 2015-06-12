@@ -9,6 +9,8 @@ import "./ko/formatter";
 import "./ko/bootstrap";
 import "./ko/typeahead";
 
+import "bootstrap/js/dropdown";
+
 import App from "./app";
 
 $(document).ready(() => {

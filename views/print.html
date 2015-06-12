@@ -28,8 +28,16 @@
 
   <div class="pull-right" style="clear: both; padding-top: 10px;">
     <input type="text" id="cover-text" class='form-control-inline form-control' data-bind="value: coverText" placeholder="Name für Pfand/Deckblatt" required>
-     <button class='btn btn-primary icon-floppy' data-bind='enable: cart.documents.length > 0, click: saveCart'>Speichern</button> 
-    <button type="submit" class='btn btn-primary icon-print' data-bind='enable: cart.documents.length > 0'>Drucken</button>
+    <div class="btn-group">
+      <button type="submit" class='btn btn-primary icon-print' data-bind='enable: cart.documents.length > 0'>Drucken</button>
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-bind='enable: cart.documents.length > 0'>
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href='#' class='icon-floppy' data-bind='click: saveCart'>Speichern</a></li>
+      </ul>
+    </div>
     auf <select data-bind="options: availablePrinters, optionsText: 'name', value: selectedPrinter"></select>
     <div class="form-control-inline icon-placeholder">
       <div class="icon" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
