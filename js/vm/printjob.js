@@ -80,7 +80,7 @@ export default class PrintJob {
     this.status = 'waiting';
     let ids = this.cart.documents.map(doc => doc.id);
     let job = {
-      coverText: this._coverText,
+      coverText: this.coverText,
       documents: ids,
       depositCount: parseFloat(this.depositCount),
       printer: this.selectedPrinter.id
