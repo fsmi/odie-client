@@ -27,7 +27,7 @@
   </table>
 
   <div class="pull-right" style="clear: both; padding-top: 10px;">
-    <input type="text" id="cover-text" class='form-control-inline form-control' data-bind="value: coverText" placeholder="Name für Pfand/Deckblatt" required>
+    <input type="text" id="cover-text" class='form-control-inline form-control' data-bind="value: cart.name" placeholder="Name für Pfand/Deckblatt" required>
     <div class="btn-group">
       <button type="submit" class='btn btn-primary icon-print' data-bind='enable: cart.documents.length > 0'>Drucken</button>
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-bind='enable: cart.documents.length > 0'>
@@ -35,7 +35,7 @@
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu" role="menu">
-        <li><a href='#' class='icon-floppy' data-bind='click: saveCart'>Speichern</a></li>
+        <li><a href='#' class='icon-floppy' data-bind='click: cart.save.bind(cart)'>Speichern</a></li>
       </ul>
     </div>
     auf <select data-bind="options: availablePrinters, optionsText: 'name', value: selectedPrinter"></select>

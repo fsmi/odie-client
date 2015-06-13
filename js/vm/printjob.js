@@ -17,7 +17,6 @@ export default class PrintJob {
   constructor(cart) {
     this.cart = cart;
     this._depositCount = undefined;
-    this._coverText = '';
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.availablePrinters = [
       new Printer('external', 'Info-Drucker'),
@@ -48,20 +47,10 @@ export default class PrintJob {
       }
     });
 
-    ko.defineProperty(this, 'coverText', {
-      get: () => this._coverText || this.cart.name,
-      set: coverText => this._coverText = coverText
-    });
-
     // reset print state if settings for the current cart change
     ko.getObservable(this.cart, 'documents').subscribe(() => this.reset());
-    ko.getObservable(this, 'coverText').subscribe(() => this.reset());
+    ko.getObservable(this.cart, 'name').subscribe(() => this.reset());
     ko.getObservable(this, 'selectedPrinter').subscribe(() => this.reset());
-  }
-
-  saveCart() {
-    this.cart.name = this.coverText;
-    this.cart.save();
   }
 
   get printPrice() {
@@ -80,7 +69,7 @@ export default class PrintJob {
     this.status = 'waiting';
     let ids = this.cart.documents.map(doc => doc.id);
     let job = {
-      coverText: this._coverText,
+      coverText: this.cart.name,
       documents: ids,
       depositCount: parseFloat(this.depositCount),
       printer: this.selectedPrinter.id
@@ -88,7 +77,7 @@ export default class PrintJob {
     config.post('/data/print', job)
       .done(() => {
         this.status = 'success';
-        log.addItem(this._coverText, this.totalPrice);
+        log.addItem(this.cart.name, this.totalPrice);
       })
       .fail((_, __, error) => {
         this.status = 'error';

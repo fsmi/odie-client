@@ -22,6 +22,13 @@ export default class Cart {
     );
   }
 
+  clone() {
+    let miniMe = new Cart();
+    miniMe.name = this.name;
+    miniMe.documents = this.documents.slice();
+    return miniMe;
+  }
+
   contains(doc) {
     return this.documents.some(d => d.id == doc.id);
   }
@@ -46,14 +53,6 @@ export default class Cart {
   }
 
   save() {
-    if (this.length === 0) {
-      alert("Bitte wähle zuerst ein paar Protokolle oder Klausuren aus.");
-      return;
-    }
-    if (this.name === '') {
-      alert("Bitte gib' zuerst deinen Namen (oder ein Pseudonym) an.");
-      return;
-    }
     config.post(
         '/data/carts/' + encodeURIComponent(this.name),
         this.documents.map(doc => doc.id)
