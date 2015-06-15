@@ -6,46 +6,35 @@ import config from "../config";
 class User {
   constructor() {
     this.username = '';
-    this.firstName = '';
-    this.lastName = '';
+    this.first_name = '';
+    this.last_name = '';
     this.isAuthenticated = undefined;
 
-    this.onAuthUpdate();
-
     ko.track(this);
-  }
 
-  onAuthUpdate() {
-    config.getJSON('/data/user', {
-      error: () => {
-        // We're obviously not logged in
-        $.removeCookie('sessionid');
-        this.isAuthenticated = false;
-      }
-    }).done(data => {
-      this.username = data.user;
-      this.firstName = data.firstName;
-      this.lastName = data.lastName;
+    // try to login with cookie instead of credentials
+    config.getJSON('/api/login', {
+      error() { this.isAuthenticated = false; }
+    }).done(resp => {
+      Object.assign(this, resp.data);
       this.isAuthenticated = true;
     });
   }
 
   login(password, rememberMe, error, success) {
-    config.post('/data/login', {user: this.username, password: password, rememberMe: rememberMe}, {
-      error: (xhr, _, errorThrown) => error(xhr.status + ': ' + xhr.responseText)
-    }).done(() => {
-      if (!$.cookie('sessionid')) {
-        $.cookie('sessionid', true);
-      }
-      this.onAuthUpdate();
+    config.post('/api/login', {username: this.username, password: password, remember_me: rememberMe}, {
+      error(xhr) { error(xhr.status + ': ' + xhr.responseText); }
+    }).done(resp => {
+      Object.assign(this, resp.data);
+      this.isAuthenticated = true;
       success();
     });
   }
 
   logout(success) {
-    config.post('/data/logout', {})
+    config.post('/api/logout', {})
       .done(() => {
-        this.onAuthUpdate();
+        this.isAuthenticated = false;
         success();
       });
   }

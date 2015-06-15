@@ -11,10 +11,10 @@ export default class Cart {
     this.documents = [];
     ko.track(this);
 
-    ko.defineProperty(this, 'totalPageCount', () => sum(this.documents, 'pages'));
+    ko.defineProperty(this, 'totalPageCount', () => sum(this.documents, 'numberOfPages'));
 
     ko.defineProperty(this, 'includesOral', () =>
-      this.documents.some(doc => doc.examType == "oral")
+      this.documents.some(doc => doc.documentType !== 'written')
     );
 
     ko.defineProperty(this, 'lectures', () =>
@@ -53,10 +53,10 @@ export default class Cart {
   }
 
   save() {
-    config.post(
-        '/data/carts/' + encodeURIComponent(this.name),
-        this.documents.map(doc => doc.id)
-    ).done(() => this.reset());
+    config.post('/api/orders', {
+        name: this.name,
+        document_ids: this.documents.map(doc => doc.id)
+    }).done(() => this.reset());
   }
 
   priceEstimate(depositCount) {

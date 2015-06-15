@@ -1,10 +1,9 @@
 import ko from "knockout";
 
 export default class RangeSelect {
-  constructor(cart) {
+  constructor() {
     this.firstSelection = null;
     this.secondSelection = null;
-    this.cart = cart;
     this.hoverIndex = null;
 
     ko.track(this);
@@ -16,7 +15,7 @@ export default class RangeSelect {
     this.hoverIndex = index;
   }
 
-  onClick(index, list) {
+  onClick(index) {
     // resolve data binding
     let index = index();
     if (this.secondSelection !== null) {
@@ -111,7 +110,8 @@ export default class RangeSelect {
     return this.hoverIndex === index;
   }
 
-  commit(docList) {
+  // returns and resets selection
+  commit() {
     let a = this.firstSelection;
     let b = this.secondSelection;
     if (this.firstSelection === null) {
@@ -122,10 +122,12 @@ export default class RangeSelect {
     }
     let min = Math.min(a, b);
     let max = Math.max(a, b);
+    let indices = [];
     for (let i = min; i <= max; ++i) {
-      this.cart.add(docList[i]);
+      indices.push(i);
     }
     this.firstSelection = null;
     this.secondSelection = null;
+    return indices;
   }
 }

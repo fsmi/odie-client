@@ -27,7 +27,7 @@
 
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="nav navbar-nav">
-            <li data-bind="css: { active: activeRoute === 'documentselection' }">
+            <li data-bind="css: { active: activeRoute.startsWith('documentselection') }">
               <a href="#documentselection">
                 Auswahl&nbsp;<span class="badge" data-bind="text: cartSize"></span>
               </a>
@@ -39,7 +39,7 @@
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
             <li data-bind="visible: !user.isAuthenticated, css: { active: activeRoute === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
             <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
-            <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.firstName"></span></a></li>
+            <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.first_name"></span></a></li>
           </ul>
         </div>
 

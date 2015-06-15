@@ -25,12 +25,11 @@ $(document).ready(() => {
     viewModel: { instance: require('./vm/documentselection') },
     template: fs.readFileSync('views/documentselection.html', 'utf8')
   });
+  ko.components.register('documentlist', {
+    template: fs.readFileSync('views/documentlist.html', 'utf8')
+  });
   ko.components.register('cart', {
     template: fs.readFileSync('views/cart.html', 'utf8')
-  });
-  ko.components.register('previewconfig', {
-    viewModel: { instance: require('./config') },
-    template: fs.readFileSync('views/previewconfig.html', 'utf8')
   });
   ko.components.register('print', {
     viewModel: require('./vm/printjob'),

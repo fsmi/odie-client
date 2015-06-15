@@ -11,7 +11,7 @@ export default class DepositReturn {
   }
 
   getDeposits() {
-    config.getJSON('/data/deposits/' + encodeURIComponent(this.studentName))
+    config.getJSON('/api/deposits/' + encodeURIComponent(this.studentName))
       .done(data => this.deposits = data);
   }
 
