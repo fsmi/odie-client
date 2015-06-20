@@ -4,6 +4,8 @@ Data binding context: Correction -->
 <div class="text-center" style="margin-left:20%; margin-right:20%;">
   <h3 class="heading">Wenn Klausuren/Protokolle in Auftrag gegeben aber nicht verkauft wurden, buche hier die Druckkosten als nicht eingenommen.</h3>
 
+  In/Aus <select data-bind="options: config.CASH_BOXES, value: cashBox"></select>
+  <hr>
   <form class="text-center" data-bind="submit: logErroneousCents.bind($data)">
     <p><input type="number" required step="0.10" class="form-control-inline form-control" data-bind="value: erroneousEuros">&nbsp;€ an Fehldrucken
     <button type="submit" class="btn btn-danger icon-money">Buchen</button></p>

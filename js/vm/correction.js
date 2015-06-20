@@ -9,6 +9,7 @@ import store from "../store";
 // Handles accounting corrections - erroneously printed pages, etc.
 export default class Correction {
   constructor() {
+    this.cashBox = 'Sprechstundenkasse Informatik';
     this.erroneousPages = 0;
     this.erroneousCents = 0;
     // Registering deposit without printing is done by submitting a print job with
@@ -24,7 +25,7 @@ export default class Correction {
   }
 
   _logErroneous(centsPrice) {
-    api.post('log_erroneous_copies', { cents: centsPrice })
+    api.post('log_erroneous_sale', { amount: centsPrice, cash_box: this.cashBox })
       .done(() => log.addItem('Abrechnungskorrektur', -centsPrice));
   }
 
@@ -42,4 +43,6 @@ export default class Correction {
     this._printJob.submit();
     this._printJob = new PrintJob(new Cart());
   }
+
+  get config() { return store.config; }
 }
