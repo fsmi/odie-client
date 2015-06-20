@@ -2,7 +2,7 @@ import ko from "knockout";
 import flatten from "lodash/array/flatten";
 import sum from "lodash/collection/sum";
 
-import config from "../config";
+import store from "../store";
 import user from "./user";
 
 export default class Cart {
@@ -53,27 +53,27 @@ export default class Cart {
   }
 
   save() {
-    config.post('/api/orders', {
+    api.post('orders', {
         name: this.name,
         document_ids: this.documents.map(doc => doc.id)
     }).done(() => this.reset());
   }
 
   priceEstimate(depositCount) {
-    let price = this.totalPageCount * config.pricePerPage;
+    let price = this.totalPageCount * store.config.PRICE_PER_PAGE;
     if (depositCount === undefined) {
       if (this.includesOral) {
-        price += config.depositPrice;
+        price += store.config.DEPOSIT_PRICE;
       }
     }
     else {
-      price += depositCount * config.depositPrice;
+      price += depositCount * store.config.DEPOSIT_PRICE;
     }
 
     // round to next-highest ten-cent unit
     return Math.ceil(price / 10) * 10;
   }
 
-  get config() { return config; }
+  get config() { return store.config; }
   get user() { return user; }
 }

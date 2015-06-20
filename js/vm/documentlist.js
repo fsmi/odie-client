@@ -1,6 +1,5 @@
 import ko from "knockout";
 
-import config from "../config";
 import user from "./user";
 import RangeSelect from "./rangeselect";
 

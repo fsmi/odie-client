@@ -1,7 +1,7 @@
 import ko from "knockout";
 import $ from "jquery";
 
-import config from "../config";
+import api from "../api";
 
 class User {
   constructor() {
@@ -13,7 +13,7 @@ class User {
     ko.track(this);
 
     // try to login with cookie instead of credentials
-    config.getJSON('/api/login', {
+    api.getJSON('login', {
       error() { this.isAuthenticated = false; }
     }).done(resp => {
       Object.assign(this, resp.data);
@@ -22,7 +22,7 @@ class User {
   }
 
   login(password, rememberMe, error, success) {
-    config.post('/api/login', {username: this.username, password: password, remember_me: rememberMe}, {
+    api.post('login', {username: this.username, password: password, remember_me: rememberMe}, {
       error(xhr) { error(xhr.status + ': ' + xhr.responseText); }
     }).done(resp => {
       Object.assign(this, resp.data);
@@ -32,7 +32,7 @@ class User {
   }
 
   logout(success) {
-    config.post('/api/logout', {})
+    api.post('logout', {})
       .done(() => {
         this.isAuthenticated = false;
         success();

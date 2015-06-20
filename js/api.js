@@ -1,10 +1,6 @@
 import $ from "jquery";
 
-let config = {
-  // in cents
-  depositPrice: 500,
-  pricePerPage: 3,
-
+let api = {
   _baseAjaxSettings: {
     error: (_, __, error) => {
       alert("Unexpected Ajax error:\n\n" + error);
@@ -36,16 +32,16 @@ let config = {
 };
 
 if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
-  config.baseUrl = window.location.origin + '/odie-next';
+  api.baseUrl = window.location.origin + '/odie-next/api/';
 } else {
-  Object.assign(config._baseAjaxSettings, {
+  Object.assign(api._baseAjaxSettings, {
     crossDomain: true,
     xhrFields: {
       withCredentials: true
     }
   });
   let live = false;
-  config.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next' : 'http://localhost:5000';
+  api.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next/api/' : 'http://localhost:5000/api/';
 }
 
-export default config;
+export default api;

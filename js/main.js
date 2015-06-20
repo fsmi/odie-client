@@ -12,6 +12,7 @@ import "./ko/typeahead";
 import "bootstrap/js/dropdown";
 
 import App from "./app";
+import store from "./store";
 
 $(document).ready(() => {
   let app = new App();
@@ -59,7 +60,9 @@ $(document).ready(() => {
     template: fs.readFileSync('views/log.html', 'utf8')
   });
 
-  pager.extendWithPage(app);
-  ko.applyBindings(app);
-  pager.start();
+  store.ensureLoaded(() => {
+    pager.extendWithPage(app);
+    ko.applyBindings(app);
+    pager.start();
+  });
 });
