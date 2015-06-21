@@ -1,7 +1,7 @@
 import ko from "knockout";
 import pager from "pagerjs";
 
-import config from "../config";
+import api from "../api";
 import documentselection from "./documentselection";
 import Cart from "./cart";
 import Document from "./document";
@@ -42,7 +42,7 @@ export default class Preselection {
   }
 
   loadCarts() {
-    config.getJSON('/data/carts')
+    api.getJSON('carts')
       .done(data => {
         this.carts = data.map(d => {
           let c = new Cart();
@@ -62,8 +62,8 @@ export default class Preselection {
   }
 
   deleteCart(cart) {
-    config.ajax({
-      url: '/data/carts/' + cart.id,
+    api.ajax({
+      url: 'carts/' + cart.id,
       type: 'DELETE'
     }).done(() => {
       let i = this.carts.indexOf(cart);

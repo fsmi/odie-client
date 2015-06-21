@@ -1,7 +1,8 @@
 import ko from "knockout";
 
-import config from "../config";
+import api from "../api";
 import log from "./log";
+import store from "../store";
 
 export default class DepositReturn {
   constructor() {
@@ -11,20 +12,20 @@ export default class DepositReturn {
   }
 
   getDeposits() {
-    config.getJSON('/api/deposits/' + encodeURIComponent(this.studentName))
+    api.getJSON('deposits/' + encodeURIComponent(this.studentName))
       .done(data => this.deposits = data);
   }
 
   cashOutDeposit(id) {
-    config.ajax({
-      url: '/data/deposits/' + id,
+    api.ajax({
+      url: 'deposits/' + id,
       type: 'DELETE'
     }).done(() => {
       // remove it from the displayed list
       let index = this.deposits.findIndex(d => d.id === id);
       this.deposits.splice(index, 1);
 
-      log.addItem('Pfandrückgabe', -config.depositPrice);
+      log.addItem('Pfandrückgabe', -store.config.DEPOSIT_PRICE);
     });
   }
 }

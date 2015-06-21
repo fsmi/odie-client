@@ -1,9 +1,10 @@
 import ko from "knockout";
 
-import config from "../config";
+import api from "../api";
 import Cart from "./cart";
 import log from "./log";
 import PrintJob from "./printjob";
+import store from "../store";
 
 // Handles accounting corrections - erroneously printed pages, etc.
 export default class Correction {
@@ -23,7 +24,7 @@ export default class Correction {
   }
 
   _logErroneous(centsPrice) {
-    config.post('/data/log_erroneous_copies', { cents: centsPrice })
+    api.post('log_erroneous_copies', { cents: centsPrice })
       .done(() => log.addItem('Abrechnungskorrektur', -centsPrice));
   }
 
@@ -33,7 +34,7 @@ export default class Correction {
   }
 
   logErroneouslyPrintedPages() {
-    this._logErroneous(this.erroneousPages * config.pricePerPage);
+    this._logErroneous(this.erroneousPages * store.config.PRICE_PER_PAGE);
     this.erroneousPages = 0;
   }
 

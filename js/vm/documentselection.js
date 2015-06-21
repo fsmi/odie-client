@@ -1,7 +1,7 @@
 import ko from "knockout";
 import pager from "pagerjs";
 
-import config from "../config";
+import api from "../api";
 import Cart from "./cart";
 import Document from "./document";
 import DocumentList from "./documentlist";
@@ -28,10 +28,8 @@ class DocumentSelection {
     });
     ko.getObservable(this, 'selected').subscribe(selected => {
       if (selected !== null) {
-        store.ensureLoaded(() => {
-          config.getJSON(`/api/${this.searchBy}/${selected.id}/documents`)
-            .done(resp => this.selectedDocuments = resp.data.map(d => new Document(d, this.lectures, this.examinants)));
-        });
+        api.getJSON(`${this.searchBy}/${selected.id}/documents`)
+          .done(resp => this.selectedDocuments = resp.data.map(d => new Document(d, this.lectures, this.examinants)));
         pager.navigate(`documentselection/${this.searchBy}/${selected.id}`);
       } else {
         this.selectedDocuments = [];
@@ -40,16 +38,13 @@ class DocumentSelection {
     });
   }
 
-  get config() { return config; }
   get documentlist() { return new DocumentList(this.selectedDocuments, this.cart); }
 
   get typeaheadDataset() {
     return {
       source: (query, callback) => {
         let regex = this.getSearchRegex(query);
-        store.ensureLoaded(() =>
-            callback(store[this.searchBy].filter(l => regex.test(l.name)))
-        );
+        callback(store[this.searchBy].filter(l => regex.test(l.name)));
       },
       displayKey: "name",
       templates: {

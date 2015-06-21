@@ -1,7 +1,8 @@
 import ko from "knockout";
 
-import config from "../config";
+import api from "../api";
 import log from "./log";
+import store from "../store";
 
 class Printer {
   constructor(id, name) {
@@ -73,7 +74,7 @@ export default class PrintJob {
       deposit_count: parseFloat(this.depositCount),
       printer: this.selectedPrinter.id
     };
-    config.post('/api/print', job, {
+    api.post('print', job, {
       error() { this.status = 'error'; }
     }).done(() => {
       this.status = 'success';
@@ -81,5 +82,5 @@ export default class PrintJob {
     });
   }
 
-  get config() { return config; }
+  get config() { return store.config; }
 }

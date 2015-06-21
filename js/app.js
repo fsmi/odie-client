@@ -3,8 +3,8 @@ import ko from "knockout";
 import pager from "pagerjs";
 
 import documentselection from "./vm/documentselection";
+import store from "./store";
 import user from "./vm/user";
-import config from "./config";
 
 export default class App {
   constructor() {
@@ -32,6 +32,7 @@ export default class App {
     user.logout(() => pager.navigate('#'));
   }
 
+  get store() { return store; }
   get user() { return user; }
   get cartSize() { return documentselection.cart.documents.length; }
 }
