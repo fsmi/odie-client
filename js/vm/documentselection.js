@@ -3,6 +3,7 @@ import pager from "pagerjs";
 
 import api from "../api";
 import Cart from "./cart";
+import Collection from "../collection";
 import Document from "./document";
 import DocumentList from "./documentlist";
 import store from "../store";
@@ -12,7 +13,6 @@ class DocumentSelection {
     this.cart = new Cart();
     this.searchBy = 'lectures';
     this.selected = null;
-    this.selectedDocuments = [];
 
     ko.track(this);
 
@@ -20,25 +20,21 @@ class DocumentSelection {
 
     ko.getObservable(this, 'searchBy').subscribe(() => {
       this.selected = null;
-      pager.navigate('');
     });
+
     ko.defineProperty(this, 'selectedId', {
-      get() { return this.selected !== null ? this.selected.id : null; },
+      get: () => this.selected !== null ? this.selected.id : null,
       set(id) { this.selected = id && store[`${this.searchBy}ById`].get(parseInt(id)); }
     });
+
     ko.getObservable(this, 'selected').subscribe(selected => {
-      if (selected !== null) {
-        api.getJSON(`${this.searchBy}/${selected.id}/documents`)
-          .done(resp => this.selectedDocuments = resp.data.map(d => new Document(d, this.lectures, this.examinants)));
-        pager.navigate(`documentselection/${this.searchBy}/${selected.id}`);
-      } else {
-        this.selectedDocuments = [];
-        pager.navigate('');
-      }
+      pager.navigate(selected ? `documentselection/${this.searchBy}/${selected.id}` : '');
     });
   }
 
-  get documentlist() { return new DocumentList(this.selectedDocuments, this.cart); }
+  get selectedEndpoint() { return this.selected && `${this.searchBy}/${this.selected.id}/documents`; }
+
+  get documentlist() { return new DocumentList(this.documents, this.cart); }
 
   get typeaheadDataset() {
     return {

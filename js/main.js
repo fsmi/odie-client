@@ -27,6 +27,7 @@ $(document).ready(() => {
     template: fs.readFileSync('views/documentselection.html', 'utf8')
   });
   ko.components.register('documentlist', {
+    viewModel: require('./vm/documentlist'),
     template: fs.readFileSync('views/documentlist.html', 'utf8')
   });
   ko.components.register('cart', {
@@ -58,6 +59,13 @@ $(document).ready(() => {
   ko.components.register('log', {
     viewModel: { instance: require('./vm/log')["default"] },
     template: fs.readFileSync('views/log.html', 'utf8')
+  });
+  ko.components.register('load-more', {
+    template: fs.readFileSync('views/load-more.html', 'utf8')
+  });
+  ko.components.register('sortable-column', {
+    viewModel: require('./vm/sortable-column'),
+    template: fs.readFileSync('views/sortable-column.html', 'utf8')
   });
 
   store.ensureLoaded(() => {

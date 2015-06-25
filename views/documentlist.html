@@ -8,26 +8,26 @@
       </td>
       <td>Vorlesungen</td>
       <td>Prüfer</td>
-      <td>Datum</td>
-      <td>Seiten</td>
+      <td><sortable-column params="coll: coll, column: 'date', asc: false">Datum</sortable-column></td>
+      <td><sortable-column params="coll: coll, column: 'number_of_pages', asc: false">Seiten</sortable-column></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
       <td colspan="2">
         <div class="btn-group btn-group-nowrap" role="group">
-          <button class="btn btn-default btn-compact" type="button" title="schriftlich" data-bind="css: { 'active': typeFilter !== 'oral' }, click: toggleTypeFilter.bind($data, 'oral')"><span class="icon-pencil"></span></button>
-          <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': typeFilter !== 'written' }, click: toggleTypeFilter.bind($data, 'written')"><span class="icon-chat"></span></button>
+          <button class="btn btn-default btn-compact" type="button" title="schriftlich" data-bind="css: { 'active': typeFilter.value !== 'oral' }, click: toggleTypeFilter.bind($data, 'oral')"><span class="icon-pencil"></span></button>
+          <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': typeFilter.value !== 'written' }, click: toggleTypeFilter.bind($data, 'written')"><span class="icon-chat"></span></button>
         </div>
       </td>
-      <td><input type='text' data-bind='value: lectureFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
-      <td><input type='text' data-bind='value: examinantsFilter, valueUpdate: "input"' class='form-control form-control-inline input-sm' placeholder='Filter (regex)'></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: function() { filtered.forEach(cart.add, cart); }">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: filtered">
+  <tbody data-bind="foreach: coll.items">
   <tr class="document-list" data-bind="
     css: { 'row-disabled': $parent.cart.contains($data) },
     event: { mouseenter: $parent.rangeSelect.onRowMouseOver.bind($parent.rangeSelect, $index) },
@@ -74,3 +74,4 @@
   </tr>
   </tbody>
 </table>
+<load-more params="coll: coll"></load-more>

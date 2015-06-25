@@ -2,20 +2,20 @@ import formatter from "../ko/formatter";
 import store from "../store";
 
 export default class Document {
-  constructor(data, lectureById, examinantById) {
+  constructor(data) {
+    Object.assign(this, data);
+
     // replace stub (id-only) objects
     this.lectures = data.lectures.map(l => store.lecturesById.get(l.id));
     this.lectures.sort(l => l.name);
     this.examinants = data.examinants.map(e => store.examinantsById.get(e.id));
     this.examinants.sort(e => e.name);
 
-    this.id = data.id;
     this.date = new Date(data.date);
-    this.numberOfPages = data.number_of_pages;
-    this.solution = data.solution;
-    this.comment = data.comment;
-    this.documentType = data.document_type;
-    this.available = data.available;
+
+    // retain some consistency
+    this.numberOfPages = this.number_of_pages;
+    this.documentType = this.document_type;
   }
 
   get extendedAttributes() {
