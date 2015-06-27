@@ -2,13 +2,18 @@ import ko from "knockout";
 import flatten from "lodash/array/flatten";
 import sum from "lodash/collection/sum";
 
+import Document from "./document";
 import store from "../store";
 import user from "./user";
 
 export default class Cart {
-  constructor() {
-    this.name = '';
-    this.documents = [];
+  constructor(data) {
+    Object.assign(this, { name: '', documents: [] }, data);
+    if (this.creation_time)
+      this.date = new Date(this.creation_time);
+
+    this.documents = this.documents.map(d => new Document(d));
+
     ko.track(this);
 
     ko.defineProperty(this, 'totalPageCount', () => sum(this.documents, 'numberOfPages'));
@@ -17,9 +22,10 @@ export default class Cart {
       this.documents.some(doc => doc.documentType !== 'written')
     );
 
-    ko.defineProperty(this, 'lectures', () =>
-      flatten(this.documents.map(doc => doc.lectures))
-    );
+    ko.defineProperty(this, 'lectureNames', () => {
+      let lectures = flatten(this.documents.map(doc => doc.lectures));
+      return [...new Set(lectures)].map(l => l.name).sort();
+    });
   }
 
   clone() {
@@ -30,7 +36,7 @@ export default class Cart {
   }
 
   contains(doc) {
-    return this.documents.some(d => d.id == doc.id);
+    return this.documents.some(d => d.id === doc.id);
   }
 
   add(doc) {

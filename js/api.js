@@ -18,7 +18,7 @@ let api = {
   },
 
   query(url, query) {
-    return this.getJSON(url, { data: { q: query } });
+    return this.getJSON(url, { data: { q: JSON.stringify(query) } });
   },
 
   post(url, data, settings) {
@@ -40,7 +40,7 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
       withCredentials: true
     }
   });
-  let live = false;
+  let live = true;
   api.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next/api/' : 'http://localhost:5000/api/';
 }
 

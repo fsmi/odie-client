@@ -115,6 +115,24 @@
       "src": "fontawesome"
     },
     {
+      "uid": "56a21935a5d4d79b2e91ec00f760b369",
+      "css": "sort",
+      "code": 59408,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "94103e1b3f1e8cf514178ec5912b4469",
+      "css": "sort-down",
+      "code": 59409,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "65b3ce930627cabfb6ac81ac60ec5ae4",
+      "css": "sort-up",
+      "code": 59410,
+      "src": "fontawesome"
+    },
+    {
       "uid": "cda0cdcfd38f5f1d9255e722dad42012",
       "css": "spinner",
       "code": 59393,

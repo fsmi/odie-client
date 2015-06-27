@@ -1,35 +1,29 @@
-<button class="btn btn-primary icon-arrows-cw" data-bind="click: loadCarts.bind($data)">Neu laden</button>
-<input type="text" class="form-inline form-control-inline form-control" placeholder="Filter (regex)" data-bind='value: filter, valueUpdate: "input"'>
-
 <table class="table table-condensed">
   <thead>
     <tr>
-      <td>Name</td>
+      <td><sortable-column params="coll: coll, column: 'name'">Name</sortable-column></td>
       <td>Vorlesungen</td>
-      <td>Erstellt</td>
+      <td><sortable-column params="coll: coll, column: 'creation_time', asc: false">Erstellt</sortable-column></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Filter" data-bind='value: filter.value, valueUpdate: "input"'></td>
+      <td></td>
       <td></td>
       <td></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: {data: filteredCarts(), as: 'cart'}">
+  <tbody data-bind="foreach: coll.items">
   <tr class="document-list">
     <td data-bind="text: name"></td>
-    <td class="td-min-60pct-break"data-bind="text: lectures"></td>
+    <td class="td-min-60pct-break" data-bind="text: lectureNames.join(', ')"></td>
     <td class="td-nowrap" data-bind="date: date"></td>
-    <td><button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $parent.openCart.bind($parent, cart)">Öffnen</button></td>
-    <td><button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', cart.clone()); }">Drucken</button></td>
-    <td><button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, cart)">Löschen</button></td>
+    <td>
+      <button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $parent.openCart.bind($parent, $data)">Öffnen</button>
+      <button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', clone()); }">Drucken</button>
+      <button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, $data)">Löschen</button>
+    </td>
   </tr>
   </tbody>
+  <load-more params="coll: coll"></load-more>
 </table>
-
-<hr/>
-
-<div class="text-center">
-  <span class="fade-button" data-bind="
-    visible:
-      carts.length >= limit && limit !== -1,
-    click:
-      showAllCarts.bind($data)">● ● ●</span>
-</div>
-
