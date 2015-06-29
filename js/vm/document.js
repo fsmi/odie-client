@@ -1,3 +1,4 @@
+import api from "../api";
 import formatter from "../ko/formatter";
 import store from "../store";
 
@@ -25,4 +26,6 @@ export default class Document {
   get examinantsText() {
     return this.examinants.map(e => e.name).join(', ');
   }
+
+  get previewURL() { return `${api.baseUrl}view/${this.id}`; }
 }
