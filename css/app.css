@@ -68,8 +68,8 @@ body {
   vertical-align: top;
 }
 
-#nameSelection {
-  width: 500px;
+.nameSelection {
+  width: 500px !important;
 }
 
 .wrapper {
