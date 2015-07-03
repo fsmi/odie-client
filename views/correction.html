@@ -27,4 +27,14 @@ Data binding context: Correction -->
       <button type="submit" class="btn btn-danger icon-money">Buchen</button>
     </form>
   </div>
+  <hr>
+  <h3 class="heading">Spenden eintragen: </h3>
+
+  <div class="text-center">
+    <form data-bind="submit: makeDonation.bind($data)">
+    <input type="number" required step="0.1" class="form-control-inline form-control" data-bind="value: donationEuros">&nbsp;€&nbsp;
+      <button type="submit" class="btn btn-primary icon-money">Buchen</button>
+    </form>
+
+  </div>
 </div>

@@ -12,6 +12,7 @@ export default class Correction {
     this.cashBox = 'Sprechstundenkasse Informatik';
     this.erroneousPages = 0;
     this.erroneousCents = 0;
+    this.donationCents = 0;
     // Registering deposit without printing is done by submitting a print job with
     // non-zero depositCount, but no documents. We're using PrintJob as is with
     // an empty Cart for this.
@@ -21,6 +22,11 @@ export default class Correction {
     ko.defineProperty(this, 'erroneousEuros', {
       get: () => this.erroneousCents / 100,
       set: value => this.erroneousCents = value * 100
+    });
+
+    ko.defineProperty(this, 'donationEuros', {
+        get: () => this.donationCents / 100,
+        set: value => this.donationCents = value * 100
     });
   }
 
@@ -42,6 +48,13 @@ export default class Correction {
   makeDeposit() {
     this._printJob.submit();
     this._printJob = new PrintJob(new Cart());
+  }
+
+  makeDonation() {
+      api.post('donation', {amount: this.donationCents, cash_box: this.cashBox }).done(() => {
+          log.addItem('Spende', this.donationCents);
+          this.donationCents = 0;
+      });
   }
 
   get config() { return store.config; }
