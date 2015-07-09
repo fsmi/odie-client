@@ -7,10 +7,8 @@ export default class Document {
     Object.assign(this, data);
 
     // replace stub (id-only) objects
-    this.lectures = data.lectures.map(l => store.lecturesById.get(l.id));
-    this.lectures.sort(l => l.name);
-    this.examinants = data.examinants.map(e => store.examinantsById.get(e.id));
-    this.examinants.sort(e => e.name);
+    this.lectures = sortBy(data.lectures.map(l => store.lecturesById.get(l.id)), 'name');
+    this.examinants = sortBy(data.examinants.map(e => store.examinantsById.get(e.id)), 'name');
 
     this.date = new Date(data.date);
 
