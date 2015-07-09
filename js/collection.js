@@ -54,14 +54,14 @@ export class SubstringFilter {
 
   get asJSON() {
     return {
-      column: 'name',
+      column: this.column,
       operator: 'ilike',
-      value: '%' + this.value + '%'
+      value: `%${this.value}%`
     };
   }
 
   filter(items) {
-    return items.filter(x => x['name'].toLowerCase().includes(this.value.toLowerCase()));
+    return items.filter(x => x[this.column].toLowerCase().includes(this.value.toLowerCase()));
   }
 }
 
