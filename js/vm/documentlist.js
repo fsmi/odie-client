@@ -38,8 +38,12 @@ export default class DocumentList {
     return this.coll.items.filter(doc => doc.documentType === type).length;
   }
 
-  commitRange() {
+  addRange() {
     this.rangeSelect.commit().forEach(i => this.cart.add(this.coll.items[i]));
+  }
+
+  addAll() {
+    this.coll.items.forEach(d => this.cart.add(d));
   }
 
   get user() { return user; }
