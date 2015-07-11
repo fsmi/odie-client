@@ -37,7 +37,8 @@ export class Filter {
 }
 
 Filter.opImpls = {
-  ['==']: (x, y) => x === y
+  ['==']: (x, y) => x === y,
+  ['!=']: (x, y) => x !== y,
 };
 
 // Much easier than supporting any 'LIKE' filters...
@@ -122,5 +123,23 @@ export default class Collection {
         this.totalPages = resp.number_of_pages;
       });
     }
+  }
+}
+
+export class SelectableCollection extends Collection {
+  constructor(params) {
+    super(params);
+    this.selected = null;
+
+    ko.track(this, ['selected']);
+
+    ko.getObservable(this, 'items').subscribe(() => {
+      if (this.items.indexOf(this.selected) === -1)
+        this.selected = null;
+    });
+  }
+
+  toggleSelect(value) {
+    this.selected = value === this.selected ? null : value;
   }
 }

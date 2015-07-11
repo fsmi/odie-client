@@ -1,17 +1,98 @@
-<!-- template for deposit return tab.
-Data binding context: DepositReturn -->
+<div class="text-center">
+  <input type="text" class="form-control form-control-inline" placeholder="Name des Studis" data-bind="value: filter.value, valueUpdate: 'input'"><br>
+  (filtert beide Tabellen)<br>
+  <div style="margin: 10px">
+    <button class="btn-primary btn" style="margin: 10px" data-bind="
+      enable: deposits.selected && !(documents.selected && !documents.selected.validated),
+      css: {'btn-danger': deposits.selected && !documents.selected},
+      click: cashOut.bind($data)
+    ">Auszahlen</button>
+    <div data-bind="visible: !deposits.selected">Bitte wähle ein Pfand und ein zugehöriges Protokoll aus</div>
+    <div data-bind="visible: deposits.selected && !documents.selected">Bitte überprüfe, ob es ein zugehöriges Protokoll gibt</div>
+    <div data-bind="visible: deposits.selected && documents.selected && !documents.selected.validated">Bitte überprüfe das Protokoll noch auf Sinnhaftigkeit</div>
+    <div data-bind="visible: deposits.selected && documents.selected && documents.selected.validated">&nbsp;</div>
+  </div>
+</div>
 
-<form onsubmit="javascript:$data.getDeposits()">
-  <input type="text" class="form-inline form-control-inline form-control" placeholder="Name des Studis" data-bind='value: studentName'>
-  <button class="btn btn-primary icon-search" data-bind="click: getDeposits.bind($data)">Suchen</button>
-</form>
-
-<table class="table table-condensed">
-  <tbody data-bind="foreach: {data: deposits, as: 'deposit'}">
-  <tr class="document-list">
-    <td data-bind="text: name"></td>
-    <td data-bind="date: new Date(date)"></td>
-    <td><button class="btn btn-compact btn-primary icon-money" data-bind="click: $parent.cashOutDeposit.bind($parent, deposit.id)">Auszahlen</button></td>
-  </tr>
-  </tbody>
-</table>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3 class="heading">Eingegangene Protokolle</h3>
+      <hr>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <td><sortable-column params="coll: documents, column: 'submitted_by'">Name</sortable-column></td>
+            <td>Vorlesungen</td>
+            <td><sortable-column params="coll: documents, column: 'date', asc: false">Datum</sortable-column></td>
+            <td>Überprüft?</td>
+          </tr>
+          <tr>
+            <td><input type="text" class="form-control input-sm" placeholder="Filtern..." data-bind="value: documentFilter.value, valueUpdate: 'input'"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: documents.items">
+          <tr class="list selectable" data-bind="
+            css: {'addButton-color': $parent.documents.selected === $data},
+            click: function() { $parent.documents.toggleSelect($data); },
+          ">
+            <td data-bind="text: submitted_by"></td>
+            <td>
+              <ul class="lecture-list-cell" data-bind="foreach: lectures">
+                <li data-bind="text: name"></li>
+              </ul>
+            </td>
+            <td data-bind="date: date"></td>
+            <td>
+              <span data-bind="css: {'icon-ok': validated, 'icon-remove': !validated}"></span>
+              <a
+                class='icon-button btn btn-default btn-compact icon-eye selected'
+                title="Vorschau"
+                data-bind="
+                  click: function() { window.open(previewURL, '_blank'); validated = true; },
+                  clickBubble: false
+                "></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <load-more params="coll: documents"></load-more>
+    </div>
+    <div class="col-sm-6">
+      <h3 class="heading">Pfandeinträge</h3>
+      <hr>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <td><sortable-column params="coll: deposits, column: 'name'">Name</sortable-column></td>
+            <td>Vorlesungen</td>
+            <td><sortable-column params="coll: deposits, column: 'date', asc: false">Datum</sortable-column></td>
+          </tr>
+          <tr>
+            <td><input type="text" class="form-control input-sm" placeholder="Filtern..." data-bind="value: depositFilter.value, valueUpdate: 'input'"></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: deposits.items">
+          <tr class="list selectable" data-bind="
+            css: {'addButton-color': $parent.deposits.selected === $data},
+            click: function() { $parent.deposits.toggleSelect($data); },
+          ">
+            <td data-bind="text: name"></td>
+            <td>
+              <ul class="lecture-list-cell" data-bind="foreach: lectures">
+                <li data-bind="text: $data"></li>
+              </ul>
+            </td>
+            <td data-bind="date: date"></td>
+          </tr>
+        </tbody>
+      </table>
+      <load-more params="coll: deposits"></load-more>
+    </div>
+  </div>
+</div>

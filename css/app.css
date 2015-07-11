@@ -80,8 +80,24 @@ body {
   padding: 0 !important;
 }
 
-.document-list:nth-child(even) {
+tr.list:nth-child(even) {
   background-color: #f0f0f0;
+}
+
+tr.selectable {
+  cursor: pointer;
+}
+
+tr.selectable:hover {
+  background-color: #68C4D9;
+  color: white;
+}
+
+tr.selectable > td > *.selected {
+  visibility: hidden;
+}
+tr.selectable:hover > td > *.selected {
+  visibility: visible;
 }
 
 .sortable-column {
@@ -199,7 +215,8 @@ ul.lecture-list-cell {
 }
 
 .addButton-color {
-  background-color: #28A4C9;
+  background-color: #28A4C9 !important;
+  color: white;
 }
 
 .removeButton-color {
