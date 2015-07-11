@@ -1,3 +1,6 @@
+import ko from "knockout";
+import sortBy from "lodash/collection/sortBy";
+
 import api from "../api";
 import formatter from "../ko/formatter";
 import store from "../store";
@@ -15,6 +18,8 @@ export default class Document {
     // retain some consistency
     this.numberOfPages = this.number_of_pages;
     this.documentType = this.document_type;
+
+    ko.track(this, ['validated']);
   }
 
   get extendedAttributes() {

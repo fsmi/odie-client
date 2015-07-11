@@ -28,7 +28,7 @@
     </tr>
   </thead>
   <tbody data-bind="foreach: coll.items">
-  <tr class="document-list" data-bind="
+  <tr class="list" data-bind="
     css: { 'row-disabled': $parent.cart.contains($data) },
     event: { mouseenter: $parent.rangeSelect.onRowMouseOver.bind($parent.rangeSelect, $index) },
     click: function() { $parent.rangeSelect.onClick($index); }">
