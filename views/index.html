@@ -37,9 +37,23 @@
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
+            <li class="divider-vertical"></li>
             <li data-bind="visible: !user.isAuthenticated, css: { active: activeRoute === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
-            <li data-bind="visible: user.isAuthenticated, click: logout.bind($root)"><a href="#">Abmelden</a></li>
-            <li data-bind="visible: user.isAuthenticated"><a href='#' style="color: #333333 !important">Hallo,&nbsp;<span data-bind="text: user.first_name"></span></a></li>
+            <li class="dropdown" data-bind="visible: user.isAuthenticated">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span style="color: #333333 !important" data-bind="text: 'Hallo,&nbsp;' + user.first_name"></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li data-bind="click: logout.bind($root)"><a href="#">Abmelden</a></li>
+              </ul>
+            </li>
+            <li data-bind="visible: user.isAuthenticated">
+              <div class="btn-group btn-group-nowrap" role="group" data-bind="with: user">
+                <button class="btn btn-default" type="button" data-bind="css: {active: office === 'FSI'}, click: function() { office = 'FSI'; }">FSI</button>
+                <button class="btn btn-default" type="button" data-bind="css: {active: office === 'FSM'}, click: function() { office = 'FSM'; }">FSM</button>
+              </div>
+            </li>
           </ul>
         </div>
 

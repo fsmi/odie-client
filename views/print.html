@@ -38,7 +38,9 @@
         <li><a href='#' class='icon-floppy' data-bind='click: cart.save.bind(cart)'>Speichern</a></li>
       </ul>
     </div>
-    auf <select data-bind="options: availablePrinters, optionsText: 'name', value: selectedPrinter"></select>
+    auf
+    <span data-bind="visible: availablePrinters.length == 1, text: availablePrinters[0]"></span>
+    <select data-bind="visible: availablePrinters.length > 1, options: availablePrinters, value: selectedPrinter"></select>
     <div class="form-control-inline icon-placeholder">
       <div class="icon" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
         'icon-ok text-success': status === 'success',
