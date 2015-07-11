@@ -1,5 +1,6 @@
 /*global localStorage*/
 
+import $ from "jquery";
 import ko from "knockout";
 
 import api from "../api";
@@ -30,6 +31,13 @@ class User {
 
   get officeConfig() {
     return store.config.OFFICES[this.office];
+  }
+
+  changeOffice(office) {
+    if (office !== this.office) {
+      this.office = office;
+      $('body').addClass('batman');
+    }
   }
 
   login(password, rememberMe, error, success) {

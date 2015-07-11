@@ -9,8 +9,11 @@ import user from "./vm/user";
 export default class App {
   constructor() {
     ko.defineProperty(this, 'activeRoute', () => {
-        let activePage = pager.activePage$()
+        let activePage = pager.activePage$();
         return activePage ? activePage.getFullRoute()().join('/') : null;
+    });
+    $('body').bind('animationend', () => {
+      $('body').removeClass('batman');
     });
   }
 
