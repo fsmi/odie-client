@@ -10,6 +10,8 @@ import "./ko/bootstrap";
 import "./ko/typeahead";
 
 import "bootstrap/js/dropdown";
+import "bootstrap/js/transition";
+import "bootstrap/js/collapse";
 
 import App from "./app";
 import store from "./store";

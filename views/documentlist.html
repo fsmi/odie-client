@@ -24,7 +24,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: function() { filtered.forEach(cart.add, cart); }">∀<span class='icon-basket small'></span></button></td>
+      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: addAll.bind($data)">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
   <tbody data-bind="foreach: coll.items">
@@ -55,7 +55,7 @@
       <button
         class='icon-button btn-info btn btn-compact icon-basket'
         data-bind="
-        click: $parent.commitRange.bind($parent),
+        click: $parent.addRange.bind($parent),
         clickBubble: false,
         style: { visibility: $parent.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
         enable: !$parent.cart.contains($data)">
@@ -63,9 +63,8 @@
       <a
         class='icon-button btn-info btn btn-compact icon-eye'
         title="Vorschau"
-        target="_blank"
         data-bind="
-        click: function() { window.open(previewURL) },
+        click: function() { window.open(previewURL, '_blank') },
         clickBubble: false,
         visible: $parent.user.isAuthenticated,
         style: { visibility: $index() == $parent.rangeSelect.hoverIndex ? 'visible' : 'hidden' },

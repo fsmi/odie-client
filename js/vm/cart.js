@@ -1,6 +1,7 @@
 import ko from "knockout";
 import flatten from "lodash/array/flatten";
 import sum from "lodash/collection/sum";
+import uniq from "lodash/array/uniq";
 
 import Document from "./document";
 import store from "../store";
@@ -23,8 +24,8 @@ export default class Cart {
     );
 
     ko.defineProperty(this, 'lectureNames', () => {
-      let lectures = flatten(this.documents.map(doc => doc.lectures));
-      return [...new Set(lectures)].map(l => l.name).sort();
+      let lectures = uniq(flatten(this.documents.map(doc => doc.lectures)));
+      return lectures.map(l => l.name).sort();
     });
   }
 

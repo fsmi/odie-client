@@ -5,11 +5,11 @@ import Cart from "./cart";
 import log from "./log";
 import PrintJob from "./printjob";
 import store from "../store";
+import user from "./user";
 
 // Handles accounting corrections - erroneously printed pages, etc.
 export default class Correction {
   constructor() {
-    this.cashBox = 'Sprechstundenkasse Informatik';
     this.erroneousPages = 0;
     this.erroneousCents = 0;
     this.donationCents = 0;
@@ -21,7 +21,7 @@ export default class Correction {
 
     ko.defineProperty(this, 'erroneousEuros', {
       get: () => this.erroneousCents / 100,
-      set: value => this.erroneousCents = value * 100
+      set: value => this.erroneousCents = value * 100,
     });
 
     ko.defineProperty(this, 'donationEuros', {
@@ -31,7 +31,7 @@ export default class Correction {
   }
 
   _logErroneous(centsPrice) {
-    api.post('log_erroneous_sale', { amount: centsPrice, cash_box: this.cashBox })
+    api.post('log_erroneous_sale', {amount: centsPrice, cash_box: user.officeConfig.cash_boxes[0]})
       .done(() => log.addItem('Abrechnungskorrektur', -centsPrice));
   }
 
