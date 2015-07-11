@@ -3,7 +3,7 @@
 height: 50px;
 margin: 0 9px;
 border-right: 1px solid #ffffff;
-border-left: 1px solid #f2f2f2;
+border-left: 2px solid #f2f2f2;
 }
 
 .navbar-inverse .divider-vertical {
@@ -19,7 +19,7 @@ border-left-color: #111111;
 
 
 .navbar-nav > li > .btn-group {
-  padding-top: 7px;
+  padding: 7px 0 0 9px;
 }
 
 .table > thead > tr > td {
