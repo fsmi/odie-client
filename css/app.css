@@ -92,6 +92,10 @@ tr.selectable:hover {
   background-color: #68C4D9;
   color: white;
 }
+tr.selected {
+  background-color: #28A4C9 !important;
+  color: white;
+}
 
 tr.selectable > td > *.selected {
   visibility: hidden;
@@ -217,7 +221,6 @@ ul.lecture-list-cell {
 
 .addButton-color {
   background-color: #28A4C9 !important;
-  color: white;
 }
 
 .removeButton-color {
