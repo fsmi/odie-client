@@ -14,10 +14,12 @@ export default class Document {
     this.examinants = sortBy(data.examinants.map(e => store.examinantsById.get(e.id)), 'name');
 
     this.date = new Date(data.date);
+    this.validation_time = data.validation_time ? new Date(data.validation_time) : null;
 
     // retain some consistency
     this.numberOfPages = this.number_of_pages;
     this.documentType = this.document_type;
+    this.validationTime = this.validation_time;
 
     ko.track(this, ['validated']);
   }

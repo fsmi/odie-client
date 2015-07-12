@@ -10,6 +10,7 @@
       <td>Prüfer</td>
       <td><sortable-column params="coll: coll, column: 'date', asc: false">Datum</sortable-column></td>
       <td><sortable-column params="coll: coll, column: 'number_of_pages', asc: false">Seiten</sortable-column></td>
+      <td><sortable-column params="coll: coll, column: 'validation_time', asc: false">Einpflegedatum</sortable-column></td>
       <td></td>
       <td></td>
     </tr>
@@ -20,6 +21,7 @@
           <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': typeFilter.value !== 'written' }, click: toggleTypeFilter.bind($data, 'written')"><span class="icon-chat"></span></button>
         </div>
       </td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -51,6 +53,7 @@
     <td data-bind="text: examinantsText"></td>
     <td class="td-nowrap" data-bind="date: date"></td>
     <td data-bind="text: numberOfPages"></td>
+    <td class="td-nowrap" data-bind="date: validationTime"></td>
     <td class="td-nowrap td-compact text-right" data-bind="enable: available">
       <button
         class='icon-button btn-info btn btn-compact icon-basket'
