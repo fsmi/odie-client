@@ -51,7 +51,7 @@ export default class Correction {
   }
 
   makeDonation() {
-      api.post('donation', {amount: this.donationCents, cash_box: this.cashBox }).done(() => {
+      api.post('donation', {amount: this.donationCents, cash_box: user.officeConfig.cash_boxes[0] }).done(() => {
           log.addItem('Spende', this.donationCents);
           this.donationCents = 0;
       });
