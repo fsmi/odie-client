@@ -185,6 +185,7 @@ ul.lecture-list-cell {
   clear: both;
   transition: opacity 0.3s;
   opacity: 0.4;
+  padding-top: 5px;
 }
 
 .footer:hover {
@@ -230,6 +231,7 @@ ul.lecture-list-cell {
   text-align: center;
   width: 100%;
   left: -10%;
+  color: black;
 }
 
 .rangeBar-upper-bound {
