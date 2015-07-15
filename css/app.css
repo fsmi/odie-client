@@ -92,6 +92,10 @@ tr.selectable:hover {
   background-color: #68C4D9;
   color: white;
 }
+tr.selected {
+  background-color: #28A4C9 !important;
+  color: white;
+}
 
 tr.selectable > td > *.selected {
   visibility: hidden;
@@ -126,10 +130,6 @@ tr.selectable:hover > td > *.selected {
 
 .table-condensed {
   width: 100%;
-}
-
-.td-nowrap {
-  white-space: nowrap;
 }
 
 .td-min-60pct-break {
@@ -217,7 +217,6 @@ ul.lecture-list-cell {
 
 .addButton-color {
   background-color: #28A4C9 !important;
-  color: white;
 }
 
 .removeButton-color {
@@ -231,7 +230,6 @@ ul.lecture-list-cell {
   text-align: center;
   width: 100%;
   left: -10%;
-  color: black;
 }
 
 .rangeBar-upper-bound {

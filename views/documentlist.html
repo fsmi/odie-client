@@ -1,6 +1,6 @@
 <table class="table table-condensed">
   <thead>
-    <tr>
+    <tr class="text-nowrap">
       <td class="td-compact" colspan="2">
         #/
         <span data-bind="text: countType('written')"></span><span title="schriftlich" class="icon-pencil"></span>
@@ -10,6 +10,7 @@
       <td>Prüfer</td>
       <td><sortable-column params="coll: coll, column: 'date', asc: false">Datum</sortable-column></td>
       <td><sortable-column params="coll: coll, column: 'number_of_pages', asc: false">Seiten</sortable-column></td>
+      <td><sortable-column params="coll: coll, column: 'validation_time', asc: false">Einpflegedatum</sortable-column></td>
       <td></td>
       <td></td>
     </tr>
@@ -24,12 +25,19 @@
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
       <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: addAll.bind($data)">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
-  <tbody data-bind="foreach: coll.items">
+  <tbody>
+  <tr class="warning text-warning text-center" data-bind="visible: user.isAuthenticated && scrubDocuments && scrubbedDocuments.length < coll.items.length">
+    <td colspan="8">
+      Es gibt <span data-bind="text: (coll.items.length - scrubbedDocuments.length) + ' noch nicht überprüfte Protokolle'"></span>. <a href="#" data-bind="click: function() { scrubDocuments = false; }">Anzeigen</a>
+    </td>
+  </tr>
+  <!-- ko foreach: scrubbedDocuments -->
   <tr class="list" data-bind="
-    css: { 'row-disabled': $parent.cart.contains($data) },
+    css: { 'warning': !validated, 'row-disabled': $parent.cart.contains($data) },
     event: { mouseenter: $parent.rangeSelect.onRowMouseOver.bind($parent.rangeSelect, $index) },
     click: function() { $parent.rangeSelect.onClick($index); }">
     <td class="rangeBar-td td-compact" data-bind="css: { 'rangeBar-selected addButton-color': $parent.rangeSelect.selectedBarVisible($index)}">
@@ -49,9 +57,13 @@
     </td>
 
     <td data-bind="text: examinantsText"></td>
-    <td class="td-nowrap" data-bind="date: date"></td>
+    <td class="text-nowrap" data-bind="date: date"></td>
     <td data-bind="text: numberOfPages"></td>
-    <td class="td-nowrap td-compact text-right" data-bind="enable: available">
+    <td class="text-center text-nowrap">
+      <span data-bind="visible: validated, date: validationTime"></span>
+      <span class="icon-attention text-warning" data-bind="visible: !validated"></span>
+    </td>
+    <td class="text-nowrap td-compact text-right" data-bind="enable: available">
       <button
         class='icon-button btn-info btn btn-compact icon-basket'
         data-bind="
@@ -71,6 +83,7 @@
         "></a>
     </td>
   </tr>
+  <!-- /ko -->
   </tbody>
 </table>
 <load-more params="coll: coll"></load-more>

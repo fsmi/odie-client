@@ -36,7 +36,7 @@
         </thead>
         <tbody data-bind="foreach: documents.items">
           <tr class="list selectable" data-bind="
-            css: {'addButton-color': $parent.documents.selected === $data},
+            css: {'selected': $parent.documents.selected === $data},
             click: function() { $parent.documents.toggleSelect($data); },
           ">
             <td data-bind="text: submitted_by"></td>
@@ -79,7 +79,7 @@
         </thead>
         <tbody data-bind="foreach: deposits.items">
           <tr class="list selectable" data-bind="
-            css: {'addButton-color': $parent.deposits.selected === $data},
+            css: {'selected': $parent.deposits.selected === $data},
             click: function() { $parent.deposits.toggleSelect($data); },
           ">
             <td data-bind="text: name"></td>
