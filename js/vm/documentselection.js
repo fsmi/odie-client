@@ -1,12 +1,10 @@
 import ko from "knockout";
 import pager from "pagerjs";
 
-import api from "../api";
 import Cart from "./cart";
-import Collection from "../collection";
-import Document from "./document";
 import DocumentList from "./documentlist";
 import store from "../store";
+import user from "./user";
 
 class DocumentSelection {
   constructor() {
@@ -16,15 +14,13 @@ class DocumentSelection {
 
     ko.track(this);
 
-    this.typeaheadLists = {};
-
     ko.getObservable(this, 'searchBy').subscribe(() => {
       this.selected = null;
     });
 
     ko.defineProperty(this, 'selectedId', {
       get: () => this.selected !== null ? this.selected.id : null,
-      set(id) { this.selected = id && store[`${this.searchBy}ById`].get(parseInt(id)); }
+      set(id) { this.selected = id && store[`${this.searchBy}ById`].get(parseInt(id)); },
     });
 
     ko.getObservable(this, 'selected').subscribe(selected => {
@@ -40,12 +36,12 @@ class DocumentSelection {
     return {
       source: (query, callback) => {
         let regex = this.getSearchRegex(query);
-        callback(store[this.searchBy].filter(l => regex.test(l.name)));
+        callback(store[this.searchBy].filter(e => (e.validated || user.isAuthenticated) && regex.test(e.name)));
       },
       displayKey: "name",
       templates: {
-        suggestion: l => `<a href="#" onclick="return false;">${l.name}</a>`
-      }
+        suggestion: l => `<a href="#" onclick="return false;">${l.name}</a>`,
+      },
     };
   }
 

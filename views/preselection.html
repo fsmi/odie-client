@@ -17,7 +17,7 @@
   <tr class="document-list">
     <td data-bind="text: name"></td>
     <td class="td-min-60pct-break" data-bind="text: lectureNames.join(', ')"></td>
-    <td class="td-nowrap" data-bind="date: date"></td>
+    <td class="text-nowrap" data-bind="date: date"></td>
     <td>
       <button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $parent.openCart.bind($parent, $data)">Öffnen</button>
       <button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', clone()); }">Drucken</button>

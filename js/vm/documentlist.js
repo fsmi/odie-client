@@ -21,10 +21,15 @@ export default class DocumentList {
       endpoint: params.endpoint,
       filters: [this.typeFilter],
       sortBy: { column: 'date', asc: false },
-      deserialize: d => new Document(d)
+      deserialize: d => new Document(d),
     });
 
     this.rangeSelect = new RangeSelect();
+    this.scrubDocuments = true;
+    ko.track(this, ['scrubDocuments']);
+    ko.defineProperty(this, 'scrubbedDocuments', () =>
+        this.scrubDocuments ? this.coll.items.filter(d => d.validated) : this.coll.items
+    );
   }
 
   toggleTypeFilter(type) {

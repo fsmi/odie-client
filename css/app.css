@@ -132,10 +132,6 @@ tr.selectable:hover > td > *.selected {
   width: 100%;
 }
 
-.td-nowrap {
-  white-space: nowrap;
-}
-
 .td-min-60pct-break {
   min-width: 60%;
   word-wrap: break-word;
@@ -234,7 +230,6 @@ ul.lecture-list-cell {
   text-align: center;
   width: 100%;
   left: -10%;
-  color: black;
 }
 
 .rangeBar-upper-bound {
