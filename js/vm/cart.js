@@ -6,7 +6,6 @@ import uniq from "lodash/array/uniq";
 import api from "../api";
 import Document from "./document";
 import store from "../store";
-import user from "./user";
 
 export default class Cart {
   constructor(data) {
@@ -79,6 +78,4 @@ export default class Cart {
     return Math.ceil(price / 10) * 10;
   }
 
-  get config() { return store.config; }
-  get user() { return user; }
 }

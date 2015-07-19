@@ -34,8 +34,11 @@ $(window.document).ready(() => {
     viewModel: require('./vm/documentlist'),
     template: fs.readFileSync('views/documentlist.html', 'utf8'),
   });
-  ko.components.register('cart', {
-    template: fs.readFileSync('views/cart.html', 'utf8'),
+  ko.components.register('documentselection-cart', {
+    template: fs.readFileSync('views/documentselection-cart.html', 'utf8'),
+  });
+  ko.components.register('printcart', {
+     template: fs.readFileSync('views/print.html', 'utf8'),
   });
   ko.components.register('print', {
     viewModel: require('./vm/printjob'),

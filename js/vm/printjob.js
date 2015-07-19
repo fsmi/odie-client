@@ -13,7 +13,11 @@ export default class PrintJob {
     this.cart = cart;
     this._depositCount = undefined;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
-    this.selectedPrinter = this.availablePrinters[0];
+    this.selectedPrinter = undefined;
+    // select a default printer as soon as they're loaded
+    store.ensureLoaded(() => {
+        this.selectedPrinter = this.availablePrinters[0];
+    });
 
     ko.track(this);
 
@@ -58,6 +62,10 @@ export default class PrintJob {
 
   reset() {
     this.status = undefined;
+  }
+
+  clearDeposit() {
+    this._depositCount = 0;
   }
 
   submit() {
