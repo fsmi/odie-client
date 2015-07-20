@@ -3,31 +3,31 @@
 import ko from "knockout";
 
 import api from "../api";
-import { Filter, SelectableCollection, SubstringFilter } from "../collection";
+import {Filter, SelectableCollection, SubstringFilter} from "../collection";
 import Document from "./document";
 import log from "./log";
 import user from "./user";
 
 export default class DepositReturn {
   constructor() {
-    this.filter = new SubstringFilter({ column: 'name' });
-    this.documentFilter = new SubstringFilter({ column: 'submitted_by' });
-    this.depositFilter = new SubstringFilter({ column: 'name' });
+    this.filter = new SubstringFilter({column: 'name'});
+    this.documentFilter = new SubstringFilter({column: 'submitted_by'});
+    this.depositFilter = new SubstringFilter({column: 'name'});
 
     this.documents = new SelectableCollection({
       endpoint: 'documents',
       filters: [
         this.documentFilter,
-        new SubstringFilter({ column: 'submitted_by', value: ko.getObservable(this.filter, 'value') }),
-        new Filter({ column: 'submitted_by', operator: '!=', value: null }),
+        new SubstringFilter({column: 'submitted_by', value: ko.getObservable(this.filter, 'value')}),
+        new Filter({column: 'submitted_by', operator: '!=', value: null}),
       ],
-      sortBy: { column: 'date', asc: false },
+      sortBy: {column: 'date', asc: false},
       deserialize: data => new Document(data),
     });
     this.deposits = new SelectableCollection({
       endpoint: 'deposits',
       filters: [this.filter, this.depositFilter],
-      sortBy: { column: 'date', asc: false },
+      sortBy: {column: 'date', asc: false},
       deserialize: data => {
         data.date = new Date(data.date);
         return data;

@@ -7,12 +7,12 @@ import Collection, { SubstringFilter } from "../collection";
 
 export default class Preselection {
   constructor() {
-    this.filter = new SubstringFilter({ column: 'name' });
+    this.filter = new SubstringFilter({column: 'name'});
     this.coll = new Collection({
       endpoint: 'orders',
       filters: [this.filter],
-      sortBy: { column: 'creation_time', asc: false },
-      deserialize: data => new Cart(data)
+      sortBy: {column: 'creation_time', asc: false},
+      deserialize: data => new Cart(data),
     });
   }
 
@@ -24,7 +24,7 @@ export default class Preselection {
   deleteCart(cart) {
     api.ajax({
       url: 'carts/' + cart.id,
-      type: 'DELETE'
+      type: 'DELETE',
     }).done(() => {
       let i = this.carts.indexOf(cart);
       if (i > -1) {

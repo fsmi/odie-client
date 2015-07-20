@@ -12,5 +12,5 @@ ko.bindingHandlers.typeahead = {
     let onSelect = (e, val) => o.selected(val[o.selectedProperty]);
     e.bind('typeahead:autocompleted', onSelect);
     e.bind('typeahead:selected', onSelect);
-  }
-}
+  },
+};

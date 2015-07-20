@@ -3,13 +3,14 @@ import flatten from "lodash/array/flatten";
 import sum from "lodash/collection/sum";
 import uniq from "lodash/array/uniq";
 
+import api from "../api";
 import Document from "./document";
 import store from "../store";
 import user from "./user";
 
 export default class Cart {
   constructor(data) {
-    Object.assign(this, { name: '', documents: [] }, data);
+    Object.assign(this, {name: '', documents: []}, data);
     if (this.creation_time)
       this.date = new Date(this.creation_time);
 
@@ -30,10 +31,7 @@ export default class Cart {
   }
 
   clone() {
-    let miniMe = new Cart();
-    miniMe.name = this.name;
-    miniMe.documents = this.documents.slice();
-    return miniMe;
+    return new Cart({name: this.name, documents: this.documents.slice()});
   }
 
   contains(doc) {
@@ -62,7 +60,7 @@ export default class Cart {
   save() {
     api.post('orders', {
         name: this.name,
-        document_ids: this.documents.map(doc => doc.id)
+        document_ids: this.documents.map(doc => doc.id),
     }).done(() => this.reset());
   }
 

@@ -24,7 +24,7 @@ let store = {
       this._onLoaded.push(callback);
     else
       callback();
-  }
+  },
 };
 
 store.load('config');

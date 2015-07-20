@@ -19,6 +19,6 @@ export default class SortableColumn {
   toggle() {
     if (this.active)
       this.asc = !this.asc;
-    this.coll.sortBy = { column: this.column, asc: this.asc };
+    this.coll.sortBy = {column: this.column, asc: this.asc};
   }
 }

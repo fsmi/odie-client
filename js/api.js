@@ -1,11 +1,9 @@
+/*global window*/
+
 import $ from "jquery";
 
 let api = {
-  _baseAjaxSettings: {
-    error: (_, __, error) => {
-      alert("Unexpected Ajax error:\n\n" + error);
-    }
-  },
+  _baseAjaxSettings: {},
 
   ajax(settings) {
     let s = Object.assign({}, this._baseAjaxSettings, settings);
@@ -14,11 +12,11 @@ let api = {
   },
 
   getJSON(url, settings) {
-    return this.ajax(Object.assign(settings || {}, { url }));
+    return this.ajax(Object.assign(settings || {}, {url}));
   },
 
   query(url, query) {
-    return this.getJSON(url, { data: { q: JSON.stringify(query) } });
+    return this.getJSON(url, {data: {q: JSON.stringify(query)}});
   },
 
   post(url, data, settings) {
@@ -26,9 +24,9 @@ let api = {
       url,
       type: 'POST',
       contentType: 'application/json; charset=UTF-8',
-      data: JSON.stringify(data)
+      data: JSON.stringify(data),
     }));
-  }
+  },
 };
 
 if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
@@ -37,8 +35,8 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
   Object.assign(api._baseAjaxSettings, {
     crossDomain: true,
     xhrFields: {
-      withCredentials: true
-    }
+      withCredentials: true,
+    },
   });
   let live = true;
   api.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next/api/' : 'http://localhost:5000/api/';

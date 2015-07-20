@@ -1,6 +1,6 @@
 import ko from "knockout";
 
-import Collection, { Filter } from "../collection";
+import Collection, {Filter} from "../collection";
 import Document from "./document";
 import RangeSelect from "./rangeselect";
 import user from "./user";
@@ -16,11 +16,11 @@ export default class DocumentList {
     // TODO: replace with collection filters the DB can understand
     // this.examinantsFilter = '';
     // this.typeFilter = '';
-    this.typeFilter = new Filter({ column: 'document_type', operator: '==', disableOnEmpty: true });
+    this.typeFilter = new Filter({column: 'document_type', operator: '==', disableOnEmpty: true});
     this.coll = new Collection({
       endpoint: params.endpoint,
       filters: [this.typeFilter],
-      sortBy: { column: 'date', asc: false },
+      sortBy: {column: 'date', asc: false},
       deserialize: d => new Document(d),
     });
 
