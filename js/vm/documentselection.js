@@ -5,12 +5,14 @@ import Cart from "./cart";
 import DocumentList from "./documentlist";
 import store from "../store";
 import user from "./user";
+import PrintJob from "./printjob";
 
 class DocumentSelection {
   constructor() {
     this.cart = new Cart();
     this.searchBy = 'lectures';
     this.selected = null;
+    this.printjob = new PrintJob(this.cart);
 
     ko.track(this);
 
@@ -54,6 +56,14 @@ class DocumentSelection {
       return new RegExp(searchString, 'i');
     }
   }
+
+  clearCart() {
+    this.cart.reset();
+    this.printjob.clearDeposit();
+  }
+
+  get config() { return store.config; }
+  get user() { return user; }
 }
 
 export default new DocumentSelection();
