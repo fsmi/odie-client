@@ -27,7 +27,7 @@ export default class App {
         this.ensureAuthenticated(page, route, callback);
       });
     } else
-      pager.navigate(pager.page.path({ path: 'login', params: { successRoute: route.join('/') } }));
+      pager.navigate(pager.page.path({path: 'login', params: {successRoute: route.join('/')}}));
   }
 
   // causes actual logout and moves away to selection view

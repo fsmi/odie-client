@@ -1,3 +1,5 @@
+/*global require window*/
+
 import "babel-core/browser-polyfill";
 import $ from "jquery";
 import "jquery.cookie";
@@ -16,7 +18,7 @@ import "bootstrap/js/collapse";
 import App from "./app";
 import store from "./store";
 
-$(document).ready(() => {
+$(window.document).ready(() => {
   let app = new App();
   window.app = app; // for debugging
 
@@ -25,49 +27,49 @@ $(document).ready(() => {
 
   // use singleton view-models where access from other view-models is needed
   ko.components.register('documentselection', {
-    viewModel: { instance: require('./vm/documentselection') },
-    template: fs.readFileSync('views/documentselection.html', 'utf8')
+    viewModel: {instance: require('./vm/documentselection')},
+    template: fs.readFileSync('views/documentselection.html', 'utf8'),
   });
   ko.components.register('documentlist', {
     viewModel: require('./vm/documentlist'),
-    template: fs.readFileSync('views/documentlist.html', 'utf8')
+    template: fs.readFileSync('views/documentlist.html', 'utf8'),
   });
   ko.components.register('cart', {
-    template: fs.readFileSync('views/cart.html', 'utf8')
+    template: fs.readFileSync('views/cart.html', 'utf8'),
   });
   ko.components.register('print', {
     viewModel: require('./vm/printjob'),
-    template: fs.readFileSync('views/print.html', 'utf8')
+    template: fs.readFileSync('views/print.html', 'utf8'),
   });
   ko.components.register('printmodal', {
-    template: fs.readFileSync('views/printmodal.html', 'utf8')
+    template: fs.readFileSync('views/printmodal.html', 'utf8'),
   });
   ko.components.register('preselection', {
     viewModel: require('./vm/preselection'),
-    template: fs.readFileSync('views/preselection.html', 'utf8')
+    template: fs.readFileSync('views/preselection.html', 'utf8'),
   });
   ko.components.register('depositreturn', {
     viewModel: require('./vm/depositreturn'),
-    template: fs.readFileSync('views/depositreturn.html', 'utf8')
+    template: fs.readFileSync('views/depositreturn.html', 'utf8'),
   });
   ko.components.register('correction', {
     viewModel: require('./vm/correction'),
-    template: fs.readFileSync('views/correction.html', 'utf8')
+    template: fs.readFileSync('views/correction.html', 'utf8'),
   });
   ko.components.register('login', {
     viewModel: require('./vm/login'),
-    template: fs.readFileSync('views/login.html', 'utf8')
+    template: fs.readFileSync('views/login.html', 'utf8'),
   });
   ko.components.register('log', {
-    viewModel: { instance: require('./vm/log')["default"] },
-    template: fs.readFileSync('views/log.html', 'utf8')
+    viewModel: {instance: require('./vm/log').default},
+    template: fs.readFileSync('views/log.html', 'utf8'),
   });
   ko.components.register('load-more', {
-    template: fs.readFileSync('views/load-more.html', 'utf8')
+    template: fs.readFileSync('views/load-more.html', 'utf8'),
   });
   ko.components.register('sortable-column', {
     viewModel: require('./vm/sortable-column'),
-    template: fs.readFileSync('views/sortable-column.html', 'utf8')
+    template: fs.readFileSync('views/sortable-column.html', 'utf8'),
   });
 
   store.ensureLoaded(() => {

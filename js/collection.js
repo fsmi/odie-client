@@ -1,5 +1,5 @@
 import ko from "knockout";
-import { sortByOrder } from "lodash";
+import {sortByOrder} from "lodash";
 
 import api from "./api";
 
@@ -12,7 +12,7 @@ export class Filter {
    * @param {boolean} [params.disableOnEmpty=false] - whether an empty value should disable the filter
    */
   constructor(params) {
-    Object.assign(this, { value: '' }, params);
+    Object.assign(this, {value: ''}, params);
 
     ko.track(this);
   }
@@ -24,7 +24,7 @@ export class Filter {
     return {
       column: this.column,
       operator: this.operator,
-      value: this.value
+      value: this.value,
     };
   }
 
@@ -48,7 +48,7 @@ export class SubstringFilter {
    * @param {*}       [params.value='']
    */
   constructor(params) {
-    Object.assign(this, { value: '' }, params);
+    Object.assign(this, {value: ''}, params);
 
     ko.track(this);
   }
@@ -57,7 +57,7 @@ export class SubstringFilter {
     return {
       column: this.column,
       operator: 'ilike',
-      value: `%${this.value}%`
+      value: `%${this.value}%`,
     };
   }
 
@@ -77,7 +77,7 @@ export default class Collection {
    * @param {function(respObj: Object): *} [params.deserialize]
    */
   constructor(params) {
-    Object.assign(this, { filters: [] }, params);
+    Object.assign(this, {filters: []}, params);
 
     this._items = [];
     this.currentPages = 0;
@@ -90,8 +90,8 @@ export default class Collection {
       column: this.sortBy.column,
       value: {
         operator: 'and',
-        value: this.filters.map(f => f.asJSON).filter(f => f)
-      }
+        value: this.filters.map(f => f.asJSON).filter(f => f),
+      },
     } : null);
     ko.getObservable(this, 'query').subscribe(() => this.load());
 
@@ -113,7 +113,7 @@ export default class Collection {
   load(append) {
     if (this.endpoint) {
       // `currentPages` can't be part of the query observable since it's changed by the query itself
-      let query = Object.assign({}, this.query, { page: append ? this.currentPages + 1 : 1 });
+      let query = Object.assign({}, this.query, {page: append ? this.currentPages + 1 : 1});
       api.query(this.endpoint, query).done(resp => {
         let items = resp.data;
         if (this.deserialize)

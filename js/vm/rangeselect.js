@@ -11,13 +11,13 @@ export default class RangeSelect {
 
   onRowMouseOver(index) {
     // resolve data binding
-    let index = index();
+    index = index();
     this.hoverIndex = index;
   }
 
   onClick(index) {
     // resolve data binding
-    let index = index();
+    index = index();
     if (this.secondSelection !== null) {
       // cancel selection
       this.firstSelection = null;
@@ -38,7 +38,7 @@ export default class RangeSelect {
 
   upperBoundVisible(index) {
     // resolve data binding
-    let index = index();
+    index = index();
     if (this.firstSelection === null) {
       return this.hoverIndex === index;
     }
@@ -61,7 +61,7 @@ export default class RangeSelect {
 
   lowerBoundVisible(index) {
     // resolve data binding
-    let index = index();
+    index = index();
     if (this.firstSelection === null) {
       return this.hoverIndex === index;
     }
@@ -83,7 +83,7 @@ export default class RangeSelect {
 
   selectedBarVisible(index) {
     // resolve data binding
-    let index = index();
+    index = index();
     if (this.firstSelection === null) {
       return this.hoverIndex === index;
     }
@@ -95,7 +95,8 @@ export default class RangeSelect {
   }
 
   toggleButtonVisible(index) {
-    let index = index();
+    // resolve data binding
+    index = index();
     if (this.secondSelection === null) {
       return index === this.hoverIndex;
     }

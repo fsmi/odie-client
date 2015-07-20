@@ -26,7 +26,7 @@ export default class Correction {
 
     ko.defineProperty(this, 'donationEuros', {
         get: () => this.donationCents / 100,
-        set: value => this.donationCents = value * 100
+        set: value => this.donationCents = value * 100,
     });
   }
 
@@ -51,7 +51,7 @@ export default class Correction {
   }
 
   makeDonation() {
-      api.post('donation', {amount: this.donationCents, cash_box: user.officeConfig.cash_boxes[0] }).done(() => {
+      api.post('donation', {amount: this.donationCents, cash_box: user.officeConfig.cash_boxes[0]}).done(() => {
           log.addItem('Spende', this.donationCents);
           this.donationCents = 0;
       });

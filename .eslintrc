@@ -1,0 +1,19 @@
+{
+    "env": {
+        "es6": true,
+    },
+    "ecmaFeatures": {
+        "modules": true,
+    },
+    "rules": {
+        "camelcase": 0, // because of Python identifiers
+        "comma-dangle": [2, "always-multiline"],
+        "curly": 0,
+        "dot-location": [2, "property"],
+        "no-shadow": 0,
+        "no-underscore-dangle": 0,
+        "no-var": 2,
+        "object-curly-spacing": [2, "never"],
+        "quotes": 0,
+    },
+}

@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - stable
+sudo: false
+cache:
+  directories:
+    - node_modules
+before_script:
+  - npm install eslint
+script: ./node_modules/eslint/bin/eslint.js js/

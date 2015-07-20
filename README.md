@@ -15,3 +15,9 @@ broccoli serve                   # whenever Brocfile.js has changed
 ```
 
 `serve` will start a local web server with `index.html` at its root and using the odie-server test backend. The server is [LiveReload](http://livereload.com)-enabled, so grab a [browser extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions).
+
+Before creating a PR, please check your code with [ESLint](http://eslint.org/):
+```js
+sudo npm install -g eslint  # one-time
+eslint js/
+```
