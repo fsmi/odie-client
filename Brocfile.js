@@ -49,12 +49,16 @@ css = mergeTrees([
   new Funnel('node_modules/bootstrap/dist/css', {
     files: ['bootstrap-theme.css']
   }),
+  new Funnel('node_modules/bootstrap-tagsinput/dist', {
+    files: ['bootstrap-tagsinput.css']
+  }),
   'css/'
 ]);
 css = concat(css, {
   inputFiles: [
     'bootstrap.css',
     'bootstrap-theme.css',
+    'bootstrap-tagsinput.css',
     'fontello.css',
     'app.css',
     'login.css'

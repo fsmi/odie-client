@@ -9,6 +9,7 @@ import pager from "pagerjs";
 
 import "./ko/formatter";
 import "./ko/bootstrap";
+import "./ko/bootstrap-tagsinput";
 import "./ko/typeahead";
 
 import "bootstrap/js/dropdown";
