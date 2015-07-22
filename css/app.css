@@ -108,12 +108,9 @@ tr.selectable:hover > td > *.selected {
   cursor: pointer;
 }
 
-#searchBy {
-  vertical-align: top;
-}
-
 .nameSelection {
   width: 500px !important;
+  vertical-align: middle !important;
 }
 
 .wrapper {
