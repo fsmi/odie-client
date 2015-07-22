@@ -1,6 +1,7 @@
 import ko from "knockout";
 import pager from "pagerjs";
 
+import BarcodeScanner from "./barcode";
 import Cart from "./cart";
 import DocumentList from "./documentlist";
 import store from "../store";
@@ -13,6 +14,7 @@ class DocumentSelection {
     this.searchBy = 'lectures';
     this.selected = null;
     this.printjob = new PrintJob(this.cart);
+    this.barcode = new BarcodeScanner(this.cart);
 
     ko.track(this);
 
