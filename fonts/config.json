@@ -91,6 +91,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "aa991e8e66ac54b33f0a4b0555597b08",
+      "css": "barcode",
+      "code": 59411,
+      "src": "fontawesome"
+    },
+    {
       "uid": "422e07e5afb80258a9c4ed1706498f8a",
       "css": "circle-empty",
       "code": 59401,
