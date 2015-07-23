@@ -40,7 +40,7 @@
     </div>
     auf
     <span data-bind="visible: availablePrinters.length == 1, text: availablePrinters[0]"></span>
-    <select class="form-control form-control-inline" data-bind="visible: availablePrinters.length > 1, options: availablePrinters, value: selectedPrinter"></select>
+    <select class="form-control form-control-inline btn btn-default" data-bind="visible: availablePrinters.length > 1, options: availablePrinters, value: selectedPrinter"></select>
     <div class="form-control-inline icon-placeholder">
       <div class="icon" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
         'icon-ok text-success': status === 'success',
