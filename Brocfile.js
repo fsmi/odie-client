@@ -46,6 +46,7 @@ var less = mergeTrees([
 ]);
 css = mergeTrees([
   lessCompiler(less, 'bootstrap.my.less', 'bootstrap.css'),
+  lessCompiler(less, 'app.less', 'app.css'),
   new Funnel('node_modules/bootstrap/dist/css', {
     files: ['bootstrap-theme.css']
   }),
