@@ -9,7 +9,7 @@ Data binding context: DocumentSelection -->
       <td>Vorlesungen</td>
       <td>Prüfer</td>
       <td data-bind="text: 'Seiten&nbsp;(' + cart.totalPageCount + ')'">Seiten</td>
-      <td class='text-right'><button class='btn-danger icon-button btn' data-bind="click: clearCart.bind($data)">∀<span class='icon-remove small'></span></button></td>
+      <td class="text-right td-compact"><button class='btn-danger icon-button btn' data-bind="click: clearCart.bind($data)">∀<span class='icon-remove small'></span></button></td>
     </tr>
   </thead>
   <tbody data-bind="foreach: cart.documents">

@@ -1,4 +1,4 @@
-<table class="table table-condensed">
+<table class="table">
   <thead>
     <tr class="text-nowrap">
       <td class="td-compact" colspan="2">
@@ -12,10 +12,9 @@
       <td><sortable-column params="coll: coll, column: 'number_of_pages', asc: false">Seiten</sortable-column></td>
       <td><sortable-column params="coll: coll, column: 'validation_time', asc: false">Einpflegedatum</sortable-column></td>
       <td></td>
-      <td></td>
     </tr>
     <tr>
-      <td colspan="2">
+      <td colspan="2" class="td-compact">
         <div class="btn-group btn-group-nowrap" role="group">
           <button class="btn btn-default btn-compact" type="button" title="schriftlich" data-bind="css: { 'active': typeFilter.value !== 'oral' }, click: toggleTypeFilter.bind($data, 'oral')"><span class="icon-pencil"></span></button>
           <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': typeFilter.value !== 'written' }, click: toggleTypeFilter.bind($data, 'written')"><span class="icon-chat"></span></button>
@@ -26,13 +25,13 @@
       <td></td>
       <td></td>
       <td></td>
-      <td class='text-right'><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: addAll.bind($data)">∀<span class='icon-basket small'></span></button></td>
+      <td class="text-right td-compact"><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: addAll.bind($data)">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
   <tbody>
   <tr class="warning text-warning text-center" data-bind="visible: user.isAuthenticated && scrubDocuments && scrubbedDocuments.length < coll.items.length">
     <td colspan="8">
-      Es gibt <span data-bind="text: (coll.items.length - scrubbedDocuments.length) + ' noch nicht überprüfte Protokolle'"></span>. <a href="#" data-bind="click: function() { scrubDocuments = false; }">Anzeigen</a>
+      Es gibt <span data-bind="text: (coll.items.length - scrubbedDocuments.length) + ' noch nicht überprüfte(s) Protokoll(e)'"></span>. <a href="#" data-bind="click: function() { scrubDocuments = false; }">Anzeigen</a>
     </td>
   </tr>
   <!-- ko foreach: scrubbedDocuments -->
@@ -61,7 +60,7 @@
     <td data-bind="text: numberOfPages"></td>
     <td class="text-center text-nowrap">
       <span data-bind="visible: validated, date: validationTime"></span>
-      <span class="icon-attention text-warning" data-bind="visible: !validated"></span>
+      <span class="icon-attention text-warning" data-bind="visible: !validated" title="Noch nicht überprüft"></span>
     </td>
     <td class="text-nowrap td-compact text-right" data-bind="enable: available">
       <button
