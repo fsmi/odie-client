@@ -1,0 +1,69 @@
+<!-- Template for the document submission form. Data binding context: DocumentSubmission -->
+<div class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-md-3">Vorlesungen&nbsp;</label>
+    <div class="col-md-8">
+      <select class="form-control" multiple="true" data-bind="tagsinput: {
+            items: ko.getObservable($data, 'selectedLectures'),
+            freeInput: true,
+            typeaheadjs: typeaheadDataset('lectures'),
+          }"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">An welcher Fakultät wird die Prüfung angeboten?&nbsp;</label>
+    <div class="col-md-8 btn-group btn-group-nowrap">
+      <button class="btn btn-default" data-bind="click: setSubject.bind($data, 'computer science'), css: { 'active': subject === 'computer science'}">Informatik</button>
+      <button class="btn btn-default" data-bind="click: setSubject.bind($data, 'mathematics'), css: { 'active': subject === 'mathematics'}">Mathematik</button>
+      <button class="btn btn-default" data-bind="click: setSubject.bind($data, 'both'), css: { 'active': subject === 'both'}">Beide</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Prüfer&nbsp;</label>
+    <div class="col-md-8">
+      <select class="form-control" multiple="true" data-bind="tagsinput: {
+            items: ko.getObservable($data, 'selectedExaminants'),
+            freeInput: true,
+            typeaheadjs: typeaheadDataset('examinants'),
+          }"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Datum&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="text" data-bind="value: date">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Dein Name&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="text" data-bind="value: name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Datei (.pdf)&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="file" data-bind="event: { change: setFile.bind($data, $element.files[0]) }">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-offset-3 col-md-8 btn-group btn-group-nowrap">
+      <button class="btn btn-default" data-bind="click: setType.bind($data, 'oral'), css: { 'active': doctype === 'oral'}">Mündliche Prüfung</button>
+      <button class="btn btn-default" data-bind="click: setType.bind($data, 'oral reexam'), css: { 'active': doctype === 'oral reexam'}">Mündliche Nachprüfung</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <hr style="clear: both;">
+  </div>
+  <div>
+    <div class="col-md-offset-3 col-md-8">
+      <button class="btn btn-primary" data-bind="click: submit.bind($data)">Abschicken</button>
+      <div class="form-control-inline icon-placeholder">
+        <div class="icon text-right" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
+          'icon-ok text-success': status === 'success',
+          'icon-attention text-warning': status === 'error' | status === 'error-file' }"></div>
+      </div>
+      <span class="text-warning" data-bind="text: errorlabel"></span>
+    </div>
+  </div>
+</div>

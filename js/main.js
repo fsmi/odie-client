@@ -75,6 +75,10 @@ $(window.document).ready(() => {
     viewModel: require('./vm/sortable-column'),
     template: fs.readFileSync('views/sortable-column.html', 'utf8'),
   });
+  ko.components.register('documentsubmission', {
+    viewModel: require('./vm/documentsubmission'),
+    template: fs.readFileSync('views/documentsubmission.html', 'utf8'),
+  });
 
   store.ensureLoaded(() => {
     pager.extendWithPage(app);
