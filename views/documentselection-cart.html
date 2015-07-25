@@ -4,7 +4,7 @@ Data binding context: DocumentSelection -->
 <div class="row">
   <h4 class="col-sm-7">Einkaufswagen</h4>
 
-   <div class="col-sm-5" data-bind="with: barcode">
+   <div class="col-sm-5" data-bind="with: barcode, visible: user.isAuthenticated">
      <div data-bind="css: {'input-group': scanners.length > 1}" class="input-group-sm" style="margin: 10px 0; float: right">
       <select class="form-control form-control-inline btn btn-default" data-bind="options: scanners, visible: scanners.length > 1, value: selectedScanner"></select>
       <span data-bind="css: {'input-group-btn': scanners.length > 1}">
