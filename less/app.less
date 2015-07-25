@@ -1,3 +1,29 @@
+@import "bootstrap.less";
+@import "theme.less";
+@import (inline) "bootstrap-tagsinput.css";
+@import (inline) "fontello.css";
+@import (inline) "login.css";
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(../fonts/source_sans_light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url(../fonts/source_sans.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(../fonts/source_sans_bold.woff) format('woff');
+}
+@font-family-sans-serif: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 /* from http://stackoverflow.com/questions/19203816/vertical-divider-dont-work-in-bootstrap-3 */
 .navbar .divider-vertical {
   height: 50px;
@@ -131,6 +157,11 @@ tr.selectable:hover > td > *.selected {
 .tt-hint {
   min-width: 400px;
 }
+
+.tt-menu:extend(.dropdown-menu) {}
+
+.tt-suggestion:extend(.dropdown-menu > li > a all) {}
+.tt-suggestion.tt-cursor:extend(a:focus, .dropdown-menu > .active > a:focus) {}
 
 #pewpewpew {
   float: right;

@@ -2,7 +2,7 @@ import $ from "jquery";
 import ko from "knockout";
 import all from "lodash/collection/all";
 import zip from "lodash/array/zip";
-import "bootstrap-tagsinput/src/bootstrap-tagsinput";
+import "../bootstrap-tagsinput";
 
 ko.bindingHandlers.tagsinput = {
   init(element, valueAccessor) {
