@@ -1,7 +1,18 @@
 <!-- shopping cart template.
 Data binding context: DocumentSelection -->
 
-<h4>Einkaufswagen</h4>
+<div class="row">
+  <h4 class="col-sm-7">Einkaufswagen</h4>
+
+   <div class="col-sm-5" data-bind="with: barcode">
+     <div data-bind="css: {'input-group': scanners.length > 1}" class="input-group-sm" style="margin: 10px 0; float: right">
+      <select class="form-control form-control-inline btn btn-default" data-bind="options: scanners, visible: scanners.length > 1, value: selectedScanner"></select>
+      <span data-bind="css: {'input-group-btn': scanners.length > 1}">
+        <button class="btn btn-default icon-barcode" type="button" data-bind="css: {active: isActive}, click: toggleButton.bind($data)"></button>
+      </span>
+    </div>
+  </div>
+</div>
 <table class="table table-condensed">
   <thead>
     <tr>
@@ -9,7 +20,7 @@ Data binding context: DocumentSelection -->
       <td>Vorlesungen</td>
       <td>Prüfer</td>
       <td data-bind="text: 'Seiten&nbsp;(' + cart.totalPageCount + ')'">Seiten</td>
-      <td class='text-right'><button class='btn-danger icon-button btn' data-bind="click: clearCart.bind($data)">∀<span class='icon-remove small'></span></button></td>
+      <td class="text-right td-compact"><button class='btn-danger icon-button btn' data-bind="click: clearCart.bind($data)">∀<span class='icon-remove small'></span></button></td>
     </tr>
   </thead>
   <tbody data-bind="foreach: cart.documents">

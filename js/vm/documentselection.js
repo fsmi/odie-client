@@ -3,48 +3,60 @@ import pager from "pagerjs";
 
 import BarcodeScanner from "./barcode";
 import Cart from "./cart";
-import DocumentList from "./documentlist";
+import PrintJob from "./printjob";
 import store from "../store";
 import user from "./user";
-import PrintJob from "./printjob";
+
+function wrap(obj, type) {
+  // typeahead needs a top-level name key
+  return {type, obj, name: obj.name};
+}
 
 class DocumentSelection {
   constructor() {
     this.cart = new Cart();
-    this.searchBy = 'lectures';
-    this.selected = null;
     this.printjob = new PrintJob(this.cart);
     this.barcode = new BarcodeScanner(this.cart);
+    this.selected = [];
 
     ko.track(this);
 
-    ko.getObservable(this, 'searchBy').subscribe(() => {
-      this.selected = null;
+    ko.defineProperty(this, 'serializedSelected', {
+      get: () => this.selected.map(x => x.type[0] + x.obj.id).join('&'),
+      set: (val) => {
+        this.selected = (val ? val.split('&') : []).map(x => {
+          let type = x[0] === 'l' ? 'lecture' : 'examinant';
+          return wrap(store[`${type}sById`].get(parseInt(x.substring(1))), type);
+        });
+      },
     });
 
-    ko.defineProperty(this, 'selectedId', {
-      get: () => this.selected !== null ? this.selected.id : null,
-      set(id) { this.selected = id && store[`${this.searchBy}ById`].get(parseInt(id)); },
+    ko.getObservable(this, 'serializedSelected').subscribe(() => {
+      pager.navigate(`documentselection/${this.serializedSelected}`);
     });
 
-    ko.getObservable(this, 'selected').subscribe(selected => {
-      pager.navigate(selected ? `documentselection/${this.searchBy}/${selected.id}` : '');
+    store.ensureLoaded(() => {
+      this.items = store.lectures.map(l => wrap(l, 'lecture'))
+        .concat(store.examinants.map(e => wrap(e, 'examinant')));
     });
   }
 
-  get selectedEndpoint() { return this.selected && `${this.searchBy}/${this.selected.id}/documents`; }
-
-  get documentlist() { return new DocumentList(this.documents, this.cart); }
+  get selectedEndpoint() {
+    return this.selected.length && 'documents?filters=' + JSON.stringify({
+      includes_lectures: this.selected.filter(x => x.type === "lecture").map(x => x.obj.id),
+      includes_examinants: this.selected.filter(x => x.type === "examinant").map(x => x.obj.id),
+    });
+  }
 
   get typeaheadDataset() {
     return {
       source: (query, callback) => {
         let regex = this.getSearchRegex(query);
-        callback(store[this.searchBy].filter(e => (e.validated || user.isAuthenticated) && regex.test(e.name)));
+        callback(this.items.filter(x => (x.obj.validated || user.isAuthenticated) && regex.test(x.name)));
       },
       displayKey: "name",
       templates: {
-        suggestion: l => `<a href="#" onclick="return false;">${l.name}</a>`,
+        suggestion: x => `<a href="#" onclick="return false;">${x.name}</a>`,
       },
     };
   }

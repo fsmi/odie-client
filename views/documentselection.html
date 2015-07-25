@@ -1,37 +1,25 @@
 <!-- Template for the main document selection table.
 Data binding context: DocumentSelection. -->
 
-<div id='documents-view'>
-  <!-- Bind URL parts to view model. Use a separate element so that nothing gets hidden by the lecture-less /documentselection default URL. -->
-  <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'searchBy') }">
-    <div data-bind="page: { id: '?', nameParam: ko.getObservable($data, 'selectedId') }"></div>
-  </div>
-  <form class='form-inline' role='form'>
-    <div id="searchBy" class="btn-group btn-group-nowrap" role="group">
-      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchBy === 'lectures' }, click: function() { searchBy = 'lectures'; }">Vorlesung</button>
-      <button class="btn btn-default" type="button" data-bind="css: { 'active': searchBy === 'examinants' }, click: function() { searchBy = 'examinants'; }">Prüfer</button>
-    </div>
+<div id="documentselection">
+  <!-- Bind URL parts to view model. Use a separate element so that nothing gets hidden by the parameter-less /documentselection default URL. -->
+  <div data-bind="page: {id: '?', nameParam: ko.getObservable($data, 'serializedSelected')}"></div>
+  <div id="documentselection-selection">
     <input
-      id='nameSelection'
-      type='text'
-      class='form-control-inline form-control nameSelection'
-      data-bind='
-        value: selected ? selected.name : "",
-        typeahead: {
-          options: { highlight: true },
-          dataset: typeaheadDataset,
-          selected: ko.getObservable($data, "selectedId"),
-          selectedProperty: "id"
-        }'
+      type="text"
+      data-bind="tagsinput: {
+        items: ko.getObservable($data, 'selected'),
+        itemValue: 'name',
+        typeaheadjs: typeaheadDataset,
+      }"
+      placeholder="Vorlesungen und/oder Prüfer"
       autofocus>
-    <!-- laser scanner dropdown -->
-    <select class="form-control form-control-inline btn btn-default" data-bind="options: barcode.scanners, visible: barcode.scanners.length > 1, value: barcode.selectedScanner"></select>
-    <button class="btn btn-default icon-barcode" type="button" data-bind="css: { 'active': barcode.isActive }, click: barcode.toggleButton.bind(barcode)"></button>
-  </form>
+  </div>
+
   <documentlist params="cart: cart, endpoint: selectedEndpoint"></documentlist>
 </div>
 
 <!-- shopping cart -->
 <span id="cart" class="cart navbar-default container-fluid navbar">
-  <div data-bind="component: { name: 'documentselection-cart', params: $data }"></div>
+  <div data-bind="component: {name: 'documentselection-cart', params: $data}"></div>
 </span>
