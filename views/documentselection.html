@@ -15,10 +15,7 @@ Data binding context: DocumentSelection. -->
       placeholder="Vorlesungen und/oder Prüfer"
       autofocus>
   </div>
-    <!-- laser scanner dropdown -->
-    <select class="form-control form-control-inline btn btn-default" data-bind="options: barcode.scanners, visible: barcode.scanners.length > 1, value: barcode.selectedScanner"></select>
-    <button class="btn btn-default icon-barcode" type="button" data-bind="css: { 'active': barcode.isActive }, click: barcode.toggleButton.bind(barcode)"></button>
-  </form>
+
   <documentlist params="cart: cart, endpoint: selectedEndpoint"></documentlist>
 </div>
 
