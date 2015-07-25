@@ -34,11 +34,6 @@ class DocumentSelection {
     ko.getObservable(this, 'serializedSelected').subscribe(() => {
       pager.navigate(`documentselection/${this.serializedSelected}`);
     });
-
-    store.ensureLoaded(() => {
-      this.items = store.lectures.map(l => wrap(l, 'lecture'))
-        .concat(store.examinants.map(e => wrap(e, 'examinant')));
-    });
   }
 
   get selectedEndpoint() {
@@ -48,18 +43,26 @@ class DocumentSelection {
     });
   }
 
-  get typeaheadDataset() {
-    return {
-      source: (query, callback) => {
-        let regex = this.getSearchRegex(query);
-        callback(this.items.filter(x => (x.obj.validated || user.isAuthenticated) && regex.test(x.name)));
-      },
-      displayKey: "name",
-      limit: 20,
-      templates: {
-        suggestion: x => `<a href="#" onclick="return false;">${x.name}</a>`,
-      },
+  get typeaheadDatasets() {
+    let make = (name, items) => {
+      return {
+        source: (query, callback) => {
+          let regex = this.getSearchRegex(query);
+          callback(items.filter(x => (x.obj.validated || user.isAuthenticated) && regex.test(x.name)));
+        },
+        displayKey: "name",
+        limit: 5,
+        templates: {
+          header: `<h4 class="tt-header">${name}</h4><div class="divider"></div>`,
+          suggestion: x => `<a href="#" onclick="return false;">${x.name}</a>`,
+        },
+      };
     };
+
+    return [
+      make("Vorlesungen", store.lectures.map(l => wrap(l, 'lecture'))),
+      make("Prüfer", store.examinants.map(e => wrap(e, 'examinant'))),
+    ];
   }
 
   getSearchRegex(searchString) {
