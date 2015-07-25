@@ -159,6 +159,17 @@ tr.selectable:hover > td > *.selected {
 }
 
 .tt-menu:extend(.dropdown-menu) {}
+.tt-menu .divider:extend(.dropdown-menu .divider) {}
+
+.tt-dataset + .tt-dataset {
+  margin-top: 10px;
+}
+
+.tt-header:extend(.dropdown-menu > li > a) {
+  margin-top: 0px;
+  margin-bottom: -10px;
+  cursor: default;
+}
 
 .tt-suggestion:extend(.dropdown-menu > li > a all) {}
 .tt-suggestion.tt-cursor:extend(a:focus, .dropdown-menu > .active > a:focus) {}

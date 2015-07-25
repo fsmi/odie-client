@@ -10,7 +10,7 @@ Data binding context: DocumentSelection. -->
       data-bind="tagsinput: {
         items: ko.getObservable($data, 'selected'),
         itemValue: 'name',
-        typeaheadjs: typeaheadDataset,
+        typeaheadjs: [/*options*/ null, typeaheadDatasets],
       }"
       placeholder="Vorlesungen und/oder Prüfer"
       autofocus>
