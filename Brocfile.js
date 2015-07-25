@@ -7,19 +7,6 @@ var browserify = require('broccoli-fast-browserify');
 
 var env = process.env.BROCCOLI_ENV || 'development';
 
-// bootstrapify typeahead markup
-var typeahead = new Funnel('node_modules/typeahead.js/dist', { files: ['typeahead.jquery.js'] });
-typeahead = replace(typeahead, {
-  files: ['typeahead.jquery.js'],
-  patterns: [{
-    match: /<span class="tt-suggestions"><\/span>/,
-    replacement: '<ul class="tt-suggestions"></ul>'
-  }, {
-    match: /<div class="tt-suggestion"><\/div>/,
-    replacement: '<li class="tt-suggestion"></li>'
-  }]
-});
-
 // fix https://github.com/timschlechter/bootstrap-tagsinput/pull/377
 var tagsinput = new Funnel('node_modules/bootstrap-tagsinput/src', { files: ['bootstrap-tagsinput.js'] });
 tagsinput = replace(tagsinput, {
@@ -37,7 +24,7 @@ var js = 'js/';
 var views = new Funnel('views/', {
   destDir: 'views/'
 });
-js = mergeTrees([typeahead, tagsinput, js, views]);
+js = mergeTrees([tagsinput, js, views]);
 js = browserify(js, {
   browserify: {
     debug: env === 'development' // source maps
@@ -50,32 +37,13 @@ js = browserify(js, {
   }
 });
 
-var less = mergeTrees([
+var css = mergeTrees([
+  'css/',
+  'less/',
   'node_modules/bootstrap/less/',
-  'less/'
+  'node_modules/bootstrap-tagsinput/dist',
 ]);
-css = mergeTrees([
-  lessCompiler(less, 'bootstrap.my.less', 'bootstrap.css'),
-  lessCompiler(less, 'app.less', 'app.css'),
-  new Funnel('node_modules/bootstrap/dist/css', {
-    files: ['bootstrap-theme.css']
-  }),
-  new Funnel('node_modules/bootstrap-tagsinput/dist', {
-    files: ['bootstrap-tagsinput.css']
-  }),
-  'css/'
-]);
-css = concat(css, {
-  inputFiles: [
-    'bootstrap.css',
-    'bootstrap-theme.css',
-    'bootstrap-tagsinput.css',
-    'fontello.css',
-    'app.css',
-    'login.css'
-  ],
-  outputFile: '/assets/styles.css'
-});
+css = lessCompiler(css, 'app.less', 'assets/styles.css');
 
 var fonts = 'fonts/';
 fonts = new Funnel(fonts, {

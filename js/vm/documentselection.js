@@ -55,6 +55,7 @@ class DocumentSelection {
         callback(this.items.filter(x => (x.obj.validated || user.isAuthenticated) && regex.test(x.name)));
       },
       displayKey: "name",
+      limit: 20,
       templates: {
         suggestion: x => `<a href="#" onclick="return false;">${x.name}</a>`,
       },

@@ -1,6 +1,6 @@
 import ko from "knockout";
 import $ from "jquery";
-import "../typeahead.jquery.js";
+import "typeahead.js/dist/typeahead.jquery";
 
 ko.bindingHandlers.typeahead = {
   init(element, valueAccessor) {
