@@ -20,6 +20,16 @@ typeahead = replace(typeahead, {
   }]
 });
 
+// fix https://github.com/timschlechter/bootstrap-tagsinput/pull/377
+var tagsinput = new Funnel('node_modules/bootstrap-tagsinput/src', { files: ['bootstrap-tagsinput.js'] });
+tagsinput = replace(tagsinput, {
+  files: ['bootstrap-tagsinput.js'],
+  patterns: [{
+    match: /\.on\('typeahead:selected'/,
+    replacement: ".on('typeahead:selected typeahead:autocompleted'",
+  }],
+});
+
 var js = 'js/';
 
 // Transpile and concatenate js and inline views via browserify.
@@ -27,7 +37,7 @@ var js = 'js/';
 var views = new Funnel('views/', {
   destDir: 'views/'
 });
-js = mergeTrees([typeahead, js, views]);
+js = mergeTrees([typeahead, tagsinput, js, views]);
 js = browserify(js, {
   browserify: {
     debug: env === 'development' // source maps
