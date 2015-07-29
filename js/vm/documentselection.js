@@ -3,6 +3,7 @@ import pager from "pagerjs";
 
 import BarcodeScanner from "./barcode";
 import Cart from "./cart";
+import makeSource from "../typeaheadsource";
 import PrintJob from "./printjob";
 import store from "../store";
 import user from "./user";
@@ -46,10 +47,7 @@ class DocumentSelection {
   get typeaheadDatasets() {
     let make = (name, items) => {
       return {
-        source: (query, callback) => {
-          let regex = this.getSearchRegex(query);
-          callback(items.filter(x => (x.obj.validated || user.isAuthenticated) && regex.test(x.name)));
-        },
+        source: makeSource(items.filter(x => x.obj.validated || user.isAuthenticated)),
         displayKey: "name",
         limit: 5,
         templates: {
