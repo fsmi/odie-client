@@ -2,6 +2,7 @@
 import ko from "knockout";
 
 import api from "../api";
+import makeSource from "../typeaheadsource";
 import store from "../store";
 
 export default class DocumentSubmission {
@@ -13,7 +14,7 @@ export default class DocumentSubmission {
     this.file = null;
     this.subject = 'computer science';
     this.doctype = 'oral';
-    this.status = undefined; /* undefined | 'success' | 'error' | 'error-file' | 'waiting' */
+    this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.errorlabel = '';
 
     ko.track(this);
@@ -21,9 +22,7 @@ export default class DocumentSubmission {
 
   typeaheadDataset(type) {
     return {
-      source: (query, callback) => {
-        callback(store[type].filter(e => e.name.includes(query)).map(e => e.name));
-      },
+      source: makeSource(store[type].map(e => e.name)),
       templates: {
         suggestion: l => `<a href="#" onclick="return false;">${l}</a>`,
       },
@@ -55,10 +54,12 @@ export default class DocumentSubmission {
       return;
     }
     if (!this.file || !this.file.name.toLowerCase().endsWith('.pdf')) {
-      this.status = 'error-file';
+      this.status = 'error';
       this.errorlabel = "Bitte gib' eine Pdf-Datei zum hochladen an.";
       return;
     }
+
+
     let fd = new FormData();
     fd.append('json', JSON.stringify({
       lectures: this.selectedLectures,
