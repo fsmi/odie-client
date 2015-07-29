@@ -1,15 +1,17 @@
 import ko from "knockout";
+import flatten from "lodash/array/flatten";
 import pager from "pagerjs";
 
 import BarcodeScanner from "./barcode";
 import Cart from "./cart";
+import makeSource from "../typeaheadsource";
 import PrintJob from "./printjob";
 import store from "../store";
 import user from "./user";
 
-function wrap(obj, type) {
+function wrap(obj, type, name) {
   // typeahead needs a top-level name key
-  return {type, obj, name: obj.name};
+  return {type, obj, name: name || obj.name};
 }
 
 class DocumentSelection {
@@ -46,21 +48,21 @@ class DocumentSelection {
   get typeaheadDatasets() {
     let make = (name, items) => {
       return {
-        source: (query, callback) => {
-          let regex = this.getSearchRegex(query);
-          callback(items.filter(x => (x.obj.validated || user.isAuthenticated) && regex.test(x.name)));
-        },
+        source: makeSource(items.filter(x => x.obj.validated || user.isAuthenticated)),
         displayKey: "name",
         limit: 5,
         templates: {
-          header: `<h4 class="tt-header">${name}</h4><div class="divider"></div>`,
-          suggestion: x => `<a href="#" onclick="return false;">${x.name}</a>`,
+          header:
+            `<h4 class="tt-header">${name}</h4><div class="divider"></div>`,
+          suggestion: x => `<a href="#" onclick="return false;">${x.name}${x.name === x.obj.name ? "" : ` <span class="full-name">${x.obj.name}</span>`}</a>`,
         },
       };
     };
 
     return [
-      make("Vorlesungen", store.lectures.map(l => wrap(l, 'lecture'))),
+      make("Vorlesungen", flatten(store.lectures.map(l =>
+              [l.name].concat(l.aliases).map(n => wrap(l, 'lecture', n))
+      ))),
       make("Prüfer", store.examinants.map(e => wrap(e, 'examinant'))),
     ];
   }
