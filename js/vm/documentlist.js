@@ -44,11 +44,11 @@ export default class DocumentList {
   }
 
   addRange() {
-    this.rangeSelect.commit().forEach(i => this.cart.add(this.coll.items[i]));
+    this.cart.add(...this.rangeSelect.commit().map(i => this.coll.items[i]));
   }
 
   addAll() {
-    this.coll.items.forEach(d => this.cart.add(d));
+    this.cart.add(...this.coll.items);
   }
 
   get user() { return user; }

@@ -14,7 +14,6 @@ export default class Cart {
       this.date = new Date(this.creation_time);
 
     this.documents = this.documents.map(d => new Document(d));
-    this.idSet = new Set();
 
     ko.track(this);
 
@@ -35,24 +34,23 @@ export default class Cart {
   }
 
   contains(doc) {
-    return this.idSet.has(doc.id);
+    return this.documents.some(d => d.id === doc.id);
   }
 
-  add(doc) {
-    if (!this.contains(doc)) {
-      this.documents.push(doc);
-      this.idSet.add(doc.id);
-    }
+  add(...docs) {
+    // make linear
+    let idSet = new Set(this.documents.map(d => d.id));
+    for (let d of docs)
+      if (!idSet.has(d.id))
+        this.documents.push(d);
   }
 
   drop(doc) {
     this.documents.remove(doc);
-    this.idSet.delete(doc.id);
   }
 
   dropAll() {
     this.documents = [];
-    this.idSet.clear();
   }
 
   reset() {
