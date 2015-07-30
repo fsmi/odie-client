@@ -42,6 +42,7 @@ var css = mergeTrees([
   'less/',
   'node_modules/bootstrap/less/',
   'node_modules/bootstrap-tagsinput/dist',
+  'node_modules/bootstrap-datepicker/dist/css',
 ]);
 css = lessCompiler(css, 'app.less', 'assets/styles.css');
 

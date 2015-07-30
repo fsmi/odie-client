@@ -1,0 +1,95 @@
+<!-- Template for the document submission form. Data binding context: DocumentSubmission -->
+<div>
+  <h3 class="heading text-center">So funktioniert's:</h3>
+  <span>
+    <ul class="col-md-offset-4 col-md-5">
+      <li>(Von der Fachschaft Protokolle gegen Pfand kaufen.)</li>
+      <li>Prüfung ablegen.</li>
+      <li>Protokollvorlage von <a href="https://www.fsmi.uni-karlsruhe.de/Pruefungen/Muendlich.html#Protokollvorlagen">der Fachschaftshomepage</a> herunterladen und ausfüllen.</li>
+      <li>Formular unten ausfüllen, Protokoll in PDF-Form hochladen.</li>
+      <ul>
+        <li>Vorlesungen oder Prüfer nicht im System? Passt schon, einfach Namen eingeben &amp; Enter drücken.</li>
+        <li>Du hast nie Protokolle von uns bekommen und willst einfach ein Protokoll einreichen? Einfach irgendetwas als Namen angeben.</li>
+      </ul>
+      <li>In die Fachschaft kommen, Namen sagen, Pfand zurückbekommen.</li>
+      <li>???</li>
+      <li>Profit!</li>
+    </ul>
+  </span>
+</div>
+<hr style="clear: both;">
+<form class="form-horizontal" data-bind="submit: submit.bind($data)">
+  <div class="form-group">
+    <label class="control-label col-md-3">Vorlesungen&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" id="doc-submission-lectures" multiple="true" data-bind="tagsinput: {
+            items: ko.getObservable($data, 'selectedLectures'),
+            freeInput: true,
+            typeaheadjs: [null, typeaheadDataset('lectures')],
+          }">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">An welcher Fakultät wird die Prüfung angeboten?&nbsp;</label>
+    <div class="col-md-8 btn-group btn-group-nowrap">
+      <button class="btn btn-default" data-bind="click: function() { subject = 'computer science'; }, css: { 'active': subject === 'computer science'}">Informatik</button>
+      <button class="btn btn-default" data-bind="click: function() { subject = 'mathematics'; }, css: { 'active': subject === 'mathematics'}">Mathematik</button>
+      <button class="btn btn-default" data-bind="click: function() { subject = 'both'; }, css: { 'active': subject === 'both'}">Beide</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Prüfer&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" id="doc-submission-examinants" multiple="true" data-bind="tagsinput: {
+            items: ko.getObservable($data, 'selectedExaminants'),
+            freeInput: true,
+            typeaheadjs: [null, typeaheadDataset('examinants')],
+          }">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Datum&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="text" required="required" data-bind="value: date, datepicker: {
+        weekStart: 1,
+        daysOfWeekDisabled: '0,6',
+        format: 'yyyy-mm-dd',
+        language: 'de',
+        todayHighlight: true,
+        autoclose: true,
+      }">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Dein Name&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="text" required="required" data-bind="value: name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3">Datei (.pdf)&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="file" accept=".pdf" required="required" data-bind="event: { change: function() { file = $element.files[0]; }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-offset-3 col-md-8 btn-group btn-group-nowrap">
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral'; }, css: { 'active': doctype === 'oral'}">Mündliche Prüfung</button>
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral reexam'; }, css: { 'active': doctype === 'oral reexam'}">Mündliche Nachprüfung</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <hr style="clear: both;">
+  </div>
+  <div>
+    <div class="col-md-offset-3 col-md-8">
+      <input class="btn btn-primary" type="submit" value="Abschicken" data-bind="enable: submissionEnabled">
+      <div class="form-control-inline icon-placeholder">
+        <div class="icon text-right" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
+          'icon-ok text-success': status === 'success',
+          'icon-attention text-warning': status === 'error' }"></div>
+      </div>
+      <span class="text-warning" data-bind="text: errorlabel"></span>
+    </div>
+  </div>
+</form>

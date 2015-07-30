@@ -34,6 +34,8 @@
                 Auswahl&nbsp;<span class="badge" data-bind="text: cartSize"></span>
               </a>
             </li>
+            <li data-bind="css: { active: activeRoute === 'documentsubmission' }"><a href="#documentsubmission">Protokoll einreichen</a>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
@@ -74,6 +76,9 @@
     <!-- content -->
     <div data-bind="page: { id: 'documentselection', role: 'start' }">
       <div data-bind="component: 'documentselection'"></div>
+    </div>
+    <div data-bind="page: { id: 'documentsubmission' }">
+      <div data-bind="component: 'documentsubmission'"></div>
     </div>
     <div data-bind="page: { id: 'login', params: ['successRoute'] }">
       <div data-bind="component: { name: 'login', params: { successRoute: successRoute } }"></div>

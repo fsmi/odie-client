@@ -10,6 +10,7 @@ import pager from "pagerjs";
 import "./ko/formatter";
 import "./ko/bootstrap";
 import "./ko/bootstrap-tagsinput";
+import "./ko/bootstrap-datepicker";
 import "./ko/typeahead";
 
 import "bootstrap/js/dropdown";
@@ -74,6 +75,10 @@ $(window.document).ready(() => {
   ko.components.register('sortable-column', {
     viewModel: require('./vm/sortable-column'),
     template: fs.readFileSync('views/sortable-column.html', 'utf8'),
+  });
+  ko.components.register('documentsubmission', {
+    viewModel: require('./vm/documentsubmission'),
+    template: fs.readFileSync('views/documentsubmission.html', 'utf8'),
   });
 
   store.ensureLoaded(() => {

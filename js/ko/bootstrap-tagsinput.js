@@ -26,5 +26,8 @@ ko.bindingHandlers.tagsinput = {
     e.tagsinput(o);
     pull();
     e.on('itemAdded itemRemoved', () => o.items(e.tagsinput('items')));
+    // Clear typeahead after creating a tag to avoid issues when deselecting the input
+    let typeaheadInput = e.siblings('div').find('.tt-input');
+    e.on('itemAdded', () => { typeaheadInput.typeahead('val', ''); });
   },
 };
