@@ -30,18 +30,6 @@ export default class DocumentSubmission {
     };
   }
 
-  setFile(file) {
-    this.file = file;
-  }
-
-  setType(type) {
-    this.doctype = type;
-  }
-
-  setSubject(subject) {
-    this.subject = subject;
-  }
-
   submit() {
     /* input validation */
     if (this.selectedLectures.length === 0) {
