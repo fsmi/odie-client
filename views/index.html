@@ -41,6 +41,7 @@
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
             <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
+            <li data-bind="visible: user.isAuthenticated"><a data-bind="attr: { href: '../admin/' }">DB-Admin</a></li>
             <li class="divider-vertical"></li>
             <li data-bind="visible: !user.isAuthenticated, css: { active: activeRoute === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
             <li class="dropdown" data-bind="visible: user.isAuthenticated">
