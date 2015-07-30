@@ -2,11 +2,11 @@ import flatten from "lodash/array/flatten";
 import sortBy from "lodash/collection/sortBy";
 import uniq from "lodash/array/uniq";
 
-/** Returns a function usable as a typeahead source filtering the given items 'name' property */
-export default function makeSource(items, accessor) {
+/** Returns a function usable as a typeahead source filtering the given items property */
+export default function makeSource(items, property) {
   let sorted = [];
-  if (accessor)
-    sorted = sortBy(items, 'name');
+  if (property)
+    sorted = sortBy(items, property);
   else
     sorted = items.sort();
 
@@ -23,6 +23,6 @@ export default function makeSource(items, accessor) {
 
     regexes.push(new RegExp(query, 'i'));
 
-    callback(uniq(flatten(regexes.map(r => sorted.filter(i => r.test(accessor ? accessor(i) : i))))));
+    callback(uniq(flatten(regexes.map(r => sorted.filter(i => r.test(property ? i[property] : i))))));
   };
 }

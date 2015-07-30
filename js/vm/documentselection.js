@@ -48,7 +48,7 @@ class DocumentSelection {
   get typeaheadDatasets() {
     let make = (name, items) => {
       return {
-        source: makeSource(items.filter(x => x.obj.validated || user.isAuthenticated), i => i.name),
+        source: makeSource(items.filter(x => x.obj.validated || user.isAuthenticated), 'name'),
         displayKey: "name",
         limit: 5,
         templates: {

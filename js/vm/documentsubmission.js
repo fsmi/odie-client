@@ -45,20 +45,20 @@ export default class DocumentSubmission {
     /* input validation */
     if (this.selectedLectures.length === 0) {
       this.status = 'error';
-      this.errorlabel = "Bitte gib' die in der Prüfung geprüften Vorlesungen an.";
+      this.errorlabel = "Bitte gib die in der Prüfung geprüften Vorlesungen an.";
       return;
     }
     if (this.selectedExaminants.length === 0) {
       this.status = 'error';
-      this.errorlabel = "Bitte gib' die in der Prüfung anwesenden PrüferInnen an.";
+      this.errorlabel = "Bitte gib die in der Prüfung anwesenden PrüferInnen an.";
       return;
     }
+    // even though we set the input field to only accept pdfs, Chrome allows any file to be selected
     if (!this.file || !this.file.name.toLowerCase().endsWith('.pdf')) {
       this.status = 'error';
-      this.errorlabel = "Bitte gib' eine Pdf-Datei zum hochladen an.";
+      this.errorlabel = "Bitte gib eine Pdf-Datei zum Hochladen an.";
       return;
     }
-
 
     let fd = new FormData();
     fd.append('json', JSON.stringify({
