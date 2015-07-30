@@ -64,7 +64,7 @@
   </div>
   <div>
     <div class="col-md-offset-3 col-md-8">
-      <input class="btn btn-primary" type="submit" value="Abschicken">
+      <input class="btn btn-primary" type="submit" value="Abschicken" data-bind="css: {'disabled': !submissionEnabled }">
       <div class="form-control-inline icon-placeholder">
         <div class="icon text-right" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
           'icon-ok text-success': status === 'success',

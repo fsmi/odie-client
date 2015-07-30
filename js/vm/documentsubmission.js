@@ -16,6 +16,7 @@ export default class DocumentSubmission {
     this.doctype = 'oral';
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.errorlabel = '';
+    this.submissionEnabled = true;
 
     ko.track(this);
   }
@@ -75,6 +76,7 @@ export default class DocumentSubmission {
     req.onerror = (e) => {
       this.status = 'error';
       this.errorlabel = e;
+      this.submissionEnabled = true;
     };
     req.onreadystatechange = () => {
       if (req.readyState === 4) {
@@ -91,8 +93,9 @@ export default class DocumentSubmission {
         }
       }
     };
-    req.send(fd);
     this.status = 'waiting';
     this.errorlabel = '';
+    this.submissionEnabled = false;
+    req.send(fd);
   }
 }
