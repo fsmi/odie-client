@@ -22,11 +22,11 @@
   <div class="form-group">
     <label class="control-label col-md-3">Vorlesungen&nbsp;</label>
     <div class="col-md-8">
-      <input class="form-control" id="doc-submission-lectures" multiple="true" data-bind="tagsinput: {
+      <select class="form-control" id="doc-submission-lectures" multiple="true" data-bind="tagsinput: {
             items: ko.getObservable($data, 'selectedLectures'),
             freeInput: true,
             typeaheadjs: [null, typeaheadDataset('lectures')],
-          }">
+          }"></select>
     </div>
   </div>
   <div class="form-group">
