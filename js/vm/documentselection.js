@@ -67,15 +67,7 @@ class DocumentSelection {
     ];
   }
 
-  getSearchRegex(searchString) {
-    if (/^([A-Z][a-z]*){2,}$/.test(searchString)) {
-      // PascalCase search for search strings with more than one capital char
-      return new RegExp(searchString.split(/(?=[A-Z])/).join('[^A-Z]*'));
-    } else {
-      // standard case-insensitive search
-      return new RegExp(searchString, 'i');
-    }
-  }
+  get selectedLectures() { return this.selected.filter(x => x.type === 'lecture').map(x => x.obj); }
 
   clearCart() {
     this.cart.reset();
