@@ -23,7 +23,9 @@ Data binding context: DocumentSelection. -->
     </div>
   </div>
 
-  <documentlist params="cart: cart, endpoint: selectedEndpoint"></documentlist>
+  <!-- ko if: requestParams -->
+  <documentlist params="cart: cart, requestParams: requestParams"></documentlist>
+  <!-- /ko -->
 </div>
 
 <!-- shopping cart -->

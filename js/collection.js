@@ -1,4 +1,5 @@
 import ko from "knockout";
+import merge from "lodash/object/merge";
 import sortByOrder from "lodash/collection/sortByOrder";
 
 import api from "./api";
@@ -39,6 +40,7 @@ export class Filter {
 Filter.opImpls = {
   ['==']: (x, y) => x === y,
   ['!=']: (x, y) => x !== y,
+  ['in_']: (x, y) => y.indexOf(x) !== -1,
 };
 
 // Much easier than supporting any 'LIKE' filters...
@@ -70,11 +72,14 @@ export class SubstringFilter {
 export default class Collection {
   /**
    * @param {string}  [params.endpoint]
+   * @param {object}  [params.requestParams] - additional GET parameters to send [observable]
    * @param {Filter[]} [params.filters=[]]
    * @param {Object}  [params.sortBy]
    * @param {string}  params.sortBy.column
    * @param {boolean} params.sortBy.asc
    * @param {function(respObj: Object): *} [params.deserialize]
+   * @param {function()} [params.onRequest]
+   * @param {boolean} [params.autoload=true]
    */
   constructor(params) {
     Object.assign(this, {filters: []}, params);
@@ -94,6 +99,7 @@ export default class Collection {
       },
     } : null);
     ko.getObservable(this, 'query').subscribe(() => this.load());
+    ko.getObservable(this, 'requestParams').subscribe(() => this.load());
 
     // also sort/filter client-side while the server-side request is still running
     ko.defineProperty(this, 'items', () => {
@@ -105,16 +111,18 @@ export default class Collection {
       return items;
     });
 
-    this.load();
+    if (params.autoload)
+      this.load();
   }
 
   get hasMore() { return this.currentPages < this.totalPages; }
 
   load(append) {
     if (this.endpoint) {
+      this.onRequest();
       // `currentPages` can't be part of the query observable since it's changed by the query itself
       let query = Object.assign({}, this.query, {page: append ? this.currentPages + 1 : 1});
-      api.query(this.endpoint, query).done(resp => {
+      api.getJSON(this.endpoint, {data: Object.assign({}, this.requestParams, {q: JSON.stringify(query)})}).done(resp => {
         let items = resp.data;
         if (this.deserialize)
           items = items.map(this.deserialize);

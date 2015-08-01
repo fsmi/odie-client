@@ -1,9 +1,9 @@
-<table id="documentlist" class="table">
+<table id="documentlist" class="table" style="min-width: 730px"><!-- sum of widths since col min-width is ignored -->
   <colgroup>
-    <col style="width: 40px">
-    <col style="width: 40px">
+    <col style="width: 20px">
+    <col style="width: 70px">
     <col style="min-width: 150px">
-    <col style="width: 150px">
+    <col style="width: 100px">
     <col style="width: 90px">
     <col style="width: 80px">
     <col style="width: 120px">
@@ -11,30 +11,17 @@
   </colgroup>
   <thead>
     <tr class="text-nowrap">
-      <td class="td-compact" colspan="2">
-        #/
-        <span data-bind="text: countType('written')"></span><span title="schriftlich" class="icon-pencil"></span>
-        <span data-bind="text: countType('oral')"></span><span title="mündlich" class="icon-chat"></span>
+      <td class="td-compact">#</td>
+      <td class="td-compact" data-bind="foreach: documentTypes">
+        <div data-bind="visible: totalCount">
+          <input type="checkbox" data-bind="checked: selected"><span data-bind="attr: {title: title}, html: icon"></span> <span data-bind="text: count + '/' + (totalCount === undefined ? '' : totalCount)"></span>
+        </div>
       </td>
       <td>Vorlesungen</td>
       <td>Prüfer</td>
       <td><sortable-column params="coll: coll, column: 'date', asc: false">Datum</sortable-column></td>
       <td><sortable-column params="coll: coll, column: 'number_of_pages', asc: false">Seiten</sortable-column></td>
       <td><sortable-column params="coll: coll, column: 'validation_time', asc: false">Einpflegedatum</sortable-column></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="td-compact">
-        <div class="btn-group btn-group-nowrap" role="group">
-          <button class="btn btn-default btn-compact" type="button" title="schriftlich" data-bind="css: { 'active': typeFilter.value !== 'oral' }, click: toggleTypeFilter.bind($data, 'oral')"><span class="icon-pencil"></span></button>
-          <button class="btn btn-default btn-compact" type="button" title="mündlich" data-bind="css: { 'active': typeFilter.value !== 'written' }, click: toggleTypeFilter.bind($data, 'written')"><span class="icon-chat"></span></button>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
       <td class="text-right td-compact"><button class='icon-button btn-info btn' title="Alle hinzufügen" data-bind="click: addAll.bind($data)">∀<span class='icon-basket small'></span></button></td>
     </tr>
   </thead>
@@ -54,9 +41,8 @@
       <span class="row-disabled" data-bind="text: $index() + 1"></span>
       <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $parent.rangeSelect.lowerBoundVisible($index)"></span>
     </td>
-    <td class="td-compact">
-      <span data-bind="visible: documentType === 'written'" title="schriftlich" class="icon-pencil"></span>
-      <span data-bind="visible: documentType === 'oral'" title="mündlich" class="icon-chat"></span>
+    <td class="td-compact" data-bind="with: $parent.documentTypeByName[documentType]">
+      <span data-bind="attr: {title: title}, html: icon"></span>
     </td>
     <td>
       <ul class="lecture-list-cell" data-bind="foreach: lectures">
