@@ -1,5 +1,5 @@
 import ko from "knockout";
-import {sortByOrder} from "lodash";
+import sortByOrder from "lodash/collection/sortByOrder";
 
 import api from "./api";
 
