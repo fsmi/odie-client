@@ -4,6 +4,7 @@ import pager from "pagerjs";
 
 import BarcodeScanner from "./barcode";
 import Cart from "./cart";
+import DocumentList from "./documentlist";
 import makeSource from "../typeaheadsource";
 import PrintJob from "./printjob";
 import store from "../store";
@@ -38,11 +39,13 @@ class DocumentSelection {
     });
   }
 
-  get selectedEndpoint() {
-    return this.selected.length && 'documents?filters=' + JSON.stringify({
-      includes_lectures: this.selected.filter(x => x.type === "lecture").map(x => x.obj.id),
-      includes_examinants: this.selected.filter(x => x.type === "examinant").map(x => x.obj.id),
-    });
+  get requestParams() {
+    return this.selected.length && {
+      filters: JSON.stringify({
+        includes_lectures: this.selected.filter(x => x.type === "lecture").map(x => x.obj.id),
+        includes_examinants: this.selected.filter(x => x.type === "examinant").map(x => x.obj.id),
+      }),
+    };
   }
 
   get typeaheadDatasets() {
