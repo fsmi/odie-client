@@ -36,7 +36,7 @@
     css: { 'warning': !validated, 'row-disabled': $parent.cart.contains($data) },
     event: { mouseenter: $parent.rangeSelect.onRowMouseOver.bind($parent.rangeSelect, $index) },
     click: function() { $parent.rangeSelect.onClick($index); }">
-    <td class="rangeBar-td td-compact" data-bind="css: { 'rangeBar-selected addButton-color': $parent.rangeSelect.selectedBarVisible($index)}">
+    <td class="rangeBar-td td-compact" data-bind="css: { 'rangeBar-selected label-info': $parent.rangeSelect.selectedBarVisible($index)}">
       <span class="rangeBar-bound rangeBar-upper-bound icon-down-open" data-bind="visible: $parent.rangeSelect.upperBoundVisible($index)"></span>
       <span class="row-disabled" data-bind="text: $index() + 1"></span>
       <span class="rangeBar-bound rangeBar-lower-bound icon-up-open" data-bind="visible: $parent.rangeSelect.lowerBoundVisible($index)"></span>

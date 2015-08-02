@@ -123,11 +123,11 @@ tr.selectable {
 }
 
 tr.selectable:hover {
-  background-color: #68C4D9;
+  background-color: #88e4f9;
   color: white;
 }
 tr.selected {
-  background-color: #28A4C9 !important;
+  background-color: #42b5d8 !important;
   color: white;
 }
 
@@ -289,8 +289,13 @@ ul.lecture-list-cell {
   border-top: 0px !important;
 }
 
-.addButton-color {
-  background-color: #28A4C9 !important;
+/* apply to tt-cursor and all its children */
+.label-info, .tt-cursor, .tt-cursor > span {
+  /* to override tt-cursor */
+  background-color: #42b5d8 !important;
+  background-image: none !important;
+  /* to override .full-name */
+  color: white !important;
 }
 
 .removeButton-color {
@@ -304,6 +309,7 @@ ul.lecture-list-cell {
   text-align: center;
   width: 100%;
   left: -10%;
+  color: black;
 }
 
 .rangeBar-upper-bound {
