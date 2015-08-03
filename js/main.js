@@ -39,15 +39,8 @@ $(window.document).ready(() => {
   ko.components.register('documentselection-cart', {
     template: fs.readFileSync('views/documentselection-cart.html', 'utf8'),
   });
-  ko.components.register('printcart', {
-     template: fs.readFileSync('views/print.html', 'utf8'),
-  });
   ko.components.register('print', {
-    viewModel: require('./vm/printjob'),
-    template: fs.readFileSync('views/print.html', 'utf8'),
-  });
-  ko.components.register('printmodal', {
-    template: fs.readFileSync('views/printmodal.html', 'utf8'),
+     template: fs.readFileSync('views/print.html', 'utf8'),
   });
   ko.components.register('preselection', {
     viewModel: require('./vm/preselection'),

@@ -20,8 +20,6 @@
     <td class="text-nowrap" data-bind="date: date"></td>
     <td>
       <button class="btn btn-compact btn-primary icon-folder-open" data-bind="click: $parent.openCart.bind($parent, $data)">Öffnen</button>
-      <button class="btn btn-compact btn-primary icon-print" data-bind="click: function() { ko.modal('printmodal', clone()); }">Drucken</button>
-      <button class="btn btn-compact btn-danger icon-trash" data-bind="click: $parent.deleteCart.bind($parent, $data)">Löschen</button>
     </td>
   </tr>
   </tbody>
