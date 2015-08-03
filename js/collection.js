@@ -1,5 +1,4 @@
 import ko from "knockout";
-import merge from "lodash/object/merge";
 import sortByOrder from "lodash/collection/sortByOrder";
 
 import api from "./api";
@@ -99,7 +98,8 @@ export default class Collection {
       },
     } : null);
     ko.getObservable(this, 'query').subscribe(() => this.load());
-    ko.getObservable(this, 'requestParams').subscribe(() => this.load());
+    if (ko.isObservable(params.requestParams))
+      params.requestParams.subscribe(() => this.load());
 
     // also sort/filter client-side while the server-side request is still running
     ko.defineProperty(this, 'items', () => {
@@ -111,7 +111,7 @@ export default class Collection {
       return items;
     });
 
-    if (params.autoload)
+    if (params.autoload !== false)
       this.load();
   }
 
@@ -119,7 +119,9 @@ export default class Collection {
 
   load(append) {
     if (this.endpoint) {
-      this.onRequest();
+      if (this.onRequest)
+        this.onRequest();
+
       // `currentPages` can't be part of the query observable since it's changed by the query itself
       let query = Object.assign({}, this.query, {page: append ? this.currentPages + 1 : 1});
       api.getJSON(this.endpoint, {data: Object.assign({}, this.requestParams, {q: JSON.stringify(query)})}).done(resp => {
