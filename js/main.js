@@ -7,15 +7,14 @@ import ko from "knockout";
 import "knockout-es5/src/knockout-es5";
 import pager from "pagerjs";
 
-import "./ko/formatter";
-import "./ko/bootstrap";
-import "./ko/bootstrap-tagsinput";
-import "./ko/bootstrap-datepicker";
-import "./ko/typeahead";
-
 import "bootstrap/js/dropdown";
 import "bootstrap/js/transition";
 import "bootstrap/js/collapse";
+
+import "./ko/formatter";
+import "./ko/bootstrap-tagsinput";
+import "./ko/bootstrap-datepicker";
+import "./ko/typeahead";
 
 import App from "./app";
 import store from "./store";
