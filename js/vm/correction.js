@@ -20,13 +20,13 @@ export default class Correction {
     ko.track(this);
 
     ko.defineProperty(this, 'erroneousEuros', {
-      get: () => this.erroneousCents / 100,
-      set: value => this.erroneousCents = value * 100,
+      get: () => (this.erroneousCents / 100).toFixed(2),
+      set: value => this.erroneousCents = parseFloat(value) * 100,
     });
 
     ko.defineProperty(this, 'donationEuros', {
-        get: () => this.donationCents / 100,
-        set: value => this.donationCents = value * 100,
+        get: () => (this.donationCents / 100).toFixed(2),
+        set: value => this.donationCents = parseFloat(value) * 100,
     });
   }
 

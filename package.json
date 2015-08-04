@@ -33,11 +33,6 @@
         "jquery:jQuery"
       ]
     },
-    "./node_modules/bootstrap/js/modal.js": {
-      "depends": [
-        "jquery:jQuery"
-      ]
-    },
     "./node_modules/pagerjs/pager.js": {
       "exports": "pager",
       "depends": [
