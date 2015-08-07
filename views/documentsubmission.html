@@ -23,6 +23,7 @@
     <label class="control-label col-md-3">Vorlesungen&nbsp;</label>
     <div class="col-md-8">
       <select class="form-control" id="doc-submission-lectures" multiple="true" data-bind="tagsinput: {
+            confirmKeys: [13],
             items: ko.getObservable($data, 'selectedLectures'),
             freeInput: true,
             typeaheadjs: [null, typeaheadDataset('lectures')],
