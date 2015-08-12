@@ -2,7 +2,7 @@ import pager from "pagerjs";
 
 import documentselection from "./documentselection";
 import Cart from "./cart";
-import Collection, { SubstringFilter } from "../collection";
+import Collection, {SubstringFilter} from "../collection";
 
 export default class Preselection {
   constructor() {

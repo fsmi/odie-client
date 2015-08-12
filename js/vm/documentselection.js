@@ -4,7 +4,6 @@ import pager from "pagerjs";
 
 import BarcodeScanner from "./barcode";
 import Cart from "./cart";
-import DocumentList from "./documentlist";
 import makeSource from "../typeaheadsource";
 import PrintJob from "./printjob";
 import store from "../store";
