@@ -3,12 +3,12 @@
     <col style="width: 20px">
     <col style="width: 35px">
     <col style="width: 35px">
-    <col style="min-width: 130px">
+    <col style="min-width: 110px">
     <col style="width: 100px">
     <col style="width: 90px">
     <col style="width: 80px">
     <col style="width: 120px">
-    <col style="width: 100px">
+    <col style="width: 120px">
   </colgroup>
   <thead>
     <tr class="text-nowrap">
@@ -63,24 +63,32 @@
       <div class="icon-attention text-center text-warning" data-bind="visible: !validated" title="Noch nicht überprüft"></div>
     </td>
     <td class="text-nowrap td-compact text-right">
-      <button
-        class='icon-button btn-info btn btn-compact icon-basket'
-        data-bind="
-        click: $parent.addRange.bind($parent),
-        clickBubble: false,
+      <div data-bind="
         style: { visibility: $parent.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
-        enable: available && !$parent.cart.contains($data)">
-      </button>
-      <button
-        class='icon-button btn-info btn btn-compact icon-eye'
-        title="Vorschau"
-        data-bind="
-        click: function() { window.open(previewURL, '_blank') },
         clickBubble: false,
-        visible: $parent.user.isAuthenticated,
-        enable: available,
-        style: { visibility: $index() == $parent.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
-        "></button>
+        ">
+        <button
+           class='icon-button btn-info btn btn-compact icon-basket'
+           data-bind="
+           click: $parent.addRange.bind($parent),
+           enable: available && !$parent.cart.contains($data)">
+        </button>
+        <button
+           class='icon-button btn-info btn btn-compact icon-eye'
+           title="Vorschau"
+           data-bind="
+           click: function() { window.open(previewURL, '_blank') },
+           visible: $parent.user.isAuthenticated,
+           enable: available,
+           "></button>
+        <button
+           class='icon-button btn-info btn btn-compact icon-edit'
+           title="Bearbeiten"
+           data-bind="
+           click: function() { window.open(editURL, '_blank') },
+           visible: $parent.user.isAuthenticated,
+           "></button>
+      </div>
     </td>
   </tr>
   <!-- /ko -->
