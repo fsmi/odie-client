@@ -1,7 +1,8 @@
 <table id="documentlist" class="table" style="min-width: 710px"><!-- sum of widths since col min-width is ignored -->
   <colgroup>
     <col style="width: 20px">
-    <col style="width: 70px">
+    <col style="width: 35px">
+    <col style="width: 35px">
     <col style="min-width: 130px">
     <col style="width: 100px">
     <col style="width: 90px">
@@ -12,7 +13,7 @@
   <thead>
     <tr class="text-nowrap">
       <td class="td-compact">#</td>
-      <td class="td-compact" data-bind="foreach: documentTypes">
+      <td colspan="2" class="td-compact" data-bind="foreach: documentTypes">
         <div data-bind="visible: totalCount">
           <input type="checkbox" data-bind="checked: selected"><span data-bind="attr: {title: title}, html: icon"></span> <span data-bind="text: count + '/' + (totalCount === undefined ? '' : totalCount)"></span>
         </div>
@@ -43,6 +44,9 @@
     </td>
     <td class="td-compact" data-bind="with: $parent.documentTypeByName[documentType]">
       <span data-bind="attr: {title: title}, html: icon"></span>
+    </td>
+    <td class="td-compact" data-bind="with: $parent.solutionTypeByName[solution]">
+      <span data-bind="attr: {title: title}, css: iconClass"></span>
     </td>
     <td>
       <ul class="lecture-list-cell" data-bind="foreach: lectures">
