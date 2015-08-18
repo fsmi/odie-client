@@ -62,24 +62,25 @@
       <div data-bind="visible: validated, date: validationTime"></div>
       <div class="icon-attention text-center text-warning" data-bind="visible: !validated" title="Noch nicht überprüft"></div>
     </td>
-    <td class="text-nowrap td-compact text-right" data-bind="enable: available">
+    <td class="text-nowrap td-compact text-right">
       <button
         class='icon-button btn-info btn btn-compact icon-basket'
         data-bind="
         click: $parent.addRange.bind($parent),
         clickBubble: false,
         style: { visibility: $parent.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
-        enable: !$parent.cart.contains($data)">
+        enable: available && !$parent.cart.contains($data)">
       </button>
-      <a
+      <button
         class='icon-button btn-info btn btn-compact icon-eye'
         title="Vorschau"
         data-bind="
         click: function() { window.open(previewURL, '_blank') },
         clickBubble: false,
         visible: $parent.user.isAuthenticated,
+        enable: available,
         style: { visibility: $index() == $parent.rangeSelect.hoverIndex ? 'visible' : 'hidden' },
-        "></a>
+        "></button>
     </td>
   </tr>
   <!-- /ko -->
