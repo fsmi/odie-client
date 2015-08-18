@@ -40,6 +40,12 @@ export default class DocumentList {
       new DocumentType({list: this, name: 'oral reexam', title: 'mündliche Nachprüfung', icon: '<span class="icon-chat"><strong style="margin-left: -2px; cursor: default">!</strong></span>'}),
     ];
     this.documentTypeByName = indexBy(this.documentTypes, t => t.name);
+    this.solutionTypeByName = {
+      'official': {title: 'Offizielle Lösung', iconClass: 'icon-circle'},
+      'inofficial': {title: 'Inoffizielle Lösung', iconClass: 'icon-ajust'},
+      'none': {title: 'Ohne Lösung', iconClass: 'icon-circle-empty'},
+    };
+
     this.typeFilter = new Filter({column: 'document_type', operator: 'in_', value: ['written', 'oral', 'oral reexam']});
 
     this.coll = new Collection({
