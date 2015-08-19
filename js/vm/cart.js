@@ -41,7 +41,7 @@ export default class Cart {
     // make linear
     let idSet = new Set(this.documents.map(d => d.id));
     for (let d of docs)
-      if (!idSet.has(d.id))
+      if (d.available && !idSet.has(d.id))
         this.documents.push(d);
   }
 

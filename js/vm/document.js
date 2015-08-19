@@ -33,4 +33,5 @@ export default class Document {
   }
 
   get previewURL() { return `${api.baseUrl}view/${this.id}`; }
+  get editURL() { return `${api.baseUrl}../admin/document/edit?id=${this.id}`; }
 }

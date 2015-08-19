@@ -10,7 +10,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?9104068#fontello') format('svg');
+    src: url('../font/fontello.svg?66732661#fontello') format('svg');
   }
 }
 */
@@ -75,3 +75,4 @@
 .icon-barcode:before { content: '\e813'; } /* '' */
 .icon-ajust:before { content: '\e814'; } /* '' */
 .icon-circle:before { content: '\e815'; } /* '' */
+.icon-edit:before { content: '\e816'; } /* '' */
