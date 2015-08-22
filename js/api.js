@@ -6,7 +6,7 @@ let api = {
   _baseAjaxSettings: {},
 
   ajax(settings) {
-    let s = Object.assign({}, this._baseAjaxSettings, settings);
+    let s = Object.assign({headers: {'X-CSRFToken': this.token}}, this._baseAjaxSettings, settings);
     s.url = this.baseUrl + s.url;
     return $.ajax(s);
   },
@@ -38,7 +38,7 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
       withCredentials: true,
     },
   });
-  let live = true;
+  let live = false;
   api.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next/api/' : 'http://localhost:5000/api/';
 }
 
