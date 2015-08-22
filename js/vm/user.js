@@ -24,7 +24,8 @@ class User {
     api.getJSON('login', {
       error() { this.isAuthenticated = false; },
     }).done(resp => {
-      Object.assign(this, resp.data);
+      Object.assign(this, resp.data.user);
+      api.token = resp.data.token;
       this.isAuthenticated = true;
     });
   }
