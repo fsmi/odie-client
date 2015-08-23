@@ -13,6 +13,7 @@ export default class PrintJob {
     this.cart = cart;
     this._depositCount = undefined;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
+    this.print_for_folder = false;
     this.selectedPrinter = undefined;
     // select a default printer as soon as they're loaded
     store.ensureLoaded(() => {
@@ -72,12 +73,18 @@ export default class PrintJob {
     this.status = 'waiting';
     let job = {
       cover_text: this.cart.name,
-      cash_box: user.officeConfig.cash_boxes[0],
       document_ids: this.cart.documents.map(doc => doc.id),
-      deposit_count: parseInt(this.depositCount),
       printer: this.selectedPrinter,
     };
-    api.post('print', job, {
+    let endpoint = 'print_for_folder';
+    if (!this.print_for_folder) {
+      endpoint = 'print';
+      Object.assign(job, {
+        cash_box: user.officeConfig.cash_boxes[0],
+        deposit_count: parseInt(this.depositCount),
+      });
+    }
+    api.post(endpoint, job, {
       error: () => { this.status = 'error'; },
     }).done(() => {
       this.status = 'success';
