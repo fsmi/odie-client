@@ -1,3 +1,4 @@
+/* global window */
 import ko from "knockout";
 import flatten from "lodash/array/flatten";
 import sum from "lodash/collection/sum";
@@ -29,6 +30,22 @@ export default class Cart {
     });
   }
 
+  loadFromSessionStorage() {
+    if (window.sessionStorage) {
+      let data = JSON.parse(window.sessionStorage.getItem('cart'));
+      if (data) {
+        data = data.map(d => new Document(d));
+        this.add(...data);
+      }
+    }
+  }
+
+  flushToSessionStorage() {
+    if (window.sessionStorage) {
+      window.sessionStorage.setItem('cart', JSON.stringify(this.documents));
+    }
+  }
+
   clone() {
     return new Cart({name: this.name, documents: this.documents.slice()});
   }
@@ -43,14 +60,17 @@ export default class Cart {
     for (let d of docs)
       if (d.available && !idSet.has(d.id))
         this.documents.push(d);
+    this.flushToSessionStorage();
   }
 
   drop(doc) {
     this.documents.remove(doc);
+    this.flushToSessionStorage();
   }
 
   dropAll() {
     this.documents = [];
+    this.flushToSessionStorage();
   }
 
   reset() {
