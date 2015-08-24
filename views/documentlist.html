@@ -28,7 +28,7 @@
   </thead>
   <tbody>
   <tr class="warning text-warning text-center" data-bind="visible: user.isAuthenticated && scrubDocuments && scrubbedDocuments.length < coll.items.length">
-    <td colspan="8">
+    <td colspan="9">
       Es gibt <span data-bind="text: (coll.items.length - scrubbedDocuments.length) + ' noch nicht überprüfte(s) Protokoll(e)'"></span>. <a href="#" data-bind="click: function() { scrubDocuments = false; }">Anzeigen</a>
     </td>
   </tr>
