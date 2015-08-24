@@ -17,6 +17,7 @@ function wrap(obj, type, name) {
 class DocumentSelection {
   constructor() {
     this.cart = new Cart();
+    store.ensureLoaded(() => this.cart.loadFromSessionStorage());
     this.printjob = new PrintJob(this.cart);
     this.barcode = new BarcodeScanner(this.cart);
     this.selected = [];

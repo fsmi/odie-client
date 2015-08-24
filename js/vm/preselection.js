@@ -17,6 +17,7 @@ export default class Preselection {
 
   openCart(cart) {
     documentselection.cart = cart.clone();
+    documentselection.cart.flushToSessionStorage();
     pager.navigate('#documentselection');
   }
 }

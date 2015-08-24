@@ -1,3 +1,4 @@
+/* global window */
 import ko from "knockout";
 import sum from "lodash/collection/sum";
 
@@ -18,11 +19,21 @@ export class Log {
     this.items = [];
 
     ko.track(this);
+
+    if (window.sessionStorage) {
+      let data = JSON.parse(window.sessionStorage.getItem('log'));
+      if (data) {
+        this.items = data.map(d => new LogItem(d.description, d.amount));
+      }
+    }
   }
 
   addItem(description, amount) {
     this.items.push(new LogItem(description, amount));
     this.items.forEach(item => item.selected = false);
+    if (window.sessionStorage) {
+      window.sessionStorage.setItem('log', JSON.stringify(this.items));
+    }
   }
 
   get totalAmount() {
