@@ -39,7 +39,13 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
     },
   });
   let live = false;
-  api.baseUrl = live ? 'https://www-test.fsmi.uni-karlsruhe.de/odie-next/api/' : 'http://localhost:5000/api/';
+  if (live) {
+    api.serverOrigin = 'https://www-test.fsmi.uni-karlsruhe.de';
+    api.baseUrl = api.serverOrigin + '/odie-next/api/';
+  } else {
+    api.serverOrigin = 'http://localhost:5000';
+    api.baseUrl = api.serverOrigin + '/api/';
+  }
 }
 
 export default api;
