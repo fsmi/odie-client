@@ -42,14 +42,14 @@
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
               <li data-bind="visible: user.isAuthenticated"><a data-bind="attr: { href: api.baseUrl + '../admin/' }">DB-Admin</a></li>
               <li class="divider-vertical"></li>
-              <li data-bind="visible: !user.isAuthenticated"><a data-bind="attr: { href: api.serverOrigin + store.config.LOGIN_PAGE + '?target_paras=&target_path=' + encodeURIComponent(document.location) }">Als Fachschafter anmelden</a></li>
+              <li data-bind="visible: !user.isAuthenticated"><a data-bind="attr: { href: api.serverOrigin + store.config.LOGIN_PAGE + '?target_paras=&target_path=' + encodeURIComponent(document.location.pathname) }">Als Fachschafter anmelden</a></li>
               <li class="dropdown" data-bind="visible: user.isAuthenticated">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span style="color: #333333 !important" data-bind="text: 'Hallo,&nbsp;' + user.first_name"></span>
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a data-bind="attr: { href: api.serverOrigin + store.config.LOGOUT_URL + '?target_paras=&target_path=' + encodeURIComponent(document.location) }">Abmelden</a></li>
+                  <li><a data-bind="attr: { href: api.serverOrigin + store.config.LOGOUT_URL }">Abmelden</a></li>
                 </ul>
               </li>
               <li data-bind="visible: user.isAuthenticated">
