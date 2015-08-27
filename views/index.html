@@ -40,16 +40,16 @@
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
-              <li data-bind="visible: user.isAuthenticated"><a data-bind="attr: { href: '../admin/' }">DB-Admin</a></li>
+              <li data-bind="visible: user.isAuthenticated"><a data-bind="attr: { href: api.baseUrl + '../admin/' }">DB-Admin</a></li>
               <li class="divider-vertical"></li>
-              <li data-bind="visible: !user.isAuthenticated, css: { active: activeRoute === 'login' }"><a href="#login?successRoute=#">Als Fachschafter anmelden</a></li>
+              <li data-bind="visible: !user.isAuthenticated"><a data-bind="attr: { href: api.serverOrigin + store.config.LOGIN_PAGE + '?target_paras=&target_path=' + encodeURIComponent(document.location.pathname) }">Als Fachschafter anmelden</a></li>
               <li class="dropdown" data-bind="visible: user.isAuthenticated">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span style="color: #333333 !important" data-bind="text: 'Hallo,&nbsp;' + user.first_name"></span>
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li data-bind="click: logout.bind($root)"><a href="#">Abmelden</a></li>
+                  <li><a data-bind="attr: { href: api.serverOrigin + store.config.LOGOUT_URL }">Abmelden</a></li>
                 </ul>
               </li>
               <li data-bind="visible: user.isAuthenticated">
@@ -79,9 +79,6 @@
       </div>
       <div data-bind="page: { id: 'documentsubmission' }">
         <div data-bind="component: 'documentsubmission'"></div>
-      </div>
-      <div data-bind="page: { id: 'login', params: ['successRoute'] }">
-        <div data-bind="component: { name: 'login', params: { successRoute: successRoute } }"></div>
       </div>
       <div data-bind="page: { id: 'internal', guard: ensureAuthenticated.bind($root) }">
         <div data-bind="page: { id: '?', nameParam: 'pageID' }">

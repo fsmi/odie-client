@@ -21,7 +21,7 @@ class User {
     });
 
     // try to login with cookie instead of credentials
-    api.getJSON('login', {
+    api.getJSON('user_info', {
       error() { this.isAuthenticated = false; },
     }).done(resp => {
       Object.assign(this, resp.data.user);
@@ -39,24 +39,6 @@ class User {
       this.office = office;
       $('body').addClass('batman');
     }
-  }
-
-  login(password, rememberMe, error, success) {
-    api.post('login', {username: this.username, password: password, remember_me: rememberMe}, {
-      error(xhr) { error(xhr.status + ': ' + xhr.responseText); },
-    }).done(resp => {
-      Object.assign(this, resp.data);
-      this.isAuthenticated = true;
-      success();
-    });
-  }
-
-  logout(success) {
-    api.post('logout', {})
-      .done(() => {
-        this.isAuthenticated = false;
-        success();
-      });
   }
 }
 

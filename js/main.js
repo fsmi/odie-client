@@ -53,10 +53,6 @@ $(window.document).ready(() => {
     viewModel: require('./vm/correction'),
     template: fs.readFileSync('views/correction.html', 'utf8'),
   });
-  ko.components.register('login', {
-    viewModel: require('./vm/login'),
-    template: fs.readFileSync('views/login.html', 'utf8'),
-  });
   ko.components.register('log', {
     viewModel: {instance: require('./vm/log').default},
     template: fs.readFileSync('views/log.html', 'utf8'),

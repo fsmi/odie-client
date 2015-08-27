@@ -2,6 +2,7 @@ import $ from "jquery";
 import ko from "knockout";
 import pager from "pagerjs";
 
+import api from "./api";
 import documentselection from "./vm/documentselection";
 import store from "./store";
 import user from "./vm/user";
@@ -35,6 +36,7 @@ export default class App {
     user.logout(() => pager.navigate('#'));
   }
 
+  get api() { return api; }
   get store() { return store; }
   get user() { return user; }
   get cartSize() { return documentselection.cart.documents.length; }
