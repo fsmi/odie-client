@@ -12,7 +12,7 @@ export default class DocumentSubmission {
     this.date = null;
     this.name = null;
     this.file = null;
-    this.subject = 'computer science';
+    this.department = 'computer science';
     this.doctype = 'oral';
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.errorlabel = '';
@@ -56,7 +56,7 @@ export default class DocumentSubmission {
       date: this.date,
       document_type: this.doctype,
       student_name: this.name,
-      subject: this.subject,
+      department: this.department,
     }));
     fd.append('file', this.file);
     let req = new XMLHttpRequest();
