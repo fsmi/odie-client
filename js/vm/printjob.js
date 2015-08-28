@@ -75,6 +75,7 @@ export default class PrintJob {
       cash_box: user.officeConfig.cash_boxes[0],
       document_ids: this.cart.documents.map(doc => doc.id),
       deposit_count: parseInt(this.depositCount),
+      price: this.totalPrice,
       printer: this.selectedPrinter,
     };
     api.post('print', job, {
