@@ -39,7 +39,7 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
       withCredentials: true,
     },
   });
-  let live = false;
+  let live = true;
   if (live) {
     api.serverOrigin = 'https://www-test-stable.fsmi.uni-karlsruhe.de';
     api.baseUrl = api.serverOrigin + '/odie-next/api/';
