@@ -3,7 +3,9 @@
 import $ from "jquery";
 
 let api = {
-  _baseAjaxSettings: {},
+  _baseAjaxSettings: {
+    dataType: 'json',
+  },
 
   ajax(settings) {
     let s = Object.assign({headers: {'X-CSRFToken': this.token}}, this._baseAjaxSettings, settings);
