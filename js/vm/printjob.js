@@ -11,7 +11,7 @@ import user from "./user";
 export default class PrintJob {
   constructor(cart) {
     this.cart = cart;
-    this._depositCount = undefined;
+    this._depositCount = null;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.selectedPrinter = undefined;
     // select a default printer as soon as they're loaded
@@ -25,7 +25,7 @@ export default class PrintJob {
     // contents, but still overrideable
     ko.defineProperty(this, 'depositCount', {
       get: () => {
-        if (this._depositCount != null) {
+        if (this._depositCount !== null) {
           return this._depositCount;
         }
         return this.cart.includesOral ? 1 : 0;
@@ -65,7 +65,8 @@ export default class PrintJob {
   }
 
   clearDeposit() {
-    this._depositCount = 0;
+    // reset to automatic behaviour
+    this._depositCount = null;
   }
 
   submit() {
