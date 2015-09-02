@@ -26,7 +26,11 @@ Data binding context: DocumentSelection -->
   <tbody data-bind="foreach: cart.documents">
   <tr class="document-list" data-bind="attr: {title: extendedAttributes}">
     <td class="row-disabled" data-bind="text: $index() + 1"></td>
-    <td class="td-compact"><span data-bind="css: documentType === 'written' ? 'icon-pencil' : 'icon-chat'"></span></td>
+    <td class="td-compact">
+      <span data-bind="css: documentType === 'written' ? 'icon-pencil' : 'icon-chat'">
+        <strong data-bind="visible: documentType === 'oral reexam'" style="margin-left: -5px; cursor: default">!</strong>
+      </span>
+    </td>
     <td>
       <div class="lecture-list-cell" data-bind="foreach: lectures">
         <div data-bind="text: '• ' + name"></div>

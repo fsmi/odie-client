@@ -46,7 +46,8 @@
     <div class="form-control-inline icon-placeholder">
       <div class="icon" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
         'icon-ok text-success': status === 'success',
-        'icon-attention text-warning': status === 'error' }"></div>
+        'icon-attention text-danger': status === 'error' }"></div>
     </div>
+    <div class="text-danger text-right" data-bind="text: errorText, visible: errorText !== ''"></div>
   </div>
 </form>

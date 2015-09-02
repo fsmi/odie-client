@@ -48,6 +48,13 @@ export default class DocumentSubmission {
       this.errorlabel = "Bitte gib eine Pdf-Datei zum Hochladen an.";
       return;
     }
+    if (new Date() < Date.parse(this.date)) {
+      this.status = 'error';
+      // ERROR: HACKING TOO MUCH TIME
+      this.errorlabel = "Bitte verletze nicht die Kausalität.";
+      return;
+    }
+
 
     let fd = new FormData();
     fd.append('json', JSON.stringify({
