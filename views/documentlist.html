@@ -65,12 +65,12 @@
     <td class="text-nowrap td-compact text-right">
       <div class="btn-group" data-bind="
         style: { visibility: $parent.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
-        clickBubble: false,
         ">
         <button
            class='icon-button btn-info btn btn-compact icon-basket'
            data-bind="
            click: $parent.addRange.bind($parent),
+           clickBubble: false,
            enable: available && !$parent.cart.contains($data)">
         </button>
         <button
@@ -78,6 +78,7 @@
            title="Vorschau"
            data-bind="
            click: function() { window.open(previewURL, '_blank') },
+           clickBubble: false,
            visible: $parent.user.isAuthenticated,
            enable: available,
            "></button>
@@ -86,6 +87,7 @@
            title="Bearbeiten"
            data-bind="
            click: function() { window.open(editURL, '_blank') },
+           clickBubble: false,
            visible: $parent.user.isAuthenticated,
            "></button>
       </div>
