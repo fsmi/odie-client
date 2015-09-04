@@ -10,6 +10,7 @@ import pager from "pagerjs";
 import "bootstrap/js/dropdown";
 import "bootstrap/js/transition";
 import "bootstrap/js/collapse";
+import "bootstrap/js/alert";
 
 import "./ko/formatter";
 import "./ko/bootstrap-tagsinput";

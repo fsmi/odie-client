@@ -1,6 +1,15 @@
 <!-- Template for the main document selection table.
 Data binding context: DocumentSelection. -->
 
+<div data-bind="visible: !user.isAuthenticated">
+  <span class="text-center col-md-offset-3 col-md-6">
+    <div class="alert alert-info">
+      <button class="close" type="button" data-dismiss="alert">×</button>
+      Hier kannst du die bei uns verfügbaren Klausuren und Prüfungsprotokolle einsehen sowie dir eine Vorauswahl zusammenklicken, die du dir danach in beiden Fachschaften ausdrucken lassen kannst. Du kannst aber natürlich auch so bei uns vorbeikommen, um dich bei der Auswahl beraten zu lassen.
+    </div>
+  </span>
+  <hr style="clear: both;">
+</div>
 <div id="documentselection">
   <!-- Bind URL parts to view model. Use a separate element so that nothing gets hidden by the parameter-less /documentselection default URL. -->
   <div data-bind="page: {id: '?', nameParam: ko.getObservable($data, 'serializedSelected')}"></div>

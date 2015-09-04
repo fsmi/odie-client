@@ -42,6 +42,7 @@
     <label class="control-label col-md-3">Prüfer&nbsp;</label>
     <div class="col-md-8">
       <input class="form-control" id="doc-submission-examinants" multiple="true" data-bind="tagsinput: {
+            confirmKeys: [13],
             items: ko.getObservable($data, 'selectedExaminants'),
             freeInput: true,
             typeaheadjs: [null, typeaheadDataset('examinants')],
@@ -76,7 +77,7 @@
   <div class="form-group">
     <div class="col-md-offset-3 col-md-8 btn-group btn-group-nowrap">
       <button class="btn btn-default" data-bind="click: function() { doctype = 'oral'; }, css: { 'active': doctype === 'oral'}">Mündliche Prüfung</button>
-      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral reexam'; }, css: { 'active': doctype === 'oral reexam'}">Mündliche Nachprüfung</button>
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral reexam'; }, css: { 'active': doctype === 'oral reexam'}">Mündlicher Drittversuch</button>
     </div>
   </div>
   <div class="form-group">
