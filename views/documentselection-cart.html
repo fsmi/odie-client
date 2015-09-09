@@ -45,7 +45,7 @@ Data binding context: DocumentSelection -->
 <hr/>
 
 <div data-bind="visible: !user.isAuthenticated">
-  <form class="text-right" data-bind='submit: cart.save.bind($data)'>
+  <form class="text-right" data-bind='submit: cart.save.bind(cart)'>
     Preisschätzung: <span data-bind="price: cart.priceEstimate() / 100"></span>
     <span class="text-primary" data-bind="visible: cart.includesOral">*</span>
     <input type="text" class="form-inline form-control-inline form-control" placeholder="Dein Name" data-bind="value: cart.name" required>
