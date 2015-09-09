@@ -46,10 +46,6 @@ export default class Cart {
     }
   }
 
-  clone() {
-    return new Cart({name: this.name, documents: this.documents.slice()});
-  }
-
   contains(doc) {
     return this.documents.some(d => d.id === doc.id);
   }
