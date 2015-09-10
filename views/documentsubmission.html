@@ -72,6 +72,13 @@
     <label class="control-label col-md-3">Datei (.pdf)&nbsp;</label>
     <div class="col-md-8">
       <input class="form-control" type="file" accept=".pdf" required="required" data-bind="event: { change: function() { file = $element.files[0]; }}">
+      Bitte überprüfe folgendes vor dem Upload, damit dein Protokoll angenommen wird:
+      <ul>
+        <li>Hast du das Protokoll vollständig ausgefüllt?</li>
+        <li>Das Protokoll sollte keine Leerseiten enthalten.</li>
+        <li>Versuche Seiten mit nur einigen Zeilen Text zu vermeiden.</li>
+        <li>Hast du die PDF aus Word (o.Ä.) exportiert? Dann überprüfe, ob die Seitenumbrüche noch stimmen.</li>
+      </ul>
     </div>
   </div>
   <div class="form-group">
