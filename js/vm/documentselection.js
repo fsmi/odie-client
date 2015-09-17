@@ -53,7 +53,7 @@ class DocumentSelection {
       return {
         source: makeSource(items.filter(x => x.obj.validated || user.isAuthenticated), 'name'),
         displayKey: "name",
-        limit: 5,
+        limit: 20,
         templates: {
           header:
             `<h4 class="tt-header">${name}</h4><div class="divider"></div>`,
