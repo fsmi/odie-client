@@ -69,6 +69,10 @@ $(window.document).ready(() => {
     viewModel: require('./vm/documentsubmission'),
     template: fs.readFileSync('views/documentsubmission.html', 'utf8'),
   });
+  ko.components.register('transcriptmigration', {
+    viewModel: require('./vm/transcriptmigration'),
+    template: fs.readFileSync('views/transcriptmigration.html', 'utf8'),
+  });
 
   store.ensureLoaded(() => {
     pager.extendWithPage(app);
