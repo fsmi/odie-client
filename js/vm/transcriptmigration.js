@@ -82,8 +82,8 @@ export default class TranscriptMigration {
       examinants: this.selectedExaminants,
       date: this.date,
       document_type: this.doctype,
-      student_name: this.name,
-      department: this.department,
+      student_name: '(Migration)',
+      department: 'mathematics',
     }));
     fd.append('file', this.file);
     let req = new XMLHttpRequest();
