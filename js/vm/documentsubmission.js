@@ -11,6 +11,7 @@ export default class DocumentSubmission {
     this.selectedExaminants = [];
     this.date = null;
     this.name = null;
+    this.anonymous = false;
     this.file = null;
     this.department = 'computer science';
     this.doctype = 'oral';
@@ -62,7 +63,7 @@ export default class DocumentSubmission {
       examinants: this.selectedExaminants,
       date: this.date,
       document_type: this.doctype,
-      student_name: this.name,
+      student_name: this.anonymous ? '' : this.name,
       department: this.department,
     }));
     fd.append('file', this.file);
