@@ -18,7 +18,7 @@ class DocumentType {
   }
 
   get count() {
-    return this.list.coll.items.filter(doc => doc.documentType === this.name).length;
+    return this.list.scrubbedDocuments.filter(doc => doc.documentType === this.name).length;
   }
 
   get totalCount() {
@@ -82,11 +82,11 @@ export default class DocumentList {
   }
 
   addRange() {
-    this.cart.add(...this.rangeSelect.commit().map(i => this.coll.items[i]));
+    this.cart.add(...this.rangeSelect.commit().map(i => this.scrubbedDocuments[i]));
   }
 
   addAll() {
-    this.cart.add(...this.coll.items);
+    this.cart.add(...this.scrubbedDocuments);
   }
 
   get user() { return user; }
