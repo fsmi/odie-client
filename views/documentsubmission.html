@@ -40,12 +40,12 @@
   <div class="form-group">
     <label class="control-label col-md-3">Prüfer&nbsp;</label>
     <div class="col-md-8">
-      <input class="form-control" id="doc-submission-examinants" multiple="true" data-bind="tagsinput: {
+      <select class="form-control" id="doc-submission-examinants" multiple="true" data-bind="tagsinput: {
             confirmKeys: [13],
             items: ko.getObservable($data, 'selectedExaminants'),
             freeInput: true,
             typeaheadjs: [null, typeaheadDataset('examinants')],
-          }">
+          }"></select>
       <span class="help-block">
         Prüfer nicht in der Vorschlagsliste? Passt schon, einfach Namen eingeben &amp; Enter drücken.
       </span>
