@@ -97,6 +97,7 @@ export default class TranscriptMigration {
     fd.append('file', this.file);
     let req = new XMLHttpRequest();
     req.withCredentials = true;
+    req.setRequestHeader('X-CSRF', api.token);
     req.open('POST', api.baseUrl + 'documents_migration');
     req.onerror = (e) => {
       this.status = 'error';
