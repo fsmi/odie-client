@@ -88,7 +88,7 @@ export default class TranscriptMigration {
     }));
     fd.append('file', this.file);
     let req = new XMLHttpRequest();
-    req.open('POST', api.baseUrl + 'documents');
+    req.open('POST', api.baseUrl + 'documents_migration');
     req.onerror = (e) => {
       this.status = 'error';
       this.errorlabel = e;
