@@ -1,10 +1,16 @@
 /*global FormData XMLHttpRequest*/
 import ko from "knockout";
+import flatten from "lodash/array/flatten";
 
 import api from "../api";
 import makeSource from "../typeaheadsource";
 import store from "../store";
 import Document from "./document";
+
+function wrap(obj, name) {
+  // typeahead needs a top-level name key
+  return {obj, name: name || obj.name};
+}
 
 export default class TranscriptMigration {
   constructor() {
@@ -41,7 +47,7 @@ export default class TranscriptMigration {
       student_name: "",
       date: this.getFullDate(),
       document_type: this.doctype,
-      lectures: this.selectedLectures,
+      lectures: this.selectedLectures.map(l => l.obj.name),
       examinants: this.selectedExaminants,
     };
     api.post('similar', job).done(data => {
@@ -50,11 +56,23 @@ export default class TranscriptMigration {
     });
   }
 
-  typeaheadDataset(type) {
+  get examinantsTypeaheadDataset() {
     return {
-      source: makeSource(store[type].map(e => e.name)),
+      source: makeSource(store.examinants.map(e => e.name)),
       templates: {
         suggestion: l => `<a href="#" onclick="return false;">${l}</a>`,
+      },
+    };
+  }
+
+  get lecturesTypeaheadDataset() {
+    return {
+      source: makeSource(flatten(store.lectures.map(l =>
+                [l.name].concat(l.aliases).map(n => wrap(l, n))
+              )), 'name'),
+      display: x => `${x.obj.name}`,
+      templates: {
+        suggestion: x => `<a href="#" onclick="return false;">${x.name}${x.name === x.obj.name ? "" : ` <span class="full-name">${x.obj.name}</span>`}</a>`,
       },
     };
   }
@@ -87,7 +105,7 @@ export default class TranscriptMigration {
 
     let fd = new FormData();
     fd.append('json', JSON.stringify({
-      lectures: this.selectedLectures,
+      lectures: this.selectedLectures.map(l => l.obj.name),
       examinants: this.selectedExaminants,
       date: this.getFullDate(),
       document_type: this.doctype,
