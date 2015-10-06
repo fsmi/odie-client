@@ -15,7 +15,7 @@
       <td class="td-compact">#</td>
       <td colspan="2" class="td-compact" data-bind="foreach: documentTypes">
         <div data-bind="visible: totalCount">
-          <input type="checkbox" data-bind="checked: selected"><span data-bind="attr: {title: title}, html: icon"></span> <span data-bind="text: count + '/' + (totalCount === undefined ? '' : totalCount)"></span>
+          <input type="checkbox" data-bind="checked: selected, attr: {'id': 'showdoctype-' + name}"><label data-bind="attr: {'for': 'showdoctype-' + name}" style="font-weight: inherit;"><span data-bind="attr: {title: title}, html: icon"></span> <span data-bind="text: count + '/' + (totalCount === undefined ? '' : totalCount)"></span>
         </div>
       </td>
       <td>Vorlesungen</td>
