@@ -84,6 +84,7 @@ export default class TranscriptMigration {
       document_type: this.doctype,
       student_name: '(Migration)',
       department: 'mathematics',
+      validated: true,
     }));
     fd.append('file', this.file);
     let req = new XMLHttpRequest();
