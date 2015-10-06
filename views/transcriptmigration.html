@@ -24,12 +24,12 @@
         <div class="form-group">
           <label class="control-label col-md-3">Prüfer&nbsp;</label>
           <div class="col-md-8">
-            <input class="form-control" id="transcript-migration-examinants" multiple="true" data-bind="tagsinput: {
+            <select class="form-control" id="transcript-migration-examinants" multiple="true" data-bind="tagsinput: {
                   confirmKeys: [13],
                   items: ko.getObservable($data, 'selectedExaminants'),
                   freeInput: true,
                   typeaheadjs: [null, typeaheadDataset('examinants')],
-                }">
+                }"></select>
           </div>
         </div>
         <div class="form-group">
