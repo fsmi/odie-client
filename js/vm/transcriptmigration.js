@@ -30,7 +30,7 @@ export default class TranscriptMigration {
   getSimilar() {
     let job = {
       department: 'mathematics',
-      student_name: "(Migration)",
+      student_name: "",
       date: this.date,
       document_type: this.doctype,
       lectures: this.selectedLectures,
