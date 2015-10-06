@@ -19,6 +19,7 @@ export default class TranscriptMigration {
     this.errorlabel = '';
     this.submissionEnabled = true;
     this.proxyCnt = 0;
+    this.dateFieldHasFocus = true;
     ko.track(this);
 
     ko.getObservable(this, 'selectedLectures').subscribe(this.getSimilar.bind(this));
@@ -100,6 +101,13 @@ export default class TranscriptMigration {
             this.status = 'success';
             this.errorlabel = '';
             this.submissionEnabled = true;
+            // Clear inputs. Note: The file input field cannot be cleared since we can obviously not write its value.
+            this.selectedLectures = [];
+            this.selectedExaminants = [];
+            this.similar = [];
+            this.date = '';
+            this.doctype = 'oral';
+            this.dateFieldHasFocus = true;
             break;
           case 400:
             req.onerror("Ungültige Eingabe. Bitte überprüfe noch einmal alle Felder.");
