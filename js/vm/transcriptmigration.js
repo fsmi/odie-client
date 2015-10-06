@@ -27,11 +27,19 @@ export default class TranscriptMigration {
     ko.getObservable(this, 'date').subscribe(this.getSimilar.bind(this));
   }
 
+  getFullDate() {
+    if (this.date.length == 4)
+      return this.date + '-01-01';
+    if (this.date.length == 7)
+      return this.date + '-01';
+    return this.date;
+  }
+
   getSimilar() {
     let job = {
       department: 'mathematics',
       student_name: "",
-      date: this.date,
+      date: this.getFullDate(),
       document_type: this.doctype,
       lectures: this.selectedLectures,
       examinants: this.selectedExaminants,
@@ -69,7 +77,7 @@ export default class TranscriptMigration {
       this.errorlabel = "Bitte gib eine Pdf-Datei zum Hochladen an.";
       return;
     }
-    if (new Date() < Date.parse(this.date)) {
+    if (new Date() < Date.parse(this.getFullDate())) {
       this.status = 'error';
       // ERROR: HACKING TOO MUCH TIME
       this.errorlabel = "Bitte verletze nicht die Kausalität.";
@@ -81,7 +89,7 @@ export default class TranscriptMigration {
     fd.append('json', JSON.stringify({
       lectures: this.selectedLectures,
       examinants: this.selectedExaminants,
-      date: this.date,
+      date: this.getFullDate(),
       document_type: this.doctype,
       student_name: '(Migration)',
       department: 'mathematics',
