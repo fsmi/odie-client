@@ -16,8 +16,9 @@
             <select class="form-control" id="transcript-migration-lectures" multiple="true" data-bind="tagsinput: {
                   confirmKeys: [13],
                   items: ko.getObservable($data, 'selectedLectures'),
+                  itemValue: 'name',
                   freeInput: true,
-                  typeaheadjs: [null, typeaheadDataset('lectures')],
+                  typeaheadjs: [null, lecturesTypeaheadDataset],
                 }"></select>
           </div>
         </div>
@@ -28,7 +29,7 @@
                   confirmKeys: [13],
                   items: ko.getObservable($data, 'selectedExaminants'),
                   freeInput: true,
-                  typeaheadjs: [null, typeaheadDataset('examinants')],
+                  typeaheadjs: [null, examinantsTypeaheadDataset],
                 }"></select>
           </div>
         </div>
