@@ -20,6 +20,14 @@
                   typeaheadjs: [null, lecturesTypeaheadDataset],
                 }"></select>
           </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-8">
+            <span data-bind="visible: recentLectures.length > 0">Zuletzt:</span>
+            <!-- ko foreach: recentLectures -->
+              <a href="#" data-bind="text: $data, click: function(data, event) { $('#transcript-migration-lectures').tagsinput('add', $data); }"></a>
+              <span data-bind="visible: $index() < $parent.recentLectures.length - 1">&middot;</span>
+            <!-- /ko -->
+          </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-3">Prüfer&nbsp;</label>
@@ -30,6 +38,14 @@
                   freeInput: true,
                   typeaheadjs: [null, examinantsTypeaheadDataset],
                 }"></select>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-8">
+            <span data-bind="visible: recentExaminants.length > 0">Zuletzt:</span>
+            <!-- ko foreach: recentExaminants -->
+              <a href="#" data-bind="text: $data, click: function(data, event) { $('#transcript-migration-examinants').tagsinput('add', $data); }"></a>
+              <span data-bind="visible: $index() < $parent.recentExaminants.length - 1">&middot;</span>
+            <!-- /ko -->
           </div>
         </div>
         <div class="form-group">

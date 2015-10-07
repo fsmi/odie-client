@@ -15,6 +15,8 @@ export default class TranscriptMigration {
   constructor() {
     this.selectedLectures = [];
     this.selectedExaminants = [];
+    this.recentLectures = [];
+    this.recentExaminants = [];
     this.similar = [];
     this.date = '';
     this.doctype = 'oral';
@@ -129,6 +131,13 @@ export default class TranscriptMigration {
             this.status = 'success';
             this.errorlabel = '';
             this.submissionEnabled = true;
+
+            this.recentLectures.removeAll(this.selectedLectures);
+            this.recentLectures = this.selectedLectures.concat(this.recentLectures).slice(0, 5);
+
+            this.recentExaminants.removeAll(this.selectedExaminants);
+            this.recentExaminants = this.selectedExaminants.concat(this.recentExaminants).slice(0, 5);
+
             // Clear inputs. Note: The file input field cannot be cleared since we can obviously not write its value.
             this.selectedLectures = [];
             this.selectedExaminants = [];
