@@ -7,9 +7,8 @@ import makeSource from "../typeaheadsource";
 import store from "../store";
 import Document from "./document";
 
-function wrap(obj, name) {
-  // typeahead needs a top-level name key
-  return {obj, name: name || obj.name};
+function wrapLectureAlias(alias, canonical) {
+  return {alias, canonical}
 }
 
 export default class TranscriptMigration {
@@ -47,7 +46,7 @@ export default class TranscriptMigration {
       student_name: "",
       date: this.getFullDate(),
       document_type: this.doctype,
-      lectures: this.selectedLectures.map(l => l.obj.name),
+      lectures: this.selectedLectures,
       examinants: this.selectedExaminants,
     };
     api.post('similar', job).done(data => {
@@ -68,11 +67,12 @@ export default class TranscriptMigration {
   get lecturesTypeaheadDataset() {
     return {
       source: makeSource(flatten(store.lectures.map(l =>
-                [l.name].concat(l.aliases).map(n => wrap(l, n))
-              )), 'name'),
-      display: x => `${x.obj.name}`,
+                [l.name].concat(l.aliases).map(alias => wrapLectureAlias(alias, l.name))
+              )), /* sort by */ 'alias'),
+      display: 'canonical',
+      valueKey: 'canonical', /* needed by bootstrap-tagsinput */
       templates: {
-        suggestion: x => `<a href="#" onclick="return false;">${x.name}${x.name === x.obj.name ? "" : ` <span class="full-name">${x.obj.name}</span>`}</a>`,
+        suggestion: x => `<a href="#" onclick="return false;">${x.alias}${x.alias === x.canonical ? "" : ` <span class="full-name">${x.canonical}</span>`}</a>`,
       },
     };
   }
@@ -105,7 +105,7 @@ export default class TranscriptMigration {
 
     let fd = new FormData();
     fd.append('json', JSON.stringify({
-      lectures: this.selectedLectures.map(l => l.obj.name),
+      lectures: this.selectedLectures,
       examinants: this.selectedExaminants,
       date: this.getFullDate(),
       document_type: this.doctype,
