@@ -16,7 +16,7 @@
             <select class="form-control" id="transcript-migration-lectures" multiple="true" data-bind="tagsinput: {
                   confirmKeys: [13],
                   items: ko.getObservable($data, 'selectedLectures'),
-                  itemValue: 'name',
+                  itemValue: (item) => item.obj.name,
                   freeInput: true,
                   typeaheadjs: [null, lecturesTypeaheadDataset],
                 }"></select>
