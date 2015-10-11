@@ -20,7 +20,7 @@
             confirmKeys: [13],
             items: ko.getObservable($data, 'selectedLectures'),
             freeInput: true,
-            typeaheadjs: [null, typeaheadDataset('lectures')],
+            typeaheadjs: [null, lecturesTypeaheadDataset],
           }"></select>
       <span class="help-block">
         Vorlesung nicht in der Vorschlagsliste? Passt schon, einfach Namen eingeben &amp; Enter drücken.
@@ -42,7 +42,7 @@
             confirmKeys: [13],
             items: ko.getObservable($data, 'selectedExaminants'),
             freeInput: true,
-            typeaheadjs: [null, typeaheadDataset('examinants')],
+            typeaheadjs: [null, examinantsTypeaheadDataset],
           }"></select>
       <span class="help-block">
         Prüfer nicht in der Vorschlagsliste? Passt schon, einfach Namen eingeben &amp; Enter drücken.
