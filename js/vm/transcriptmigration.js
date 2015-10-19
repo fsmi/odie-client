@@ -19,7 +19,7 @@ export default class TranscriptMigration {
     this.recentExaminants = [];
     this.similar = [];
     this.date = '';
-    this.doctype = 'oral';
+    this.doctype = 'oral reexam';
     this.name = "(Migration)";
     this.file = null;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
