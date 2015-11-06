@@ -4,6 +4,7 @@ import ko from "knockout";
 import api from "../api";
 import makeSource from "../typeaheadsource";
 import store from "../store";
+import user from "./user";
 
 export default class DocumentSubmission {
   constructor() {
@@ -24,7 +25,7 @@ export default class DocumentSubmission {
 
   typeaheadDataset(type) {
     return {
-      source: makeSource(store[type].map(e => e.name)),
+      source: makeSource(store[type].filter(x => x.validated || user.isAuthenticated).map(e => e.name)),
       templates: {
         suggestion: l => `<a href="#" onclick="return false;">${l}</a>`,
       },
