@@ -1,5 +1,7 @@
 # Odie - Next-Generation Protokollverkauf #
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/fsmi/odie?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 odie-client is a Knockout.js frontend to [odie-server](https://github.com/fsmi/odie-server).
 
 ## Hacking ##
