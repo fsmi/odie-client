@@ -50,7 +50,7 @@ export default class DocumentSubmission {
       this.errorlabel = "Bitte gib eine Pdf-Datei zum Hochladen an.";
       return;
     }
-    if (new Date() < Date.parse(this.date)) {
+    if (new Date() < Date.parse(this.date) && !user.isAuthenticated) {
       this.status = 'error';
       // ERROR: HACKING TOO MUCH TIME
       this.errorlabel = "Bitte verletze nicht die Kausalität.";
