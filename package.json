@@ -27,6 +27,7 @@
     "type": "git",
     "url": "https://github.com/fsmi/odie-client.git"
   },
+  "license": "MIT",
   "browserify-shim": {
     "./node_modules/bootstrap/js/dropdown.js": {
       "depends": [
