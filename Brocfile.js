@@ -56,4 +56,13 @@ var index = new Funnel('views/', {
   files: ['index.html']
 });
 
-module.exports = mergeTrees([js, css, fonts, index]);
+// the pdf.js node packages don't include a viewer, and it's too much of a hassle to write and maintain one,
+// so we instead use the default viewer, which is only distributed with the zip file.
+// see http://mozilla.github.io/pdf.js/ if you want to update the included viewer.
+// Unzipping a new release into an emptied pdfjs/ directory should work.
+var pdfjs = new Funnel('pdfjs/', {
+  exclude: ['LICENSE'],
+  destDir: '/pdfjs'
+});
+
+module.exports = mergeTrees([js, css, fonts, index, pdfjs]);

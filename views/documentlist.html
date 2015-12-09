@@ -64,7 +64,7 @@
     </td>
     <td class="text-nowrap td-compact text-right">
       <div class="btn-group" data-bind="
-        style: { visibility: $parent.rangeSelect.toggleButtonVisible($index) ? 'visible' : 'hidden' },
+        style: { visibility: $parent.rangeSelect.toggleButtonVisible($index) || store.config.IS_KIOSK ? 'visible' : 'hidden' },
         ">
         <button
            class='icon-button btn-info btn btn-compact icon-basket'
@@ -80,6 +80,15 @@
            click: function() { window.open(previewURL, '_blank') },
            clickBubble: false,
            visible: $parent.user.isAuthenticated,
+           enable: available,
+           "></button>
+        <button
+           class='icon-button btn-info btn btn-compact icon-eye'
+           title="Vorschau"
+           data-bind="
+           click: function() { window.open(PDFjsURL, '_blank') },
+           clickBubble: false,
+           visible: store.config.IS_KIOSK,
            enable: available,
            "></button>
         <button
