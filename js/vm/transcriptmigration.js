@@ -8,7 +8,7 @@ import store from "../store";
 import Document from "./document";
 
 function wrapLectureAlias(alias, canonical) {
-  return {alias, canonical}
+  return {alias, canonical};
 }
 
 export default class TranscriptMigration {
@@ -35,9 +35,9 @@ export default class TranscriptMigration {
   }
 
   getFullDate() {
-    if (this.date.length == 4)
+    if (this.date.length === 4)
       return this.date + '-01-01';
-    if (this.date.length == 7)
+    if (this.date.length === 7)
       return this.date + '-01';
     return this.date;
   }
