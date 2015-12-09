@@ -1,10 +1,15 @@
 /*global FormData XMLHttpRequest*/
 import ko from "knockout";
+import flatten from "lodash/array/flatten";
 
 import api from "../api";
 import makeSource from "../typeaheadsource";
 import store from "../store";
 import user from "./user";
+
+function wrapLectureAlias(alias, canonical) {
+  return {alias, canonical}
+}
 
 export default class DocumentSubmission {
   constructor() {
@@ -23,11 +28,24 @@ export default class DocumentSubmission {
     ko.track(this);
   }
 
-  typeaheadDataset(type) {
+  get examinantsTypeaheadDataset() {
     return {
-      source: makeSource(store[type].filter(x => x.validated || user.isAuthenticated).map(e => e.name)),
+      source: makeSource(store.examinants.filter(x => x.validated || user.isAuthenticated).map(e => e.name)),
       templates: {
         suggestion: l => `<a href="#" onclick="return false;">${l}</a>`,
+      },
+    };
+  }
+
+  get lecturesTypeaheadDataset() {
+    return {
+      source: makeSource(flatten(store.lectures.filter(x => x.validated || user.isAuthenticated).map(l =>
+                [l.name].concat(l.aliases).map(alias => wrapLectureAlias(alias, l.name))
+              )), 'alias'),
+      display: 'canonical',
+      valueKey: 'canonical', /* needed by bootstrap-tagsinput */
+      templates: {
+        suggestion: x => `<a href="#" onclick="return false;">${x.alias}${x.alias === x.canonical ? "" : ` <span class="full-name">${x.canonical}</span>`}</a>`,
       },
     };
   }
