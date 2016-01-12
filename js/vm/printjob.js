@@ -83,8 +83,11 @@ export default class PrintJob {
     api.post('print', job, {
       error: (xhr) => {
         this.status = 'error';
-        if (xhr.status === 507)
+        // 507 means printing failed, 508 means printing succeeded, but accounting is borked.
+        if (xhr.status === 507 || xhr.status === 508)
           this.errorText = JSON.parse(xhr.responseText).errors;
+        if (xhr.status === 508)
+          this.errorText += ' (Bitte benutze die Abrechnungskorrektur um den gesamten Verkauf nachträglich einzutragen)';
       },
     }).done(() => {
       this.status = 'success';
