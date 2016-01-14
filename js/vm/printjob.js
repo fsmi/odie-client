@@ -1,4 +1,5 @@
 import ko from "knockout";
+import $ from "jquery";
 
 import api from "../api";
 import log from "./log";
@@ -14,6 +15,7 @@ export default class PrintJob {
     this._depositCount = null;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.errorText = '';
+    this.printedPercent = null;
     this.selectedPrinter = undefined;
     // select a default printer as soon as they're loaded
     store.ensureLoaded(() => {
@@ -72,6 +74,7 @@ export default class PrintJob {
 
   submit() {
     this.status = 'waiting';
+    this.printedPercent = 0;
     let job = {
       cover_text: this.cart.name,
       cash_box: user.officeConfig.cash_boxes[0],
@@ -80,17 +83,46 @@ export default class PrintJob {
       price: this.totalPrice,
       printer: this.selectedPrinter,
     };
-    api.post('print', job, {
-      error: (xhr) => {
-        this.status = 'error';
-        if (xhr.status === 507)
-          this.errorText = JSON.parse(xhr.responseText).errors;
-      },
-    }).done(() => {
+
+    // We use event streams to prevent connection timeouts on long-running
+    // print requests and to show some progress indication.
+    // Unfortunately, EventSource doesn't allow us to put the request data
+    // in the body, so we use a cookie instead (~4k bytes limit).
+    // Web Sockets may be a more appropriate solution, but are non-trivial
+    // to set up on the production server and especially local debug servers.
+    $.cookie('print_data', JSON.stringify(job));
+    let stream = new EventSource(api.baseUrl + 'print');
+    stream.onerror = () => {
+      this.status = 'error';
+      this.errorText = 'Verbindung zum Server verloren';
+      stream.close();
+      $.cookie('print_data', '');
+    };
+    let printed = 0;
+    stream.addEventListener('progress', (msg) => {
+      printed++;
+      // #events = #docs + 1 (accounting)
+      this.printedPercent = (printed*100.0/(job.document_ids.length+1)).toFixed(0);
+      console.log(msg);
+    });
+    stream.addEventListener('error', (msg) => {
+      this.status = 'error';
+      this.errorText = msg.data;
+      stream.close();
+      $.cookie('print_data', '');
+    });
+    stream.addEventListener('complete', () => {
       this.status = 'success';
       this.errorText = '';
       log.addItem(this.cart.name, this.totalPrice);
+      stream.close();
+      $.cookie('print_data', '');
     });
+  }
+
+  get buttonGradient() {
+    // primary and disabled button colors stolen from Bootstrap
+    return `linear-gradient(to right, #337ab7 ${this.printedPercent}%, #79a7ce ${this.printedPercent}%)`;
   }
 
   get config() { return store.config; }
