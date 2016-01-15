@@ -90,13 +90,13 @@ export default class PrintJob {
     // in the body, so we use a cookie instead (~4k bytes limit).
     // Web Sockets may be a more appropriate solution, but are non-trivial
     // to set up on the production server and especially local debug servers.
-    $.cookie('print_data', JSON.stringify(job));
+    $.cookie('print_data', JSON.stringify(job), {path: '/'});
     let stream = new EventSource(api.baseUrl + 'print');
     stream.onerror = () => {
       this.status = 'error';
       this.errorText = 'Verbindung zum Server verloren';
       stream.close();
-      $.cookie('print_data', '');
+      $.cookie('print_data', '', {path: '/'});
     };
     let printed = 0;
     stream.addEventListener('progress', (msg) => {
@@ -109,14 +109,14 @@ export default class PrintJob {
       this.status = 'error';
       this.errorText = msg.data;
       stream.close();
-      $.cookie('print_data', '');
+      $.cookie('print_data', '', {path: '/'});
     });
     stream.addEventListener('complete', () => {
       this.status = 'success';
       this.errorText = '';
       log.addItem(this.cart.name, this.totalPrice);
       stream.close();
-      $.cookie('print_data', '');
+      $.cookie('print_data', '', {path: '/'});
     });
   }
 
