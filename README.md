@@ -2,7 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/fsmi/odie?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-odie-client is a Knockout.js frontend to [odie-server](https://github.com/fsmi/odie-server).
+odie-client is a Knockout.js frontend to [odie-server](https://github.com/fsmi/odie-server). See it in action at [our student council site](https://fsmi.uni-karlsruhe.de/odie).
 
 ## Hacking ##
 
