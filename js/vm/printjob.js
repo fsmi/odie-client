@@ -103,7 +103,6 @@ export default class PrintJob {
       printed++;
       // #events = #docs + 1 (accounting)
       this.printedPercent = (printed*100.0/(job.document_ids.length+1)).toFixed(0);
-      console.log(msg);
     });
     stream.addEventListener('stream-error', (msg) => {
       this.status = 'error';
