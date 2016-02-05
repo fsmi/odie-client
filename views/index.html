@@ -40,7 +40,6 @@
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
-              <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/transcriptmigration' }"><a href="#internal/transcriptmigration">Mathe-Protokolle eintragen</a></li>
               <li data-bind="visible: user.isAuthenticated"><a data-bind="attr: { href: api.baseUrl + '../admin/' }">DB-Admin</a></li>
               <li class="divider-vertical"></li>
               <li data-bind="visible: !user.isAuthenticated && !store.config.IS_KIOSK"><a data-bind="attr: { href: api.serverOrigin + store.config.LOGIN_PAGE + '?target_paras=&target_path=' + encodeURIComponent(document.location.pathname) }">Als Fachschafter anmelden</a></li>
