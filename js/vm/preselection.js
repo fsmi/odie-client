@@ -1,3 +1,6 @@
+/*global window*/
+
+import partition from "lodash/collection/partition";
 import pager from "pagerjs";
 
 import documentselection from "./documentselection";
@@ -18,7 +21,14 @@ export default class Preselection {
   openCart(cart) {
     documentselection.cart.reset();
     documentselection.cart.name = cart.name;
-    documentselection.cart.documents = cart.documents.slice();
+
+    // filter out 'null' values
+    let [documents, deleted] = partition(cart.documents);
+    if (deleted.length) {
+      window.alert(`${deleted.length} ausgewählte Dokumente sind in der Zwischenzeit gelöscht worden!`);
+    }
+    documentselection.cart.documents = documents;
+
     documentselection.cart.flushToSessionStorage();
     pager.navigate('#documentselection');
   }
