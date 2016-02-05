@@ -14,7 +14,8 @@ export default class Cart {
     if (this.creation_time)
       this.date = new Date(this.creation_time);
 
-    this.documents = this.documents.map(d => new Document(d));
+    // preserve 'null' documents for Preselection.openCart
+    this.documents = this.documents.map(d => d ? new Document(d) : null);
 
     ko.track(this);
 
@@ -25,7 +26,7 @@ export default class Cart {
     );
 
     ko.defineProperty(this, 'lectureNames', () => {
-      let lectures = uniq(flatten(this.documents.map(doc => doc.lectures)));
+      let lectures = uniq(flatten(this.documents.filter(doc => doc).map(doc => doc.lectures)));
       return lectures.map(l => l.name).sort();
     });
   }
