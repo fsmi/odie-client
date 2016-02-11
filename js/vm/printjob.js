@@ -91,7 +91,7 @@ export default class PrintJob {
     // Web Sockets may be a more appropriate solution, but are non-trivial
     // to set up on the production server and especially local debug servers.
     $.cookie('print_data', JSON.stringify(job), {path: '/'});
-    let stream = new EventSource(api.baseUrl + 'print');
+    let stream = new EventSource(api.baseUrl + 'print', api._baseAjaxSettings.xhrFields);
     stream.onerror = () => {
       this.status = 'error';
       this.errorText = 'Verbindung zum Server verloren';
