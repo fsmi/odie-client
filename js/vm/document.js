@@ -33,7 +33,7 @@ export default class Document {
   }
 
   get previewURL() { return `${api.baseUrl}view/${this.id}`; }
-  get PDFjsURL() { return `/pdfjs/web/viewer.html?file=${encodeURIComponent(this.previewURL)}`; }
+  get PDFjsURL() { return `pdfjs/web/viewer.html?file=${encodeURIComponent(this.previewURL)}`; }
   get editURL() { return `${api.baseUrl}../admin/document/edit/?id=${this.id}`; }
   get store() { return store; }
 }
