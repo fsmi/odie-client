@@ -3,6 +3,7 @@ import ko from "knockout";
 import flatten from "lodash/array/flatten";
 import sum from "lodash/collection/sum";
 import uniq from "lodash/array/uniq";
+import $ from "jquery";
 
 import api from "../api";
 import Document from "./document";
@@ -79,7 +80,10 @@ export default class Cart {
     api.post('orders', {
         name: this.name,
         document_ids: this.documents.map(doc => doc.id),
-    }).done(() => this.reset());
+    }).done(() => {
+      this.reset();
+      $('#cart-save-modal').modal();
+    });
   }
 
   priceEstimate(depositCount) {
