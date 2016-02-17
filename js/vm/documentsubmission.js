@@ -21,6 +21,8 @@ export default class DocumentSubmission {
     this.file = null;
     this.department = 'computer science';
     this.doctype = 'oral';
+    this.solution = null;
+    this.comment = null;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.errorlabel = '';
     this.submissionEnabled = true;
@@ -77,16 +79,23 @@ export default class DocumentSubmission {
 
 
     let fd = new FormData();
-    fd.append('json', JSON.stringify({
+    let obj = {
       lectures: this.selectedLectures,
       examinants: this.selectedExaminants,
       date: this.date,
       document_type: this.doctype,
-      student_name: this.anonymous ? '' : this.name,
+      student_name: this.anonymous ? null : this.name,
       department: this.department,
-    }));
+    };
+    if (this.comment)
+      obj.comment = this.comment;
+    if (this.doctype === 'written')
+      obj.solution = this.solution;
+
+    fd.append('json', JSON.stringify(obj));
     fd.append('file', this.file);
     let req = new XMLHttpRequest();
+    req.withCredentials = true;
     req.open('POST', api.baseUrl + 'documents');
     req.onerror = (e) => {
       this.status = 'error';
@@ -99,6 +108,7 @@ export default class DocumentSubmission {
           case 200:
             this.status = 'success';
             this.errorlabel = '';
+            this.submissionEnabled = user.isAuthenticated;
             break;
           case 400:
             req.onerror("Ungültige Eingabe. Bitte überprüfe noch einmal alle Felder.");
@@ -113,4 +123,6 @@ export default class DocumentSubmission {
     this.submissionEnabled = false;
     req.send(fd);
   }
+
+  get user() { return user; }
 }

@@ -1,5 +1,5 @@
 <!-- Template for the document submission form. Data binding context: DocumentSubmission -->
-<div>
+<div data-bind="visible: !user.isAuthenticated">
   <h3 class="heading text-center">So funktioniert's:</h3>
   <span>
     <ul class="col-md-offset-4 col-md-5">
@@ -13,6 +13,22 @@
 </div>
 <hr style="clear: both;">
 <form class="form-horizontal" data-bind="submit: submit.bind($data)">
+  <div class="form-group">
+    <label class="control-label col-md-3">Was für eine Prüfung war es?&nbsp;</label>
+    <div class="col-md-8 btn-group btn-group-nowrap">
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral'; }, css: { 'active': doctype === 'oral'}">Mündliche Prüfung</button>
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'written'; }, css: { 'active': doctype === 'written'}, visible: user.isAuthenticated" title="Schriftliche Klausur">Klausur</button>
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral reexam'; }, css: { 'active': doctype === 'oral reexam'}" title="Mündliche Nachprüfung einer schriftlichen Klausur">Mündliche Nachprüfung</button>
+    </div>
+  </div>
+  <div class="form-group" data-bind="visible: user.isAuthenticated && doctype === 'written'">
+    <label class="control-label col-md-3">Enthält die PDF eine Lösung?&nbsp;</label>
+    <div class="col-md-8 btn-group btn-group-nowrap">
+      <button class="btn btn-default" data-bind="click: function() { solution = 'official'; }, css: { 'active': solution === 'official'}">Offizielle Lösung</button>
+      <button class="btn btn-default" data-bind="click: function() { solution = 'inofficial'; }, css: { 'active': solution === 'inofficial'}">Studi-Lösung</button>
+      <button class="btn btn-default" data-bind="click: function() { solution = 'none'; }, css: { 'active': solution === 'none'}">Ohne Lösung</button>
+    </div>
+  </div>
   <div class="form-group">
     <label class="control-label col-md-3">Vorlesungen&nbsp;</label>
     <div class="col-md-8">
@@ -62,7 +78,14 @@
       }">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" data-bind="visible: user.isAuthenticated">
+    <label class="control-label col-md-3">Kommentar&nbsp;</label>
+    <div class="col-md-8">
+      <input class="form-control" type="text" data-bind="value: comment">
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="form-group" data-bind="visible: !user.isAuthenticated">
     <label class="control-label col-md-3">Dein Name&nbsp;</label>
     <div class="col-md-8">
       <input class="form-control" type="text" data-bind="value: name, disable: anonymous, attr: { 'required': !anonymous }">
@@ -87,12 +110,6 @@
         <li>Versuche Seiten mit nur einigen Zeilen Text zu vermeiden.</li>
         <li>Hast du die PDF aus Word (o.Ä.) exportiert? Dann überprüfe, ob die Seitenumbrüche noch stimmen.</li>
       </ul>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-offset-3 col-md-8 btn-group btn-group-nowrap">
-      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral'; }, css: { 'active': doctype === 'oral'}">Mündliche Prüfung</button>
-      <button class="btn btn-default" data-bind="click: function() { doctype = 'oral reexam'; }, css: { 'active': doctype === 'oral reexam'}" title="Mündliche Nachprüfung einer schriftlichen Klausur">Mündliche Nachprüfung</button>
     </div>
   </div>
   <div class="form-group">
