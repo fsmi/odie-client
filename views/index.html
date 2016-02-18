@@ -46,10 +46,11 @@
                   Auswahl&nbsp;<span class="badge" data-bind="text: cartSize"></span>
                 </a>
               </li>
-              <li data-bind="css: { active: activeRoute === 'documentsubmission' }"><a href="#documentsubmission">Protokoll einreichen</a>
+              <li data-bind="visible: !user.isAuthenticated, css: { active: activeRoute === 'documentsubmission' }"><a href="#documentsubmission">Protokoll einreichen</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'documentsubmission' }"><a href="#documentsubmission">Dokument erstellen</a>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/preselection' }"><a href="#internal/preselection">Vorauswahl</a></li>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/depositreturn' }"><a href="#internal/depositreturn">Pfandrückgabe</a></li>
               <li data-bind="visible: user.isAuthenticated, css: { active: activeRoute === 'internal/correction' }"><a href="#internal/correction">Abrechnungskorrektur</a></li>
