@@ -73,22 +73,13 @@
            clickBubble: false,
            enable: available && !$parent.cart.contains($data)">
         </button>
+        <!-- ko if: $parent.user.isAuthenticated -->
         <button
            class='icon-button btn-info btn btn-compact icon-eye'
            title="Vorschau"
            data-bind="
            click: function() { window.open(previewURL, '_blank') },
            clickBubble: false,
-           visible: $parent.user.isAuthenticated,
-           enable: available,
-           "></button>
-        <button
-           class='icon-button btn-info btn btn-compact icon-eye'
-           title="Vorschau"
-           data-bind="
-           click: function() { window.open(PDFjsURL, '_blank') },
-           clickBubble: false,
-           visible: store.config.IS_KIOSK,
            enable: available,
            "></button>
         <button
@@ -97,8 +88,19 @@
            data-bind="
            click: function() { window.open(editURL, '_blank') },
            clickBubble: false,
-           visible: $parent.user.isAuthenticated,
+           if: $parent.user.isAuthenticated,
            "></button>
+        <!-- /ko -->
+        <!-- ko if: store.config.IS_KIOSK -->
+        <button
+           class='icon-button btn-info btn btn-compact icon-eye'
+           title="Vorschau"
+           data-bind="
+           click: function() { window.open(PDFjsURL, '_blank') },
+           clickBubble: false,
+           enable: available,
+           "></button>
+        <!-- /ko -->
       </div>
     </td>
   </tr>
