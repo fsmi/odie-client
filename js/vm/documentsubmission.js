@@ -84,7 +84,7 @@ export default class DocumentSubmission {
       examinants: this.selectedExaminants,
       date: this.date,
       document_type: this.doctype,
-      student_name: this.anonymous ? null : this.name,
+      student_name: this.anonymous || user.isAuthenticated ? null : this.name,
       department: this.department,
     };
     if (this.comment)
