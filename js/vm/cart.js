@@ -36,8 +36,13 @@ export default class Cart {
     if (window.sessionStorage) {
       let data = JSON.parse(window.sessionStorage.getItem('cart'));
       if (data) {
-        data = data.map(d => new Document(d));
-        this.add(...data);
+        try {
+          data = data.map(d => new Document(d));
+          this.add(...data);
+        } catch (e) {
+          // bogus data or something, reset
+          window.sessionStorage.removeItem('cart');
+        }
       }
     }
   }
