@@ -86,6 +86,13 @@
         <p style="font-family: 'Open Sans', arial;">Solltest du JavaScript in deinem Browser nicht anschalten können (oder wollen), kannst du in der Fachschaft vorbeikommen und die Auswahl vor Ort vornehmen.</p>
       </noscript>
 
+      <div data-bind="foreach: api.errors">
+        <div class="alert alert-compact alert-danger">
+          <button class="close" type="button" data-dismiss="alert">×</button>
+          <strong>server says nooooo:</strong> <span data-bind="text: $data"></span>
+        </div>
+      </div>
+
       <div data-bind="component: 'log'"></div>
 
       <!-- content -->
