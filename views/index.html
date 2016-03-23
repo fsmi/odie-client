@@ -11,7 +11,7 @@
   <body>
   <img id="you-obviously-like-owls" src="https://www.fsmi.uni-karlsruhe.de/mediawiki/images/2/23/FS-Eule-KIT.png" alt="">
 
-  <div id="container" class="container">
+  <div id="container" class="container" style="display: none" data-bind="visible: true">
     <div id="cart-save-modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -85,6 +85,13 @@
         <h2 class="banner">Leider benötigt diese Seite JavaScript.</h2>
         <p style="font-family: 'Open Sans', arial;">Solltest du JavaScript in deinem Browser nicht anschalten können (oder wollen), kannst du in der Fachschaft vorbeikommen und die Auswahl vor Ort vornehmen.</p>
       </noscript>
+
+      <div data-bind="foreach: api.errors">
+        <div class="alert alert-compact alert-danger">
+          <button class="close" type="button" data-dismiss="alert">×</button>
+          <strong>server says nooooo:</strong> <span data-bind="text: $data"></span>
+        </div>
+      </div>
 
       <div data-bind="component: 'log'"></div>
 

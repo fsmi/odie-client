@@ -1,9 +1,7 @@
 {
-    "env": {
-        "es6": true,
-    },
-    "ecmaFeatures": {
-        "modules": true,
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
     },
     "rules": {
         "camelcase": 0, // because of Python identifiers
