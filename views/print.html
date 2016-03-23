@@ -1,5 +1,5 @@
 <!-- template for the print widget. Data binding context: PrintJob -->
-<form data-bind="submit: submit.bind($data)">
+<form data-bind="submit: function() { submit() }">
   <table class="pull-right text-right">
     <tr>
       <td><label>Druckpreis:</label></td>

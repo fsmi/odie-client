@@ -72,7 +72,7 @@ export default class PrintJob {
     this._depositCount = null;
   }
 
-  submit() {
+  submit(onSuccess) {
     this.status = 'waiting';
     this.printedPercent = 0;
     let job = {
@@ -116,6 +116,9 @@ export default class PrintJob {
       log.addItem(this.cart.name, this.totalPrice);
       stream.close();
       $.cookie('print_data', '', {path: '/'});
+      if (onSuccess) {
+        onSuccess();
+      }
     });
   }
 

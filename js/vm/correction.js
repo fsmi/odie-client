@@ -46,8 +46,9 @@ export default class Correction {
   }
 
   makeDeposit() {
-    this._printJob.submit();
-    this._printJob = new PrintJob(new Cart());
+    this._printJob.submit(() => {
+      this._printJob = new PrintJob(new Cart());
+    });
   }
 
   makeDonation() {
