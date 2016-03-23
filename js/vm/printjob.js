@@ -14,7 +14,6 @@ export default class PrintJob {
     this.cart = cart;
     this._depositCount = null;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
-    this.errorText = '';
     this.printedPercent = null;
     this.selectedPrinter = undefined;
     // select a default printer as soon as they're loaded
@@ -94,7 +93,7 @@ export default class PrintJob {
     let stream = new EventSource(api.baseUrl + 'print', api._baseAjaxSettings.xhrFields);
     stream.onerror = () => {
       this.status = 'error';
-      this.errorText = 'Verbindung zum Server verloren';
+      api.errors.push('Verbindung zum Server verloren');
       stream.close();
       $.cookie('print_data', '', {path: '/'});
     };
@@ -106,13 +105,12 @@ export default class PrintJob {
     });
     stream.addEventListener('stream-error', (msg) => {
       this.status = 'error';
-      this.errorText = msg.data;
+      api.errors.push(msg.data);
       stream.close();
       $.cookie('print_data', '', {path: '/'});
     });
     stream.addEventListener('complete', () => {
       this.status = 'success';
-      this.errorText = '';
       log.addItem(this.cart.name, this.totalPrice);
       stream.close();
       $.cookie('print_data', '', {path: '/'});
