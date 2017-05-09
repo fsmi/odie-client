@@ -12,6 +12,8 @@ function wrapLectureAlias(alias, canonical) {
 }
 
 export default class DocumentSubmission {
+
+
   constructor() {
     this.selectedLectures = [];
     this.selectedExaminants = [];
@@ -23,11 +25,16 @@ export default class DocumentSubmission {
     this.doctype = 'oral';
     this.solution = null;
     this.comment = null;
+    this.early_document_eligible = false;
     this.status = undefined; /* undefined | 'success' | 'error' | 'waiting' */
     this.errorlabel = '';
     this.submissionEnabled = true;
 
     ko.track(this);
+
+    ko.getObservable(this, 'early_document_eligible').subscribe(function(changes) {
+      $('[data-toggle="popover"]').popover();
+    });
   }
 
   get examinantsTypeaheadDataset() {
@@ -102,19 +109,21 @@ export default class DocumentSubmission {
       this.errorlabel = e;
       this.submissionEnabled = true;
     };
-    req.onreadystatechange = () => {
+    req.onreadystatechange = (data) => {
       if (req.readyState === 4) {
         switch (req.status) {
           case 200:
             this.status = 'success';
             this.errorlabel = '';
             this.submissionEnabled = user.isAuthenticated;
+            let responseJson = JSON.parse(req.responseText);
+            if(responseJson) this.early_document_eligible = responseJson.data.early_document_eligible;
             break;
           case 400:
             req.onerror("Ungültige Eingabe. Bitte überprüfe noch einmal alle Felder.");
             break;
           default:
-            req.onerror(req.requestText);
+            req.onerror("Ein unerwarteter Fehler. Kontaktiere odie@fsmi.uni-karlsruhe.de");
         }
       }
     };

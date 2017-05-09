@@ -40,7 +40,7 @@ export default class DepositReturn {
     this.documents.selected.validated = true;
   }
 
-  cashOut() {
+  cashOutDeposit() {
     let data = {
       id: this.deposits.selected.id,
       cash_box: user.officeConfig.cash_boxes[0],
@@ -53,6 +53,18 @@ export default class DepositReturn {
       log.addItem('Pfandrückgabe', -this.deposits.selected.price);
       this.documents.load();
       this.deposits.load();
+    });
+  }
+
+  cashOutEarlyDocument() {
+    let data = {
+      id: this.documents.selected.id,
+      cash_box: user.officeConfig.cash_boxes[0],
+    };
+
+    api.post('log_early_document_disburse', data).done((data) => {
+      log.addItem('Erstprotokoll', -data.data.disbursal);
+      this.documents.load();
     });
   }
 }

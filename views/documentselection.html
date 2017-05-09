@@ -24,10 +24,26 @@ Data binding context: DocumentSelection. -->
       placeholder="Vorlesungen und/oder Prüfer">
   </div>
 
-  <div data-bind="foreach: selectedLectures">
+  <div id="documentselection-comments" data-bind="foreach: selectedLectures">
     <div class="alert alert-compact alert-info" role="alert" data-bind="visible: comment">
       <strong data-bind="text: name, visible: $parent.selectedLectures.length > 1"></strong>
       <span data-bind="html: comment"></span>
+    </div>
+
+    <div class="alert alert-compact alert-info" role="alert" data-bind="visible: early_document_eligible">
+      <strong data-bind="text: name, visible: $parent.selectedLectures.length > 1"></strong>
+      <span>Für diese Prüfung gibt es Erstprotokollentlohnungen</span>
+      <span data-bind="visible: early_document_until">bis zum</span>
+      <span data-bind="date: early_document_until,visible: early_document_until"></span>
+      <a tabindex="0" class="btn btn-xs btn-default" role="button"
+         data-toggle="popover" data-trigger="focus" data-html="true"
+         title="Erstprotokollentlohnung"
+         data-content='Die Fachschaft zahlt für Erstprotokolle eine Belohnung in Höhe von 5 Euro aus. Erstprotokolle sind:
+      <ul>
+        <li>Die ersten fünf Protokolle zu einer Prüfung.</li>
+        <li>Protokolle, die bis zu 14 Tage nach den ersten fünf hochgeladen werden.</li>
+      </ul>Diese Belohnung wird zusätzlich zu eventuellen Pfandeinträgen ausgezahlt.'>Weitere Informationen</a>
+
     </div>
   </div>
 
