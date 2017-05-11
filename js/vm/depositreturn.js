@@ -62,7 +62,7 @@ export default class DepositReturn {
       cash_box: user.officeConfig.cash_boxes[0],
     };
 
-    api.post('log_early_document_disburse', data).done((data) => {
+    api.post('log_early_document_reward', data).done((data) => {
       log.addItem('Erstprotokoll', -data.data.disbursal);
       this.documents.load();
     });
