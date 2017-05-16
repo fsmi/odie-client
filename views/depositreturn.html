@@ -63,7 +63,7 @@
                 class='icon-button btn btn-default btn-compact icon-eye selected'
                 title="Vorschau"
                 data-bind="
-                  click: function() { window.open(previewURL, '_blank'); validated = true; },
+                    click: $component.validate.bind($component,$data),
                   clickBubble: false
                 "></a>
             </td>
