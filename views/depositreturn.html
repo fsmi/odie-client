@@ -12,6 +12,10 @@
       css: {'btn-def': !(documents.selected && documents.selected.early_document_eligible), 'btn-primary': documents.selected && documents.selected.early_document_eligible},
       click: cashOutEarlyDocument.bind($data)
     ">Erstprotokoll honorieren</button>
+    <button class="btn-danger btn" style="margin: 10px" data-bind="
+      enable: $data.currentSelectionEligibleForRejection(),
+      click: rejectDocument.bind($data)
+    ">Dokument ablehnen</button>
     <div class="alert alert-info"
          data-bind="visible: !deposits.selected && !documents.selected">Bitte wähle Pfand oder Protokoll aus</div>
     <div class="alert alert-info"
