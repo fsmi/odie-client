@@ -30,6 +30,13 @@ class Api {
     return this.getJSON(url, {data: {q: JSON.stringify(query)}});
   }
 
+  delete(url) {
+    return this.ajax(Object.assign({
+      url,
+      type: 'DELETE',
+    }));
+  }
+
   post(url, data, settings) {
     return this.ajax(Object.assign(settings || {}, {
       url,
@@ -52,7 +59,7 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
       withCredentials: true,
     },
   });
-  let live = true;
+  let live = false;
   if (live) {
     api.serverOrigin = 'https://www-test-stable.fsmi.uni-karlsruhe.de';
     api.baseUrl = api.serverOrigin + '/odie/api/';
