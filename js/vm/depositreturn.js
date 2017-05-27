@@ -86,6 +86,7 @@ export default class DepositReturn {
 
   rejectDocument() {
     api.delete(`documents/${this.documents.selected.id}`).done((data) => {
+      log.addItem("Protokoll abgelehnt");
       this.documents.load();
     });
   }

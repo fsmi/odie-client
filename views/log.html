@@ -2,7 +2,7 @@
   <div data-bind="foreach: items">
     <button class="btn btn-default btn-compact" type="button" data-bind="css: { 'active': selected }, click: function() { selected = !selected }">
       <span data-bind="text: description"></span>
-      <span data-bind="css: amount < 0 ? 'log-expense' : 'log-revenue', price: amount / 100"></span>
+      <span data-bind="visible: amount!==undefined, css: amount < 0 ? 'log-expense' : 'log-revenue', price: amount / 100"></span>
     </button>
   </div>
   <div>
