@@ -37,7 +37,9 @@ export class Log {
   }
 
   get totalAmount() {
-    return sum(this.items.filter(item => item.selected), 'amount');
+    let monetaryLogs = this.items.filter(item => item.amount !== undefined);
+    let selectedMonetaryLogs = monetaryLogs.filter(item => item.selected);
+    return sum(selectedMonetaryLogs.length > 0 ? selectedMonetaryLogs : monetaryLogs, 'amount');
   }
 
   get formatter() { return formatter; }

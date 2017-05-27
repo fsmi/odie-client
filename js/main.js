@@ -12,6 +12,8 @@ import "bootstrap/js/transition";
 import "bootstrap/js/collapse";
 import "bootstrap/js/alert";
 import "bootstrap/js/modal";
+import "bootstrap/js/tooltip";
+import "bootstrap/js/popover";
 
 import "./ko/formatter";
 import "./ko/bootstrap-tagsinput";

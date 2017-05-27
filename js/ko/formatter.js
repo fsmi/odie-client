@@ -3,6 +3,7 @@ import ko from "knockout";
 let formatter = {
   formatDate(date) {
     // lesser browsers will ignore the parameters and use the default locale
+    if(typeof date == "string") date = new Date(date);
     return date ? date.toLocaleDateString('de-DE', {day: 'numeric', month: 'short', year: 'numeric'}) : '';
   },
 

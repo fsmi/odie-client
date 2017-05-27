@@ -68,13 +68,15 @@
   <div class="form-group">
     <label class="control-label col-md-3">Datum&nbsp;</label>
     <div class="col-md-8">
-      <input class="form-control" type="text" required="required" data-bind="value: date, datepicker: {
+      <input class="form-control" type="text" required="required" placeholder="yyyy-mm-dd" data-bind="value: date, datepicker: {
         weekStart: 1,
-        daysOfWeekDisabled: '0,6',
         format: 'yyyy-mm-dd',
         language: 'de',
         todayHighlight: true,
         autoclose: true,
+        endDate: '0d',
+        startDate: '2010-01-01',
+        todayBtn: true
       }">
     </div>
   </div>
@@ -94,7 +96,7 @@
     <div class="col-md-8">
       <div class="checkbox">
         <label>
-          <input type="checkbox" data-bind="checked: anonymous"> Ohne Namen abgeben (falls du kein Pfand zurückbekommen möchtest).
+          <input type="checkbox" data-bind="checked: anonymous"> Ohne Namen abgeben (falls du kein Pfand und keine Erstprotokollentlohnung bekommen möchtest).
         </label>
       </div>
     </div>
@@ -123,6 +125,17 @@
           'icon-ok text-success': status === 'success',
           'icon-attention text-warning': status === 'error' }"></div>
       </div>
+      <span class="alert alert-compact alert-info" role="alert" data-bind="visible: early_document_eligible">
+          Für dieses Protokoll bekommst du eine
+          <a tabindex="0" class="btn btn-xs btn-default" role="button"
+             data-toggle="popover" data-trigger="focus" data-html="true"
+             title="Erstprotokollentlohnung"
+             data-content='Die Fachschaft zahlt für Erstprotokolle eine Belohnung in Höhe von 5 Euro aus. Erstprotokolle sind:
+          <ul>
+            <li>Die ersten fünf Protokolle zu einer Prüfung.</li>
+            <li>Protokolle, die bis zu 14 Tage nach den ersten fünf hochgeladen werden.</li>
+          </ul>Diese Belohnung wird zusätzlich zu eventuellen Pfandeinträgen ausgezahlt.'>Erstprotokollentlohnung</a>
+      </span>
       <span class="text-warning" data-bind="text: errorlabel"></span>
     </div>
   </div>
