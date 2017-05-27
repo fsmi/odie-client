@@ -14,7 +14,8 @@ export default class DepositReturn {
     this.documentFilter = new SubstringFilter({column: 'submitted_by'});
     this.depositFilter = new SubstringFilter({column: 'name'});
 
-    this.locallyValidatedIDs = []; //window.localStorage && JSON.parse(localStorage.getItem("Odie_ValidatedDocuments")) || [];
+    this.locallyValidatedIDs = [];//ko.observableArray();
+    window.locallyValidatedIDs = this.locallyValidatedIDs;
     this.documents = new SelectableCollection({
       endpoint: 'documents',
       filters: [
@@ -37,6 +38,14 @@ export default class DepositReturn {
         return data;
       },
     });
+    this.currentSelectionEligibleForRejection = ko.pureComputed(function(){
+      // lets not fail the servers delete_document pre-condition
+      let selected = this.documents.selected;
+      return selected &&
+          (selected.early_document_eligible || selected.deposit_return_eligible) && // be still eligible for smth
+          (this.locallyValidatedIDs.indexOf(selected.id) !== -1); // be (only) locally validated
+    },this);
+    ko.track(this, ['locallyValidatedIDs']);
   }
 
   validate(document) {
@@ -45,15 +54,6 @@ export default class DepositReturn {
       document.validated = true;
       if(this.locallyValidatedIDs.indexOf(document.id) === -1) this.locallyValidatedIDs.push(document.id);
     }
-    //if(window.localStorage) window.localStorage.setItem("Odie_ValidatedDocuments",JSON.stringify(this.locallyValidatedIDs));
-  }
-
-  currentSelectionEligibleForRejection() {
-    // lets not fail the servers delete_document pre-condition
-    let selected = this.documents.selected;
-    return selected &&
-        (selected.early_document_eligible || selected.deposit_return_eligible) && // be still eligible for smth
-        (!selected.validated || this.locallyValidatedIDs.indexOf(selected.id) === 1); // either locally validated or not at all
   }
 
   cashOutDeposit() {

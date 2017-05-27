@@ -13,9 +13,8 @@
       click: cashOutEarlyDocument.bind($data)
     ">Erstprotokoll honorieren</button>
     <button class="btn-danger btn" style="margin: 10px" data-bind="
-      enable: $data.currentSelectionEligibleForRejection(),
-      click: rejectDocument.bind($data)
-    ">Protokoll ablehnen</button>
+      enable: currentSelectionEligibleForRejection
+    " data-toggle="modal" data-target="#documentRejectionModal">Protokoll ablehnen</button>
     <div class="alert alert-info"
          data-bind="visible: !deposits.selected && !documents.selected">Bitte wähle Pfand oder Protokoll aus</div>
     <div class="alert alert-info"
@@ -26,6 +25,27 @@
          data-bind="visible: documents.selected && !documents.selected.validated && (documents.selected.early_document_eligible || deposits.selected)">Bitte überprüfe das Protokoll</div>
     <div class="alert alert-success"
          data-bind="visible: documents.selected && documents.selected.validated && (deposits.selected || documents.selected.early_document_eligible)">Volle Fahrt voraus!</div>
+  </div>
+</div>
+
+<!-- Document Rejection -->
+<div class="modal fade" id="documentRejectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dokument löschen</h4>
+      </div>
+      <div class="modal-body">
+        Möchtest du das Protokoll von <span style="font-weight: bold;" data-bind="text: documents.selected && documents.selected.submitted_by"></span> wirklich aus der Datenbank entfernen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" data-bind="
+          click: rejectDocument.bind($data)
+        ">Löschen</button>
+      </div>
+    </div>
   </div>
 </div>
 
