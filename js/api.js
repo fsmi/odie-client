@@ -30,6 +30,13 @@ class Api {
     return this.getJSON(url, {data: {q: JSON.stringify(query)}});
   }
 
+  delete(url) {
+    return this.ajax(Object.assign({
+      url,
+      type: 'DELETE',
+    }));
+  }
+
   post(url, data, settings) {
     return this.ajax(Object.assign(settings || {}, {
       url,
