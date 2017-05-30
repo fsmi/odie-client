@@ -14,6 +14,7 @@ export default class DepositReturn {
     this.documentFilter = new SubstringFilter({column: 'submitted_by'});
     this.depositFilter = new SubstringFilter({column: 'name'});
 
+    this.validatedIDs = []; //window.localStorage && JSON.parse(localStorage.getItem("Odie_ValidatedDocuments")) || [];
     this.documents = new SelectableCollection({
       endpoint: 'documents',
       filters: [
@@ -22,7 +23,10 @@ export default class DepositReturn {
         new Filter({column: 'submitted_by', operator: '!=', value: null}),
       ],
       sortBy: {column: 'date', asc: false},
-      deserialize: data => new Document(data),
+      deserialize: data => {
+        if(this.validatedIDs.indexOf(data.id) !== -1) data.validated = true;
+        return new Document(data);
+      },
     });
     this.deposits = new SelectableCollection({
       endpoint: 'deposits',
@@ -35,12 +39,14 @@ export default class DepositReturn {
     });
   }
 
-  validate() {
-    window.open(this.documents.selected.previewURL, '_blank');
-    this.documents.selected.validated = true;
+  validate(document) {
+    window.open(document.previewURL, '_blank');
+    document.validated = true;
+    if(this.validatedIDs.indexOf(document.id) === -1) this.validatedIDs.push(document.id);
+    //if(window.localStorage) window.localStorage.setItem("Odie_ValidatedDocuments",JSON.stringify(this.validatedIDs));
   }
 
-  cashOut() {
+  cashOutDeposit() {
     let data = {
       id: this.deposits.selected.id,
       cash_box: user.officeConfig.cash_boxes[0],
@@ -53,6 +59,18 @@ export default class DepositReturn {
       log.addItem('Pfandrückgabe', -this.deposits.selected.price);
       this.documents.load();
       this.deposits.load();
+    });
+  }
+
+  cashOutEarlyDocument() {
+    let data = {
+      id: this.documents.selected.id,
+      cash_box: user.officeConfig.cash_boxes[0],
+    };
+
+    api.post('log_early_document_reward', data).done((data) => {
+      log.addItem('Erstprotokoll', -data.data.disbursal);
+      this.documents.load();
     });
   }
 }

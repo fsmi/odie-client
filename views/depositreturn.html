@@ -3,14 +3,25 @@
   (filtert beide Tabellen)<br>
   <div style="margin: 10px">
     <button class="btn-primary btn" style="margin: 10px" data-bind="
-      enable: deposits.selected && !(documents.selected && !documents.selected.validated),
+      enable: deposits.selected && (!documents.selected || (documents.selected.validated && documents.selected.deposit_return_eligible)),
       css: {'btn-danger': deposits.selected && !documents.selected},
-      click: cashOut.bind($data)
-    ">Auszahlen</button>
-    <div data-bind="visible: !deposits.selected">Bitte wähle ein Pfand und ein zugehöriges Protokoll aus</div>
-    <div data-bind="visible: deposits.selected && !documents.selected">Bitte überprüfe, ob es ein zugehöriges Protokoll gibt</div>
-    <div data-bind="visible: deposits.selected && documents.selected && !documents.selected.validated">Bitte überprüfe das Protokoll noch auf Sinnhaftigkeit</div>
-    <div data-bind="visible: deposits.selected && documents.selected && documents.selected.validated">&nbsp;</div>
+      click: cashOutDeposit.bind($data)
+    ">Pfand auszahlen</button>
+    <button class="btn-primary btn" style="margin: 10px" data-bind="
+      enable: documents.selected && documents.selected.validated && (documents.selected.early_document_eligible),
+      css: {'btn-def': !(documents.selected && documents.selected.early_document_eligible), 'btn-primary': documents.selected && documents.selected.early_document_eligible},
+      click: cashOutEarlyDocument.bind($data)
+    ">Erstprotokoll honorieren</button>
+    <div class="alert alert-info"
+         data-bind="visible: !deposits.selected && !documents.selected">Bitte wähle Pfand oder Protokoll aus</div>
+    <div class="alert alert-info"
+         data-bind="visible: !deposits.selected && documents.selected && !documents.selected.early_document_eligible">Kein Erstprotokoll: Bitte wähle einen Pfandeintrag aus</div>
+    <div class="alert alert-warning"
+         data-bind="visible: deposits.selected && !documents.selected">Bitte überprüfe, ob es ein zugehöriges Protokoll gibt</div>
+    <div class="alert alert-danger"
+         data-bind="visible: documents.selected && !documents.selected.validated && (documents.selected.early_document_eligible || deposits.selected)">Bitte überprüfe das Protokoll</div>
+    <div class="alert alert-success"
+         data-bind="visible: documents.selected && documents.selected.validated && (deposits.selected || documents.selected.early_document_eligible)">&nbsp;</div>
   </div>
 </div>
 
@@ -52,7 +63,7 @@
                 class='icon-button btn btn-default btn-compact icon-eye selected'
                 title="Vorschau"
                 data-bind="
-                  click: function() { window.open(previewURL, '_blank'); validated = true; },
+                    click: $component.validate.bind($component,$data),
                   clickBubble: false
                 "></a>
             </td>

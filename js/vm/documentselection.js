@@ -24,6 +24,10 @@ class DocumentSelection {
 
     ko.track(this);
 
+    ko.getObservable(this, 'selected').subscribe(function(changes) {
+      $('[data-toggle="popover"]').popover();
+    });
+
     ko.defineProperty(this, 'serializedSelected', {
       get: () => this.selected.map(x => x.type[0] + x.obj.id).join('&'),
       set: (val) => {
