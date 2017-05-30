@@ -17,6 +17,7 @@ export class LogItem {
 export class Log {
   constructor() {
     this.items = [];
+    this.givenAmount = null;
 
     ko.track(this);
 
@@ -41,6 +42,11 @@ export class Log {
     let selectedMonetaryLogs = monetaryLogs.filter(item => item.selected);
     return sum(selectedMonetaryLogs.length > 0 ? selectedMonetaryLogs : monetaryLogs, 'amount');
   }
+
+    get returnAmount() {
+        let givenCents = this.givenAmount * 100;
+        return givenCents - this.totalAmount;
+    }
 
   get formatter() { return formatter; }
 }
