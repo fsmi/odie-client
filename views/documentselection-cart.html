@@ -52,9 +52,17 @@ Data binding context: DocumentSelection -->
     <button type="submit" class='btn btn-primary icon-floppy' data-bind="enable: cart.documents.length > 0">Speichern</button>
   </form>
   <div class="text-right small text-primary" data-bind="visible: cart.includesOral" style="padding-top: 7px;">
-    <em>* Davon
-      <span data-bind="price: config.DEPOSIT_PRICE / 100"></span> Protokollpfand
-    </em>
+    <em>
+		* Davon <span data-bind="price: config.DEPOSIT_PRICE / 100"></span> Protokollpfand
+		<a tabindex="0" class="btn btn-xs btn-default" role="button"
+			data-toggle="popover" data-trigger="focus" data-html="true"
+			title="Protokollpfand" data-placement="left" data-container="body"
+			data-content='
+			<strong>Deutsch</strong>
+			<p>Bei mündlichen Prüfungen nehmen wir pro Prüfung 5 Euro Pfand von dir ein, welche du wiederbekommst, wenn du ein Protokoll von deiner eigenen Prüfung einreichst. Vorlagen für dein eigenes Protokoll sowie ein Formular zum Upload einer PDF-Datei findest du direkt hier unter dem Tab "einreichen". Um das Pfand zuzuordnen benötigen wir eine möglichst eindeutige Zeichenkette, die du dir merken kannst. Solltest du zu einem späteren Zeitpunkt weitere Protokolle benötigen, musst du das Pfand nicht noch einmal bezahlen. Pfandeinträge werden mit dem Abholen oder spätestens nach 5 Jahren gelöscht.</p>
+			<strong>English</strong>
+			<p>To be able to always provide you with up-to-date examination transcripts, we ask for a 5 Euro deposit (per exam) when you buy oral examination transcripts. Your deposit will be refunded when you upload a transcript of your own examination. We provide you with a template in various formats. We require a uniquely identifying string you can remember (for example, your name) for mapping your deposit to you. Should you need additional transcripts later, we will check for an existing deposit and you will not need to pay the deposit again. Deposit entries will be deleted when a refund has been paid out or five years have elapsed.</p>
+			'>?</a></em>
   </div>
 </div>
 <div data-bind="visible: user.isAuthenticated, component: {name: 'print', params: printjob}"></div>
