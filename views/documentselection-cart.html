@@ -48,7 +48,7 @@ Data binding context: DocumentSelection -->
   <form class="text-right" data-bind='submit: cart.save.bind(cart)'>
     Preisschätzung: <span data-bind="price: cart.priceEstimate() / 100"></span>
     <span class="text-primary" data-bind="visible: cart.includesOral">*</span>
-    <input type="text" class="form-inline form-control-inline form-control" placeholder="Möglichst eindeutiger Bezeichner" data-bind="value: cart.name" required>
+    <input type="text" class="form-inline form-control-inline form-control" placeholder="Eindeutiger Bezeichner" data-bind="value: cart.name" required>
     <button type="submit" class='btn btn-primary icon-floppy' data-bind="enable: cart.documents.length > 0">Speichern</button>
   </form>
   <div class="text-right small text-primary" data-bind="visible: cart.includesOral" style="padding-top: 7px;">
