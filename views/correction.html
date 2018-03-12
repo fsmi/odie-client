@@ -21,7 +21,7 @@ Data binding context: Correction -->
   <div class="text-center">
     <form data-bind="submit: makeDeposit.bind($data)">
       <input type="number" min="1" class="number-input form-control-inline form-control" data-bind="value: _printJob.depositCount">&nbsp;×&nbsp;Pfand für&nbsp;
-      <input required class="form-control-inline form-control" placeholder="Name" data-bind="value: _printJob.cart.name">
+      <input required class="form-control-inline form-control" placeholder="Eindeutiger Bezeichner" data-bind="value: _printJob.cart.name">
       &nbsp;
       <button type="submit" class="btn btn-danger icon-money">Buchen</button>
     </form>

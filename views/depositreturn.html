@@ -1,5 +1,5 @@
 <div class="text-center">
-  <input type="text" class="form-control form-control-inline" placeholder="Name des Studis" data-bind="value: filter.value, valueUpdate: 'input'"><br>
+  <input type="text" class="form-control form-control-inline" placeholder="Pfandbezeichner" data-bind="value: filter.value, valueUpdate: 'input'"><br>
   (filtert beide Tabellen)<br>
   <div style="margin: 10px">
     <button class="btn-primary btn" style="margin: 10px" data-bind="
@@ -57,7 +57,7 @@
       <table class="table table-condensed">
         <thead>
           <tr>
-            <td><sortable-column params="coll: documents, column: 'submitted_by'">Name</sortable-column></td>
+            <td><sortable-column params="coll: documents, column: 'submitted_by'">Bezeichner</sortable-column></td>
             <td>Vorlesungen</td>
             <td><sortable-column params="coll: documents, column: 'date', asc: false">Datum</sortable-column></td>
             <td>Überprüft?</td>
@@ -103,7 +103,7 @@
       <table class="table table-condensed">
         <thead>
           <tr>
-            <td><sortable-column params="coll: deposits, column: 'name'">Name</sortable-column></td>
+            <td><sortable-column params="coll: deposits, column: 'name'">Bezeichner</sortable-column></td>
             <td>Vorlesungen</td>
             <td><sortable-column params="coll: deposits, column: 'date', asc: false">Datum</sortable-column></td>
           </tr>
