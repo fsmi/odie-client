@@ -1,6 +1,6 @@
 /*global FormData XMLHttpRequest*/
 import ko from "knockout";
-import flatten from "lodash/array/flatten";
+import flatten from "lodash/flatten";
 
 import api from "../api";
 import makeSource from "../typeaheadsource";

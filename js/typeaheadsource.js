@@ -1,6 +1,6 @@
-import flatten from "lodash/array/flatten";
-import sortBy from "lodash/collection/sortBy";
-import uniq from "lodash/array/uniq";
+import flatten from "lodash/flatten";
+import sortBy from "lodash/sortBy";
+import uniq from "lodash/uniq";
 
 /** Returns a function usable as a typeahead source filtering the given items property */
 export default function makeSource(items, property) {

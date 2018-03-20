@@ -1,5 +1,5 @@
 import ko from "knockout";
-import indexBy from "lodash/collection/indexBy";
+import keyBy from "lodash/keyBy";
 
 import api from "../api";
 import Collection, {Filter} from "../collection";
@@ -40,7 +40,7 @@ export default class DocumentList {
       new DocumentType({list: this, name: 'oral reexam', title: 'mündliche Nachprüfung', icon: '<span class="icon-chat"><strong style="margin-left: -2px; cursor: default">!</strong></span>'}),
       new DocumentType({list: this, name: 'mock exam', title: 'Probeklausur', icon: '<span class="icon-pencil"><strong style="margin-left: -2px; cursor: default">!</strong></span>'}),
     ];
-    this.documentTypeByName = indexBy(this.documentTypes, t => t.name);
+    this.documentTypeByName = keyBy(this.documentTypes, t => t.name);
     this.solutionTypeByName = {
       'official': {title: 'Offizielle Lösung', iconClass: 'icon-circle'},
       'inofficial': {title: 'Inoffizielle Lösung', iconClass: 'icon-ajust'},

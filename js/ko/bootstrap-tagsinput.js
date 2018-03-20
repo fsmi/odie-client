@@ -1,7 +1,7 @@
 import $ from "jquery";
 import ko from "knockout";
-import all from "lodash/collection/all";
-import zip from "lodash/array/zip";
+import every from "lodash/every";
+import zip from "lodash/zip";
 import "../bootstrap-tagsinput";
 
 ko.bindingHandlers.tagsinput = {
@@ -11,7 +11,7 @@ ko.bindingHandlers.tagsinput = {
         e.tagsinput('add', item);
     }
     function sameItems(xs, ys) {
-      return xs.length === ys.length && all(zip(xs, ys).map(([x, y]) => x.obj === y.obj));
+      return xs.length === ys.length && every(zip(xs, ys).map(([x, y]) => x.obj === y.obj));
     }
 
     let e = $(element);

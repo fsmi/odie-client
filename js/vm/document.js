@@ -1,5 +1,5 @@
 import ko from "knockout";
-import sortBy from "lodash/collection/sortBy";
+import sortBy from "lodash/sortBy";
 
 import api from "../api";
 import formatter from "../ko/formatter";

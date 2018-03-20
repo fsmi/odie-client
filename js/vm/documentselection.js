@@ -1,5 +1,5 @@
 import ko from "knockout";
-import flatten from "lodash/array/flatten";
+import flatten from "lodash/flatten";
 import pager from "pagerjs";
 
 import BarcodeScanner from "./barcode";

@@ -1,6 +1,6 @@
 /* global window */
 import ko from "knockout";
-import sum from "lodash/collection/sum";
+import sum from "lodash/sum";
 
 import formatter from "../ko/formatter";
 

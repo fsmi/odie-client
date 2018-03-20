@@ -1,6 +1,6 @@
 /*global window*/
 
-import partition from "lodash/collection/partition";
+import partition from "lodash/partition";
 import pager from "pagerjs";
 
 import documentselection from "./documentselection";
