@@ -17,11 +17,12 @@
     <label class="control-label col-md-3">Was für eine Prüfung war es?&nbsp;</label>
     <div class="col-md-8 btn-group btn-group-nowrap">
       <button class="btn btn-default" data-bind="click: function() { doctype = 'oral'; }, css: { 'active': doctype === 'oral'}">Mündliche Prüfung</button>
+      <button class="btn btn-default" data-bind="click: function() { doctype = 'mock exam'; }, css: { 'active': doctype === 'mock exam'}, visible: user.isAuthenticated" title="Probeklausur">Probeklausur</button>
       <button class="btn btn-default" data-bind="click: function() { doctype = 'written'; }, css: { 'active': doctype === 'written'}, visible: user.isAuthenticated" title="Schriftliche Klausur">Klausur</button>
       <button class="btn btn-default" data-bind="click: function() { doctype = 'oral reexam'; }, css: { 'active': doctype === 'oral reexam'}" title="Mündliche Nachprüfung einer schriftlichen Klausur">Mündliche Nachprüfung</button>
     </div>
   </div>
-  <div class="form-group" data-bind="visible: user.isAuthenticated && doctype === 'written'">
+  <div class="form-group" data-bind="visible: user.isAuthenticated && (doctype === 'written' || doctype === 'mock exam')">
     <label class="control-label col-md-3">Enthält die PDF eine Lösung?&nbsp;</label>
     <div class="col-md-8 btn-group btn-group-nowrap">
       <button class="btn btn-default" data-bind="click: function() { solution = 'official'; }, css: { 'active': solution === 'official'}">Offizielle Lösung</button>

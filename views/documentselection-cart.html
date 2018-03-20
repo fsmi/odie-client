@@ -27,8 +27,8 @@ Data binding context: DocumentSelection -->
   <tr class="document-list" data-bind="attr: {title: extendedAttributes}">
     <td class="row-disabled" data-bind="text: $index() + 1"></td>
     <td class="td-compact">
-      <span data-bind="css: documentType === 'written' ? 'icon-pencil' : 'icon-chat'">
-        <strong data-bind="visible: documentType === 'oral reexam'" style="margin-left: -5px; cursor: default">!</strong>
+      <span data-bind="css: (documentType === 'written' || documentType === 'mock exam') ? 'icon-pencil' : 'icon-chat'">
+        <strong data-bind="visible: (documentType === 'oral reexam' || documentType === 'mock exam')" style="margin-left: -5px; cursor: default">!</strong>
       </span>
     </td>
     <td>

@@ -38,6 +38,7 @@ export default class DocumentList {
       new DocumentType({list: this, name: 'written', title: 'schriftlich', icon: '<span class="icon-pencil" style="margin-right: 2px"></span>'}),
       new DocumentType({list: this, name: 'oral', title: 'mündlich', icon: '<span class="icon-chat" style="margin-right: 2px"></span>'}),
       new DocumentType({list: this, name: 'oral reexam', title: 'mündliche Nachprüfung', icon: '<span class="icon-chat"><strong style="margin-left: -2px; cursor: default">!</strong></span>'}),
+      new DocumentType({list: this, name: 'mock exam', title: 'Probeklausur', icon: '<span class="icon-pencil"><strong style="margin-left: -2px; cursor: default">!</strong></span>'}),
     ];
     this.documentTypeByName = indexBy(this.documentTypes, t => t.name);
     this.solutionTypeByName = {
@@ -46,7 +47,7 @@ export default class DocumentList {
       'none': {title: 'Ohne Lösung', iconClass: 'icon-circle-empty'},
     };
 
-    this.typeFilter = new Filter({column: 'document_type', operator: 'in_', value: ['written', 'oral', 'oral reexam']});
+    this.typeFilter = new Filter({column: 'document_type', operator: 'in_', value: ['written', 'oral', 'oral reexam', 'mock exam']});
 
     this.coll = new Collection({
       endpoint: 'documents',
