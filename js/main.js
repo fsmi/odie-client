@@ -72,6 +72,10 @@ $(window.document).ready(() => {
     viewModel: require('./vm/documentsubmission'),
     template: fs.readFileSync('views/documentsubmission.html', 'utf8'),
   });
+  ko.components.register('datenschutz', {
+    viewModel: require('./vm/datemschutz'),
+    template: fs.readFileSync('views/datenschutz.html', 'utf8'),
+  });
 
   store.ensureLoaded(() => {
     pager.extendWithPage(app);
