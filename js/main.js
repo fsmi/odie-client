@@ -73,7 +73,7 @@ $(window.document).ready(() => {
     template: fs.readFileSync('views/documentsubmission.html', 'utf8'),
   });
   ko.components.register('datenschutz', {
-    viewModel: require('./vm/datemschutz'),
+    viewModel: require('./vm/datenschutz'),
     template: fs.readFileSync('views/datenschutz.html', 'utf8'),
   });
 
