@@ -31,6 +31,10 @@ $(window.document).ready(() => {
   let fs = require('fs');
   
   // use singleton view-models where access from other view-models is needed
+  ko.components.register('datenschutz', {
+    viewModel: require('./vm/datenschutz'),
+    template: fs.readFileSync('views/datenschutz.html', 'utf8'),
+  });
   ko.components.register('documentselection', {
     viewModel: {instance: require('./vm/documentselection')},
     template: fs.readFileSync('views/documentselection.html', 'utf8'),
@@ -71,10 +75,6 @@ $(window.document).ready(() => {
   ko.components.register('documentsubmission', {
     viewModel: require('./vm/documentsubmission'),
     template: fs.readFileSync('views/documentsubmission.html', 'utf8'),
-  });
-  ko.components.register('datenschutz', {
-    viewModel: require('./vm/datenschutz'),
-    template: fs.readFileSync('views/datenschutz.html', 'utf8'),
   });
 
   store.ensureLoaded(() => {
