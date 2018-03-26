@@ -1,6 +1,6 @@
 /*global require window*/
 
-import "babel-core/browser-polyfill";
+import "babel-polyfill/browser";
 import $ from "jquery";
 import "jquery.cookie";
 import ko from "knockout";
@@ -29,7 +29,7 @@ $(window.document).ready(() => {
 
   // node module, calls will be inlined by browserify
   let fs = require('fs');
-
+  
   // use singleton view-models where access from other view-models is needed
   ko.components.register('documentselection', {
     viewModel: {instance: require('./vm/documentselection')},

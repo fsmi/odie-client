@@ -1,8 +1,8 @@
 /* global window */
 import ko from "knockout";
-import flatten from "lodash/array/flatten";
-import sum from "lodash/collection/sum";
-import uniq from "lodash/array/uniq";
+import flatten from "lodash/flatten";
+import sum from "lodash/sum";
+import uniq from "lodash/uniq";
 import $ from "jquery";
 
 import api from "../api";

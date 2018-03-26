@@ -1,5 +1,5 @@
 import ko from "knockout";
-import sortByOrder from "lodash/collection/sortByOrder";
+import orderBy from "lodash/orderBy";
 
 import api from "./api";
 
@@ -107,7 +107,7 @@ export default class Collection {
       for (let filter of this.filters)
         items = filter.filter(items);
       if (this.sortBy)
-        items = sortByOrder(items, [this.sortBy.column], [this.sortBy.asc]);
+        items = orderBy(items, [this.sortBy.column], [this.sortBy.asc]);
       return items;
     });
 

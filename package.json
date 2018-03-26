@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "babel-core": "^4.7.16",
+    "babel-core": "^6.26.0",
     "babelify": "^5.0.4",
     "bootstrap": "^3.3.4",
     "bootstrap-datepicker": "^1.4.0",
@@ -13,14 +13,14 @@
     "broccoli-less-single": "^0.2.0",
     "broccoli-merge-trees": "^0.2.1",
     "broccoli-string-replace": "0.0.2",
-    "browserify": "^9.0.3",
+    "browserify": "^16.1.1",
     "browserify-shim": "^3.8.3",
     "jquery": "^3.0.0",
     "jquery.cookie": "^1.4.1",
     "knockout": "^3.3.0",
-    "knockout-es5": "^0.2.0-alpha",
-    "lodash": "^3.6.0",
-    "pagerjs": "^1.0.0",
+    "knockout-es5": "^0.4.5",
+    "lodash": "^4.17.5",
+    "pagerjs": "^1.1.0",
     "typeahead.js": "^0.11.0"
   },
   "repository": {
@@ -41,5 +41,8 @@
         "knockout:ko"
       ]
     }
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }
