@@ -1,7 +1,6 @@
 /* global window */
 import ko from "knockout";
 import flatten from "lodash/flatten";
-import sum from "lodash/sum";
 import uniq from "lodash/uniq";
 import $ from "jquery";
 
@@ -20,7 +19,13 @@ export default class Cart {
 
     ko.track(this);
 
-    ko.defineProperty(this, 'totalPageCount', () => sum(this.documents, 'numberOfPages'));
+    ko.defineProperty(this, 'totalPageCount', () => {
+        let pages = 0;
+        this.documents.forEach((val) => {
+            pages += val['numberOfPages'];
+        });
+        return pages;
+    });
 
     ko.defineProperty(this, 'includesOral', () =>
       this.documents.some(doc => doc.documentType !== 'written')
