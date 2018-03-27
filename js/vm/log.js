@@ -1,6 +1,5 @@
 /* global window */
 import ko from "knockout";
-import sum from "lodash/sum";
 
 import formatter from "../ko/formatter";
 
@@ -40,8 +39,13 @@ export class Log {
   get totalAmount() {
     let monetaryLogs = this.items.filter(item => item.amount !== undefined);
     let selectedMonetaryLogs = monetaryLogs.filter(item => item.selected);
-    return sum(selectedMonetaryLogs.length > 0 ? selectedMonetaryLogs : monetaryLogs, 'amount');
-  }
+		let sum = 0;
+		let arr = selectedMonetaryLogs.length > 0 ? selectedMonetaryLogs : monetaryLogs;
+    arr.forEach((val) => {
+			sum += val['amount'];
+		});
+  	return sum;
+	}
 
     get returnAmount() {
         let givenCents = this.givenAmount * 100;
