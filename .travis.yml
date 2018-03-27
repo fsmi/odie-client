@@ -7,7 +7,7 @@ cache:
     - node_modules
 before_script:
   - npm install eslint
-  - npm install broccoli
+  - npm install -g broccoli-cli
 script:
   - ./node_modules/eslint/bin/eslint.js js/
-  - ./node_modules/broccoli-cli/bin/broccoli build dist
+  - broccoli build dist
