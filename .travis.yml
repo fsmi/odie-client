@@ -10,4 +10,4 @@ before_script:
   - npm install broccoli
 script:
   - ./node_modules/eslint/bin/eslint.js js/
-  - ./node_modules/eslint/bin/broccoli build dist
+  - ./node_modules/broccoli-cli/bin/broccoli build dist
