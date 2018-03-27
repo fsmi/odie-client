@@ -107,7 +107,7 @@ export default class Collection {
       for (let filter of this.filters)
         items = filter.filter(items);
       if (this.sortBy)
-        items = orderBy(items, [this.sortBy.column], [this.sortBy.asc]);
+        items = orderBy(items, [this.sortBy.column], [this.sortBy.asc ? 'asc' : 'desc']);
       return items;
     });
 
