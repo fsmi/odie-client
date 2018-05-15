@@ -1,6 +1,6 @@
 import ko from "knockout";
 
-export default class Datenschutz {
+class Datenschutz {
   constructor() {
     ko.track(this);
   }
