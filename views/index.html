@@ -102,6 +102,9 @@
       <div data-bind="page: { id: 'documentsubmission' }">
         <div data-bind="component: 'documentsubmission'"></div>
       </div>
+      <div data-bind="page: { id: 'datenschutz' }">
+        <div data-bind="component: 'datenschutz'"></div>
+      </div>
       <div data-bind="page: { id: 'internal', guard: ensureAuthenticated.bind($root) }">
         <div data-bind="page: { id: '?', nameParam: 'pageID' }">
           <div data-bind="component: pageID"></div>

@@ -32,7 +32,7 @@ $(window.document).ready(() => {
   
   // use singleton view-models where access from other view-models is needed
   ko.components.register('datenschutz', {
-    viewModel: require('./vm/datenschutz'),
+    viewModel: {instance: require('./vm/datenschutz')},
     template: fs.readFileSync('views/datenschutz.html', 'utf8'),
   });
   ko.components.register('documentselection', {

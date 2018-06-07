@@ -1,7 +1,9 @@
 import ko from "knockout";
+import log from "./log";
 
-export default class Datenschutz {
+class Datenschutz {
   constructor() {
+    log.addItem('Datenschutz', 'loaded')
     ko.track(this);
   }
 }
