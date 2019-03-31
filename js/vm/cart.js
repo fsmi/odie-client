@@ -28,7 +28,7 @@ export default class Cart {
     });
 
     ko.defineProperty(this, 'includesOral', () =>
-      this.documents.some(doc => doc.documentType !== 'written')
+      this.documents.some(doc => doc.documentType.includes('oral'))
     );
 
     ko.defineProperty(this, 'lectureNames', () => {
