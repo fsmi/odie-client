@@ -1,4 +1,4 @@
 # should be executed in the virtual environment (venv/bin/activate)
 all:
 	rm -rf dist
-	broccoli build dist
+	node_modules/.bin/broccoli build dist
