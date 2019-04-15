@@ -3,7 +3,21 @@ var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 var lessCompiler = require('broccoli-less-single');
 var replace = require('broccoli-string-replace');
-var browserify = require('broccoli-fast-browserify');
+var watchify = require('broccoli-watchify');
+var options = {
+	browserify: {
+		entries: ['./app.js'],
+		debug: true
+	},
+	nodeModulesPath: process.cwd() + '/node_modules',
+	outputFile: 'bundled/app.js',
+	cache: true,
+	init: function (b) {
+		b.transform('reactify', {'es6': true});
+		b.external('$');
+	}
+};
+
 
 var env = process.env.BROCCOLI_ENV || 'development';
 
@@ -24,18 +38,22 @@ var js = 'js/';
 var views = new Funnel('views/', {
   destDir: 'views/'
 });
+
+// THE CODE IS DEPRECATED
 js = mergeTrees([tagsinput, js, views]);
-js = browserify(js, {
-  browserify: {
-    debug: env === 'development' // source maps
-  },
-  bundles: {
-    'assets/scripts.js': {
-      transform: [require('babelify'), { tr: require('browserify-shim'), options: { global: true } }, require('brfs')],
-      entryPoints: ['main.js']
-    }
-  }
-});
+js = watchify(js, options);
+
+//js = browserify(js, {
+//  browserify: {
+//    debug: env === 'development' // source maps
+//  },
+//  bundles: {
+//    'assets/scripts.js': {
+//      transform: [require('babelify'), { tr: require('browserify-shim'), options: { global: true } }, require('brfs')],
+//      entryPoints: ['main.js']
+//    }
+//  }
+//});
 
 var css = mergeTrees([
   'css/',
