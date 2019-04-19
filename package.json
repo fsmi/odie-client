@@ -10,7 +10,6 @@
     "broccoli-concat": "^3.7.3",
     "broccoli-funnel": "^2.0.2",
     "broccoli-less-single": "^1.0.2",
-    "broccoli-merge-trees": "^0.2.1",
     "broccoli-string-replace": "0.0.2",
     "browserify": "^16.2.3",
     "browserify-shim": "^3.8.3",
@@ -20,6 +19,7 @@
     "knockout-es5": "^0.4.5",
     "lodash": "^4.17.11",
     "pagerjs": "^1.1.0",
+    "reactify": "^1.1.1",
     "typeahead.js": "^0.11.0"
   },
   "repository": {
@@ -46,6 +46,7 @@
     "acorn": "^6.1.1",
     "babel-polyfill": "^6.26.0",
     "broccoli-cli": "^1.0.0",
+    "broccoli-merge-trees": "^3.0.2",
     "broccoli-watchify": "^2.0.0"
   }
 }
