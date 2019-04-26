@@ -31,18 +31,14 @@ tagsinput = replace(tagsinput, {
   }],
 });
 
-var js = 'js/';
-
 // Transpile and concatenate js and inline views via browserify.
 // We use browserify instead of broccoli for transpilation to get correct source maps.
-var views = new Funnel('views/', {
-  destDir: 'views/'
-});
+//var views = new Funnel('views/', { destDir: 'views/'});
 
 // THE CODE IS DEPRECATED
-js = mergeTrees([tagsinput, js, views]);
-js = watchify(js, options);
-
+var js = 'js/';
+//js = watchify(js, options);
+//js = 'development';
 //js = browserify(js, {
 //  browserify: {
 //    debug: env === 'development' // source maps
@@ -55,17 +51,18 @@ js = watchify(js, options);
 //  }
 //});
 
-var css = mergeTrees([
-  'css/',
-  'less/',
-  'node_modules/bootstrap/less/',
-  'node_modules/bootstrap-tagsinput/dist',
-  'node_modules/bootstrap-datepicker/dist/css',
-]);
-css = lessCompiler(css, 'app.less', 'assets/styles.css');
+var css = mergeTrees(['css/', 'less/', 'node_modules/bootstrap/less', 'node_modules/bootstrap-tagsinput/dist', 'node_modules/bootstrap-datepicker/dist/css'])
+//var css = 'css/'
+//var css = mergeTrees([
+//  'css/',
+//  'less/',
+//  'node_modules/bootstrap/less/',
+//  'node_modules/bootstrap-tagsinput/dist',
+//  'node_modules/bootstrap-datepicker/dist/css',
+//]);
+//css = lessCompiler(css, 'app.less', 'assets/styles.css');
 
-var fonts = 'fonts/';
-fonts = new Funnel(fonts, {
+var fonts = new Funnel('fonts/', {
   include: ['*.woff', '*.ttf'],
   destDir: '/fonts'
 });
@@ -83,4 +80,4 @@ var pdfjs = new Funnel('pdfjs/', {
   destDir: '/pdfjs'
 });
 
-module.exports = mergeTrees([js, css, fonts, index, pdfjs]);
+module.exports = mergeTrees([js, css, fonts, index, pdfjs], '{ overwrite: true }');
