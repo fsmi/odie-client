@@ -4,21 +4,6 @@ var Funnel = require('broccoli-funnel');
 var lessCompiler = require('broccoli-less-single');
 var replace = require('broccoli-string-replace');
 var watchify = require('broccoli-watchify');
-//var options = {
-//	browserify: {
-//		entries: ['./app.js'],
-//		debug: true
-//	},
-//	nodeModulesPath: process.cwd() + '/node_modules',
-//	outputFile: 'bundled/app.js',
-//	cache: true,
-//	init: function (b) {
-//		b.transform('reactify', {'es6': true});
-//		b.external('$');
-//	}
-//};
-
-
 
 var env = process.env.BROCCOLI_ENV || 'development';
 
