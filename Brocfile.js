@@ -4,19 +4,20 @@ var Funnel = require('broccoli-funnel');
 var lessCompiler = require('broccoli-less-single');
 var replace = require('broccoli-string-replace');
 var watchify = require('broccoli-watchify');
-var options = {
-	browserify: {
-		entries: ['./app.js'],
-		debug: true
-	},
-	nodeModulesPath: process.cwd() + '/node_modules',
-	outputFile: 'bundled/app.js',
-	cache: true,
-	init: function (b) {
-		b.transform('reactify', {'es6': true});
-		b.external('$');
-	}
-};
+//var options = {
+//	browserify: {
+//		entries: ['./app.js'],
+//		debug: true
+//	},
+//	nodeModulesPath: process.cwd() + '/node_modules',
+//	outputFile: 'bundled/app.js',
+//	cache: true,
+//	init: function (b) {
+//		b.transform('reactify', {'es6': true});
+//		b.external('$');
+//	}
+//};
+
 
 
 var env = process.env.BROCCOLI_ENV || 'development';
@@ -35,9 +36,18 @@ tagsinput = replace(tagsinput, {
 // We use browserify instead of broccoli for transpilation to get correct source maps.
 //var views = new Funnel('views/', { destDir: 'views/'});
 
-// THE CODE IS DEPRECATED
-var js = 'js/';
-//js = watchify(js, options);
+var options = {
+	browserify: {
+	},
+	nodeModulesPath: process.cwd() + '/node_modules', // provide the node_modules you want to resolve from
+	outputFile: 'assets/scripts.js',
+	cache: true,
+	init: function (b) {
+	  b.transform('reactify', {'es6': true});
+	  b.external('$');
+	}
+};
+var js = watchify('js/', options);
 //js = 'development';
 //js = browserify(js, {
 //  browserify: {
