@@ -38,6 +38,11 @@ tagsinput = replace(tagsinput, {
 
 var options = {
 	browserify: {
+		bundles: {
+			'assets/scripts.js' : {
+				transform: [require('babelify'), { tr: require('browserify-shim'), options: { global: true }}, require('brfs')]
+			}
+		}
 	},
 	nodeModulesPath: process.cwd() + '/node_modules', // provide the node_modules you want to resolve from
 	outputFile: 'assets/scripts.js',
