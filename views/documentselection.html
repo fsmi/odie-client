@@ -27,7 +27,7 @@ Data binding context: DocumentSelection. -->
   <div id="documentselection-comments" data-bind="foreach: selectedLectures">
     <div class="alert alert-compact alert-info" role="alert" data-bind="visible: comment">
       <strong data-bind="text: name, visible: $parent.selectedLectures.length > 1"></strong>
-      <span data-bind="html: comment"></span>
+      <span data-bind="text: comment"></span>
     </div>
 
     <div class="alert alert-compact alert-info" role="alert" data-bind="visible: early_document_eligible">
