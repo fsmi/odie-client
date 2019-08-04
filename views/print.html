@@ -39,8 +39,8 @@
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu" role="menu">
-        <li data-bind="css: {'disabled': cart.name.length === 0}">
-          <a href='#' class='icon-floppy' data-bind='click: cart.name.length && cart.save.bind(cart)'>Speichern</a>
+        <li data-bind="css: {'disabled': cart.name.length === 0 || cart.name.trim().length === 0}">
+          <a href='#' class='icon-floppy' data-bind='click: cart.name.length && cart.name.trim().length > 0 && cart.save.bind(cart)'>Speichern</a>
         </li>
       </ul>
     </div>
