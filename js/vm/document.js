@@ -14,6 +14,7 @@ export default class Document {
     this.examinants = sortBy(data.examinants.map(e => store.examinantsById.get(e.id)), 'name');
 
     this.date = new Date(data.date);
+    this.semester = this.calculateSemester();
     this.validation_time = data.validation_time ? new Date(data.validation_time) : null;
 
     // retain some consistency
@@ -30,6 +31,29 @@ export default class Document {
 
   get examinantsText() {
     return this.examinants.map(e => e.name).join(', ');
+  }
+
+  get semesterText() {
+    return this.semester;
+  }
+
+  calculateSemester() {
+    var year = this.date.getFullYear();
+
+    // exams are allowed to take place up to 6 weeks after the end of the semester
+    var beginSummer = new Date(year, 4, 16);  // 16th may
+    var beginWinter = new Date(year, 10, 16); // 16th november
+
+    if (this.date.getTime() < beginSummer.getTime())
+      return 'WS ' + Document.shortYear(year - 1) + '/' + Document.shortYear(year);
+    else if (this.date.getTime() > beginSummer.getTime() && this.date.getTime() < beginWinter.getTime())
+      return 'SS ' + Document.shortYear(year);
+    else
+      return 'WS ' + Document.shortYear(year) + '/' + Document.shortYear(year + 1);
+  }
+
+  static shortYear(year) {
+    return year.toString().substr(-2);
   }
 
   get previewURL() { return `${api.baseUrl}view/${this.id}`; }
