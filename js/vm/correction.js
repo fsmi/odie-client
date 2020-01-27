@@ -10,7 +10,6 @@ import user from "./user";
 // Handles accounting corrections - erroneously printed pages, etc.
 export default class Correction {
   constructor() {
-    this.erroneousPages = 0;
     this.erroneousCents = 0;
     this.donationCents = 0;
     // Registering deposit without printing is done by submitting a print job with
@@ -38,11 +37,6 @@ export default class Correction {
   logErroneousCents() {
     this._logErroneous(this.erroneousCents);
     this.erroneousCents = 0;
-  }
-
-  logErroneouslyPrintedPages() {
-    this._logErroneous(this.erroneousPages * store.config.PRICE_PER_PAGE);
-    this.erroneousPages = 0;
   }
 
   makeDeposit() {
