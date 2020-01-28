@@ -61,7 +61,7 @@ if (window.location.hostname === 'www.fsmi.uni-karlsruhe.de') {
   });
   let live = true;
   if (live) {
-    api.serverOrigin = 'https://www-test-stable.fsmi.uni-karlsruhe.de';
+    api.serverOrigin = 'https://www-test.fsmi.uni-karlsruhe.de';
     api.baseUrl = api.serverOrigin + '/odie/api/';
   } else {
     api.serverOrigin = 'http://localhost:5000';

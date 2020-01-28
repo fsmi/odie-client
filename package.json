@@ -7,6 +7,7 @@
     "bootstrap-tagsinput": "^0.7.1",
     "brfs": "^1.6.1",
     "broccoli": "^0.15.0",
+    "broccoli-cli": "^1.0.0",
     "broccoli-concat": "0.0.13",
     "broccoli-fast-browserify": "0.2.5",
     "broccoli-funnel": "^0.2.2",
