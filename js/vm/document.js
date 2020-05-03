@@ -38,11 +38,11 @@ export default class Document {
   }
 
   calculateSemester() {
-    var year = this.date.getFullYear();
+    const year = this.date.getFullYear();
 
     // exams are allowed to take place up to 6 weeks after the end of the semester
-    var beginSummer = new Date(year, 4, 16);  // 16th may
-    var beginWinter = new Date(year, 10, 16); // 16th november
+    const beginSummer = new Date(year, 4, 16);  // 16th may
+    const beginWinter = new Date(year, 10, 16); // 16th november
 
     if (this.date.getTime() < beginSummer.getTime())
       return 'WS ' + Document.shortYear(year - 1) + '/' + Document.shortYear(year);
