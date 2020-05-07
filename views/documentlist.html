@@ -29,7 +29,7 @@
   </thead>
   <tbody>
   <tr class="warning text-warning text-center" data-bind="visible: user.isAuthenticated && scrubDocuments && scrubbedDocuments.length < coll.items.length">
-    <td colspan="9">
+    <td colspan="10">
       Es gibt <span data-bind="text: (coll.items.length - scrubbedDocuments.length) + ' noch nicht überprüfte(s) Protokoll(e)'"></span>. <a href="#" data-bind="click: function() { scrubDocuments = false; }">Anzeigen</a>
     </td>
   </tr>
@@ -104,6 +104,20 @@
            "></button>
         <!-- /ko -->
       </div>
+      <!-- ko if: publicly_available -->
+      <div class="btn-group" data-bind="
+        style: { visibility: store.config.IS_KIOSK ? 'hidden' : 'visible' },
+        ">
+        <button
+           class='icon-button btn-info btn btn-compact icon-download-1'
+           title="Download"
+           data-bind="
+           click: function() { window.open(previewURL + '?download', '_blank') },
+           clickBubble: false,
+           enable: available,
+           "></button>
+      </div>
+      <!-- /ko -->
     </td>
   </tr>
   <!-- /ko -->
