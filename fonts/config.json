@@ -161,6 +161,12 @@
       "css": "spinner",
       "code": 59393,
       "src": "fontawesome"
+    },
+    {
+      "uid": "9a76bc135eac17d2c8b8ad4a5774fc87",
+      "css": "download-1",
+      "code": 59415,
+      "src": "fontawesome"
     }
   ]
 }
