@@ -116,11 +116,21 @@
     </div>
   </div>
   <div class="form-group">
+    <label class="control-label col-md-3">Einverständniserklärung&nbsp;</label>
+    <div class="col-md-8">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" data-bind="checked: consent">Hiermit versichere ich, der Urheber dieses Protokolls zu sein. Weiter räume ich der FSMI das räumlich und zeitlich unbeschränkte Recht zur Vervielfältigung, Verbreitung, öffentlichen Zugänglichmachung und Bearbeitung dieses Protokolls ein. Dies beinhaltet insbesondere (aber nicht ausschließlich) den Verkauf. Außerdem behält sich die FSMI das Recht vor, diese Rechte an Dritte weiterzugeben.<br><br><strong>Erläuterung</strong>: Wir brauchen dein Einverständnis, damit wir das Protokoll an andere Studis ausgedruckt verkaufen (und somit vervielfältigen) und in besonderen Fällen auch digital (per Mail o.ä.) verschicken können. Du behältst aber auch alle Rechte, kannst das Protokoll also auch selbst frei verwenden. Außerdem wollen wir die Möglichkeit haben, dein Protokoll an andere Fachschaften weiterzugeben, z.B. wenn ihre Studis die gleiche Vorlesung hören.
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
     <hr style="clear: both;">
   </div>
   <div>
     <div class="col-md-offset-3 col-md-8">
-      <input class="btn btn-primary" type="submit" value="Abschicken" data-bind="enable: submissionEnabled">
+      <input class="btn btn-primary" type="submit" value="Abschicken" data-bind="enable: consent && submissionEnabled">
       <div class="form-control-inline icon-placeholder">
         <div class="icon text-right" data-bind="css: { 'spinner icon-spinner active': status === 'waiting',
           'icon-ok text-success': status === 'success',

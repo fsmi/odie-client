@@ -20,6 +20,7 @@ export default class DocumentSubmission {
     this.date = null;
     this.name = null;
     this.anonymous = false;
+    this.consent = false;
     this.file = null;
     this.department = 'computer science';
     this.doctype = 'oral';
