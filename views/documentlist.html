@@ -20,6 +20,7 @@
       </td>
       <td>Vorlesungen</td>
       <td>Prüfer</td>
+      <!-- Note that sortable columns need to be whitelisted in the server in routes/documents.py in documents_query() -->
       <td><sortable-column params="coll: coll, column: 'date', asc: false">Datum</sortable-column></td>
       <td>Semester</td>
       <td><sortable-column params="coll: coll, column: 'number_of_pages', asc: false">Seiten</sortable-column></td>
