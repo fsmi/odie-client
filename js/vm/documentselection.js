@@ -54,14 +54,40 @@ class DocumentSelection {
 
   get typeaheadDatasets() {
     let make = (name, items) => {
+      let headerContainer = document.createElement('div');
+      // like `<h4 class="tt-header">${name}</h4><div class="divider"></div>`, but without XSS
+      {
+        let h4 = document.createElement('h4');
+        h4.className = 'tt-header';
+        h4.textContent = name;
+        let divider = document.createElement('div');
+        divider.className = 'divider';
+        headerContainer.append(h4, divider);
+      }
+
+      let suggestionFunction = function(x) {
+        // like `<a href="#" onclick="return false;">${x.name}${x.name === x.obj.name ? "" : ` <span class="full-name">${x.obj.name}</span>`}</a>`,
+        // but without XSS
+        let a = document.createElement('a');
+        a.setAttribute('onclick', 'return false;');
+        a.href = '#';
+        a.textContent = x.name;
+        if (x.name !== x.obj.name) {
+          let span = document.createElement('span');
+          span.className = 'full-name';
+          span.textContent = x.obj.name;
+          a.append(' ', span);
+        }
+        return a.outerHTML;
+      }
+
       return {
         source: makeSource(items.filter(x => x.obj.validated || user.isAuthenticated), 'name'),
-        displayKey: "name",
+        displayKey: 'name',
         limit: 20,
         templates: {
-          header:
-            `<h4 class="tt-header">${name}</h4><div class="divider"></div>`,
-          suggestion: x => `<a href="#" onclick="return false;">${x.name}${x.name === x.obj.name ? "" : ` <span class="full-name">${x.obj.name}</span>`}</a>`,
+          header: headerContainer.innerHTML,
+          suggestion: suggestionFunction,
         },
       };
     };
