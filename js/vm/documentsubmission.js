@@ -42,7 +42,14 @@ export default class DocumentSubmission {
     return {
       source: makeSource(store.examinants.filter(x => x.validated || user.isAuthenticated).map(e => e.name)),
       templates: {
-        suggestion: l => `<a href="#" onclick="return false;">${l}</a>`,
+        suggestion: l => {
+          // like ``<a href="#" onclick="return false;">${l}</a>``, but without XSS
+          let a = document.createElement('a');
+          a.setAttribute('onclick', 'return false;');
+          a.href = '#';
+          a.textContent = l;
+          return a.outerHTML;
+        },
       },
     };
   }
@@ -55,7 +62,21 @@ export default class DocumentSubmission {
       display: 'canonical',
       valueKey: 'canonical', /* needed by bootstrap-tagsinput */
       templates: {
-        suggestion: x => `<a href="#" onclick="return false;">${x.alias}${x.alias === x.canonical ? "" : ` <span class="full-name">${x.canonical}</span>`}</a>`,
+        suggestion: x => {
+          // like `<a href="#" onclick="return false;">${x.alias}${x.alias === x.canonical ? "" : ` <span class="full-name">${x.canonical}</span>`}</a>`,
+          // but without XSS
+          let a = document.createElement('a');
+          a.setAttribute('onclick', 'return false;');
+          a.href = '#';
+          a.textContent = x.alias;
+          if (x.alias !== x.canonical) {
+            let span = document.createElement('span');
+            span.className = 'full-name';
+            span.textContent = x.canonical;
+            a.append(' ', span);
+          }
+          return a.outerHTML;
+        }
       },
     };
   }
