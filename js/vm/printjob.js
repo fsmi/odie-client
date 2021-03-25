@@ -30,7 +30,7 @@ export default class PrintJob {
         if (this._depositCount !== null) {
           return this._depositCount;
         }
-        return this.cart.includesOral ? 1 : 0;
+        return this.cart.includesOral ? this.cart.numOralEstimate : 0;
       },
       set: (num) => {
         if (num === '') {

@@ -1,6 +1,9 @@
 /* global window */
 import ko from "knockout";
 import flatten from "lodash/flatten";
+import countBy from "lodash/countBy";
+import maxBy from "lodash/maxBy";
+import keys from "lodash/keys";
 import uniq from "lodash/uniq";
 import $ from "jquery";
 
@@ -34,6 +37,22 @@ export default class Cart {
     ko.defineProperty(this, 'lectureNames', () => {
       let lectures = uniq(flatten(this.documents.filter(doc => doc).map(doc => doc.lectures)));
       return lectures.map(l => l.name).sort();
+    });
+
+    ko.defineProperty(this, 'numOralEstimate', () => {
+      let num = 0;
+      let documentsOral = this.documents.filter(doc => doc.documentType.includes('oral'));
+
+      while (documentsOral.length > 0) {
+        ++num;
+
+        let counts = countBy(flatten(documentsOral.map(doc => doc.lectures)).map(l => l.name));
+        let lecture = maxBy(keys(counts), o => counts[o]);
+
+        documentsOral = documentsOral.filter(doc => !doc.lectures.some(l => l.name == lecture));
+      }
+
+      return num;
     });
   }
 
@@ -100,7 +119,7 @@ export default class Cart {
     let price = this.totalPageCount * store.config.PRICE_PER_PAGE;
     if (depositCount === undefined) {
       if (this.includesOral) {
-        price += store.config.DEPOSIT_PRICE;
+        price += this.numOralEstimate * store.config.DEPOSIT_PRICE;
       }
     }
     else {

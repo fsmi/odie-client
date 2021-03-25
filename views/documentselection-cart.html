@@ -53,7 +53,7 @@ Data binding context: DocumentSelection -->
   </form>
   <div class="text-right small text-primary" data-bind="visible: cart.includesOral" style="padding-top: 7px;">
     <em>
-		* Davon <span data-bind="price: config.DEPOSIT_PRICE / 100"></span> Protokollpfand
+		* Davon <span data-bind="price: (cart.numOralEstimate * config.DEPOSIT_PRICE) / 100"></span> Protokollpfand
 		<a tabindex="0" class="btn btn-xs btn-default" role="button"
 			data-toggle="popover" data-trigger="focus" data-html="true"
 			title="Protokollpfand" data-placement="left" data-container="body"
