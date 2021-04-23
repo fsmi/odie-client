@@ -5,6 +5,7 @@ let store = {
   started: 0,
   loaded: 0,
   _onLoaded: [],
+  offices: [],
 
   load(endpoint, callback) {
     this.started++;
@@ -27,7 +28,11 @@ let store = {
   },
 };
 
-store.load('config');
+store.load('config', config => {
+  Object.keys(config.OFFICES).forEach((o) => {
+    store.offices.push({ key: o, name: config.OFFICES[o].name || o })
+  });
+});
 
 function mkIdMap(data) {
   let m = new Map();
