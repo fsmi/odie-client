@@ -39,18 +39,19 @@ export class Log {
   get totalAmount() {
     let monetaryLogs = this.items.filter(item => item.amount !== undefined);
     let selectedMonetaryLogs = monetaryLogs.filter(item => item.selected);
-		let sum = 0;
-		let arr = selectedMonetaryLogs.length > 0 ? selectedMonetaryLogs : monetaryLogs;
-    arr.forEach((val) => {
-			sum += val['amount'];
-		});
-  	return sum;
-	}
+    let sum = 0;
+    let arr = selectedMonetaryLogs.length > 0 ? selectedMonetaryLogs : monetaryLogs;
 
-    get returnAmount() {
-        let givenCents = this.givenAmount * 100;
-        return givenCents - this.totalAmount;
-    }
+    arr.forEach((val) => {
+      sum += val['amount'];
+    });
+    return sum;
+  }
+
+  get returnAmount() {
+    let givenCents = this.givenAmount * 100;
+    return givenCents - this.totalAmount;
+  }
 
   get formatter() { return formatter; }
 }
