@@ -54,7 +54,7 @@ fonts = new Funnel(fonts, {
 
 var images = 'images/';
 images = new Funnel(images, {
-  include: ['*.png' ],
+  include: ['*.png'],
   destDir: '/images'
 });
 
