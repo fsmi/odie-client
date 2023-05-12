@@ -52,6 +52,12 @@ fonts = new Funnel(fonts, {
   destDir: '/fonts'
 });
 
+var images = 'images/';
+images = new Funnel(images, {
+  include: ['*.png'],
+  destDir: '/images'
+});
+
 var index = new Funnel('views/', {
   files: ['index.html']
 });
@@ -65,4 +71,4 @@ var pdfjs = new Funnel('pdfjs/', {
   destDir: '/pdfjs'
 });
 
-module.exports = mergeTrees([js, css, fonts, index, pdfjs]);
+module.exports = mergeTrees([js, css, fonts, images, index, pdfjs]);
